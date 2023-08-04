@@ -85,11 +85,9 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-### SwiftPackageManager ###
-Packages
-xcuserdata
-*.xcodeproj
 
+TWTW_iOS/SecretKey.plist
+.DS_Store
 
 ### Xcode ###
 
