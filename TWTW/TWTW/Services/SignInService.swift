@@ -1,17 +1,16 @@
 //
-//  SignInViewModel.swift
+//  SignInService.swift
 //  TWTW
 //
-//  Created by 박다미 on 2023/08/05.
+//  Created by 박다미 on 2023/08/06.
 //
-
 import Foundation
 import RxSwift
-import RxCocoa
 import KakaoSDKUser
 import RxKakaoSDKUser
+import RxRelay
 
-class SignInViewModel{
+class SignInService{
     private let disposeBag = DisposeBag()
     
     // Input: 뷰에서 받은 입력 처리 트리거
@@ -22,8 +21,7 @@ class SignInViewModel{
     // 카카오 로그인
     let kakaoLoginSuccess = PublishRelay<Void>()
     let kakaoLoginError = PublishRelay<Error>()
-    // 애플 로그인 x
- 
+    
     init() {
         kakaoLoginTrigger
             .flatMapLatest { _ in
@@ -54,3 +52,4 @@ class SignInViewModel{
     
     
 }
+

@@ -17,7 +17,7 @@ import AuthenticationServices
 
 class SignInViewController: UIViewController {
     private let disposeBag = DisposeBag()
-    private let viewModel = SignInViewModel()
+    private let signInServices = SignInService()
     
     private lazy var kakaoLoginImageView: UIImageView = {
         // 카카오 로그인 이미지뷰 생성 및 설정
@@ -27,6 +27,7 @@ class SignInViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onKakaoLoginImageViewTapped))
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(tapGesture)
+        
         return imageView
     }()
     
@@ -44,7 +45,8 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupLoginUI()
+        addSubViews()
+        configureConstraints()
         setupUI()
         bindViewModel()
     }
@@ -52,11 +54,14 @@ class SignInViewController: UIViewController {
         view.backgroundColor = .white
     }
     
-    //카카오로그인, 애플로그인 constraint설정
-    private func setupLoginUI() {
+    private func addSubViews() {
         view.addSubview(kakaoLoginImageView)
         view.addSubview(appleLoginImageView)
         
+    }
+        
+        //카카오로그인, 애플로그인 constraint설정
+    private func configureConstraints() {
         kakaoLoginImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
@@ -72,12 +77,12 @@ class SignInViewController: UIViewController {
     
     @objc private func onKakaoLoginImageViewTapped() {
         // 뷰모델의 카카오 로그인 트리거 실행
-        viewModel.kakaoLoginTrigger.accept(())
+        signInServices.kakaoLoginTrigger.accept(())
     }
     
     // View와 ViewModel을 바인딩
     private func bindViewModel() {
-        viewModel.kakaoLoginSuccess
+        signInServices.kakaoLoginSuccess
             .subscribe(onNext: { [weak self] in
                 let viewController = ViewController()
                 viewController.modalPresentationStyle = .fullScreen
@@ -86,7 +91,7 @@ class SignInViewController: UIViewController {
             .disposed(by: disposeBag)
         
         // 카카오 로그인 에러를 처리
-        viewModel.kakaoLoginError
+        signInServices.kakaoLoginError
             .subscribe(onNext: { error in
             })
             .disposed(by: disposeBag)
