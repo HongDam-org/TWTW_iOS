@@ -22,6 +22,7 @@
 		3758F1B52A7DEB0800E2933C /* RxKakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 3758F1B42A7DEB0800E2933C /* RxKakaoSDK */; };
 		3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F1B62A7DFB6200E2933C /* Bundle+Ext.swift */; };
 		3758F1B92A7DFBB500E2933C /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3758F1B82A7DFBB500E2933C /* SecretKey.plist */; };
+		3758F1C02A7E6C1C00E2933C /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F1BF2A7E6C1C00E2933C /* SignInViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,8 @@
 		3758F19F2A7D122100E2933C /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		3758F1B62A7DFB6200E2933C /* Bundle+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Ext.swift"; sourceTree = "<group>"; };
 		3758F1B82A7DFBB500E2933C /* SecretKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
+		3758F1BF2A7E6C1C00E2933C /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		3758F1C12A7E741C00E2933C /* TWTW.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TWTW.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,16 +78,42 @@
 		3758F18A2A7D007200E2933C /* TWTW */ = {
 			isa = PBXGroup;
 			children = (
+				3758F1C12A7E741C00E2933C /* TWTW.entitlements */,
+				3758F1BE2A7E1E4000E2933C /* ViewModels */,
+				3758F1BD2A7E1E3700E2933C /* Models */,
+				3758F1BC2A7E1E2C00E2933C /* Views */,
 				3758F18B2A7D007200E2933C /* AppDelegate.swift */,
 				3758F18D2A7D007200E2933C /* SceneDelegate.swift */,
 				3758F18F2A7D007200E2933C /* ViewController.swift */,
 				3758F1942A7D007300E2933C /* Assets.xcassets */,
 				3758F1962A7D007300E2933C /* LaunchScreen.storyboard */,
 				3758F1992A7D007300E2933C /* Info.plist */,
-				3758F19F2A7D122100E2933C /* SignInViewController.swift */,
 				3758F1B82A7DFBB500E2933C /* SecretKey.plist */,
 			);
 			path = TWTW;
+			sourceTree = "<group>";
+		};
+		3758F1BC2A7E1E2C00E2933C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3758F19F2A7D122100E2933C /* SignInViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3758F1BD2A7E1E3700E2933C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3758F1BE2A7E1E4000E2933C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				3758F1BF2A7E6C1C00E2933C /* SignInViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,6 +205,7 @@
 			files = (
 				3758F1A02A7D122100E2933C /* SignInViewController.swift in Sources */,
 				3758F1902A7D007200E2933C /* ViewController.swift in Sources */,
+				3758F1C02A7E6C1C00E2933C /* SignInViewModel.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
 				3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */,
@@ -315,9 +345,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TWTW/TWTW.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FQ9852Z3LX;
+				DEVELOPMENT_TEAM = LVBMDY357W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TWTW/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -330,7 +361,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = HDJ.TWTW;
+				PRODUCT_BUNDLE_IDENTIFIER = HDJ.TWTW1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -343,9 +374,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TWTW/TWTW.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FQ9852Z3LX;
+				DEVELOPMENT_TEAM = LVBMDY357W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TWTW/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -358,7 +390,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = HDJ.TWTW;
+				PRODUCT_BUNDLE_IDENTIFIER = HDJ.TWTW1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
