@@ -7,82 +7,92 @@
 import Foundation
 import RxSwift
 import KakaoSDKUser
-import RxKakaoSDKUser
 import RxRelay
 import KakaoSDKAuth
 import KakaoSDKCommon
 
-
-class SignInService{
+/// 로그인 Service
+final class SignInService{
     private let disposeBag = DisposeBag()
     
-    // Input: 뷰에서 받은 입력 처리 트리거
-    let kakaoLoginTrigger = PublishRelay<Void>()// 카카오 로그인
-    //Output
-    let kakaoLoginSuccess = PublishRelay<Void>()//로그인 성공
-    
-    init() {
-        // 토큰 확인
-        if (AuthApi.hasToken()) {
-            UserApi.shared.rx.accessTokenInfo()
-                .subscribe(onSuccess: { (_) in
-                    // 토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
-                    self.fetchKakaoUserInfo()
-                    self.kakaoLoginSuccess.accept(()) // 토큰이 있으면 로그인 성공으로 처리
-                }, onFailure: { error in
-                    if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true {
-                        // 토큰이 유효하지 않음
-                    } else {
-                        // 기타 에러
-                    }
-                })
-                .disposed(by: disposeBag)
-        } else {
-            // 로그인 필요
-        }
-        
-        // 카카오 로그인
-        kakaoLoginTrigger
-            .flatMapLatest { _ in
-                // 카카오 계정 로그인
-                UserApi.shared.rx.loginWithKakaoAccount()
-                    .do(onNext: { _ in
+    /// 카카오 로그인
+    func kakaoLogin() -> Observable<KakaoSDKUser.User>{
+        return Observable.create { [weak self] observer in
+            UserApi.shared.rx.loginWithKakaoAccount()
+                .subscribe(
+                    onNext: { OAuthToken in // 토큰 저장 필요
                         print("loginWithKakaoAccount() success.")
-                        // 로그인 성공 후 처리
-                        self.fetchKakaoUserInfo() // 로그인 성공 후 사용자 정보 불러오기
-                        self.kakaoLoginSuccess.accept(()) // 로그인 성공으로 처리
-                    }, onError: { error in
+                        self?.fetchKakaoUserInfo() // 로그인 성공 후 사용자 정보 불러오기
+                            .bind(onNext: { userInfo in
+                                observer.onNext(userInfo)
+                            })
+                            .disposed(by: self?.disposeBag ?? DisposeBag())
+                    },
+                    onError: { error in
                         print("loginWithKakaoAccount() error: \(error)")
                     })
-                        .map { _ in () }
-                        .catchErrorJustReturn(())
-            }
-            .subscribe()
-            .disposed(by: disposeBag)
+                .disposed(by: self?.disposeBag ?? DisposeBag())
+            
+            
+            return Disposables.create()
+        }
     }
     
+    
     // 카카오 사용자 정보 불러오기
-    private func fetchKakaoUserInfo() {
-        UserApi.shared.rx.me()
-            .subscribe (onSuccess:{ user in
-                print("me() success.")
-                self.processKakaoUserInfo(user: user)
-                
-                _ = user
-            }, onFailure: {error in
-                print(error)
-            })
-            .disposed(by: disposeBag)
+    func fetchKakaoUserInfo() -> Observable<KakaoSDKUser.User>{
+        return Observable.create { [weak self] observer in
+            UserApi.shared.rx.me()
+                .subscribe (
+                    onSuccess:{ user in
+                        observer.onNext(user)
+                        print("fetchKakaoUserInfo \n\(user)")
+                    }, onFailure: {error in
+                        print("fetchKakaoUserInfo error!\n\(error)")
+                    })
+                .disposed(by: self?.disposeBag ?? DisposeBag())
+            return Disposables.create()
+        }
     }
-    // 카카오 사용자 정보 처리
-    private func processKakaoUserInfo(user: KakaoSDKUser.User) {
-        // 사용자 정보를 받아오기
-        let userId = user.id
-        let userEmail = user.kakaoAccount?.email ?? ""
-        let userNickname = user.kakaoAccount?.profile?.nickname ?? ""
-        print(userId ?? "nil")
-        print(userEmail)
-        print(userNickname)
-
+    
+    /// 카카오 OAuth 확인하는 함수
+    func checkKakaoOAuthToken() -> Observable<KakaoSDKUser.User>{
+        return Observable.create { [weak self] observer in
+            if (AuthApi.hasToken()) {
+                UserApi.shared.rx.accessTokenInfo()
+                    .subscribe(
+                        onSuccess: { (AccessTokenInfo) in   // Access
+                            print("AccessToekn \(AccessTokenInfo)")
+                            self?.fetchKakaoUserInfo()
+                                .subscribe(onNext:{ kakakUserInfo in
+                                    observer.onNext(kakakUserInfo)
+                                })
+                                .disposed(by: self?.disposeBag ?? DisposeBag())
+                        },
+                        onFailure: {  error in
+                            if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true {
+                                // 토큰이 만료된 경우 카카오 로그인 재실행
+                                self?.kakaoLogin()
+                                    .subscribe(onNext:{ kakakUserInfo in
+                                        observer.onNext(kakakUserInfo)
+                                    })
+                                    .disposed(by: self?.disposeBag ?? DisposeBag())
+                            }
+                            else { // 이상한 오류? 발생
+                                print("Kakao Token Error!\n\(error)")
+                            }
+                        })
+                    .disposed(by: self?.disposeBag ?? DisposeBag())
+            } else {
+                // 토큰이 없는 경우 카카오 로그인 재실행
+                self?.kakaoLogin()
+                    .subscribe(onNext: { kakakUserInfo in
+                        observer.onNext(kakakUserInfo)
+                    })
+                    .disposed(by: self?.disposeBag ?? DisposeBag())
+            }
+            return Disposables.create()
+        }
     }
+    
 }

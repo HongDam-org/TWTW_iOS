@@ -13,52 +13,58 @@ import RxKakaoSDKUser
 import RxSwift
 import AuthenticationServices
 
-class SignInViewController: UIViewController {
-    private let disposeBag = DisposeBag()
-    private let signInServices = SignInService()
+final class SignInViewController: UIViewController {
     
+    /// 카카오 로그인 이미지뷰 생성 및 설정
     private lazy var kakaoLoginImageView: UIImageView = {
-        // 카카오 로그인 이미지뷰 생성 및 설정
         let imageView = UIImageView()
         imageView.image = UIImage(named: "kakao_login") // 카카오 로그인 이미지 설정
         imageView.contentMode = .scaleAspectFit
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onKakaoLoginImageViewTapped))
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(tapGesture)
-        
         return imageView
     }()
     
+    /// 애플 로그인 이미지뷰 생성 및 설정
     private lazy var appleLoginImageView: UIImageView = {
-        // 애플 로그인 이미지뷰 생성 및 설정
         let imageView = UIImageView()
         imageView.image = UIImage(named: "apple_login") // 애플 로그인 이미지 설정
         imageView.contentMode = .scaleAspectFit
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onAppleLoginImageViewTapped))
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(tapGesture)
-        
         return imageView
     }()
     
+    private let disposeBag = DisposeBag()
+    private let signInViewModel = SignInViewModel()
+    
+    // MARK: - View Did Load
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        addSubViews()
-        configureConstraints()
+        
+        checkKakaoOAuthToken()
         setupUI()
-        bindViewModel()
+        addSubViews()
     }
+    
+    /// MARK: Set Up About UI
     private func setupUI() {
         view.backgroundColor = .white
     }
     
+    
+    /// MARK: Add UI
     private func addSubViews() {
         view.addSubview(kakaoLoginImageView)
         view.addSubview(appleLoginImageView)
         
+        configureConstraints()
     }
         
-  //카카오로그인, 애플로그인 constraint설정
+    /// MARK: 카카오로그인, 애플로그인 constraint설정
     private func configureConstraints() {
         kakaoLoginImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -73,24 +79,34 @@ class SignInViewController: UIViewController {
         }
     }
     
-    @objc private func onKakaoLoginImageViewTapped() {
-        // 뷰모델의 카카오 로그인 트리거 실행
-       signInServices.kakaoLoginTrigger.accept(())
-    }
+    // MARK: - Functions
     
-    // View와 ViewModel을 바인딩
-    private func bindViewModel() {
-        signInServices.kakaoLoginSuccess
-            .subscribe(onNext: { [weak self] in
+    /// kakao 로그인 버튼 터치 했을 때
+    @objc
+    private func onKakaoLoginImageViewTapped() {
+        signInViewModel.kakaoLogin()
+            .subscribe(onNext:{ [weak self] kakaoUserInfo in
                 let viewController = ViewController()
                 viewController.modalPresentationStyle = .fullScreen
                 self?.present(viewController, animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
-        
-        // 애플 로그인 --> 애플은 Sign in with Apple 기능 자체 API 필요없음
     }
+    
+    /// MARK: OAuth Token 자동 로그인
+    private func checkKakaoOAuthToken(){
+        signInViewModel.checkKakaoOAuthToken()
+            .subscribe(onNext: {[weak self] kakaoUserInfo in
+                let viewController = ViewController()
+                viewController.modalPresentationStyle = .fullScreen
+                self?.present(viewController, animated: true, completion: nil)
+                
+            })
+            .disposed(by: disposeBag)
+    }
+    
 }
+
 //ASAuthorizationControllerDelegate 프로토콜 ASAuthorizationControllerPresentationContextProviding 프로토콜로 애플 로그인사용
 extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     // 애플 로그인 결과를 처리하는 함수

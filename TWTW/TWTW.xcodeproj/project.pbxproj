@@ -24,6 +24,7 @@
 		3758F1B92A7DFBB500E2933C /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3758F1B82A7DFBB500E2933C /* SecretKey.plist */; };
 		375916372A7EB36000C21E1F /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375916362A7EB36000C21E1F /* SignInService.swift */; };
 		375916392A7F5C2000C21E1F /* KakaoUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375916382A7F5C2000C21E1F /* KakaoUser.swift */; };
+		3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		3758F1C12A7E741C00E2933C /* TWTW.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TWTW.entitlements; sourceTree = "<group>"; };
 		375916362A7EB36000C21E1F /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
 		375916382A7F5C2000C21E1F /* KakaoUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoUser.swift; sourceTree = "<group>"; };
+		3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignInViewModel.swift; path = TWTW/ViewModel/SignInViewModel.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +84,7 @@
 			children = (
 				375916352A7EB31C00C21E1F /* Services */,
 				3758F1C12A7E741C00E2933C /* TWTW.entitlements */,
-				3758F1BE2A7E1E4000E2933C /* ViewModels */,
+				3B6BA98A2A7F7D1600A11FE4 /* ViewModel */,
 				3758F1BD2A7E1E3700E2933C /* Models */,
 				3758F1BC2A7E1E2C00E2933C /* Views */,
 				3758F18B2A7D007200E2933C /* AppDelegate.swift */,
@@ -112,19 +114,20 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		3758F1BE2A7E1E4000E2933C /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
 		375916352A7EB31C00C21E1F /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				375916362A7EB36000C21E1F /* SignInService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		3B6BA98A2A7F7D1600A11FE4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,6 +221,7 @@
 				3758F1902A7D007200E2933C /* ViewController.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
+				3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */,
 				3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */,
 				375916372A7EB36000C21E1F /* SignInService.swift in Sources */,
 				375916392A7F5C2000C21E1F /* KakaoUser.swift in Sources */,
