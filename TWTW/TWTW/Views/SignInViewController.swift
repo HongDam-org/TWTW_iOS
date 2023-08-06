@@ -8,9 +8,7 @@
 
 import UIKit
 import SnapKit
-import KakaoSDKAuth
 import RxKakaoSDKAuth
-import KakaoSDKUser
 import RxKakaoSDKUser
 import RxSwift
 import AuthenticationServices
@@ -60,7 +58,7 @@ class SignInViewController: UIViewController {
         
     }
         
-        //카카오로그인, 애플로그인 constraint설정
+  //카카오로그인, 애플로그인 constraint설정
     private func configureConstraints() {
         kakaoLoginImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -77,7 +75,7 @@ class SignInViewController: UIViewController {
     
     @objc private func onKakaoLoginImageViewTapped() {
         // 뷰모델의 카카오 로그인 트리거 실행
-        signInServices.kakaoLoginTrigger.accept(())
+       signInServices.kakaoLoginTrigger.accept(())
     }
     
     // View와 ViewModel을 바인딩
@@ -90,11 +88,6 @@ class SignInViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        // 카카오 로그인 에러를 처리
-        signInServices.kakaoLoginError
-            .subscribe(onNext: { error in
-            })
-            .disposed(by: disposeBag)
         // 애플 로그인 --> 애플은 Sign in with Apple 기능 자체 API 필요없음
     }
 }
