@@ -9,10 +9,10 @@
 import UIKit
 import SnapKit
 import RxKakaoSDKAuth
-import RxKakaoSDKUser
 import RxSwift
 import AuthenticationServices
 
+/// 로그인 화면
 final class SignInViewController: UIViewController {
     
     /// 카카오 로그인 이미지뷰 생성 및 설정
@@ -93,6 +93,18 @@ final class SignInViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    /// 애플 로그인 과정을 시작하는 함수
+    @objc
+    private func onAppleLoginImageViewTapped() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email] // 사용자의 이름과 이메일을 요청
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+    
     /// MARK: OAuth Token 자동 로그인
     private func checkKakaoOAuthToken(){
         signInViewModel.checkKakaoOAuthToken()
@@ -107,39 +119,31 @@ final class SignInViewController: UIViewController {
     
 }
 
-//ASAuthorizationControllerDelegate 프로토콜 ASAuthorizationControllerPresentationContextProviding 프로토콜로 애플 로그인사용
+// ASAuthorizationControllerDelegate 프로토콜 ASAuthorizationControllerPresentationContextProviding 프로토콜로 애플 로그인사용
 extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
-    // 애플 로그인 결과를 처리하는 함수
+    /// 애플 로그인 결과를 처리하는 함수
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            // 사용자의 고유 Apple ID와 이름 가져오기
-            let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
-            // 로그인 성공 처리
-            let viewController = ViewController()
-            viewController.modalPresentationStyle = .fullScreen
-            self.present(viewController, animated: true, completion: nil)
-        }
+        guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
+        // 사용자의 고유 Apple ID와 이름 가져오기, 첫 로그인 이후에 로그인 시 정보를 제공하지 않음
+        let userIdentifier = appleIDCredential.user
+        let fullName = appleIDCredential.fullName
+        let email = appleIDCredential.email
+        
+        // 로그인 성공 처리
+        let viewController = ViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        self.present(viewController, animated: true, completion: nil)
+        
     }
     
+    /// 로그인 오류 처리
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        // 로그인 오류 처리
         print("loginWithAppleAccount() error: \(error)")
     }
     
-    // 애플 로그인 표시를 위한 컨텍스트를 처리하는 함수
+    /// 애플 로그인 표시를 위한 컨텍스트를 처리하는 함수
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return self.view.window!
+        return self.view.window ?? UIWindow()
     }
-    
-    // 애플 로그인 과정을 시작하는 함수
-    @objc private func onAppleLoginImageViewTapped() {
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email] // 사용자의 이름과 이메일을 요청
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-        authorizationController.delegate = self
-        authorizationController.presentationContextProvider = self
-        authorizationController.performRequests()
-    }
+     
 }

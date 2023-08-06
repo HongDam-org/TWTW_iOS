@@ -7,6 +7,7 @@
 import Foundation
 import RxSwift
 import KakaoSDKUser
+import RxKakaoSDKUser
 import RxRelay
 import KakaoSDKAuth
 import KakaoSDKCommon
