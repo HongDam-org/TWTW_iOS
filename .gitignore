@@ -89,7 +89,7 @@ fastlane/test_output
 iOSInjectionProject/
 
 
-TWTW/TWTW/SecreteKey.plist
+TWTW_iOS/SecreteKey.plist
 .DS_Store
 */KeychainWrapper.swift
 
@@ -107,3 +107,5 @@ TWTW/TWTW/SecreteKey.plist
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode,swiftpackagemanager
+
+TWTW/TWTW/SecretKey.plist
