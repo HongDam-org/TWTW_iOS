@@ -1,10 +1,13 @@
 # Created by https://www.toptal.com/developers/gitignore/api/swift,xcode,swiftpackagemanager
 # Edit at https://www.toptal.com/developers/gitignore?templates=swift,xcode,swiftpackagemanager
 
+
+
 ### Swift ###
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
 
 ## User settings
 xcuserdata/
@@ -88,6 +91,8 @@ iOSInjectionProject/
 
 TWTW_iOS/SecretKey.plist
 .DS_Store
+
+TWTW_iOS/KeychainWrapper.swift
 
 ### Xcode ###
 

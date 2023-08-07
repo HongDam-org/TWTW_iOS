@@ -20,18 +20,15 @@ final class SignInService{
     func kakaoLogin() -> Observable<KakaoSDKUser.User>{
         return Observable.create { [weak self] observer in
             UserApi.shared.rx.loginWithKakaoAccount()
-                .subscribe(
-                    onNext: { OAuthToken in // 토큰 저장 필요
-                        print("loginWithKakaoAccount() success.")
-                        self?.fetchKakaoUserInfo() // 로그인 성공 후 사용자 정보 불러오기
-                            .bind(onNext: { userInfo in
-                                observer.onNext(userInfo)
-                            })
-                            .disposed(by: self?.disposeBag ?? DisposeBag())
-                    },
-                    onError: { error in
-                        print("loginWithKakaoAccount() error: \(error)")
-                    })
+                .flatMap { [weak self] oauthToken -> Observable<KakaoSDKUser.User> in //flatMap중복성 제거
+                    self?.fetchKakaoUserInfo() ?? .empty()
+                }
+            // 토큰 저장 필요
+                .subscribe(onNext: { userInfo in
+                    observer.onNext(userInfo)
+                }, onError: { error in
+                    print("loginWithKakaoAccount() error: \(error)")
+                })
                 .disposed(by: self?.disposeBag ?? DisposeBag())
             
             
@@ -40,20 +37,15 @@ final class SignInService{
     }
     
     
+    
     // 카카오 사용자 정보 불러오기
     func fetchKakaoUserInfo() -> Observable<KakaoSDKUser.User>{
-        return Observable.create { [weak self] observer in
-            UserApi.shared.rx.me()
-                .subscribe (
-                    onSuccess:{ user in
-                        observer.onNext(user)
-                        print("fetchKakaoUserInfo \n\(user)")
-                    }, onFailure: {error in
-                        print("fetchKakaoUserInfo error!\n\(error)")
-                    })
-                .disposed(by: self?.disposeBag ?? DisposeBag())
-            return Disposables.create()
-        }
+        return UserApi.shared.rx.me().asObservable()
+            .do(onNext: { user in
+                print("fetchKakaoUserInfo \n\(user)")
+            }, onError: { error in
+                print("fetchKakaoUserInfo error!\n\(error)")
+            })
     }
     
     /// 카카오 OAuth 확인하는 함수
@@ -95,5 +87,6 @@ final class SignInService{
             return Disposables.create()
         }
     }
+    
     
 }

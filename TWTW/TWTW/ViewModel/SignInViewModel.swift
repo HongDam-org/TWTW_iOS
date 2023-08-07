@@ -19,28 +19,15 @@ final class SignInViewModel {
     
     // MARK: - API Connect
     
-    /// 카카오 로그인 
+    /// 카카오 로그인
     func kakaoLogin() -> Observable<KakaoSDKUser.User>{
-        return Observable.create { [weak self] observer in
-            self?.signInServices.kakaoLogin()
-                .subscribe(onNext: { kakaoUserInfo in
-                    observer.onNext(kakaoUserInfo)
-                })
-                .disposed(by: self?.disposeBag ?? DisposeBag())
-            return Disposables.create()
-        }
+        return signInServices.kakaoLogin() //Observable을 그대로 리턴
     }
-    
+
     /// 자동 로그인 통신
     func checkKakaoOAuthToken() -> Observable<KakaoSDKUser.User>{
-        return Observable.create { [weak self] observer in
-            self?.signInServices.checkKakaoOAuthToken()
-                .subscribe(onNext:{ userInfo in
-                    observer.onNext(userInfo)
-                })
-                .disposed(by: self?.disposeBag ?? DisposeBag())
-            return Disposables.create()
-        }
+        return signInServices.checkKakaoOAuthToken()
+
     }
 
         
