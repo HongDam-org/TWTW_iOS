@@ -12,7 +12,7 @@ class KeychainWrapper{
     
     /// 문자열 값을 Keychain에 저장하는 함수
     static func saveString(value: String, forKey key: String) -> Bool {
-        
+
         /// 문자열을 Data로 변환
         if let data = value.data(using: .utf8) {
             let query: [String: Any] = [

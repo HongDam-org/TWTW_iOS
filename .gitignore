@@ -89,10 +89,9 @@ fastlane/test_output
 iOSInjectionProject/
 
 
-TWTW_iOS/SecretKey.plist
+TWTW/TWTW/SecreteKey.plist
 .DS_Store
-
-TWTW_iOS/KeychainWrapper.swift
+*/KeychainWrapper.swift
 
 ### Xcode ###
 
