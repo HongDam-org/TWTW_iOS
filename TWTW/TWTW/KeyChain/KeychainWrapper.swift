@@ -8,7 +8,7 @@
 import Foundation
 
 ///키체인
-class KeychainWrapper{
+final class KeychainWrapper {
     
     /// 문자열 값을 Keychain에 저장하는 함수
     static func saveString(value: String, forKey key: String) -> Bool {
