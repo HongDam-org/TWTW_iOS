@@ -84,16 +84,13 @@
 		3758F18A2A7D007200E2933C /* TWTW */ = {
 			isa = PBXGroup;
 			children = (
+				3B0E2EBC2A8144BF00797782 /* Apps */,
 				375916352A7EB31C00C21E1F /* Services */,
 				3758F1C12A7E741C00E2933C /* TWTW.entitlements */,
 				3B6BA98A2A7F7D1600A11FE4 /* ViewModel */,
 				3758F1BD2A7E1E3700E2933C /* Models */,
 				3758F1BC2A7E1E2C00E2933C /* Views */,
-				3758F18B2A7D007200E2933C /* AppDelegate.swift */,
-				3758F18D2A7D007200E2933C /* SceneDelegate.swift */,
-				3758F18F2A7D007200E2933C /* ViewController.swift */,
 				3758F1942A7D007300E2933C /* Assets.xcassets */,
-				3758F1962A7D007300E2933C /* LaunchScreen.storyboard */,
 				3758F1992A7D007300E2933C /* Info.plist */,
 				3758F1B82A7DFBB500E2933C /* SecretKey.plist */,
 				3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */,
@@ -104,6 +101,8 @@
 		3758F1BC2A7E1E2C00E2933C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3758F1962A7D007300E2933C /* LaunchScreen.storyboard */,
+				3758F18F2A7D007200E2933C /* ViewController.swift */,
 				3758F19F2A7D122100E2933C /* SignInViewController.swift */,
 			);
 			path = Views;
@@ -123,6 +122,15 @@
 				375916362A7EB36000C21E1F /* SignInService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		3B0E2EBC2A8144BF00797782 /* Apps */ = {
+			isa = PBXGroup;
+			children = (
+				3758F18B2A7D007200E2933C /* AppDelegate.swift */,
+				3758F18D2A7D007200E2933C /* SceneDelegate.swift */,
+			);
+			path = Apps;
 			sourceTree = "<group>";
 		};
 		3B6BA98A2A7F7D1600A11FE4 /* ViewModel */ = {
