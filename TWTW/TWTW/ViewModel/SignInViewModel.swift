@@ -27,7 +27,6 @@ final class SignInViewModel {
     /// 자동 로그인 통신
     func checkKakaoOAuthToken() -> Observable<KakaoSDKUser.User>{
         return signInServices.checkKakaoOAuthToken()
-
     }
 
         
