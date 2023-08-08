@@ -19,17 +19,28 @@ final class SignInService{
     /// 카카오 로그인
     func kakaoLogin() -> Observable<KakaoSDKUser.User>{
         return Observable.create { [weak self] observer in
-         
+           
             if UserApi.isKakaoTalkLoginAvailable(){
+               
                 UserApi.shared.rx.loginWithKakaoTalk()
-                    .subscribe(
-                        onNext:{ OAuthToken in
-                            print("OAuth \(OAuthToken)")
-                        },
-                        onError: { error in
-                            print("OAuth Error\n\(error)")
-                        })
-                    .disposed(by: self?.disposeBag ?? DisposeBag())
+                              .observeOn(MainScheduler.instance)
+                              .subscribe(
+                                  onNext: { OAuthToken in
+                                      print("OAuth \(OAuthToken)")
+                                      self?.fetchKakaoUserInfo()
+                                          .subscribe(onNext: { userInfo in
+                                              observer.onNext(userInfo)
+                                              observer.onCompleted()
+                                          }, onError: { error in
+                                              observer.onError(error)
+                                          })
+                                          .disposed(by: self?.disposeBag ?? DisposeBag())
+                                  },
+                                  onError: { error in
+                                      print("OAuth Error\n\(error)")
+                                      observer.onError(error)
+                                  })
+                              .disposed(by: self?.disposeBag ?? DisposeBag())
             }
             else{
                 UserApi.shared.rx.loginWithKakaoAccount()
