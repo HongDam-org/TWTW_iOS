@@ -7,21 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37571BF72A8555ED0069AC65 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37571BF62A8555ED0069AC65 /* SecretKey.plist */; };
 		3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18B2A7D007200E2933C /* AppDelegate.swift */; };
 		3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18D2A7D007200E2933C /* SceneDelegate.swift */; };
 		3758F1902A7D007200E2933C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18F2A7D007200E2933C /* ViewController.swift */; };
 		3758F1952A7D007300E2933C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3758F1942A7D007300E2933C /* Assets.xcassets */; };
 		3758F1982A7D007300E2933C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3758F1962A7D007300E2933C /* LaunchScreen.storyboard */; };
 		3758F1A02A7D122100E2933C /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F19F2A7D122100E2933C /* SignInViewController.swift */; };
-		3758F1A32A7D19C400E2933C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3758F1A22A7D19C400E2933C /* SnapKit */; };
-		3758F1A62A7D1A6F00E2933C /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3758F1A52A7D1A6F00E2933C /* RxCocoa */; };
-		3758F1A82A7D1A6F00E2933C /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3758F1A72A7D1A6F00E2933C /* RxRelay */; };
-		3758F1AA2A7D1A6F00E2933C /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3758F1A92A7D1A6F00E2933C /* RxSwift */; };
-		3758F1AD2A7D1AA500E2933C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3758F1AC2A7D1AA500E2933C /* Alamofire */; };
-		3758F1AF2A7D2B7700E2933C /* SecreteKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3758F1AE2A7D2B7700E2933C /* SecreteKey.plist */; };
+		3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F1B62A7DFB6200E2933C /* Bundle+Ext.swift */; };
+		375916372A7EB36000C21E1F /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375916362A7EB36000C21E1F /* SignInService.swift */; };
+		3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */; };
+		3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */; };
+		A2C5FD0B5A187A9F3FB45AFD /* Pods_TWTW.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A367E7DCDA393CBBE10500B8 /* Pods_TWTW.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2172DC9500DCD676C7991DAB /* Pods-TWTW.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWTW.debug.xcconfig"; path = "Target Support Files/Pods-TWTW/Pods-TWTW.debug.xcconfig"; sourceTree = "<group>"; };
+		37571BF62A8555ED0069AC65 /* SecretKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
 		3758F1882A7D007200E2933C /* TWTW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWTW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3758F18B2A7D007200E2933C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3758F18D2A7D007200E2933C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -30,7 +32,13 @@
 		3758F1972A7D007300E2933C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3758F1992A7D007300E2933C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3758F19F2A7D122100E2933C /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		3758F1AE2A7D2B7700E2933C /* SecreteKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecreteKey.plist; sourceTree = "<group>"; };
+		3758F1B62A7DFB6200E2933C /* Bundle+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Ext.swift"; sourceTree = "<group>"; };
+		3758F1C12A7E741C00E2933C /* TWTW.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TWTW.entitlements; sourceTree = "<group>"; };
+		375916362A7EB36000C21E1F /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
+		3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignInViewModel.swift; path = TWTW/ViewModel/SignInViewModel.swift; sourceTree = SOURCE_ROOT; };
+		A367E7DCDA393CBBE10500B8 /* Pods_TWTW.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TWTW.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9DD38477CC3D20540C5F25D /* Pods-TWTW.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWTW.release.xcconfig"; path = "Target Support Files/Pods-TWTW/Pods-TWTW.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,22 +46,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3758F1AD2A7D1AA500E2933C /* Alamofire in Frameworks */,
-				3758F1A82A7D1A6F00E2933C /* RxRelay in Frameworks */,
-				3758F1A62A7D1A6F00E2933C /* RxCocoa in Frameworks */,
-				3758F1AA2A7D1A6F00E2933C /* RxSwift in Frameworks */,
-				3758F1A32A7D19C400E2933C /* SnapKit in Frameworks */,
+				A2C5FD0B5A187A9F3FB45AFD /* Pods_TWTW.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E2B6A05E60DAF0F19D03709 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2172DC9500DCD676C7991DAB /* Pods-TWTW.debug.xcconfig */,
+				B9DD38477CC3D20540C5F25D /* Pods-TWTW.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		3758F17F2A7D007100E2933C = {
 			isa = PBXGroup;
 			children = (
 				3758F18A2A7D007200E2933C /* TWTW */,
 				3758F1892A7D007200E2933C /* Products */,
+				0E2B6A05E60DAF0F19D03709 /* Pods */,
+				FABA50B33D669228E992C196 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -68,16 +83,85 @@
 		3758F18A2A7D007200E2933C /* TWTW */ = {
 			isa = PBXGroup;
 			children = (
-				3758F18B2A7D007200E2933C /* AppDelegate.swift */,
-				3758F18D2A7D007200E2933C /* SceneDelegate.swift */,
-				3758F18F2A7D007200E2933C /* ViewController.swift */,
+				3B0E2EC02A81488A00797782 /* KeyChain */,
+				3B0E2EBF2A81483D00797782 /* Extension */,
+				3B0E2EBC2A8144BF00797782 /* Apps */,
+				375916352A7EB31C00C21E1F /* Services */,
+				3B6BA98A2A7F7D1600A11FE4 /* ViewModel */,
+				3758F1BD2A7E1E3700E2933C /* Models */,
+				3758F1BC2A7E1E2C00E2933C /* Views */,
 				3758F1942A7D007300E2933C /* Assets.xcassets */,
-				3758F1962A7D007300E2933C /* LaunchScreen.storyboard */,
 				3758F1992A7D007300E2933C /* Info.plist */,
-				3758F19F2A7D122100E2933C /* SignInViewController.swift */,
-				3758F1AE2A7D2B7700E2933C /* SecreteKey.plist */,
+				37571BF62A8555ED0069AC65 /* SecretKey.plist */,
+				3758F1C12A7E741C00E2933C /* TWTW.entitlements */,
 			);
 			path = TWTW;
+			sourceTree = "<group>";
+		};
+		3758F1BC2A7E1E2C00E2933C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3758F1962A7D007300E2933C /* LaunchScreen.storyboard */,
+				3758F18F2A7D007200E2933C /* ViewController.swift */,
+				3758F19F2A7D122100E2933C /* SignInViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3758F1BD2A7E1E3700E2933C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		375916352A7EB31C00C21E1F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				375916362A7EB36000C21E1F /* SignInService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		3B0E2EBC2A8144BF00797782 /* Apps */ = {
+			isa = PBXGroup;
+			children = (
+				3758F18B2A7D007200E2933C /* AppDelegate.swift */,
+				3758F18D2A7D007200E2933C /* SceneDelegate.swift */,
+			);
+			path = Apps;
+			sourceTree = "<group>";
+		};
+		3B0E2EBF2A81483D00797782 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				3758F1B62A7DFB6200E2933C /* Bundle+Ext.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		3B0E2EC02A81488A00797782 /* KeyChain */ = {
+			isa = PBXGroup;
+			children = (
+				3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */,
+			);
+			path = KeyChain;
+			sourceTree = "<group>";
+		};
+		3B6BA98A2A7F7D1600A11FE4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FABA50B33D669228E992C196 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A367E7DCDA393CBBE10500B8 /* Pods_TWTW.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,22 +171,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3758F19C2A7D007300E2933C /* Build configuration list for PBXNativeTarget "TWTW" */;
 			buildPhases = (
+				C0338C08530D4D43556FA8C4 /* [CP] Check Pods Manifest.lock */,
 				3758F1842A7D007100E2933C /* Sources */,
 				3758F1852A7D007100E2933C /* Frameworks */,
 				3758F1862A7D007100E2933C /* Resources */,
+				23A1F16DD389A935B0FAD0DE /* [CP] Embed Pods Frameworks */,
+				832BEA7D0C5098B4915D8FB6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = TWTW;
-			packageProductDependencies = (
-				3758F1A22A7D19C400E2933C /* SnapKit */,
-				3758F1A52A7D1A6F00E2933C /* RxCocoa */,
-				3758F1A72A7D1A6F00E2933C /* RxRelay */,
-				3758F1A92A7D1A6F00E2933C /* RxSwift */,
-				3758F1AC2A7D1AA500E2933C /* Alamofire */,
-			);
 			productName = TWTW;
 			productReference = 3758F1882A7D007200E2933C /* TWTW.app */;
 			productType = "com.apple.product-type.application";
@@ -113,7 +193,7 @@
 		3758F1802A7D007100E2933C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
@@ -131,11 +211,6 @@
 				Base,
 			);
 			mainGroup = 3758F17F2A7D007100E2933C;
-			packageReferences = (
-				3758F1A12A7D19C400E2933C /* XCRemoteSwiftPackageReference "SnapKit" */,
-				3758F1A42A7D1A6F00E2933C /* XCRemoteSwiftPackageReference "RxSwift" */,
-				3758F1AB2A7D1AA500E2933C /* XCRemoteSwiftPackageReference "Alamofire" */,
-			);
 			productRefGroup = 3758F1892A7D007200E2933C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -150,23 +225,86 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3758F1AF2A7D2B7700E2933C /* SecreteKey.plist in Resources */,
 				3758F1982A7D007300E2933C /* LaunchScreen.storyboard in Resources */,
+				37571BF72A8555ED0069AC65 /* SecretKey.plist in Resources */,
 				3758F1952A7D007300E2933C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		23A1F16DD389A935B0FAD0DE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TWTW/Pods-TWTW-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TWTW/Pods-TWTW-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TWTW/Pods-TWTW-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		832BEA7D0C5098B4915D8FB6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TWTW/Pods-TWTW-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TWTW/Pods-TWTW-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TWTW/Pods-TWTW-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C0338C08530D4D43556FA8C4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TWTW-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3758F1842A7D007100E2933C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */,
 				3758F1A02A7D122100E2933C /* SignInViewController.swift in Sources */,
 				3758F1902A7D007200E2933C /* ViewController.swift in Sources */,
+				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
+				3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */,
 				3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */,
+				375916372A7EB36000C21E1F /* SignInService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,7 +372,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -288,9 +426,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -300,25 +439,27 @@
 		};
 		3758F19D2A7D007300E2933C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2172DC9500DCD676C7991DAB /* Pods-TWTW.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TWTW/TWTW.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FQ9852Z3LX;
+				DEVELOPMENT_TEAM = LVBMDY357W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TWTW/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = HDJ.TWTW;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HDJ.TWTW1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -328,25 +469,27 @@
 		};
 		3758F19E2A7D007300E2933C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B9DD38477CC3D20540C5F25D /* Pods-TWTW.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TWTW/TWTW.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FQ9852Z3LX;
+				DEVELOPMENT_TEAM = LVBMDY357W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TWTW/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = HDJ.TWTW;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HDJ.TWTW1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -376,61 +519,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		3758F1A12A7D19C400E2933C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		3758F1A42A7D1A6F00E2933C /* XCRemoteSwiftPackageReference "RxSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
-			};
-		};
-		3758F1AB2A7D1AA500E2933C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		3758F1A22A7D19C400E2933C /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3758F1A12A7D19C400E2933C /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		3758F1A52A7D1A6F00E2933C /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3758F1A42A7D1A6F00E2933C /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-		3758F1A72A7D1A6F00E2933C /* RxRelay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3758F1A42A7D1A6F00E2933C /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxRelay;
-		};
-		3758F1A92A7D1A6F00E2933C /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3758F1A42A7D1A6F00E2933C /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
-		};
-		3758F1AC2A7D1AA500E2933C /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3758F1AB2A7D1AA500E2933C /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3758F1802A7D007100E2933C /* Project object */;
 }
