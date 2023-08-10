@@ -17,7 +17,7 @@
 		375916372A7EB36000C21E1F /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375916362A7EB36000C21E1F /* SignInService.swift */; };
 		375916392A7F5C2000C21E1F /* KakaoUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375916382A7F5C2000C21E1F /* KakaoUser.swift */; };
 		3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */; };
-		3B0E2EBE2A81481E00797782 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B0E2EBD2A81481E00797782 /* SecretKey.plist */; };
+		37756B892A852371000DE2CC /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37756B882A852371000DE2CC /* SecretKey.plist */; };
 		3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */; };
 		A2C5FD0B5A187A9F3FB45AFD /* Pods_TWTW.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A367E7DCDA393CBBE10500B8 /* Pods_TWTW.framework */; };
 /* End PBXBuildFile section */
@@ -37,7 +37,7 @@
 		375916362A7EB36000C21E1F /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
 		375916382A7F5C2000C21E1F /* KakaoUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoUser.swift; sourceTree = "<group>"; };
 		3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
-		3B0E2EBD2A81481E00797782 /* SecretKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
+		37756B882A852371000DE2CC /* SecretKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
 		3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignInViewModel.swift; path = TWTW/ViewModel/SignInViewModel.swift; sourceTree = SOURCE_ROOT; };
 		A367E7DCDA393CBBE10500B8 /* Pods_TWTW.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TWTW.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DD38477CC3D20540C5F25D /* Pods-TWTW.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWTW.release.xcconfig"; path = "Target Support Files/Pods-TWTW/Pods-TWTW.release.xcconfig"; sourceTree = "<group>"; };
@@ -94,7 +94,7 @@
 				3758F1BC2A7E1E2C00E2933C /* Views */,
 				3758F1942A7D007300E2933C /* Assets.xcassets */,
 				3758F1992A7D007300E2933C /* Info.plist */,
-				3B0E2EBD2A81481E00797782 /* SecretKey.plist */,
+				37756B882A852371000DE2CC /* SecretKey.plist */,
 				3758F1C12A7E741C00E2933C /* TWTW.entitlements */,
 			);
 			path = TWTW;
@@ -229,7 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3758F1982A7D007300E2933C /* LaunchScreen.storyboard in Resources */,
-				3B0E2EBE2A81481E00797782 /* SecretKey.plist in Resources */,
+				37756B892A852371000DE2CC /* SecretKey.plist in Resources */,
 				3758F1952A7D007300E2933C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
