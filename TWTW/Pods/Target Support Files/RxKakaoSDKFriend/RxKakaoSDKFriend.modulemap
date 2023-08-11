@@ -1,0 +1,6 @@
+framework module RxKakaoSDKFriend {
+  umbrella header "RxKakaoSDKFriend-umbrella.h"
+
+  export *
+  module * { export * }
+}
