@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		37571BF72A8555ED0069AC65 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37571BF62A8555ED0069AC65 /* SecretKey.plist */; };
+		191CD174B1035CE4235B2009 /* Pods_TWTW.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 249DC068D7E64F6F5E796804 /* Pods_TWTW.framework */; };
+		37571BF92A860D740069AC65 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37571BF82A860D740069AC65 /* SecretKey.plist */; };
+		37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */; };
 		3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18B2A7D007200E2933C /* AppDelegate.swift */; };
 		3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18D2A7D007200E2933C /* SceneDelegate.swift */; };
 		3758F1902A7D007200E2933C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18F2A7D007200E2933C /* ViewController.swift */; };
@@ -17,13 +19,14 @@
 		3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F1B62A7DFB6200E2933C /* Bundle+Ext.swift */; };
 		375916372A7EB36000C21E1F /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375916362A7EB36000C21E1F /* SignInService.swift */; };
 		3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */; };
+		377D3A6F2A86386700377899 /* MapBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D3A6E2A86386700377899 /* MapBottomSheet.swift */; };
 		3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */; };
-		A2C5FD0B5A187A9F3FB45AFD /* Pods_TWTW.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A367E7DCDA393CBBE10500B8 /* Pods_TWTW.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2172DC9500DCD676C7991DAB /* Pods-TWTW.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWTW.debug.xcconfig"; path = "Target Support Files/Pods-TWTW/Pods-TWTW.debug.xcconfig"; sourceTree = "<group>"; };
-		37571BF62A8555ED0069AC65 /* SecretKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
+		249DC068D7E64F6F5E796804 /* Pods_TWTW.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TWTW.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		37571BF82A860D740069AC65 /* SecretKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
+		37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewController.swift; sourceTree = "<group>"; };
 		3758F1882A7D007200E2933C /* TWTW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWTW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3758F18B2A7D007200E2933C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3758F18D2A7D007200E2933C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -36,9 +39,10 @@
 		3758F1C12A7E741C00E2933C /* TWTW.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TWTW.entitlements; sourceTree = "<group>"; };
 		375916362A7EB36000C21E1F /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
 		3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		377D3A6E2A86386700377899 /* MapBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBottomSheet.swift; sourceTree = "<group>"; };
 		3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignInViewModel.swift; path = TWTW/ViewModel/SignInViewModel.swift; sourceTree = SOURCE_ROOT; };
-		A367E7DCDA393CBBE10500B8 /* Pods_TWTW.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TWTW.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B9DD38477CC3D20540C5F25D /* Pods-TWTW.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWTW.release.xcconfig"; path = "Target Support Files/Pods-TWTW/Pods-TWTW.release.xcconfig"; sourceTree = "<group>"; };
+		48E7CBBB4B6A0E6D5EEE7DA2 /* Pods-TWTW.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWTW.debug.xcconfig"; path = "Target Support Files/Pods-TWTW/Pods-TWTW.debug.xcconfig"; sourceTree = "<group>"; };
+		D85B6CB7C1B571DD97A8399F /* Pods-TWTW.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWTW.release.xcconfig"; path = "Target Support Files/Pods-TWTW/Pods-TWTW.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2C5FD0B5A187A9F3FB45AFD /* Pods_TWTW.framework in Frameworks */,
+				191CD174B1035CE4235B2009 /* Pods_TWTW.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,8 +60,8 @@
 		0E2B6A05E60DAF0F19D03709 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				2172DC9500DCD676C7991DAB /* Pods-TWTW.debug.xcconfig */,
-				B9DD38477CC3D20540C5F25D /* Pods-TWTW.release.xcconfig */,
+				48E7CBBB4B6A0E6D5EEE7DA2 /* Pods-TWTW.debug.xcconfig */,
+				D85B6CB7C1B571DD97A8399F /* Pods-TWTW.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -68,7 +72,7 @@
 				3758F18A2A7D007200E2933C /* TWTW */,
 				3758F1892A7D007200E2933C /* Products */,
 				0E2B6A05E60DAF0F19D03709 /* Pods */,
-				FABA50B33D669228E992C196 /* Frameworks */,
+				505B20B0649CABCF230C2A2C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,7 +96,7 @@
 				3758F1BC2A7E1E2C00E2933C /* Views */,
 				3758F1942A7D007300E2933C /* Assets.xcassets */,
 				3758F1992A7D007300E2933C /* Info.plist */,
-				37571BF62A8555ED0069AC65 /* SecretKey.plist */,
+				37571BF82A860D740069AC65 /* SecretKey.plist */,
 				3758F1C12A7E741C00E2933C /* TWTW.entitlements */,
 			);
 			path = TWTW;
@@ -101,6 +105,7 @@
 		3758F1BC2A7E1E2C00E2933C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				377D3A6B2A86339B00377899 /* Map */,
 				3758F1962A7D007300E2933C /* LaunchScreen.storyboard */,
 				3758F18F2A7D007200E2933C /* ViewController.swift */,
 				3758F19F2A7D122100E2933C /* SignInViewController.swift */,
@@ -121,6 +126,15 @@
 				375916362A7EB36000C21E1F /* SignInService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		377D3A6B2A86339B00377899 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */,
+				377D3A6E2A86386700377899 /* MapBottomSheet.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		3B0E2EBC2A8144BF00797782 /* Apps */ = {
@@ -156,10 +170,10 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		FABA50B33D669228E992C196 /* Frameworks */ = {
+		505B20B0649CABCF230C2A2C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A367E7DCDA393CBBE10500B8 /* Pods_TWTW.framework */,
+				249DC068D7E64F6F5E796804 /* Pods_TWTW.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -171,12 +185,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3758F19C2A7D007300E2933C /* Build configuration list for PBXNativeTarget "TWTW" */;
 			buildPhases = (
-				C0338C08530D4D43556FA8C4 /* [CP] Check Pods Manifest.lock */,
+				F6863BACA27B12E25F8B7F6A /* [CP] Check Pods Manifest.lock */,
 				3758F1842A7D007100E2933C /* Sources */,
 				3758F1852A7D007100E2933C /* Frameworks */,
 				3758F1862A7D007100E2933C /* Resources */,
-				23A1F16DD389A935B0FAD0DE /* [CP] Embed Pods Frameworks */,
-				832BEA7D0C5098B4915D8FB6 /* [CP] Copy Pods Resources */,
+				14DD7EB1878F80B0EA4F960D /* [CP] Embed Pods Frameworks */,
+				E6246A1EBE5C01B6E354157E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -226,7 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3758F1982A7D007300E2933C /* LaunchScreen.storyboard in Resources */,
-				37571BF72A8555ED0069AC65 /* SecretKey.plist in Resources */,
+				37571BF92A860D740069AC65 /* SecretKey.plist in Resources */,
 				3758F1952A7D007300E2933C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -234,7 +248,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		23A1F16DD389A935B0FAD0DE /* [CP] Embed Pods Frameworks */ = {
+		14DD7EB1878F80B0EA4F960D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -251,7 +265,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TWTW/Pods-TWTW-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		832BEA7D0C5098B4915D8FB6 /* [CP] Copy Pods Resources */ = {
+		E6246A1EBE5C01B6E354157E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -268,7 +282,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TWTW/Pods-TWTW-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C0338C08530D4D43556FA8C4 /* [CP] Check Pods Manifest.lock */ = {
+		F6863BACA27B12E25F8B7F6A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -300,9 +314,11 @@
 				3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */,
 				3758F1A02A7D122100E2933C /* SignInViewController.swift in Sources */,
 				3758F1902A7D007200E2933C /* ViewController.swift in Sources */,
+				377D3A6F2A86386700377899 /* MapBottomSheet.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
 				3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */,
+				37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */,
 				3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */,
 				375916372A7EB36000C21E1F /* SignInService.swift in Sources */,
 			);
@@ -439,7 +455,7 @@
 		};
 		3758F19D2A7D007300E2933C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2172DC9500DCD676C7991DAB /* Pods-TWTW.debug.xcconfig */;
+			baseConfigurationReference = 48E7CBBB4B6A0E6D5EEE7DA2 /* Pods-TWTW.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -469,7 +485,7 @@
 		};
 		3758F19E2A7D007300E2933C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B9DD38477CC3D20540C5F25D /* Pods-TWTW.release.xcconfig */;
+			baseConfigurationReference = D85B6CB7C1B571DD97A8399F /* Pods-TWTW.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

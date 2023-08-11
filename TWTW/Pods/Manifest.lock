@@ -28,6 +28,9 @@ PODS:
   - KakaoSDKUser (2.16.0):
     - KakaoSDKAuth (= 2.16.0)
   - KeychainSwift (20.0.0)
+  - NMapsGeometry (1.0.1)
+  - NMapsMap (3.17.0):
+    - NMapsGeometry
   - RxAlamofire (6.1.1):
     - RxAlamofire/Core (= 6.1.1)
   - RxAlamofire/Core (6.1.1):
@@ -84,6 +87,8 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - KeychainSwift (~> 20.0)
+  - NMapsMap
+  - RxAlamofire
   - RxCocoa (= 6.5.0)
   - RxKakaoSDK
   - RxSwift (= 6.5.0)
@@ -103,6 +108,8 @@ SPEC REPOS:
     - KakaoSDKTemplate
     - KakaoSDKUser
     - KeychainSwift
+    - NMapsGeometry
+    - NMapsMap
     - RxAlamofire
     - RxCocoa
     - RxKakaoSDK
@@ -130,6 +137,8 @@ SPEC CHECKSUMS:
   KakaoSDKTemplate: 7e478a3cda6f5879b475546bfcd667b464fbb6d0
   KakaoSDKUser: 427e5b3884abd19ee6d9a7bd6e3f3029eb2968b8
   KeychainSwift: 0ce6a4d13f7228054d1a71bb1b500448fb2ab837
+  NMapsGeometry: 53c573ead66466681cf123f99f698dc8071a4b83
+  NMapsMap: a5b909a31b6f3d27a670f6eb2ddc913c38975474
   RxAlamofire: beb75a1c452d0de225651db4903f5d29d034a620
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxKakaoSDK: 53621794473704ca12c50b6c93e730759ba72db2
@@ -144,6 +153,6 @@ SPEC CHECKSUMS:
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
 
-PODFILE CHECKSUM: 20a473ae2b387bb3e8259ec44e78614fc7469c0d
+PODFILE CHECKSUM: 5c4172db5c3d13b7b31837dea6c57e2151995b62
 
 COCOAPODS: 1.12.1
