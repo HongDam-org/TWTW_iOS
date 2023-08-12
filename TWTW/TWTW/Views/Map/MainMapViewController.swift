@@ -13,38 +13,54 @@ import SnapKit
 import CoreLocation //위치정보
 
 ///MainMapViewController -지도화면
-class MainMapViewController: UIViewController  {
+final class MainMapViewController: UIViewController  {
+    
+    /// MARK: 지도 아랫부분 화면
+    private lazy var bottomSheetViewController: BottomSheetViewController = {
+        let view = BottomSheetViewController()
+        
+        return view
+    }()
+    
+    /// MARK: 네이버 지도
+    private lazy var mapView: NMFMapView = {
+        var view = NMFMapView()
+        view.positionMode = .normal
+        return view
+    }()
+    
     private let disposeBag = DisposeBag()
-    // BottomSheetViewController 생성
-    var bottomSheetViewController: BottomSheetViewController!
-    //위치 관련 변수
-    let locationManager = CLLocationManager()
-    var mapView: NMFMapView!
+    private let viewModel = MainMapViewModel()
     
-    
-    // MARK: - ViewDidLoad
+    // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupMapView()
         setupLocationManager()
-        
+        addSubViews()
         
     }
-    // MARK: -  viewDidAppear
+    // MARK: -  View Did Appear
     override func viewDidAppear(_ animated: Bool) {
-        setupBottomSheet()
-        
+        addSubViews()
     }
     
-    //setupBottomSheet()
-    private func setupBottomSheet(){
-        bottomSheetViewController = BottomSheetViewController()
-        addChild(bottomSheetViewController)
+    
+    
+    // MARK: - Fuctions
+    
+    /// MARK: Add UI
+    private func addSubViews() {
         view.addSubview(bottomSheetViewController.view)
         bottomSheetViewController.didMove(toParent: self)
         bottomSheetViewController.delegate = self // 델리게이트 설정
-
+        
+        configureConstraints()
+    }
+        
+    /// MARK:
+    private func configureConstraints() {
         
         bottomSheetViewController.view.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
@@ -63,6 +79,7 @@ class MainMapViewController: UIViewController  {
     
     // setupLocationManager() 설정
     private func setupLocationManager() {
+        let locationManager = viewModel.locationManagerRelay.value
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
@@ -83,7 +100,7 @@ extension MainMapViewController :CLLocationManagerDelegate {
         mapView.moveCamera(cameraUpdate)
         
         // 위치 업데이트 중단
-        locationManager.stopUpdatingLocation()
+        viewModel.locationManagerRelay.value.stopUpdatingLocation()
     }
 }
 // BottomSheetDelegate 프로토콜
