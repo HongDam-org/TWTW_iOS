@@ -12,13 +12,13 @@ import RxSwift
 import SnapKit
 import CoreLocation //위치정보
 
-///MainMapViewController -지도화면
+///MainMapViewController - 지도화면
 final class MainMapViewController: UIViewController  {
     
     /// MARK: 지도 아랫부분 화면
     private lazy var bottomSheetViewController: BottomSheetViewController = {
         let view = BottomSheetViewController()
-        
+        view.delegate = self
         return view
     }()
     
@@ -38,7 +38,6 @@ final class MainMapViewController: UIViewController  {
         
         setupMapView()
         setupLocationManager()
-        addSubViews()
         
     }
     // MARK: -  View Did Appear
@@ -47,14 +46,12 @@ final class MainMapViewController: UIViewController  {
     }
     
     
-    
     // MARK: - Fuctions
     
     /// MARK: Add UI
     private func addSubViews() {
         view.addSubview(bottomSheetViewController.view)
         bottomSheetViewController.didMove(toParent: self)
-        bottomSheetViewController.delegate = self // 델리게이트 설정
         
         configureConstraints()
     }

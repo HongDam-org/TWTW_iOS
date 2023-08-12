@@ -20,9 +20,9 @@ class BottomSheetViewController: UIViewController {
     var midHeight: CGFloat = 0.0
     var maxHeight: CGFloat = 0.0
     
- 
+    
     weak var delegate: BottomSheetDelegate?//MainMapVC에서 터치영역때문에 동적인 바텀시트 크기 전달
-
+    
     //바텀비트
     private let bottomSheetView : UIView = {
         let view = UIView()
@@ -67,9 +67,10 @@ class BottomSheetViewController: UIViewController {
         guard let heightConstraint = bottomSheetHeightConstraint else {
             return
         }
-        //heightConstraint : Constraint?, Constraint-layoutConstraints: [LayoutConstraint]
+//        heightConstraint : Constraint?, Constraint-layoutConstraints: [LayoutConstraint]
         let translation = gestureRecognizer.translation(in: view)//드래그 계산
-        let newHeight = heightConstraint.layoutConstraints.first!.constant - translation.y//새로운 높이 계산([현재바텀시트높이] - 드래그계산으로 변화된 y)
+        guard let height = heightConstraint.layoutConstraints.first?.constant else { return }
+        let newHeight = height - translation.y //새로운 높이 계산([현재바텀시트높이] - 드래그계산으로 변화된 y)
         
         let changedHeight = min(max(newHeight,minHeight*0.8), maxHeight)//새로운 높이를 최소,중간, 최대높이 사이 제한
         
@@ -88,7 +89,7 @@ class BottomSheetViewController: UIViewController {
                 targetHeight = minHeight
             }
             // 델리게이트를 통해 새로운 높이 업데이트 전달
-                       delegate?.didUpdateBottomSheetHeight(targetHeight)
+            delegate?.didUpdateBottomSheetHeight(targetHeight)
             //애니메이션으로 변화
             UIView.animate(withDuration: 0.3) {
                 heightConstraint.update(offset: targetHeight)
