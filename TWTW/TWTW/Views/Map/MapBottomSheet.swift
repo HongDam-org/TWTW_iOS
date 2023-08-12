@@ -10,14 +10,19 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-
+///동적 높이 변화델리게이트 - BottomSheetDelegate
+protocol BottomSheetDelegate: AnyObject {
+    func didUpdateBottomSheetHeight(_ height: CGFloat)
+}
 ///BottomSheetContentViewController
 class BottomSheetViewController: UIViewController {
     var minHeight: CGFloat = 0.0
     var midHeight: CGFloat = 0.0
     var maxHeight: CGFloat = 0.0
     
-    
+ 
+    weak var delegate: BottomSheetDelegate?//MainMapVC에서 터치영역때문에 동적인 바텀시트 크기 전달
+
     //바텀비트
     private let bottomSheetView : UIView = {
         let view = UIView()
@@ -82,11 +87,14 @@ class BottomSheetViewController: UIViewController {
             } else {
                 targetHeight = minHeight
             }
+            // 델리게이트를 통해 새로운 높이 업데이트 전달
+                       delegate?.didUpdateBottomSheetHeight(targetHeight)
             //애니메이션으로 변화
             UIView.animate(withDuration: 0.3) {
                 heightConstraint.update(offset: targetHeight)
                 self.view.layoutIfNeeded()
             }
+            
         }
     }
     

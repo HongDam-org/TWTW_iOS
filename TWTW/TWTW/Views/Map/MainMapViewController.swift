@@ -39,11 +39,12 @@ class MainMapViewController: UIViewController  {
     
     //setupBottomSheet()
     private func setupBottomSheet(){
-        // let bottomSheetViewController = BottomSheetViewController()
         bottomSheetViewController = BottomSheetViewController()
         addChild(bottomSheetViewController)
         view.addSubview(bottomSheetViewController.view)
         bottomSheetViewController.didMove(toParent: self)
+        bottomSheetViewController.delegate = self // 델리게이트 설정
+
         
         bottomSheetViewController.view.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
@@ -85,4 +86,15 @@ extension MainMapViewController :CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
     }
 }
-
+// BottomSheetDelegate 프로토콜
+extension MainMapViewController: BottomSheetDelegate {
+    func didUpdateBottomSheetHeight(_ height: CGFloat) {
+        bottomSheetViewController.view.snp.updateConstraints { make in
+            make.height.equalTo(height)
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+}
