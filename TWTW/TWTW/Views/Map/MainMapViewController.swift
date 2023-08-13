@@ -17,7 +17,8 @@ final class MainMapViewController: UIViewController  {
     
     /// MARK: 지도 아랫부분 화면
     private lazy var bottomSheetViewController: BottomSheetViewController = {
-        let view = BottomSheetViewController()
+        let viewModel = BottomSheetViewModel(viewHeight: self.view.frame.height)// 필요한 초기값으로 설정
+        let view = BottomSheetViewController(viewModel: viewModel)
         view.delegate = self
         return view
     }()
@@ -37,7 +38,8 @@ final class MainMapViewController: UIViewController  {
         super.viewDidLoad()
         
         setupMapView()
-        setupLocationManager()
+        viewModel.setupLocationManager()
+        
         
     }
     // MARK: -  View Did Appear
@@ -52,54 +54,26 @@ final class MainMapViewController: UIViewController  {
     private func addSubViews() {
         view.addSubview(bottomSheetViewController.view)
         bottomSheetViewController.didMove(toParent: self)
-        
         configureConstraints()
     }
-        
-    /// MARK:
+    
+    /// MARK: Configure Constraints UI
     private func configureConstraints() {
-        
         bottomSheetViewController.view.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(bottomSheetViewController.midHeight)
+            make.height.equalTo(bottomSheetViewController.viewModel.minHeight)
         }
-        
     }
     
-    // setupMapView()
+    /// setupMapView()
     private func setupMapView() {
         mapView = NMFMapView(frame: view.frame)
         mapView.positionMode = .normal
-        
         view.addSubview(mapView)
     }
     
-    // setupLocationManager() 설정
-    private func setupLocationManager() {
-        let locationManager = viewModel.locationManagerRelay.value
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-    }
-    
-    
 }
 
-
-
-extension MainMapViewController :CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last?.coordinate else { return }
-        
-        // 지도 카메라를 사용자의 현재 위치로 이동
-        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: location.latitude, lng: location.longitude))
-        mapView.moveCamera(cameraUpdate)
-        
-        // 위치 업데이트 중단
-        viewModel.locationManagerRelay.value.stopUpdatingLocation()
-    }
-}
 // BottomSheetDelegate 프로토콜
 extension MainMapViewController: BottomSheetDelegate {
     func didUpdateBottomSheetHeight(_ height: CGFloat) {

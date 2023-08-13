@@ -18,7 +18,8 @@
 		3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F1B62A7DFB6200E2933C /* Bundle+Ext.swift */; };
 		375916372A7EB36000C21E1F /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375916362A7EB36000C21E1F /* SignInService.swift */; };
 		3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */; };
-		377D3A6F2A86386700377899 /* MapBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377D3A6E2A86386700377899 /* MapBottomSheet.swift */; };
+		37F647872A885421006272FD /* BottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F647862A885421006272FD /* BottomSheetViewModel.swift */; };
+		37F647892A885B86006272FD /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F647882A885B86006272FD /* BottomSheetViewController.swift */; };
 		3B267B982A87AECA00F3949A /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B267B972A87AECA00F3949A /* SecretKey.plist */; };
 		3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */; };
 		3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */; };
@@ -39,7 +40,8 @@
 		3758F1C12A7E741C00E2933C /* TWTW.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TWTW.entitlements; sourceTree = "<group>"; };
 		375916362A7EB36000C21E1F /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
 		3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
-		377D3A6E2A86386700377899 /* MapBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBottomSheet.swift; sourceTree = "<group>"; };
+		37F647862A885421006272FD /* BottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewModel.swift; sourceTree = "<group>"; };
+		37F647882A885B86006272FD /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		3B267B972A87AECA00F3949A /* SecretKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
 		3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModel.swift; sourceTree = "<group>"; };
 		3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignInViewModel.swift; path = TWTW/ViewModel/SignInViewModel.swift; sourceTree = SOURCE_ROOT; };
@@ -89,6 +91,7 @@
 		3758F18A2A7D007200E2933C /* TWTW */ = {
 			isa = PBXGroup;
 			children = (
+				37F647852A88540F006272FD /* New Group */,
 				3B0E2EC02A81488A00797782 /* KeyChain */,
 				3B0E2EBF2A81483D00797782 /* Extension */,
 				3B0E2EBC2A8144BF00797782 /* Apps */,
@@ -126,9 +129,17 @@
 			isa = PBXGroup;
 			children = (
 				37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */,
-				377D3A6E2A86386700377899 /* MapBottomSheet.swift */,
+				37F647882A885B86006272FD /* BottomSheetViewController.swift */,
 			);
 			path = Map;
+			sourceTree = "<group>";
+		};
+		37F647852A88540F006272FD /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				37F647862A885421006272FD /* BottomSheetViewModel.swift */,
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		3B0E2EBC2A8144BF00797782 /* Apps */ = {
@@ -318,13 +329,14 @@
 				3758F1A02A7D122100E2933C /* SignInViewController.swift in Sources */,
 				3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */,
 				3758F1902A7D007200E2933C /* ViewController.swift in Sources */,
-				377D3A6F2A86386700377899 /* MapBottomSheet.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
+				37F647872A885421006272FD /* BottomSheetViewModel.swift in Sources */,
 				3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */,
 				37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */,
 				3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */,
 				375916372A7EB36000C21E1F /* SignInService.swift in Sources */,
+				37F647892A885B86006272FD /* BottomSheetViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
