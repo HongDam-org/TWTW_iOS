@@ -32,6 +32,7 @@ final class MainMapViewController: UIViewController  {
     
     private let disposeBag = DisposeBag()
     private let viewModel = MainMapViewModel()
+    private var tapGesture: UITapGestureRecognizer?
     
     // MARK: - View Did Load
     override func viewDidLoad() {
@@ -39,26 +40,31 @@ final class MainMapViewController: UIViewController  {
         
         setupMapView()
         viewModel.setupLocationManager()
-        
-        
+        addTapGesture()
+        bind()
     }
     // MARK: -  View Did Appear
     override func viewDidAppear(_ animated: Bool) {
-        addSubViews()
+        addBottomSheetSubViews()
     }
-    
     
     // MARK: - Fuctions
     
-    /// MARK: Add UI
-    private func addSubViews() {
+    /// MARK: Add Gesture
+    private func addTapGesture(){
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        mapView.addGestureRecognizer(tapGesture ?? UITapGestureRecognizer())
+    }
+    
+    /// MARK: Add BottomSheet UI
+    private func addBottomSheetSubViews() {
         view.addSubview(bottomSheetViewController.view)
         bottomSheetViewController.didMove(toParent: self)
-        configureConstraints()
+        configureBottomSheetConstraints()
     }
     
     /// MARK: Configure Constraints UI
-    private func configureConstraints() {
+    private func configureBottomSheetConstraints() {
         bottomSheetViewController.view.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
             make.height.equalTo(bottomSheetViewController.viewModel.minHeight)
@@ -72,6 +78,38 @@ final class MainMapViewController: UIViewController  {
         view.addSubview(mapView)
     }
     
+    /// MARK: viewModel binding
+    private func bind(){
+        
+        viewModel.checkTouchEventRelay
+            .bind { [weak self] check in
+                if check {  // 화면 터치시 주변 UI 숨기기
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self?.bottomSheetViewController.view.alpha = 0
+                    }) { (completed) in
+                        if completed {
+                            self?.bottomSheetViewController.view.isHidden = true
+                        }
+                    }
+                }
+                else{
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self?.bottomSheetViewController.view.alpha = 1
+                    }) { (completed) in
+                        if completed {
+                            self?.bottomSheetViewController.view.isHidden = false
+                        }
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// MARK: 터치 이벤트 실행
+    @objc
+    private func handleTap(_ gesture: UITapGestureRecognizer) {
+        viewModel.checkingTouchEvents()
+    }
 }
 
 // BottomSheetDelegate 프로토콜
