@@ -12,16 +12,14 @@ import KakaoSDKAuth
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Kakao SDK 초기화
         RxKakaoSDK.initSDK(appKey: Bundle.main.KAKAO_NATIVE_APP_KEY)
 
             return true
-        
+
        }
- 
+
     func setupGlobalAppearance() {
         // 기본 배경색을 흰색으로 설정
         UIView.appearance().backgroundColor = .white
@@ -40,6 +38,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
-
 }
-
