@@ -16,6 +16,7 @@ target 'TWTW' do
   pod 'RxCocoa', '6.5.0'
   pod 'RxKakaoSDK'
   pod 'RxAlamofire'
+  pod 'SwiftLint'
 
   # Utility
   pod 'KeychainSwift', '~> 20.0'

@@ -106,6 +106,20 @@ TWTW_iOS/SecreteKey.plist
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
-# End of https://www.toptal.com/developers/gitignore/api/swift,xcode,swiftpackagemanager
-
+# Secrets 
 TWTW/TWTW/SecretKey.plist
+
+# SwiftLint
+
+SwiftLint.xcodeproj
+SwiftLint.pkg
+*.zip
+benchmark_*
+osscheck/
+docs/
+rule_docs/
+bazel.tar.gz
+bazel.tar.gz.sha256
+ci.bazelrc
+user.bazelrc
+

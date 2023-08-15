@@ -80,14 +80,17 @@ PODS:
     - RxSwift (= 6.5.0)
   - RxSwift (6.5.0)
   - SnapKit (5.6.0)
+  - SwiftLint (0.52.4)
 
 DEPENDENCIES:
   - Alamofire
   - KeychainSwift (~> 20.0)
+  - RxAlamofire
   - RxCocoa (= 6.5.0)
   - RxKakaoSDK
   - RxSwift (= 6.5.0)
   - SnapKit (~> 5.6.0)
+  - SwiftLint
 
 SPEC REPOS:
   trunk:
@@ -116,6 +119,7 @@ SPEC REPOS:
     - RxRelay
     - RxSwift
     - SnapKit
+    - SwiftLint
 
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
@@ -143,7 +147,8 @@ SPEC CHECKSUMS:
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
 
-PODFILE CHECKSUM: 20a473ae2b387bb3e8259ec44e78614fc7469c0d
+PODFILE CHECKSUM: b419a5be76658a26755c49df8067be0702a915e2
 
 COCOAPODS: 1.12.1

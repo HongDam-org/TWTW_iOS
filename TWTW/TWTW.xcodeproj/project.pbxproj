@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B7F18672A8B41FD00B5D7C1 /* SnapshotUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F18662A8B41FD00B5D7C1 /* SnapshotUITests.swift */; };
+		0B7F18692A8B41FD00B5D7C1 /* SnapshotUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F18682A8B41FD00B5D7C1 /* SnapshotUITestsLaunchTests.swift */; };
+		0B7F18702A8B432D00B5D7C1 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F186F2A8B432D00B5D7C1 /* SnapshotHelper.swift */; };
 		37571BF72A8555ED0069AC65 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37571BF62A8555ED0069AC65 /* SecretKey.plist */; };
 		3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18B2A7D007200E2933C /* AppDelegate.swift */; };
 		3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18D2A7D007200E2933C /* SceneDelegate.swift */; };
@@ -21,7 +24,21 @@
 		A2C5FD0B5A187A9F3FB45AFD /* Pods_TWTW.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A367E7DCDA393CBBE10500B8 /* Pods_TWTW.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		0B7F186D2A8B426900B5D7C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3758F1802A7D007100E2933C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3758F1872A7D007100E2933C;
+			remoteInfo = TWTW;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		0B7F18642A8B41FD00B5D7C1 /* SnapshotUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapshotUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B7F18662A8B41FD00B5D7C1 /* SnapshotUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotUITests.swift; sourceTree = "<group>"; };
+		0B7F18682A8B41FD00B5D7C1 /* SnapshotUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0B7F186F2A8B432D00B5D7C1 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		2172DC9500DCD676C7991DAB /* Pods-TWTW.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWTW.debug.xcconfig"; path = "Target Support Files/Pods-TWTW/Pods-TWTW.debug.xcconfig"; sourceTree = "<group>"; };
 		37571BF62A8555ED0069AC65 /* SecretKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
 		3758F1882A7D007200E2933C /* TWTW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWTW.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,6 +59,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0B7F18612A8B41FD00B5D7C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3758F1852A7D007100E2933C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -53,6 +77,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B7F18652A8B41FD00B5D7C1 /* SnapshotUITests */ = {
+			isa = PBXGroup;
+			children = (
+				0B7F186F2A8B432D00B5D7C1 /* SnapshotHelper.swift */,
+				0B7F18662A8B41FD00B5D7C1 /* SnapshotUITests.swift */,
+				0B7F18682A8B41FD00B5D7C1 /* SnapshotUITestsLaunchTests.swift */,
+			);
+			path = SnapshotUITests;
+			sourceTree = "<group>";
+		};
 		0E2B6A05E60DAF0F19D03709 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				3758F18A2A7D007200E2933C /* TWTW */,
+				0B7F18652A8B41FD00B5D7C1 /* SnapshotUITests */,
 				3758F1892A7D007200E2933C /* Products */,
 				0E2B6A05E60DAF0F19D03709 /* Pods */,
 				FABA50B33D669228E992C196 /* Frameworks */,
@@ -76,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				3758F1882A7D007200E2933C /* TWTW.app */,
+				0B7F18642A8B41FD00B5D7C1 /* SnapshotUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -167,6 +203,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0B7F18632A8B41FD00B5D7C1 /* SnapshotUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0B7F186C2A8B41FD00B5D7C1 /* Build configuration list for PBXNativeTarget "SnapshotUITests" */;
+			buildPhases = (
+				0B7F18602A8B41FD00B5D7C1 /* Sources */,
+				0B7F18612A8B41FD00B5D7C1 /* Frameworks */,
+				0B7F18622A8B41FD00B5D7C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0B7F186E2A8B426900B5D7C1 /* PBXTargetDependency */,
+			);
+			name = SnapshotUITests;
+			productName = SnapshotUITests;
+			productReference = 0B7F18642A8B41FD00B5D7C1 /* SnapshotUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		3758F1872A7D007100E2933C /* TWTW */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3758F19C2A7D007300E2933C /* Build configuration list for PBXNativeTarget "TWTW" */;
@@ -177,6 +231,7 @@
 				3758F1862A7D007100E2933C /* Resources */,
 				23A1F16DD389A935B0FAD0DE /* [CP] Embed Pods Frameworks */,
 				832BEA7D0C5098B4915D8FB6 /* [CP] Copy Pods Resources */,
+				0B7F18712A8B599F00B5D7C1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -194,9 +249,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					0B7F18632A8B41FD00B5D7C1 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 3758F1872A7D007100E2933C;
+					};
 					3758F1872A7D007100E2933C = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
@@ -216,11 +275,19 @@
 			projectRoot = "";
 			targets = (
 				3758F1872A7D007100E2933C /* TWTW */,
+				0B7F18632A8B41FD00B5D7C1 /* SnapshotUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0B7F18622A8B41FD00B5D7C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3758F1862A7D007100E2933C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -234,6 +301,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0B7F18712A8B599F00B5D7C1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		23A1F16DD389A935B0FAD0DE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -293,6 +377,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0B7F18602A8B41FD00B5D7C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B7F18692A8B41FD00B5D7C1 /* SnapshotUITestsLaunchTests.swift in Sources */,
+				0B7F18672A8B41FD00B5D7C1 /* SnapshotUITests.swift in Sources */,
+				0B7F18702A8B432D00B5D7C1 /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3758F1842A7D007100E2933C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -310,6 +404,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		0B7F186E2A8B426900B5D7C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3758F1872A7D007100E2933C /* TWTW */;
+			targetProxy = 0B7F186D2A8B426900B5D7C1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		3758F1962A7D007300E2933C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -322,6 +424,57 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0B7F186A2A8B41FD00B5D7C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LVBMDY357W;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HDJ.TWTW1.SnapshotUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TWTW;
+			};
+			name = Debug;
+		};
+		0B7F186B2A8B41FD00B5D7C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LVBMDY357W;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HDJ.TWTW1.SnapshotUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TWTW;
+			};
+			name = Release;
+		};
 		3758F19A2A7D007300E2933C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -500,6 +653,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0B7F186C2A8B41FD00B5D7C1 /* Build configuration list for PBXNativeTarget "SnapshotUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0B7F186A2A8B41FD00B5D7C1 /* Debug */,
+				0B7F186B2A8B41FD00B5D7C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3758F1832A7D007100E2933C /* Build configuration list for PBXProject "TWTW" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
