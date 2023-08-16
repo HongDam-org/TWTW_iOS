@@ -6,11 +6,9 @@
 //
 
 import UIKit
-import NMapsMap
 import RxCocoa
 import RxSwift
 import SnapKit
-import CoreLocation //위치정보
 
 ///MainMapViewController - 지도화면
 final class MainMapViewController: UIViewController  {
@@ -23,13 +21,6 @@ final class MainMapViewController: UIViewController  {
         return view
     }()
     
-    /// MARK: 네이버 지도
-    private lazy var mapView: NMFMapView = {
-        var view = NMFMapView()
-        view.positionMode = .normal
-        return view
-    }()
-    
     private let disposeBag = DisposeBag()
     private let viewModel = MainMapViewModel()
     private var tapGesture: UITapGestureRecognizer?
@@ -38,9 +29,6 @@ final class MainMapViewController: UIViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupMapView()
-        viewModel.setupLocationManager()
-        addTapGesture()
         bind()
     }
     // MARK: -  View Did Appear
@@ -50,11 +38,6 @@ final class MainMapViewController: UIViewController  {
     
     // MARK: - Fuctions
     
-    /// MARK: Add Gesture
-    private func addTapGesture(){
-        tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        mapView.addGestureRecognizer(tapGesture ?? UITapGestureRecognizer())
-    }
     
     /// MARK: Add BottomSheet UI
     private func addBottomSheetSubViews() {
@@ -71,12 +54,7 @@ final class MainMapViewController: UIViewController  {
         }
     }
     
-    /// setupMapView()
-    private func setupMapView() {
-        mapView = NMFMapView(frame: view.frame)
-        mapView.positionMode = .normal
-        view.addSubview(mapView)
-    }
+
     
     /// MARK: viewModel binding
     private func bind(){

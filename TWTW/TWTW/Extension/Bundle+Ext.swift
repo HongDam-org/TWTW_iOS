@@ -6,16 +6,13 @@
 //
 
 import Foundation
-import NMapsMap
 
 extension Bundle {
 
     var KAKAO_NATIVE_APP_KEY: String {
         return getSecretKey(key: "KAKAO_NATIVE_APP_KEY")
     }
-    var NMFClientId: String {
-        return getSecretKey(key: "NMFClientId")
-    }
+   
     
     // SecretKey.plist에서 값 가져오기
     /// - parameter key : SecretKey.plist에 등록된 Key

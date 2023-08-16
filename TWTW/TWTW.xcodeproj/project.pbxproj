@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8402A8D23EE00D63A16 /* SnapKit */; };
+		3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8432A8D242C00D63A16 /* Alamofire */; };
+		3751E8472A8D246A00D63A16 /* RxKakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8462A8D246A00D63A16 /* RxKakaoSDK */; };
+		3751E84A2A8D24CE00D63A16 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8492A8D24CE00D63A16 /* RxCocoa */; };
+		3751E84C2A8D24CE00D63A16 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E84B2A8D24CE00D63A16 /* RxRelay */; };
+		3751E84E2A8D24CE00D63A16 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E84D2A8D24CE00D63A16 /* RxSwift */; };
 		37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */; };
 		3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18B2A7D007200E2933C /* AppDelegate.swift */; };
 		3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18D2A7D007200E2933C /* SceneDelegate.swift */; };
@@ -50,6 +56,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3751E84E2A8D24CE00D63A16 /* RxSwift in Frameworks */,
+				3751E84C2A8D24CE00D63A16 /* RxRelay in Frameworks */,
+				3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */,
+				3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */,
+				3751E84A2A8D24CE00D63A16 /* RxCocoa in Frameworks */,
+				3751E8472A8D246A00D63A16 /* RxKakaoSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +196,14 @@
 			dependencies = (
 			);
 			name = TWTW;
+			packageProductDependencies = (
+				3751E8402A8D23EE00D63A16 /* SnapKit */,
+				3751E8432A8D242C00D63A16 /* Alamofire */,
+				3751E8462A8D246A00D63A16 /* RxKakaoSDK */,
+				3751E8492A8D24CE00D63A16 /* RxCocoa */,
+				3751E84B2A8D24CE00D63A16 /* RxRelay */,
+				3751E84D2A8D24CE00D63A16 /* RxSwift */,
+			);
 			productName = TWTW;
 			productReference = 3758F1882A7D007200E2933C /* TWTW.app */;
 			productType = "com.apple.product-type.application";
@@ -212,6 +232,12 @@
 				Base,
 			);
 			mainGroup = 3758F17F2A7D007100E2933C;
+			packageReferences = (
+				3751E83F2A8D23EE00D63A16 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				3751E8422A8D242C00D63A16 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				3751E8452A8D246A00D63A16 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
+				3751E8482A8D24CE00D63A16 /* XCRemoteSwiftPackageReference "RxSwift" */,
+			);
 			productRefGroup = 3758F1892A7D007200E2933C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -467,6 +493,74 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3751E83F2A8D23EE00D63A16 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		3751E8422A8D242C00D63A16 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		3751E8452A8D246A00D63A16 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk-rx";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		3751E8482A8D24CE00D63A16 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3751E8402A8D23EE00D63A16 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3751E83F2A8D23EE00D63A16 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		3751E8432A8D242C00D63A16 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3751E8422A8D242C00D63A16 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		3751E8462A8D246A00D63A16 /* RxKakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3751E8452A8D246A00D63A16 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
+			productName = RxKakaoSDK;
+		};
+		3751E8492A8D24CE00D63A16 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3751E8482A8D24CE00D63A16 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		3751E84B2A8D24CE00D63A16 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3751E8482A8D24CE00D63A16 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		3751E84D2A8D24CE00D63A16 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3751E8482A8D24CE00D63A16 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3758F1802A7D007100E2933C /* Project object */;
 }
