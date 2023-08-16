@@ -9,7 +9,7 @@ import UIKit
 import RxKakaoSDKCommon
 import RxKakaoSDKAuth
 import KakaoSDKAuth
-import NMapsMap
+
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,8 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Kakao SDK 초기화
         RxKakaoSDK.initSDK(appKey: Bundle.main.KAKAO_NATIVE_APP_KEY)
-        // 네이버 지도 SDK 초기화
-        NMFAuthManager.shared().clientId = Bundle.main.NMFClientId
+        
         return true
         
     }
