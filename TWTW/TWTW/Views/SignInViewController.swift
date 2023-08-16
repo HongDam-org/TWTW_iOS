@@ -119,7 +119,8 @@ final class SignInViewController: UIViewController {
     
 }
 
-// ASAuthorizationControllerDelegate 프로토콜 ASAuthorizationControllerPresentationContextProviding 프로토콜로 애플 로그인사용
+//MARK: - extension :ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding
+
 extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     /// 애플 로그인 결과를 처리하는 함수
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {

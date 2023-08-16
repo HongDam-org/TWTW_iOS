@@ -19,6 +19,9 @@ target 'TWTW' do
 
   # Utility
   pod 'KeychainSwift', '~> 20.0'
+  
+  # Maps
+  pod 'NMapsMap'
  
   # Pods for TWTW
 
