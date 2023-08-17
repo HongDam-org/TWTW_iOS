@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RxRelay
 
 ///BottomSheetViewModel
 final class BottomSheetViewModel {
@@ -21,13 +22,15 @@ final class BottomSheetViewModel {
         self.midHeight = viewHeight * 0.5
         self.maxHeight = viewHeight * 0.8
     }
-    final func calculateTargetHeight(currentHeight: CGFloat, translationY: CGFloat) -> CGFloat {
+    
+    func calculateTargetHeight(currentHeight: CGFloat, translationY: CGFloat) -> CGFloat {
         let newHeight = currentHeight - translationY
         let changedHeight = min(max(newHeight, minHeight * 0.8), maxHeight)
         return changedHeight
     }
+    
     ///특정 구간으로 지정
-    final func calculateFinalHeight(changedHeight: CGFloat) -> CGFloat {
+    func calculateFinalHeight(changedHeight: CGFloat) -> CGFloat {
         if changedHeight > midHeight {
             return maxHeight
         } else if changedHeight > minHeight {

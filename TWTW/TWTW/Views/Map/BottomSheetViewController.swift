@@ -10,13 +10,8 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-///동적 높이 변화델리게이트 - BottomSheetDelegate
-protocol BottomSheetDelegate: AnyObject {
-    func didUpdateBottomSheetHeight(_ height: CGFloat)
-}
 ///BottomSheetContentViewController
 final class BottomSheetViewController: UIViewController {
-    
     
     private let disposeBag = DisposeBag()
     var viewModel: BottomSheetViewModel!
@@ -29,6 +24,7 @@ final class BottomSheetViewController: UIViewController {
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner] // 상단 양쪽 모서리만 둥글게 설정
         return view
     }()
+    
     private var bottomSheetHeightConstraint: Constraint?
     weak var delegate: BottomSheetDelegate?
     
@@ -88,7 +84,10 @@ final class BottomSheetViewController: UIViewController {
             
         }
     }
-    
-    
-    
+}
+
+
+///동적 높이 변화델리게이트 - BottomSheetDelegate
+protocol BottomSheetDelegate: AnyObject {
+    func didUpdateBottomSheetHeight(_ height: CGFloat)
 }

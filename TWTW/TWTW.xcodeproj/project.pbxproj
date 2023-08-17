@@ -63,6 +63,7 @@
 		37F647892A885B86006272FD /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F647882A885B86006272FD /* BottomSheetViewController.swift */; };
 		3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */; };
 		3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */; };
+		3BDF38CE2A8E678C00DFB93C /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3BDF38CD2A8E678C00DFB93C /* Config.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,7 +80,6 @@
 		3758F1C12A7E741C00E2933C /* TWTW.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TWTW.entitlements; sourceTree = "<group>"; };
 		375916362A7EB36000C21E1F /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
 		3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
-		376578B72A8E62FA00782B0C /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		3777AF7E2A8E3FB500CA63E5 /* KakaoMapHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KakaoMapHeader.h; sourceTree = "<group>"; };
 		3777AF812A8E3FF100CA63E5 /* map_pinup_custom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pinup_custom@3x.png"; sourceTree = "<group>"; };
 		3777AF822A8E3FF100CA63E5 /* map_pin_custom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin_custom.png; sourceTree = "<group>"; };
@@ -129,6 +129,7 @@
 		37F647882A885B86006272FD /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModel.swift; sourceTree = "<group>"; };
 		3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignInViewModel.swift; path = TWTW/ViewModel/SignInViewModel.swift; sourceTree = SOURCE_ROOT; };
+		3BDF38CD2A8E678C00DFB93C /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,7 +189,7 @@
 				3758F1992A7D007300E2933C /* Info.plist */,
 				3758F1C12A7E741C00E2933C /* TWTW.entitlements */,
 				3777AFC22A8E408F00CA63E5 /* MapViewController.swift */,
-				376578B72A8E62FA00782B0C /* Config.xcconfig */,
+				3BDF38CD2A8E678C00DFB93C /* Config.xcconfig */,
 			);
 			path = TWTW;
 			sourceTree = "<group>";
@@ -425,6 +426,7 @@
 				3777AFB32A8E3FF100CA63E5 /* map_present_tracking.png in Resources */,
 				3777AFAA2A8E3FF100CA63E5 /* detail_button.png in Resources */,
 				3777AFBD2A8E3FF100CA63E5 /* noimage.png in Resources */,
+				3BDF38CE2A8E678C00DFB93C /* Config.xcconfig in Resources */,
 				3777AFAF2A8E3FF100CA63E5 /* th_line.png in Resources */,
 				3777AFB82A8E3FF100CA63E5 /* info_box_tail.png in Resources */,
 				3777AFA72A8E3FF100CA63E5 /* map_pin_custom.png in Resources */,
@@ -480,7 +482,6 @@
 /* Begin XCBuildConfiguration section */
 		3758F19A2A7D007300E2933C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 376578B72A8E62FA00782B0C /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -541,7 +542,6 @@
 		};
 		3758F19B2A7D007300E2933C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 376578B72A8E62FA00782B0C /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -597,7 +597,7 @@
 		};
 		3758F19D2A7D007300E2933C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 376578B72A8E62FA00782B0C /* Config.xcconfig */;
+			baseConfigurationReference = 3BDF38CD2A8E678C00DFB93C /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -608,7 +608,7 @@
 				DEVELOPMENT_TEAM = LVBMDY357W;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/dami/Desktop/Ios/이길저길/TWTW_iOS/TWTW/KakaoMapHeader.h",
+					"$(KaKaoMapHeaderPath)",
 					"$(PROJECT_DIR)/TWTW/DaumMap.embeddedframework",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
@@ -628,7 +628,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.HDJ.TWTW1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/dami/Desktop/Ios/이길저길/TWTW_iOS/TWTW/KakaoMapHeader.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(KaKaoMapHeaderPath)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -636,7 +636,7 @@
 		};
 		3758F19E2A7D007300E2933C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 376578B72A8E62FA00782B0C /* Config.xcconfig */;
+			baseConfigurationReference = 3BDF38CD2A8E678C00DFB93C /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -647,7 +647,7 @@
 				DEVELOPMENT_TEAM = LVBMDY357W;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/dami/Desktop/Ios/이길저길/TWTW_iOS/TWTW/KakaoMapHeader.h",
+					"$(KaKaoMapHeaderPath)",
 					"$(PROJECT_DIR)/TWTW/DaumMap.embeddedframework",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
@@ -667,7 +667,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.HDJ.TWTW1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/dami/Desktop/Ios/이길저길/TWTW_iOS/TWTW/KakaoMapHeader.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(KaKaoMapHeaderPath)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
