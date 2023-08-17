@@ -94,7 +94,7 @@ TWTW/TWTW/TWTW.entitlements
 .DS_Store
 */KeychainWrapper.swift
 ### Xcode ###
-TWTW/TWTW/SecretKey.plist
+TWTW/TWTW/Config.xcconfig
 
 ## Xcode 8 and earlier
 
@@ -108,4 +108,6 @@ TWTW/TWTW/SecretKey.plist
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode,swiftpackagemanager
+
+
 

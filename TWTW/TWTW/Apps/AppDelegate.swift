@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Kakao SDK 초기화
-        RxKakaoSDK.initSDK(appKey: Bundle.main.KAKAO_NATIVE_APP_KEY)
-        
+        let kakaoNativeAppKey = Bundle.main.infoDictionary?["KAKAO_NATIVE_APP_KEY"] ?? ""
+        RxKakaoSDK.initSDK(appKey: kakaoNativeAppKey as? String ?? "")
         return true
         
     }

@@ -61,7 +61,6 @@
 		37CF6F142A8E3DEA00FE3498 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CF6F102A8E3D7400FE3498 /* libxml2.tbd */; };
 		37F647872A885421006272FD /* BottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F647862A885421006272FD /* BottomSheetViewModel.swift */; };
 		37F647892A885B86006272FD /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F647882A885B86006272FD /* BottomSheetViewController.swift */; };
-		3B267B982A87AECA00F3949A /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B267B972A87AECA00F3949A /* SecretKey.plist */; };
 		3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */; };
 		3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -80,6 +79,7 @@
 		3758F1C12A7E741C00E2933C /* TWTW.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TWTW.entitlements; sourceTree = "<group>"; };
 		375916362A7EB36000C21E1F /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
 		3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		376578B72A8E62FA00782B0C /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		3777AF7E2A8E3FB500CA63E5 /* KakaoMapHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KakaoMapHeader.h; sourceTree = "<group>"; };
 		3777AF812A8E3FF100CA63E5 /* map_pinup_custom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pinup_custom@3x.png"; sourceTree = "<group>"; };
 		3777AF822A8E3FF100CA63E5 /* map_pin_custom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin_custom.png; sourceTree = "<group>"; };
@@ -127,7 +127,6 @@
 		37CF6F112A8E3D7C00FE3498 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		37F647862A885421006272FD /* BottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewModel.swift; sourceTree = "<group>"; };
 		37F647882A885B86006272FD /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
-		3B267B972A87AECA00F3949A /* SecretKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
 		3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModel.swift; sourceTree = "<group>"; };
 		3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignInViewModel.swift; path = TWTW/ViewModel/SignInViewModel.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -187,9 +186,9 @@
 				3758F1BC2A7E1E2C00E2933C /* Views */,
 				3758F1942A7D007300E2933C /* Assets.xcassets */,
 				3758F1992A7D007300E2933C /* Info.plist */,
-				3B267B972A87AECA00F3949A /* SecretKey.plist */,
 				3758F1C12A7E741C00E2933C /* TWTW.entitlements */,
 				3777AFC22A8E408F00CA63E5 /* MapViewController.swift */,
+				376578B72A8E62FA00782B0C /* Config.xcconfig */,
 			);
 			path = TWTW;
 			sourceTree = "<group>";
@@ -436,7 +435,6 @@
 				3777AFBA2A8E3FF100CA63E5 /* map_present_direction.png in Resources */,
 				3777AFB92A8E3FF100CA63E5 /* noimage256.png in Resources */,
 				3777AFA82A8E3FF100CA63E5 /* shadow_balloon.png in Resources */,
-				3B267B982A87AECA00F3949A /* SecretKey.plist in Resources */,
 				3758F1952A7D007300E2933C /* Assets.xcassets in Resources */,
 				3777AFBF2A8E3FF100CA63E5 /* daum_th_line.png in Resources */,
 				3777AFA92A8E3FF100CA63E5 /* map_pinup.png in Resources */,
@@ -482,6 +480,7 @@
 /* Begin XCBuildConfiguration section */
 		3758F19A2A7D007300E2933C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 376578B72A8E62FA00782B0C /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -542,6 +541,7 @@
 		};
 		3758F19B2A7D007300E2933C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 376578B72A8E62FA00782B0C /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -597,6 +597,7 @@
 		};
 		3758F19D2A7D007300E2933C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 376578B72A8E62FA00782B0C /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -635,6 +636,7 @@
 		};
 		3758F19E2A7D007300E2933C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 376578B72A8E62FA00782B0C /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         //루트 뷰 컨트롤러를 SignInViewController로 설정
-        let signInViewController = MapViewController()
+        let signInViewController = SignInViewController()
         window?.rootViewController = signInViewController
         
         //화면 보이게 윈도우 키 윈도우 설정
