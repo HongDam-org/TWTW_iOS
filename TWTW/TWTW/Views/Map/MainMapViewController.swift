@@ -10,8 +10,12 @@ import RxCocoa
 import RxSwift
 import SnapKit
 
+
+public let DEFAULT_POSITION = MTMapPointGeo(latitude: 37.576568, longitude: 127.029148) //초기 지도의 기본 위치 : 서울
+
 ///MainMapViewController - 지도화면
 final class MainMapViewController: UIViewController  {
+    let locationDelegate = LocationManagerDelegate()
     
     /// MARK: 지도 아랫부분 화면
     private lazy var bottomSheetViewController: BottomSheetViewController = {
@@ -25,10 +29,23 @@ final class MainMapViewController: UIViewController  {
     private let viewModel = MainMapViewModel()
     private var tapGesture: UITapGestureRecognizer?
     
+    
+    private lazy var mapView: MTMapView = {
+        let mapView = MTMapView()
+        mapView.delegate = self
+        mapView.baseMapType = .standard
+        mapView.setMapCenter(MTMapPoint(geoCoord: DEFAULT_POSITION), zoomLevel: 1, animated: true)
+        mapView.showCurrentLocationMarker = true
+        mapView.currentLocationTrackingMode = .onWithoutHeading
+        
+        return mapView
+    }()
+    
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        locationDelegate.checkAuthorizationStatus()
+        setupMapViewUI()
         bind()
     }
     // MARK: -  View Did Appear
@@ -38,7 +55,21 @@ final class MainMapViewController: UIViewController  {
     
     // MARK: - Fuctions
     
+    private func setupMapViewUI() {
+        addSubViews()
+        
+    }
     
+    private func addSubViews() {
+        view.addSubview(mapView)
+        configureConstraints()
+    }
+    
+    private func configureConstraints(){
+        mapView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
     /// MARK: Add BottomSheet UI
     private func addBottomSheetSubViews() {
         view.addSubview(bottomSheetViewController.view)
@@ -53,9 +84,6 @@ final class MainMapViewController: UIViewController  {
             make.height.equalTo(bottomSheetViewController.viewModel.minHeight)
         }
     }
-    
-
-    
     /// MARK: viewModel binding
     private func bind(){
         
@@ -101,4 +129,19 @@ extension MainMapViewController: BottomSheetDelegate {
             self.view.layoutIfNeeded()
         }
     }
+}
+extension MainMapViewController: MTMapViewDelegate{
+    // Custom: 현 위치 트래킹 함수
+    func mapView(_ mapView: MTMapView!, updateCurrentLocation location: MTMapPoint!, withAccuracy accuracy: MTMapLocationAccuracy) {
+        let currentLocation = location?.mapPointGeo()
+        if let latitude = currentLocation?.latitude, let longitude = currentLocation?.longitude{
+            print("MTMapView updateCurrentLocation (\(latitude),\(longitude)) accuracy (\(accuracy))")
+        }
+    }
+    
+    func mapView(_ mapView: MTMapView?, updateDeviceHeading headingAngle: MTMapRotationAngle) {
+        print("MTMapView updateDeviceHeading (\(headingAngle)) degrees")
+    }
+    
+    
 }
