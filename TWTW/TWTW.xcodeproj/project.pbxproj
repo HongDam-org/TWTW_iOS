@@ -51,7 +51,6 @@
 		3777AFBF2A8E3FF100CA63E5 /* daum_th_line.png in Resources */ = {isa = PBXBuildFile; fileRef = 3777AFA32A8E3FF100CA63E5 /* daum_th_line.png */; };
 		3777AFC02A8E3FF100CA63E5 /* map_pin_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 3777AFA42A8E3FF100CA63E5 /* map_pin_shadow.png */; };
 		3777AFC12A8E3FF100CA63E5 /* DaumMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3777AFA52A8E3FF100CA63E5 /* DaumMap.framework */; };
-		37A930C62A8FA90900DE1C0F /* LocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A930C52A8FA90900DE1C0F /* LocationManagerDelegate.swift */; };
 		37CF6F082A8E3D3700FE3498 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CF6F072A8E3D3700FE3498 /* OpenGLES.framework */; };
 		37CF6F0A2A8E3D4D00FE3498 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CF6F092A8E3D4D00FE3498 /* SystemConfiguration.framework */; };
 		37CF6F0C2A8E3D5A00FE3498 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CF6F0B2A8E3D5A00FE3498 /* CoreLocation.framework */; };
@@ -117,7 +116,6 @@
 		3777AFA32A8E3FF100CA63E5 /* daum_th_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = daum_th_line.png; sourceTree = "<group>"; };
 		3777AFA42A8E3FF100CA63E5 /* map_pin_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin_shadow.png; sourceTree = "<group>"; };
 		3777AFA52A8E3FF100CA63E5 /* DaumMap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DaumMap.framework; sourceTree = "<group>"; };
-		37A930C52A8FA90900DE1C0F /* LocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerDelegate.swift; sourceTree = "<group>"; };
 		37CF6F072A8E3D3700FE3498 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		37CF6F092A8E3D4D00FE3498 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		37CF6F0B2A8E3D5A00FE3498 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -189,7 +187,6 @@
 				3758F1992A7D007300E2933C /* Info.plist */,
 				3758F1C12A7E741C00E2933C /* TWTW.entitlements */,
 				3BDF38CD2A8E678C00DFB93C /* Config.xcconfig */,
-				37A930C52A8FA90900DE1C0F /* LocationManagerDelegate.swift */,
 			);
 			path = TWTW;
 			sourceTree = "<group>";
@@ -459,7 +456,6 @@
 				37F647872A885421006272FD /* BottomSheetViewModel.swift in Sources */,
 				3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */,
 				37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */,
-				37A930C62A8FA90900DE1C0F /* LocationManagerDelegate.swift in Sources */,
 				3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */,
 				375916372A7EB36000C21E1F /* SignInService.swift in Sources */,
 				37F647892A885B86006272FD /* BottomSheetViewController.swift in Sources */,
