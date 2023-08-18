@@ -17,6 +17,8 @@ final class MainMapViewModel: NSObject {
     
     
     // MARK: - Logic
+    
+    /// MARK: checking Touch Events
     func checkingTouchEvents() {
         let check = checkTouchEventRelay.value
         checkTouchEventRelay.accept(!check)

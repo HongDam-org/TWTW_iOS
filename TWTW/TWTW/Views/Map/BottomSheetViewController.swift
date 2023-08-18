@@ -11,9 +11,7 @@ import RxCocoa
 
 final class BottomSheetViewController: UIViewController {
     
-    private let disposeBag = DisposeBag()
-    var viewModel: BottomSheetViewModel!
-    
+    /// MARK: 하단 UIView
     private let bottomSheetView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -23,39 +21,49 @@ final class BottomSheetViewController: UIViewController {
     }()
     
     weak var delegate: BottomSheetDelegate?
+    private let disposeBag = DisposeBag()
+    private let viewModel = BottomSheetViewModel()
     
-    convenience init(viewModel: BottomSheetViewModel) {
-        self.init()
-        self.viewModel = viewModel
-    }
+    /// MainMapViewController view의 높이
+    var viewHeight: BehaviorRelay<CGFloat> = BehaviorRelay(value: CGFloat())
     
+    
+    // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubViews()
     }
     
+    // MARK: - Functions
+    
+    /// MARK: Add UI
     private func addSubViews() {
         view.addSubview(bottomSheetView)
-        
+
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         bottomSheetView.addGestureRecognizer(panGesture)
-        
         configureConstraints()
     }
     
+    /// MARK: Set AutoLayout
     private func configureConstraints() {
+        viewModel.setupHeight(viewHeight: viewHeight.value)
+        
         bottomSheetView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
             viewModel.heightConstraintRelay.accept(make.height.equalTo(viewModel.minHeight).constraint)
         }
     }
     
+    /// panning Gesture
     @objc
     private func handlePan(_ panGesture: UIPanGestureRecognizer){
         viewModel.handlePan(gesture: panGesture, view: view)
             .subscribe(onNext: { [weak self] targetHeight in
                 guard let self = self else { return }
+                
                 self.delegate?.didUpdateBottomSheetHeight(targetHeight)
+                
                 UIView.animate(withDuration: 0.3) {
                     self.viewModel.heightConstraintRelay.accept(self.viewModel.heightConstraintRelay.value?.update(offset: targetHeight))
                     self.view.layoutIfNeeded()
@@ -63,8 +71,4 @@ final class BottomSheetViewController: UIViewController {
             })
             .disposed(by: disposeBag)
     }
-}
-
-protocol BottomSheetDelegate: AnyObject {
-    func didUpdateBottomSheetHeight(_ height: CGFloat)
 }
