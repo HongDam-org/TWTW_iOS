@@ -36,7 +36,9 @@ final class MainMapViewController: UIViewController  {
         mapView.baseMapType = .standard
         mapView.setMapCenter(MTMapPoint(geoCoord: DEFAULT_POSITION), zoomLevel: 1, animated: true)
         mapView.showCurrentLocationMarker = true
-        mapView.currentLocationTrackingMode = .onWithoutHeading
+        DispatchQueue.global().async {
+            mapView.currentLocationTrackingMode = .onWithoutHeading
+        }
         
         return mapView
     }()
