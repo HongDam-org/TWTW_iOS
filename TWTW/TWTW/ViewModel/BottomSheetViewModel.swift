@@ -64,11 +64,10 @@ final class BottomSheetViewModel {
         var gapTouchY = (initaialTouchY - lastTouchY) //이동된 Y좌표 갭
         
         //초기 화면일 경우, 소수점차이문제로 maxHeight에서 변환시 나는 이슈 가능성 -> Int
-        var viewBoundsHeight_to_Int = Int(view.bounds.height)
-        var maxHeight_to_Int = Int(maxHeight)
-        
+        var floorViewBoundsHeight = floor(view.bounds.height)
+        var ceilMaxHeight = ceil(maxHeight)
         //초기화면의 view높이일때:
-        if viewBoundsHeight_to_Int > maxHeight_to_Int {
+        if floorViewBoundsHeight > ceilMaxHeight {
             heightbyTouch = minHeight + gapTouchY
         }
         else {//view.boudns.height의 초기화면 이후에는 최대 maxHeight
