@@ -64,7 +64,7 @@ final class BottomSheetViewController: UIViewController {
                 
                 self.delegate?.didUpdateBottomSheetHeight(targetHeight)
                 
-                UIView.animate(withDuration: 0.3) {
+                UIView.animate(withDuration: 0.2) {
                     self.viewModel.heightConstraintRelay.accept(self.viewModel.heightConstraintRelay.value?.update(offset: targetHeight))
                     self.view.layoutIfNeeded()
                 }

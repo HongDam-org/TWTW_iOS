@@ -23,7 +23,9 @@ final class BottomSheetViewModel {
     
     /// 최고 높이
     var maxHeight: CGFloat = 0.0
-    
+    let acceptableRange = 0.1 // 자연스러운 변화
+    //handlePan 동작에서 처음 터치된 위치
+    var initaialTouchY : CGFloat = 0.0
     // MARK: - Logic
     
     /// MARK: setting Heights
@@ -34,9 +36,9 @@ final class BottomSheetViewModel {
     }
     
     /// MARK: calculate Target Height
-    func calculateTargetHeight(currentHeight: CGFloat, translationY: CGFloat) -> CGFloat {
-        let newHeight = currentHeight - translationY
-        return min(max(newHeight, minHeight * 0.8), maxHeight)
+    func calculateTargetHeight(viewHeight: CGFloat) -> CGFloat {
+        let newHeight = viewHeight
+        return min(max(newHeight, minHeight * (1 - acceptableRange)), maxHeight * (1 + acceptableRange))
     }
     
     /// MARK: calculate Final Height
@@ -52,15 +54,31 @@ final class BottomSheetViewModel {
     
     /// MARK: when panning Screen
     func handlePan(gesture gestureRecognizer: UIPanGestureRecognizer, view: UIView) -> Observable<CGFloat> {
-        let translation = gestureRecognizer.translation(in: view)
-        let height = heightConstraintRelay.value?.layoutConstraints.first?.constant ?? CGFloat()
-
-        let changedHeight = calculateTargetHeight(currentHeight: height, translationY: translation.y)
-
-        heightConstraintRelay.accept(heightConstraintRelay.value?.update(offset: changedHeight))
-
-        let targetHeight = calculateFinalHeight(changedHeight: changedHeight)
+        //처음 터치위치에 대한 처리
+        if gestureRecognizer.state == .began{
+            initaialTouchY = gestureRecognizer.location(in: view).y
+        }
         
+        let lastTouchY = gestureRecognizer.location(in: view).y
+        var heightbyTouch :CGFloat = 0.0
+        var gapTouchY = (initaialTouchY - lastTouchY) //이동된 Y좌표 갭
+        
+        //초기 화면일 경우, 소수점차이문제로 maxHeight에서 변환시 나는 이슈 가능성 -> Int
+        var viewBoundsHeight_to_Int = Int(view.bounds.height)
+        var maxHeight_to_Int = Int(maxHeight)
+        
+        //초기화면의 view높이일때:
+        if viewBoundsHeight_to_Int > maxHeight_to_Int {
+            heightbyTouch = minHeight + gapTouchY
+        }
+        else {//view.boudns.height의 초기화면 이후에는 최대 maxHeight
+            heightbyTouch = view.bounds.height + gapTouchY
+        }
+        let newHeight = calculateTargetHeight(viewHeight: heightbyTouch)
+        
+        heightConstraintRelay.accept(heightConstraintRelay.value?.update(offset: newHeight))
+        
+        let targetHeight = calculateFinalHeight(changedHeight: newHeight)
         return gestureRecognizer.rx.event
             .filter { $0.state == .ended || $0.state == .cancelled }
             .map { _ in targetHeight }
