@@ -22,7 +22,7 @@ final class BottomSheetViewController: UIViewController {
     
     weak var delegate: BottomSheetDelegate?
     private let disposeBag = DisposeBag()
-    private let viewModel = BottomSheetViewModel()
+     let viewModel = BottomSheetViewModel()
     
     /// MainMapViewController view의 높이
     var viewHeight: BehaviorRelay<CGFloat> = BehaviorRelay(value: CGFloat())

@@ -39,11 +39,12 @@ final class MainMapViewController: UIViewController  {
     private let viewModel = MainMapViewModel()
     private var tapGesture: UITapGestureRecognizer?
     private let locationManager = CLLocationManager()
-    
+    private var initBottomheight = 0.0
     
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
+        initBottomheight = view.bounds.height*(0.2)
         setupMapViewUI()
         configureLocationManager()
         bind()
@@ -94,7 +95,7 @@ final class MainMapViewController: UIViewController  {
     private func configureBottomSheetConstraints() {
         bottomSheetViewController.view.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(self.view.frame.height).multipliedBy(0.2)
+            make.height.equalTo(initBottomheight)
         }
     }
     ///MARK: Add Gesture
