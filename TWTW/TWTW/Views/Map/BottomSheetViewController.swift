@@ -39,7 +39,7 @@ final class BottomSheetViewController: UIViewController {
     /// MARK: Add UI
     private func addSubViews() {
         view.addSubview(bottomSheetView)
-
+        
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         bottomSheetView.addGestureRecognizer(panGesture)
         configureConstraints()
@@ -48,11 +48,13 @@ final class BottomSheetViewController: UIViewController {
     /// MARK: Set AutoLayout
     private func configureConstraints() {
         viewModel.setupHeight(viewHeight: viewHeight.value)
-        
+        var heightConstraint: Constraint? = nil
         bottomSheetView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
-            viewModel.heightConstraintRelay.accept(make.height.equalTo(viewModel.minHeight).constraint)
+            heightConstraint = make.height.equalTo(viewModel.minHeight).constraint
         }
+        viewModel.heightConstraintRelay.accept(heightConstraint)
+        
     }
     
     /// panning Gesture

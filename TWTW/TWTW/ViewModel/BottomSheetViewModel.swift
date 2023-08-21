@@ -33,6 +33,7 @@ final class BottomSheetViewModel {
         self.minHeight = viewHeight * 0.2
         self.midHeight = viewHeight * 0.5
         self.maxHeight = viewHeight * 0.8
+        
     }
     
     /// MARK: calculate Target Height
@@ -61,11 +62,11 @@ final class BottomSheetViewModel {
         
         let lastTouchY = gestureRecognizer.location(in: view).y
         var heightbyTouch :CGFloat = 0.0
-        var gapTouchY = (initaialTouchY - lastTouchY) //이동된 Y좌표 갭
+        let gapTouchY = (initaialTouchY - lastTouchY) //이동된 Y좌표 갭
         
-        //초기 화면일 경우, 소수점차이문제로 maxHeight에서 변환시 나는 이슈 가능성 -> Int
-        var floorViewBoundsHeight = floor(view.bounds.height)
-        var ceilMaxHeight = ceil(maxHeight)
+        //초기 화면일 경우, 부동 소수점차이문제로 maxHeight에서 변환시 나는 이슈 가능성 -> floor ceil로 소수점계산오류 없애기
+        let floorViewBoundsHeight = floor(view.bounds.height)
+        let ceilMaxHeight = ceil(maxHeight)
         //초기화면의 view높이일때:
         if floorViewBoundsHeight > ceilMaxHeight {
             heightbyTouch = minHeight + gapTouchY

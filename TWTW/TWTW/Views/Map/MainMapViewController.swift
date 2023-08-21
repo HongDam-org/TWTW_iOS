@@ -40,18 +40,19 @@ final class MainMapViewController: UIViewController  {
     private var tapGesture: UITapGestureRecognizer?
     private let locationManager = CLLocationManager()
     
-
+    
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMapViewUI()
         configureLocationManager()
         bind()
+        
     }
     
     // MARK: -  View Did Appear
     override func viewDidAppear(_ animated: Bool) {
-        addBottomSheetSubViews()
+     //   addBottomSheetSubViews()
     }
     
     // MARK: - Fuctions
@@ -65,6 +66,8 @@ final class MainMapViewController: UIViewController  {
     /// MARK: set up MapView UI
     private func setupMapViewUI() {
         addSubViews()
+        addTapGesture()
+        addBottomSheetSubViews()
     }
     
     /// MARK: Add  UI
@@ -94,6 +97,11 @@ final class MainMapViewController: UIViewController  {
             make.height.equalTo(self.view.frame.height).multipliedBy(0.2)
         }
     }
+    ///MARK: Add Gesture
+    private func addTapGesture(){
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        mapView.addGestureRecognizer(tapGesture ?? UITapGestureRecognizer())
+    }
     
     /// MARK: viewModel binding
     private func bind(){
@@ -110,13 +118,9 @@ final class MainMapViewController: UIViewController  {
                     }
                 }
                 else{
-                    UIView.animate(withDuration: 0.5, animations: {
-                        self?.bottomSheetViewController.view.alpha = 1
-                    }) { (completed) in
-                        if completed {
-                            self?.bottomSheetViewController.view.isHidden = false
-                        }
-                    }
+                    self?.bottomSheetViewController.view.alpha = 1
+                    
+                    self?.bottomSheetViewController.view.isHidden = false
                 }
             }
             .disposed(by: disposeBag)
@@ -155,7 +159,7 @@ extension MainMapViewController: MTMapViewDelegate{
         }
     }
     
-    /// 단말기 머리 방향 업데이트 
+    /// 단말기 머리 방향 업데이트
     func mapView(_ mapView: MTMapView?, updateDeviceHeading headingAngle: MTMapRotationAngle) {
         print("MTMapView updateDeviceHeading (\(headingAngle)) degrees")
     }
