@@ -45,11 +45,11 @@ final class SignInService{
                     )
                     .disposed(by: self?.disposeBag ?? DisposeBag())
             }
-
+            
             return Disposables.create()
         }
     }
-
+    
     
     
     /// 카카오 사용자 정보 불러오기

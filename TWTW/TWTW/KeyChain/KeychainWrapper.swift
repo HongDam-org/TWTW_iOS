@@ -12,7 +12,7 @@ final class KeychainWrapper {
     
     /// 문자열 값을 Keychain에 저장하는 함수
     static func saveString(value: String, forKey key: String) -> Bool {
-
+        
         /// 문자열을 Data로 변환
         if let data = value.data(using: .utf8) {
             let query: [String: Any] = [
@@ -21,7 +21,7 @@ final class KeychainWrapper {
                 kSecValueData as String: data,// 데이터
                 kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlocked
             ]
-           
+            
             SecItemDelete(query as CFDictionary) // 이미 키에 저장된 값이 있다면 삭제
             let status = SecItemAdd(query as CFDictionary, nil) // Keychain에 새로운 값 저장
             return status == errSecSuccess// 저장 성공 여부를 리턴
