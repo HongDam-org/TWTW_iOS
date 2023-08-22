@@ -13,6 +13,13 @@ import CoreLocation
 
 ///MainMapViewController - 지도화면
 final class MainMapViewController: UIViewController  {
+    /// MARK: 버튼역할의 서치바UI
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "장소, 주소 검색"
+        searchBar.showsCancelButton = false
+        return searchBar
+    }()
     
     /// MARK: 지도 아랫부분 화면
     private lazy var bottomSheetViewController: BottomSheetViewController = {
@@ -22,7 +29,7 @@ final class MainMapViewController: UIViewController  {
         return view
     }()
     
-    /// 지도
+    /// MARK: 지도
     private lazy var mapView: MTMapView = {
         let mapView = MTMapView()
         mapView.delegate = self
@@ -53,7 +60,9 @@ final class MainMapViewController: UIViewController  {
     
     // MARK: -  View Did Appear
     override func viewDidAppear(_ animated: Bool) {
-     //   addBottomSheetSubViews()
+        addSubViews_BottomSheet()
+        setupSearchBar()
+        
     }
     
     // MARK: - Fuctions
@@ -63,47 +72,69 @@ final class MainMapViewController: UIViewController  {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
     }
-    
+  
     /// MARK: set up MapView UI
     private func setupMapViewUI() {
         addSubViews()
-        addTapGesture()
-        addBottomSheetSubViews()
+        addTapGesture_Map()
+       
     }
     
     /// MARK: Add  UI
     private func addSubViews() {
         view.addSubview(mapView)
         configureConstraints()
+        
     }
-    
-    /// MARK: Add BottomSheet UI
-    private func addBottomSheetSubViews() {
+    /// MARK: Add  UI - SearchBar
+    private func addSubViews_SearchBar(){
+        view.addSubview(searchBar)
+        configureConstraints_SearchBar()
+        //addTapGesture_SearchBar()
+        
+    }
+    /// MARK: Add  UI - BottomSheet
+    private func addSubViews_BottomSheet() {
         view.addSubview(bottomSheetViewController.view)
         bottomSheetViewController.didMove(toParent: self)
-        configureBottomSheetConstraints()
+        configureConstraints_BottomSheet()
+    }
+    ///MARK: Setup - SearchBar
+    private func setupSearchBar() {
+        addSubViews_SearchBar()
+        searchBar.delegate = self // 서치바의 delegate 설정
     }
     
     /// MARK: Configure Constraints UI
     private func configureConstraints(){
+        ///mapView
         mapView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+      
     }
-    
-    /// MARK: Configure  BottomSheet Constraints UI
-    private func configureBottomSheetConstraints() {
+    /// MARK: Configure   Constraints UI - SearchBar
+    private func configureConstraints_SearchBar() {
+        searchBar.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
+            make.leading.trailing.equalToSuperview().inset(10)
+          
+        }
+        
+    }
+    /// MARK: Configure  Constraints UI - BottomSheet
+    private func configureConstraints_BottomSheet() {
         bottomSheetViewController.view.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
             make.height.equalTo(initBottomheight)
         }
     }
-    ///MARK: Add Gesture
-    private func addTapGesture(){
+    ///MARK: Add  Gesture - Map
+    private func addTapGesture_Map(){
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         mapView.addGestureRecognizer(tapGesture ?? UITapGestureRecognizer())
     }
-    
+
     /// MARK: viewModel binding
     private func bind(){
         
@@ -149,7 +180,7 @@ extension MainMapViewController: BottomSheetDelegate {
     }
 }
 
-// MTMapViewDelegate 프로토콜
+// MARK: - MTMapViewDelegate
 extension MainMapViewController: MTMapViewDelegate{
     
     /// Custom: 현 위치 트래킹 함수
@@ -166,7 +197,7 @@ extension MainMapViewController: MTMapViewDelegate{
     }
 }
 
-// CLLocationManagerDelegate
+// MARK: - CLLocationManagerDelegate
 extension MainMapViewController: CLLocationManagerDelegate {
     
     /// 위치 권한 확인 변화 됐을 때 실행
@@ -191,4 +222,12 @@ extension MainMapViewController: CLLocationManagerDelegate {
         }
     }
 }
-
+// MARK: - SearchBar Delegate
+extension MainMapViewController: UISearchBarDelegate {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        let searchPlacesMapVC = SearchPlacesMapViewController() // 다음 화면의 뷰 컨트롤러 생성
+       // searchPlacesMapVC.modalPresentationStyle = .fullScreen
+        present(searchPlacesMapVC, animated: true)
+        return false // 검색 동작을 막기 위해 false 반환
+    }
+}
