@@ -24,6 +24,7 @@
 		3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F1B62A7DFB6200E2933C /* Bundle+Ext.swift */; };
 		375916372A7EB36000C21E1F /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375916362A7EB36000C21E1F /* SignInService.swift */; };
 		3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */; };
+		375E8B022A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375E8B012A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift */; };
 		3777AFA62A8E3FF100CA63E5 /* map_pinup_custom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3777AF812A8E3FF100CA63E5 /* map_pinup_custom@3x.png */; };
 		3777AFA72A8E3FF100CA63E5 /* map_pin_custom.png in Resources */ = {isa = PBXBuildFile; fileRef = 3777AF822A8E3FF100CA63E5 /* map_pin_custom.png */; };
 		3777AFA82A8E3FF100CA63E5 /* shadow_balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3777AF832A8E3FF100CA63E5 /* shadow_balloon.png */; };
@@ -84,6 +85,7 @@
 		3758F1C12A7E741C00E2933C /* TWTW.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TWTW.entitlements; sourceTree = "<group>"; };
 		375916362A7EB36000C21E1F /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
 		3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		375E8B012A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlacesCollectionViewCell.swift; sourceTree = "<group>"; };
 		3777AF7E2A8E3FB500CA63E5 /* KakaoMapHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KakaoMapHeader.h; sourceTree = "<group>"; };
 		3777AF812A8E3FF100CA63E5 /* map_pinup_custom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pinup_custom@3x.png"; sourceTree = "<group>"; };
 		3777AF822A8E3FF100CA63E5 /* map_pin_custom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin_custom.png; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 			children = (
 				37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */,
 				37F647882A885B86006272FD /* BottomSheetViewController.swift */,
+				375E8B012A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -491,6 +494,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				375E8B022A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift in Sources */,
 				3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */,
 				37BAF8932A948EF700BD85DC /* SearchPlacesMapViewController.swift in Sources */,
 				3B1C36EF2A8FD30200838682 /* BottomSheetDelegate.swift in Sources */,
@@ -526,6 +530,7 @@
 /* Begin XCBuildConfiguration section */
 		3758F19A2A7D007300E2933C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37BAF8952A949C4900BD85DC /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -586,6 +591,7 @@
 		};
 		3758F19B2A7D007300E2933C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37BAF8952A949C4900BD85DC /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -641,6 +647,7 @@
 		};
 		3758F19D2A7D007300E2933C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37BAF8952A949C4900BD85DC /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -679,6 +686,7 @@
 		};
 		3758F19E2A7D007300E2933C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37BAF8952A949C4900BD85DC /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
