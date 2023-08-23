@@ -10,6 +10,7 @@ import RxCocoa
 import RxSwift
 import SnapKit
 import CoreLocation
+import RxGesture
 
 
 ///MainMapViewController - 지도화면
@@ -72,7 +73,7 @@ final class MainMapViewController: UIViewController  {
 
         return searchBar
     }()
-    var searchBarSearchable : Bool = false//서치바 동작기능 변형 버튼기능->검색기능
+    var searchBarSearchable : Bool = true //서치바 동작기능 변형 버튼기능->검색기능
     
     /// MARK: 지도 아랫부분 화면
     private lazy var bottomSheetViewController: BottomSheetViewController = {
@@ -108,9 +109,8 @@ final class MainMapViewController: UIViewController  {
         setupMapViewUI()
         configureLocationManager()
         setupCollectionViewUI()
+        keyboardDisappear()
         bind()
-
-
     }
     
     // MARK: -  View Did Appear
@@ -122,6 +122,16 @@ final class MainMapViewController: UIViewController  {
     
     // MARK: - Fuctions
     
+    // 키보드를 내리는 제스처 추가
+    private func keyboardDisappear(){
+        let tapGestureToDismissKeyboard = UITapGestureRecognizer()
+        self.view.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                self?.searchBar.resignFirstResponder()
+            })
+            .disposed(by: disposeBag)
+    }
     /// MARK: configureLocationManager
     private func configureLocationManager() {
         locationManager.delegate = self
@@ -216,25 +226,23 @@ final class MainMapViewController: UIViewController  {
 
     /// MARK: viewModel binding
     private func bind(){
-        
-        viewModel.checkTouchEventRelay
-            .bind { [weak self] check in
-                if check {  // 화면 터치시 주변 UI 숨기기
-                    UIView.animate(withDuration: 0.5, animations: {
-                        self?.bottomSheetViewController.view.alpha = 0
-                    }) { (completed) in
-                        if completed {
-                            self?.bottomSheetViewController.view.isHidden = true
-                        }
+    
+        if searchBarSearchable {
+            viewModel.checkTouchEventRelay
+                .bind { [weak self] check in
+                    if check {  // 화면 터치시 주변 UI 숨기기
+                        UIView.animate(withDuration: 0.5, animations: {
+                            self?.bottomSheetViewController.view.alpha = 0
+                        })
+                    }
+                    else{
+                        self?.bottomSheetViewController.view.alpha = 1
+                   
                     }
                 }
-                else{
-                    self?.bottomSheetViewController.view.alpha = 1
-                    
-                    self?.bottomSheetViewController.view.isHidden = false
-                }
-            }
-            .disposed(by: disposeBag)
+                .disposed(by: disposeBag)
+        }
+        
     }
     
     //MARK: -  새로운 UI 요소들을 표시하고 기존 요소들을 숨기는 함수
@@ -247,6 +255,17 @@ final class MainMapViewController: UIViewController  {
         circularView.isHidden = false
         nearbyPlacesCollectionView.isHidden = false
     }
+    ///MARK: -  새로운 UI 요소들을 숨기고 기존 요소들을 보이게 하는 함수
+    private func hideSearchUIElements() {
+        // 새로운 UI 요소들 숨기기
+        searchBar.isHidden = true
+        circularView.isHidden = true
+        nearbyPlacesCollectionView.isHidden = true
+        
+        // 기존 UI 요소 보이기
+        bottomSheetViewController.view.isHidden = false
+    }
+
     
     /// MARK: 터치 이벤트 실행
     @objc
@@ -318,10 +337,10 @@ extension MainMapViewController: CLLocationManagerDelegate {
 extension MainMapViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
        
-        if !searchBarSearchable {
+        if searchBarSearchable {
                     // 처음 클릭시 새로운 UI를 보이도록 처리
                     showSearchUIElements()
-                    searchBarSearchable = true // 검색 동작 가능하도록 플래그를 변경
+                    searchBarSearchable = false// 검색 동작 가능하도록 플래그를 변경
                     return false
                 } else {
                     // 이미 검색 UI가 보이는 경우 검색 동작을 허용
@@ -329,6 +348,7 @@ extension MainMapViewController: UISearchBarDelegate {
                 }
         
     }
+ 
 }
 // MARK: -  UICollectionViewDataSource, UICollectionViewDelegate
 extension MainMapViewController: UICollectionViewDataSource, UICollectionViewDelegate {

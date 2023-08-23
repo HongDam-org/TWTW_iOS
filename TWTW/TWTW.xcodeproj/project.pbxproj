@@ -25,6 +25,7 @@
 		375916372A7EB36000C21E1F /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375916362A7EB36000C21E1F /* SignInService.swift */; };
 		3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */; };
 		375E8B022A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375E8B012A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift */; };
+		375E8B052A96187800F8DE42 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 375E8B042A96187800F8DE42 /* RxGesture */; };
 		3777AFA62A8E3FF100CA63E5 /* map_pinup_custom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3777AF812A8E3FF100CA63E5 /* map_pinup_custom@3x.png */; };
 		3777AFA72A8E3FF100CA63E5 /* map_pin_custom.png in Resources */ = {isa = PBXBuildFile; fileRef = 3777AF822A8E3FF100CA63E5 /* map_pin_custom.png */; };
 		3777AFA82A8E3FF100CA63E5 /* shadow_balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3777AF832A8E3FF100CA63E5 /* shadow_balloon.png */; };
@@ -152,6 +153,7 @@
 				37CF6F142A8E3DEA00FE3498 /* libxml2.tbd in Frameworks */,
 				37CF6F132A8E3DDD00FE3498 /* libc++.tbd in Frameworks */,
 				37CF6F0E2A8E3D6300FE3498 /* QuartzCore.framework in Frameworks */,
+				375E8B052A96187800F8DE42 /* RxGesture in Frameworks */,
 				37CF6F082A8E3D3700FE3498 /* OpenGLES.framework in Frameworks */,
 				37CF6F122A8E3DBC00FE3498 /* libsqlite3.tbd in Frameworks */,
 				3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */,
@@ -405,6 +407,7 @@
 				3751E8492A8D24CE00D63A16 /* RxCocoa */,
 				3751E84B2A8D24CE00D63A16 /* RxRelay */,
 				3751E84D2A8D24CE00D63A16 /* RxSwift */,
+				375E8B042A96187800F8DE42 /* RxGesture */,
 			);
 			productName = TWTW;
 			productReference = 3758F1882A7D007200E2933C /* TWTW.app */;
@@ -439,6 +442,7 @@
 				3751E8422A8D242C00D63A16 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				3751E8452A8D246A00D63A16 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
 				3751E8482A8D24CE00D63A16 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				375E8B032A96187800F8DE42 /* XCRemoteSwiftPackageReference "RxGesture" */,
 			);
 			productRefGroup = 3758F1892A7D007200E2933C /* Products */;
 			projectDirPath = "";
@@ -779,6 +783,14 @@
 				minimumVersion = 6.0.0;
 			};
 		};
+		375E8B032A96187800F8DE42 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -811,6 +823,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3751E8482A8D24CE00D63A16 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		375E8B042A96187800F8DE42 /* RxGesture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 375E8B032A96187800F8DE42 /* XCRemoteSwiftPackageReference "RxGesture" */;
+			productName = RxGesture;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
