@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 // 검색 결과를 표시하는 새로운 View Controller
 class SearchPlacesMapViewController: UIViewController {
