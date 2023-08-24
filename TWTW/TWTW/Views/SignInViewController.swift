@@ -62,7 +62,7 @@ final class SignInViewController: UIViewController {
         
         configureConstraints()
     }
-        
+    
     /// MARK: 카카오로그인, 애플로그인 constraint설정
     private func configureConstraints() {
         kakaoLoginImageView.snp.makeConstraints { make in
@@ -145,5 +145,5 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window ?? UIWindow()
     }
-     
+    
 }
