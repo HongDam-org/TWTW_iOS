@@ -226,23 +226,25 @@ final class MainMapViewController: UIViewController  {
 
     /// MARK: viewModel binding
     private func bind(){
-    
-        if searchBarSearchable {
             viewModel.checkTouchEventRelay
+                .filter { [weak self] _ in
+                    return self?.searchBarSearchable == true
+                }
                 .bind { [weak self] check in
-                    if check {  // 화면 터치시 주변 UI 숨기기
+                    if check {
+                        // 화면 터치시 주변 UI 숨기기
                         UIView.animate(withDuration: 0.5, animations: {
                             self?.bottomSheetViewController.view.alpha = 0
-                        })
-                    }
-                    else{
+                        }) { (completed) in
+                            if completed {
+                                self?.bottomSheetViewController.view.isHidden = true
+                            }
+                        }
+                    } else {
                         self?.bottomSheetViewController.view.alpha = 1
-                   
+                        self?.bottomSheetViewController.view.isHidden = false
                     }
-                }
-                .disposed(by: disposeBag)
-        }
-        
+                } .disposed(by: disposeBag)
     }
     
     //MARK: -  새로운 UI 요소들을 표시하고 기존 요소들을 숨기는 함수
