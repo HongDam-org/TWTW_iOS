@@ -15,6 +15,13 @@ import RxGesture
 
 ///MainMapViewController - 지도화면
 final class MainMapViewController: UIViewController  {
+    //PublishRelay
+    private let myLocationTappedSubject = PublishRelay<Void>()
+    
+    var myLocationTapped: ControlEvent<Void>{
+        return ControlEvent(events: myLocationTappedSubject.asObservable())
+    }
+    
     // 더미 데이터
     private let dummyData: [(imageName: String, title: String, subTitle: String)] = [
         ("image", "Place 1","detail aboudPlace 1"),
@@ -27,10 +34,10 @@ final class MainMapViewController: UIViewController  {
         ("image", "Place 8","detail aboudPlace 8"),
         ("image", "Place 9","detail aboudPlace 9"),
         ("image", "Place 10","detail aboudPlace 10")
-      
+        
     ]
     
-    //MARK -  서치바 클릭 시 보여질 새로운 UI 요소 (circularView, nearbyPlacesCollectionView)
+    //MARK -  서치바 클릭 시 보여질 새로운 UI 요소 (circularView, nearbyPlacesCollectionView, collectionView위 버튼 (중간위치 찾을 VC이동,내위치))
     
     // 원형 반경: (구현전)
     private lazy var circularView: UIView = {
@@ -40,22 +47,31 @@ final class MainMapViewController: UIViewController  {
     }()
     
     // 목적지 근처 장소들을 보여줄 컬렉션 뷰
-   private lazy var nearbyPlacesCollectionView: UICollectionView = {
+    private lazy var nearbyPlacesCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-       collectionView.showsHorizontalScrollIndicator = false
-       collectionView.register(NearbyPlacesCollectionViewCell.self, forCellWithReuseIdentifier: NearbyPlacesCollectionViewCell.cellIdentifier)
-       collectionView.isHidden = true
-       collectionView.backgroundColor = .clear
-       return collectionView
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(NearbyPlacesCollectionViewCell.self, forCellWithReuseIdentifier: NearbyPlacesCollectionViewCell.cellIdentifier)
+        //collectionView.isHidden = true
+        collectionView.backgroundColor = .clear
+        return collectionView
+    }()
+    private lazy var myloctaionImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "myLocation"))
+        imageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(mylocationTappedAction))
+        imageView.addGestureRecognizer(tapGesture)
+        return imageView
     }()
     
-   
+    @objc private func mylocationTappedAction() {
+        myLocationTappedSubject.accept(())
+    }
     
     /// MARK: 버튼역할의 서치바UI
     private lazy var searchBar: UISearchBar = {
-
+        
         let searchBar = UISearchBar()
         searchBar.placeholder = "장소, 주소 검색"
         searchBar.showsCancelButton = false
@@ -70,7 +86,7 @@ final class MainMapViewController: UIViewController  {
         searchBar.layer.shadowOffset = CGSize(width: 0, height: 1.5)
         searchBar.layer.shadowRadius = 1.5
         searchBar.layer.masksToBounds = false
-
+        
         return searchBar
     }()
     var searchBarSearchable : Bool = true //서치바 동작기능 변형 버튼기능->검색기능
@@ -105,22 +121,45 @@ final class MainMapViewController: UIViewController  {
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideSearchUIElements()
         initBottomheight = view.bounds.height*(0.2)
-        setupMapViewUI()
         configureLocationManager()
+        setupMapViewUI() // 지도
+        //기존 UI
+        BottomSheetBind() // 맵 로드 이후
+        
+        //새로운 UI
         setupCollectionViewUI()
+        setupMyLocationUI()
+        
+        //키보드
         keyboardDisappear()
-        bind()
+        
+        
+        view.layoutIfNeeded()
+        
     }
     
     // MARK: -  View Did Appear
     override func viewDidAppear(_ animated: Bool) {
+        setupMyLocationUI()
+        
         addSubViews_BottomSheet()
         setupSearchBar()
+        
+        
         
     }
     
     // MARK: - Fuctions
+    //내 위치중심으로 지도 이동
+    private func myLocationAction(){
+        myLocationTapped
+            .subscribe(onNext: {[weak self] in
+                self?.mapView.currentLocationTrackingMode = .onWithoutHeading
+            })
+            .disposed(by: disposeBag)
+    }
     
     // 키보드를 내리는 제스처 추가
     private func keyboardDisappear(){
@@ -137,18 +176,24 @@ final class MainMapViewController: UIViewController  {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
     }
-  
+    
     /// MARK: set up MapView UI
     private func setupMapViewUI() {
         addSubViews()
         addTapGesture_Map()
-       
+        
     }
     /// MARK: set up CollectionView UI
     private func setupCollectionViewUI() {
         addSubViews_nearbyPlacesCollectionView()
         nearbyPlacesCollectionView.dataSource = self
         nearbyPlacesCollectionView.delegate = self
+    }
+    /// MARK: set up myLocation UI
+    private func setupMyLocationUI() {
+        myLocationAction()
+        addSubViews_myLocation()
+        
     }
     
     
@@ -162,7 +207,7 @@ final class MainMapViewController: UIViewController  {
     private func addSubViews_SearchBar(){
         view.addSubview(searchBar)
         configureConstraints_SearchBar()
-     
+        
         
     }
     /// MARK: Add  UI - BottomSheet
@@ -175,9 +220,13 @@ final class MainMapViewController: UIViewController  {
     private func addSubViews_nearbyPlacesCollectionView(){
         view.addSubview(nearbyPlacesCollectionView)
         configureConstraints_nearbyPlacesCollectionView()
-     
-        
     }
+    /// MARK: Add  UI -  myLoaction
+    private func addSubViews_myLocation(){
+        view.addSubview(myloctaionImageView)
+        configureConstraints_myLoaction()
+    }
+    
     ///MARK: Setup - SearchBar
     private func setupSearchBar() {
         addSubViews_SearchBar()
@@ -190,14 +239,14 @@ final class MainMapViewController: UIViewController  {
         mapView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-      
+        
     }
     /// MARK: Configure   Constraints UI - SearchBar
     private func configureConstraints_SearchBar() {
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
             make.leading.trailing.equalToSuperview().inset(5)
-
+            
         }
         
     }
@@ -214,60 +263,92 @@ final class MainMapViewController: UIViewController  {
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(nearbyPlacesCollectionView.snp.width).multipliedBy(0.7)
             make.bottom.equalToSuperview().inset(20)
-
+            
         }
         
     }
+    /// MARK: Configure   Constraints UI - MyLoaction
+    private func configureConstraints_myLoaction() {
+        myloctaionImageView.snp.remakeConstraints { make in
+            make.trailing.equalToSuperview().inset(5)
+            make.width.height.equalTo(view.snp.width).multipliedBy(0.1)
+            make.bottom.equalTo(view.snp.bottom).offset(-initBottomheight - 10)
+            
+        }
+        
+    }
+    // 조건이 변화했을 때 updateLayout_myloctaionImageView() 제약조건변화
+    func updateLayout_myloctaionImageView() {
+//        if searchBarSearchable {
+//            myloctaionImageView.snp.remakeConstraints { make in
+//                make.trailing.equalToSuperview().inset(5)
+//                make.width.height.equalTo(view.snp.width).multipliedBy(0.1)
+//                make.bottom.equalTo(view.snp.bottom).offset(-initBottomheight - 10)
+//            }
+//        } else {
+            myloctaionImageView.snp.remakeConstraints { make in
+                make.trailing.equalToSuperview().inset(5)
+                make.width.height.equalTo(view.snp.width).multipliedBy(0.1)
+                make.bottom.equalTo(nearbyPlacesCollectionView.snp.top).offset(-5)
+            }
+        
+        
+        // 변경된 제약 조건 적용
+        view.layoutIfNeeded()
+    }
+    
     ///MARK: Add  Gesture - Map
     private func addTapGesture_Map(){
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         mapView.addGestureRecognizer(tapGesture ?? UITapGestureRecognizer())
     }
-
+    
     /// MARK: viewModel binding
-    private func bind(){
-            viewModel.checkTouchEventRelay
-                .filter { [weak self] _ in
-                    return self?.searchBarSearchable == true
-                }
-                .bind { [weak self] check in
-                    if check {
-                        // 화면 터치시 주변 UI 숨기기
-                        UIView.animate(withDuration: 0.5, animations: {
-                            self?.bottomSheetViewController.view.alpha = 0
-                        }) { (completed) in
-                            if completed {
-                                self?.bottomSheetViewController.view.isHidden = true
-                            }
+    private func BottomSheetBind(){
+        viewModel.checkTouchEventRelay
+            .filter { [weak self] _ in
+                return self?.searchBarSearchable == true
+            }
+            .bind { [weak self] check in
+                if check {
+                    // 화면 터치시 주변 UI 숨기기
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self?.bottomSheetViewController.view.alpha = 0
+                    }) { (completed) in
+                        if completed {
+                            self?.bottomSheetViewController.view.isHidden = true
                         }
-                    } else {
-                        self?.bottomSheetViewController.view.alpha = 1
-                        self?.bottomSheetViewController.view.isHidden = false
                     }
-                } .disposed(by: disposeBag)
+                } else {
+                    self?.bottomSheetViewController.view.alpha = 1
+                    self?.bottomSheetViewController.view.isHidden = false
+                }
+            } .disposed(by: disposeBag)
     }
     
-    //MARK: -  새로운 UI 요소들을 표시하고 기존 요소들을 숨기는 함수
+    ///MARK: -  새로운 UI 요소들을 표시하고 기존 요소들을 숨기는 함수
     private func showSearchUIElements() {
         // 기존 UI 요소 숨기기
         bottomSheetViewController.view.isHidden = true
         
         //새로운 UI요소 보이기
-        searchBar.isHidden = false
         circularView.isHidden = false
         nearbyPlacesCollectionView.isHidden = false
+//        updateLayout()
+
+        
     }
     ///MARK: -  새로운 UI 요소들을 숨기고 기존 요소들을 보이게 하는 함수
     private func hideSearchUIElements() {
         // 새로운 UI 요소들 숨기기
-        searchBar.isHidden = true
         circularView.isHidden = true
         nearbyPlacesCollectionView.isHidden = true
         
         // 기존 UI 요소 보이기
         bottomSheetViewController.view.isHidden = false
-    }
 
+    }
+    
     
     /// MARK: 터치 이벤트 실행
     @objc
@@ -338,19 +419,18 @@ extension MainMapViewController: CLLocationManagerDelegate {
 // MARK: - SearchBar Delegate
 extension MainMapViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-       
         if searchBarSearchable {
-                    // 처음 클릭시 새로운 UI를 보이도록 처리
-                    showSearchUIElements()
-                    searchBarSearchable = false// 검색 동작 가능하도록 플래그를 변경
-                    return false
-                } else {
-                    // 이미 검색 UI가 보이는 경우 검색 동작을 허용
-                    return true
-                }
-        
+            // 처음 클릭시 새로운 UI를 보이도록 처리
+            showSearchUIElements()
+            updateLayout_myloctaionImageView()
+            searchBarSearchable = false// 검색 동작 가능하도록 플래그를 변경
+            return false
+        } else {
+            // 이미 검색 UI가 보이는 경우 검색 동작을 허용
+
+            return true
+        }
     }
- 
 }
 // MARK: -  UICollectionViewDataSource, UICollectionViewDelegate
 extension MainMapViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -362,7 +442,7 @@ extension MainMapViewController: UICollectionViewDataSource, UICollectionViewDel
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NearbyPlacesCollectionViewCell.cellIdentifier, for: indexPath) as! NearbyPlacesCollectionViewCell
         
         let data = dummyData[indexPath.item]
-       
+        
         cell.imageView.image = UIImage(named: data.imageName)
         cell.titleLabel.text = data.title
         cell.subTitleLabel.text = data.subTitle
@@ -376,14 +456,14 @@ extension MainMapViewController: UICollectionViewDelegateFlowLayout {
         let itemHeight = itemWidth * 1.5
         return CGSize(width: itemWidth, height: itemHeight)
     }
-    //셀사이 간격: 3
+    //셀사이 간격: 2
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 2
     }
-   //초기 셀 UIEdgeInsets 설정
-     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-         return UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
-     }
- 
+    //초기 셀 UIEdgeInsets 설정
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+    }
+    
     
 }
