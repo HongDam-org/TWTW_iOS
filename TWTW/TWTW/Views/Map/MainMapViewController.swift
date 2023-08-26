@@ -53,7 +53,6 @@ final class MainMapViewController: UIViewController  {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(NearbyPlacesCollectionViewCell.self, forCellWithReuseIdentifier: NearbyPlacesCollectionViewCell.cellIdentifier)
-        //collectionView.isHidden = true
         collectionView.backgroundColor = .clear
         return collectionView
     }()
@@ -137,6 +136,8 @@ final class MainMapViewController: UIViewController  {
         
         
         view.layoutIfNeeded()
+        
+        
         
     }
     
@@ -279,19 +280,19 @@ final class MainMapViewController: UIViewController  {
     }
     // 조건이 변화했을 때 updateLayout_myloctaionImageView() 제약조건변화
     func updateLayout_myloctaionImageView() {
-//        if searchBarSearchable {
-//            myloctaionImageView.snp.remakeConstraints { make in
-//                make.trailing.equalToSuperview().inset(5)
-//                make.width.height.equalTo(view.snp.width).multipliedBy(0.1)
-//                make.bottom.equalTo(view.snp.bottom).offset(-initBottomheight - 10)
-//            }
-//        } else {
+        if searchBarSearchable {
+            myloctaionImageView.snp.remakeConstraints { make in
+                make.trailing.equalToSuperview().inset(5)
+                make.width.height.equalTo(view.snp.width).multipliedBy(0.1)
+                make.bottom.equalTo(view.snp.bottom).offset(-initBottomheight - 10)
+            }
+        } else {
             myloctaionImageView.snp.remakeConstraints { make in
                 make.trailing.equalToSuperview().inset(5)
                 make.width.height.equalTo(view.snp.width).multipliedBy(0.1)
                 make.bottom.equalTo(nearbyPlacesCollectionView.snp.top).offset(-5)
             }
-        
+        }
         
         // 변경된 제약 조건 적용
         view.layoutIfNeeded()
@@ -419,11 +420,12 @@ extension MainMapViewController: CLLocationManagerDelegate {
 // MARK: - SearchBar Delegate
 extension MainMapViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+
         if searchBarSearchable {
             // 처음 클릭시 새로운 UI를 보이도록 처리
             showSearchUIElements()
-            updateLayout_myloctaionImageView()
             searchBarSearchable = false// 검색 동작 가능하도록 플래그를 변경
+            updateLayout_myloctaionImageView()
             return false
         } else {
             // 이미 검색 UI가 보이는 경우 검색 동작을 허용
@@ -467,3 +469,4 @@ extension MainMapViewController: UICollectionViewDelegateFlowLayout {
     
     
 }
+

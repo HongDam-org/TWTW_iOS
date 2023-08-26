@@ -20,7 +20,7 @@ final class ViewController: UIViewController {
     // MARK: - ViewDidAppear
     override func viewDidAppear(_ animated: Bool) {
            super.viewDidAppear(animated)
-           
+
            let viewController = MainMapViewController()
            viewController.modalPresentationStyle = .fullScreen
            present(viewController, animated: true, completion: nil)
@@ -28,4 +28,3 @@ final class ViewController: UIViewController {
 
 
 }
-

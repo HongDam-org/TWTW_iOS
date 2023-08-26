@@ -54,6 +54,13 @@
 		3777AFBF2A8E3FF100CA63E5 /* daum_th_line.png in Resources */ = {isa = PBXBuildFile; fileRef = 3777AFA32A8E3FF100CA63E5 /* daum_th_line.png */; };
 		3777AFC02A8E3FF100CA63E5 /* map_pin_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 3777AFA42A8E3FF100CA63E5 /* map_pin_shadow.png */; };
 		3777AFC12A8E3FF100CA63E5 /* DaumMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3777AFA52A8E3FF100CA63E5 /* DaumMap.framework */; };
+		3799E4EF2A99C4C200E06218 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E4EE2A99C4C200E06218 /* TabBarCoordinator.swift */; };
+		3799E4F12A99C4D100E06218 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E4F02A99C4D100E06218 /* AppCoordinator.swift */; };
+		3799E4F32A99C79100E06218 /* VCScenesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E4F22A99C79100E06218 /* VCScenesCoordinator.swift */; };
+		3799E5022A99D68500E06218 /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5012A99D68500E06218 /* CallViewController.swift */; };
+		3799E5052A99D6DC00E06218 /* PreviousAppointmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5042A99D6DC00E06218 /* PreviousAppointmentsViewController.swift */; };
+		3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5062A99D70500E06218 /* FriendsListViewController.swift */; };
+		3799E5092A99D72D00E06218 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5082A99D72D00E06218 /* NotificationViewController.swift */; };
 		37BAF8932A948EF700BD85DC /* SearchPlacesMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BAF8922A948EF700BD85DC /* SearchPlacesMapViewController.swift */; };
 		37BAF8962A949C4900BD85DC /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 37BAF8952A949C4900BD85DC /* Config.xcconfig */; };
 		37CF6F082A8E3D3700FE3498 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CF6F072A8E3D3700FE3498 /* OpenGLES.framework */; };
@@ -124,6 +131,13 @@
 		3777AFA32A8E3FF100CA63E5 /* daum_th_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = daum_th_line.png; sourceTree = "<group>"; };
 		3777AFA42A8E3FF100CA63E5 /* map_pin_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin_shadow.png; sourceTree = "<group>"; };
 		3777AFA52A8E3FF100CA63E5 /* DaumMap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DaumMap.framework; sourceTree = "<group>"; };
+		3799E4EE2A99C4C200E06218 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
+		3799E4F02A99C4D100E06218 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		3799E4F22A99C79100E06218 /* VCScenesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCScenesCoordinator.swift; sourceTree = "<group>"; };
+		3799E5012A99D68500E06218 /* CallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewController.swift; sourceTree = "<group>"; };
+		3799E5042A99D6DC00E06218 /* PreviousAppointmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousAppointmentsViewController.swift; sourceTree = "<group>"; };
+		3799E5062A99D70500E06218 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
+		3799E5082A99D72D00E06218 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		37BAF8922A948EF700BD85DC /* SearchPlacesMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapViewController.swift; sourceTree = "<group>"; };
 		37BAF8952A949C4900BD85DC /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		37CF6F072A8E3D3700FE3498 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -170,6 +184,10 @@
 		3715AA072A93A10700421347 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3799E4FE2A99D65000E06218 /* Call */,
+				3799E4FD2A99D64B00E06218 /* PreviousAppointments */,
+				3799E4F82A99D61B00E06218 /* FriendsList */,
+				3799E4F72A99D5E900E06218 /* Notification */,
 				3715AA082A93A12300421347 /* BottomSheetModel.swift */,
 			);
 			path = Models;
@@ -196,7 +214,6 @@
 		3758F18A2A7D007200E2933C /* TWTW */ = {
 			isa = PBXGroup;
 			children = (
-				3715AA072A93A10700421347 /* Models */,
 				3777AF7F2A8E3FF100CA63E5 /* DaumMap.embeddedframework */,
 				3B1C36EA2A8FD0A900838682 /* Constants */,
 				3B1C36ED2A8FD2ED00838682 /* Protocol */,
@@ -204,6 +221,7 @@
 				3B0E2EBF2A81483D00797782 /* Extension */,
 				3B0E2EBC2A8144BF00797782 /* Apps */,
 				375916352A7EB31C00C21E1F /* Services */,
+				3715AA072A93A10700421347 /* Models */,
 				3B6BA98A2A7F7D1600A11FE4 /* ViewModel */,
 				3758F1BC2A7E1E2C00E2933C /* Views */,
 				3758F1942A7D007300E2933C /* Assets.xcassets */,
@@ -217,6 +235,10 @@
 		3758F1BC2A7E1E2C00E2933C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3799E5002A99D65D00E06218 /* Call */,
+				3799E4FC2A99D64800E06218 /* PreviousAppointments */,
+				3799E4FA2A99D62400E06218 /* FriendsList */,
+				3799E4F52A99D59F00E06218 /* Notification */,
 				37BAF8912A948EC600BD85DC /* SeachPlaces */,
 				377D3A6B2A86339B00377899 /* Map */,
 				3758F1962A7D007300E2933C /* LaunchScreen.storyboard */,
@@ -303,6 +325,104 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
+		3799E4ED2A99C4A000E06218 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				3799E4EE2A99C4C200E06218 /* TabBarCoordinator.swift */,
+				3799E4F02A99C4D100E06218 /* AppCoordinator.swift */,
+				3799E4F22A99C79100E06218 /* VCScenesCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		3799E4F52A99D59F00E06218 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				3799E5082A99D72D00E06218 /* NotificationViewController.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		3799E4F62A99D5C200E06218 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		3799E4F72A99D5E900E06218 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		3799E4F82A99D61B00E06218 /* FriendsList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FriendsList;
+			sourceTree = "<group>";
+		};
+		3799E4F92A99D62100E06218 /* FriendsList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FriendsList;
+			sourceTree = "<group>";
+		};
+		3799E4FA2A99D62400E06218 /* FriendsList */ = {
+			isa = PBXGroup;
+			children = (
+				3799E5062A99D70500E06218 /* FriendsListViewController.swift */,
+			);
+			path = FriendsList;
+			sourceTree = "<group>";
+		};
+		3799E4FB2A99D64200E06218 /* PreviousAppointments */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PreviousAppointments;
+			sourceTree = "<group>";
+		};
+		3799E4FC2A99D64800E06218 /* PreviousAppointments */ = {
+			isa = PBXGroup;
+			children = (
+				3799E5042A99D6DC00E06218 /* PreviousAppointmentsViewController.swift */,
+			);
+			path = PreviousAppointments;
+			sourceTree = "<group>";
+		};
+		3799E4FD2A99D64B00E06218 /* PreviousAppointments */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PreviousAppointments;
+			sourceTree = "<group>";
+		};
+		3799E4FE2A99D65000E06218 /* Call */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Call;
+			sourceTree = "<group>";
+		};
+		3799E4FF2A99D65900E06218 /* Call */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Call;
+			sourceTree = "<group>";
+		};
+		3799E5002A99D65D00E06218 /* Call */ = {
+			isa = PBXGroup;
+			children = (
+				3799E5012A99D68500E06218 /* CallViewController.swift */,
+			);
+			path = Call;
+			sourceTree = "<group>";
+		};
 		37BAF8912A948EC600BD85DC /* SeachPlaces */ = {
 			isa = PBXGroup;
 			children = (
@@ -328,6 +448,7 @@
 		3B0E2EBC2A8144BF00797782 /* Apps */ = {
 			isa = PBXGroup;
 			children = (
+				3799E4ED2A99C4A000E06218 /* Coordinator */,
 				3758F18B2A7D007200E2933C /* AppDelegate.swift */,
 				3758F18D2A7D007200E2933C /* SceneDelegate.swift */,
 			);
@@ -369,6 +490,7 @@
 		3B267B992A87B80C00F3949A /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				37F647862A885421006272FD /* BottomSheetViewModel.swift */,
 				3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */,
 			);
 			path = Map;
@@ -377,7 +499,10 @@
 		3B6BA98A2A7F7D1600A11FE4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				37F647862A885421006272FD /* BottomSheetViewModel.swift */,
+				3799E4FF2A99D65900E06218 /* Call */,
+				3799E4FB2A99D64200E06218 /* PreviousAppointments */,
+				3799E4F92A99D62100E06218 /* FriendsList */,
+				3799E4F62A99D5C200E06218 /* Notification */,
 				3B267B992A87B80C00F3949A /* Map */,
 				3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */,
 			);
@@ -498,13 +623,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */,
 				375E8B022A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift in Sources */,
+				3799E5092A99D72D00E06218 /* NotificationViewController.swift in Sources */,
 				3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */,
+				3799E4F32A99C79100E06218 /* VCScenesCoordinator.swift in Sources */,
 				37BAF8932A948EF700BD85DC /* SearchPlacesMapViewController.swift in Sources */,
 				3B1C36EF2A8FD30200838682 /* BottomSheetDelegate.swift in Sources */,
 				3758F1A02A7D122100E2933C /* SignInViewController.swift in Sources */,
+				3799E5022A99D68500E06218 /* CallViewController.swift in Sources */,
 				3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */,
 				3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */,
+				3799E5052A99D6DC00E06218 /* PreviousAppointmentsViewController.swift in Sources */,
 				3758F1902A7D007200E2933C /* ViewController.swift in Sources */,
 				3715AA092A93A12300421347 /* BottomSheetModel.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
@@ -512,6 +642,8 @@
 				37F647872A885421006272FD /* BottomSheetViewModel.swift in Sources */,
 				3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */,
 				37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */,
+				3799E4EF2A99C4C200E06218 /* TabBarCoordinator.swift in Sources */,
+				3799E4F12A99C4D100E06218 /* AppCoordinator.swift in Sources */,
 				3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */,
 				375916372A7EB36000C21E1F /* SignInService.swift in Sources */,
 				37F647892A885B86006272FD /* BottomSheetViewController.swift in Sources */,
