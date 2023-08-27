@@ -39,13 +39,6 @@ final class MainMapViewController: UIViewController  {
     
     //MARK -  서치바 클릭 시 보여질 새로운 UI 요소 (circularView, nearbyPlacesCollectionView, collectionView위 버튼 (중간위치 찾을 VC이동,내위치))
     
-    // 원형 반경: (구현전)
-    private lazy var circularView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.blue
-        return view
-    }()
-    
     // 목적지 근처 장소들을 보여줄 컬렉션 뷰
     private lazy var nearbyPlacesCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -104,6 +97,7 @@ final class MainMapViewController: UIViewController  {
         mapView.delegate = self
         mapView.baseMapType = .standard
         mapView.setMapCenter(MTMapPoint(geoCoord: Map.DEFAULT_POSITION), zoomLevel: 1, animated: true)
+        
         mapView.showCurrentLocationMarker = true
         DispatchQueue.global().async {
             mapView.currentLocationTrackingMode = .onWithoutHeading
@@ -153,14 +147,32 @@ final class MainMapViewController: UIViewController  {
     }
     
     // MARK: - Fuctions
-    //내 위치중심으로 지도 이동
+    // 내 위치중심으로 지도 이동
     private func myLocationAction(){
         myLocationTapped
             .subscribe(onNext: {[weak self] in
                 self?.mapView.currentLocationTrackingMode = .onWithoutHeading
+             
             })
             .disposed(by: disposeBag)
     }
+
+    
+    // 내 위치중심으로 원반경 추가
+    private func circularOverlay(center: MTMapPoint, radius: Double){
+        let circle = MTMapCircle()
+        circle.circleCenterPoint = center
+        circle.circleRadius = Float(radius)
+        circle.circleFillColor = UIColor.mapCircleColor
+        circle.circleLineWidth = 0.0
+        circle.circleLineColor = .clear
+        
+        mapView.addCircle(circle)
+        
+        
+    }
+
+    
     
     // 키보드를 내리는 제스처 추가
     private func keyboardDisappear(){
@@ -208,8 +220,7 @@ final class MainMapViewController: UIViewController  {
     private func addSubViews_SearchBar(){
         view.addSubview(searchBar)
         configureConstraints_SearchBar()
-        
-        
+  
     }
     /// MARK: Add  UI - BottomSheet
     private func addSubViews_BottomSheet() {
@@ -333,23 +344,25 @@ final class MainMapViewController: UIViewController  {
         bottomSheetViewController.view.isHidden = true
         
         //새로운 UI요소 보이기
-        circularView.isHidden = false
         nearbyPlacesCollectionView.isHidden = false
-//        updateLayout()
-
+        myLocationcircular()
         
     }
     ///MARK: -  새로운 UI 요소들을 숨기고 기존 요소들을 보이게 하는 함수
     private func hideSearchUIElements() {
         // 새로운 UI 요소들 숨기기
-        circularView.isHidden = true
         nearbyPlacesCollectionView.isHidden = true
         
         // 기존 UI 요소 보이기
         bottomSheetViewController.view.isHidden = false
 
     }
-    
+    private func myLocationcircular() {
+        // 서치바를 통해 원반경을 보여줄 때
+        if searchBarSearchable, let userLocation = mapView.mapCenterPoint {
+            circularOverlay(center: userLocation, radius: 500)// 반경500m
+        }
+    }
     
     /// MARK: 터치 이벤트 실행
     @objc

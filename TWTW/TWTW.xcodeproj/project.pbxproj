@@ -14,6 +14,7 @@
 		3751E84A2A8D24CE00D63A16 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8492A8D24CE00D63A16 /* RxCocoa */; };
 		3751E84C2A8D24CE00D63A16 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E84B2A8D24CE00D63A16 /* RxRelay */; };
 		3751E84E2A8D24CE00D63A16 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E84D2A8D24CE00D63A16 /* RxSwift */; };
+		3754BB702A9B455100522420 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3754BB6F2A9B455100522420 /* Color.swift */; };
 		37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */; };
 		3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18B2A7D007200E2933C /* AppDelegate.swift */; };
 		3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18D2A7D007200E2933C /* SceneDelegate.swift */; };
@@ -80,6 +81,7 @@
 
 /* Begin PBXFileReference section */
 		3715AA082A93A12300421347 /* BottomSheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetModel.swift; sourceTree = "<group>"; };
+		3754BB6F2A9B455100522420 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewController.swift; sourceTree = "<group>"; };
 		3758F1882A7D007200E2933C /* TWTW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWTW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3758F18B2A7D007200E2933C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 			isa = PBXGroup;
 			children = (
 				3758F1B62A7DFB6200E2933C /* Bundle+Ext.swift */,
+				3754BB6F2A9B455100522420 /* Color.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -641,6 +644,7 @@
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
 				37F647872A885421006272FD /* BottomSheetViewModel.swift in Sources */,
 				3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */,
+				3754BB702A9B455100522420 /* Color.swift in Sources */,
 				37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */,
 				3799E4EF2A99C4C200E06218 /* TabBarCoordinator.swift in Sources */,
 				3799E4F12A99C4D100E06218 /* AppCoordinator.swift in Sources */,
