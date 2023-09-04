@@ -21,7 +21,7 @@ final class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
            super.viewDidAppear(animated)
 
-           let viewController = MainMapViewController()
+           let viewController = TabBarController()
            viewController.modalPresentationStyle = .fullScreen
            present(viewController, animated: true, completion: nil)
        }

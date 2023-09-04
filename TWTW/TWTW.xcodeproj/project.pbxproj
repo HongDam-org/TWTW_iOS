@@ -71,6 +71,7 @@
 		37CF6F122A8E3DBC00FE3498 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CF6F112A8E3D7C00FE3498 /* libsqlite3.tbd */; };
 		37CF6F132A8E3DDD00FE3498 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CF6F0F2A8E3D6B00FE3498 /* libc++.tbd */; };
 		37CF6F142A8E3DEA00FE3498 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CF6F102A8E3D7400FE3498 /* libxml2.tbd */; };
+		37E043692AA5F4CE00F9E807 /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */; };
 		37F647872A885421006272FD /* BottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F647862A885421006272FD /* BottomSheetViewModel.swift */; };
 		37F647892A885B86006272FD /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F647882A885B86006272FD /* BottomSheetViewController.swift */; };
 		3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C36EB2A8FD0BE00838682 /* Map.swift */; };
@@ -149,6 +150,7 @@
 		37CF6F0F2A8E3D6B00FE3498 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		37CF6F102A8E3D7400FE3498 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		37CF6F112A8E3D7C00FE3498 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
 		37F647862A885421006272FD /* BottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewModel.swift; sourceTree = "<group>"; };
 		37F647882A885B86006272FD /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		3B1C36EB2A8FD0BE00838682 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				3758F1962A7D007300E2933C /* LaunchScreen.storyboard */,
 				3758F18F2A7D007200E2933C /* ViewController.swift */,
 				3758F19F2A7D122100E2933C /* SignInViewController.swift */,
+				37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -642,6 +645,7 @@
 				3715AA092A93A12300421347 /* BottomSheetModel.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
+				37E043692AA5F4CE00F9E807 /* TabbarViewController.swift in Sources */,
 				37F647872A885421006272FD /* BottomSheetViewModel.swift in Sources */,
 				3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */,
 				3754BB702A9B455100522420 /* Color.swift in Sources */,

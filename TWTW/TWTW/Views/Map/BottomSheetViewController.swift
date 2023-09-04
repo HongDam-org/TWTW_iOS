@@ -10,7 +10,6 @@ import RxSwift
 import RxCocoa
 
 final class BottomSheetViewController: UIViewController {
-    
     /// MARK: 하단 UIView
     private let bottomSheetView: UIView = {
         let view = UIView()
@@ -24,6 +23,8 @@ final class BottomSheetViewController: UIViewController {
     private let disposeBag = DisposeBag()
      let viewModel = BottomSheetViewModel()
     
+    private var selectedTabItemTitle: String?
+
     /// MainMapViewController view의 높이
     var viewHeight: BehaviorRelay<CGFloat> = BehaviorRelay(value: CGFloat())
     
@@ -57,6 +58,7 @@ final class BottomSheetViewController: UIViewController {
         
     }
     
+
     /// panning Gesture
     @objc
     private func handlePan(_ panGesture: UIPanGestureRecognizer){
@@ -74,3 +76,4 @@ final class BottomSheetViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 }
+
