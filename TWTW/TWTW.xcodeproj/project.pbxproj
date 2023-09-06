@@ -18,7 +18,7 @@
 		37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */; };
 		3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18B2A7D007200E2933C /* AppDelegate.swift */; };
 		3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18D2A7D007200E2933C /* SceneDelegate.swift */; };
-		3758F1902A7D007200E2933C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18F2A7D007200E2933C /* ViewController.swift */; };
+		3758F1902A7D007200E2933C /* MeetingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18F2A7D007200E2933C /* MeetingListViewController.swift */; };
 		3758F1952A7D007300E2933C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3758F1942A7D007300E2933C /* Assets.xcassets */; };
 		3758F1982A7D007300E2933C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3758F1962A7D007300E2933C /* LaunchScreen.storyboard */; };
 		3758F1A02A7D122100E2933C /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F19F2A7D122100E2933C /* SignInViewController.swift */; };
@@ -87,7 +87,7 @@
 		3758F1882A7D007200E2933C /* TWTW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWTW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3758F18B2A7D007200E2933C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3758F18D2A7D007200E2933C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3758F18F2A7D007200E2933C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3758F18F2A7D007200E2933C /* MeetingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingListViewController.swift; sourceTree = "<group>"; };
 		3758F1942A7D007300E2933C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3758F1972A7D007300E2933C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3758F1992A7D007300E2933C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -243,10 +243,10 @@
 				3799E4FC2A99D64800E06218 /* PreviousAppointments */,
 				3799E4FA2A99D62400E06218 /* FriendsList */,
 				3799E4F52A99D59F00E06218 /* Notification */,
-				37BAF8912A948EC600BD85DC /* SeachPlaces */,
+				37BAF8912A948EC600BD85DC /* SearchPlaces */,
 				377D3A6B2A86339B00377899 /* Map */,
 				3758F1962A7D007300E2933C /* LaunchScreen.storyboard */,
-				3758F18F2A7D007200E2933C /* ViewController.swift */,
+				3758F18F2A7D007200E2933C /* MeetingListViewController.swift */,
 				3758F19F2A7D122100E2933C /* SignInViewController.swift */,
 				37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */,
 			);
@@ -428,12 +428,12 @@
 			path = Call;
 			sourceTree = "<group>";
 		};
-		37BAF8912A948EC600BD85DC /* SeachPlaces */ = {
+		37BAF8912A948EC600BD85DC /* SearchPlaces */ = {
 			isa = PBXGroup;
 			children = (
 				37BAF8922A948EF700BD85DC /* SearchPlacesMapViewController.swift */,
 			);
-			path = SeachPlaces;
+			path = SearchPlaces;
 			sourceTree = "<group>";
 		};
 		37CF6F062A8E3D3700FE3498 /* Frameworks */ = {
@@ -641,7 +641,7 @@
 				3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */,
 				3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */,
 				3799E5052A99D6DC00E06218 /* PreviousAppointmentsViewController.swift in Sources */,
-				3758F1902A7D007200E2933C /* ViewController.swift in Sources */,
+				3758F1902A7D007200E2933C /* MeetingListViewController.swift in Sources */,
 				3715AA092A93A12300421347 /* BottomSheetModel.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,

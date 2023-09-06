@@ -8,6 +8,11 @@
 import Foundation
 import UIKit
 //통화하기
-class CallViewController: UIViewController {
+final class CallViewController: UIViewController {
 
+    // MARK: View Did Load
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .green
+    }
 }

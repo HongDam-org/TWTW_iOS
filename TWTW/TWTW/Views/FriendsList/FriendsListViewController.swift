@@ -9,7 +9,14 @@ import Foundation
 import UIKit
 
 //친구목록
-class FriendsListViewController: UIViewController {
+final class FriendsListViewController: UIViewController {
+    
+    // MARK: View Did Load
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .blue
+    }
+    
     
 }
 

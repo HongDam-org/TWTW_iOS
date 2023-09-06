@@ -9,18 +9,25 @@ import Foundation
 import UIKit
 import RxSwift
 import RxCocoa
+import SnapKit
 
-class TabBarController: UITabBarController {
+final class TabBarController: UITabBarController {
     private let disposeBag = DisposeBag()
     
     //BehaviorRelay로 탭 아이템 저장
     private let tabItemsRelay = BehaviorRelay<[TabItem]>(value: [])
+    weak var delegates: BottomSheetDelegate?
+    /// MainMapViewController view의 높이
+    var viewHeight: BehaviorRelay<CGFloat> = BehaviorRelay(value: CGFloat())
+
+    private let viewModel = BottomSheetViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.layer.cornerRadius = 20
         setTabbar()
-       
-      
+        self.delegate = self
     }
     
     ///mark : Tabbar 와 VCs 연결
@@ -33,9 +40,9 @@ class TabBarController: UITabBarController {
             TabItem(title: "알림", imageName: "bell"),
             TabItem(title: "전화", imageName: "phone")
         ]
-      
+        
         viewControllers = [
-            MainMapViewController(),
+            PreviousAppointmentsViewController(),
             PreviousAppointmentsViewController(),
             FriendsListViewController(),
             NotificationViewController(),
@@ -43,6 +50,7 @@ class TabBarController: UITabBarController {
         ]
         tabItemsRelay.accept(tabItems)
         
+        addSubViews()
         bindTabItems()
     }
     ///mark : 탭바 아이템을 BehaviorRelay를 사용하여 탭 바 아이템을 바인딩
@@ -59,6 +67,62 @@ class TabBarController: UITabBarController {
             })
             .disposed(by: disposeBag)
     }
+    
+    /// MARK: Add UI
+    private func addSubViews() {
+        viewControllers?.forEach({ viewController in
+            let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+            viewController.view.addGestureRecognizer(panGesture)
+            print("viewHeight \(viewHeight.value)")
+            viewModel.setupHeight(viewHeight: viewHeight.value)
+//            configureConstraints(viewController) 이거를 실행하면 tabbar 클릭이 안됌
+        })
+    }
+    
+    /// panning Gesture
+    @objc
+    private func handlePan(_ panGesture: UIPanGestureRecognizer){
+        viewModel.handlePan(gesture: panGesture, view: view)
+            .subscribe(onNext: { [weak self] targetHeight in
+                guard let self = self else { return }
+                print("height \(targetHeight)")
+                self.delegates?.didUpdateBottomSheetHeight(targetHeight)
+
+                UIView.animate(withDuration: 0.2) {
+                    self.viewModel.heightConstraintRelay.accept(self.viewModel.heightConstraintRelay.value?.update(offset: targetHeight))
+                    self.view.layoutIfNeeded()
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+
+    
+    /// MARK: Set AutoLayout
+    private func configureConstraints(_ viewController: UIViewController) {
+        viewModel.setupHeight(viewHeight: viewHeight.value)
+        var heightConstraint: Constraint? = nil
+        viewController.view.snp.makeConstraints { make in
+//            make.leading.trailing.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            heightConstraint = make.height.equalTo(viewModel.minHeight).constraint
+        }
+        viewModel.heightConstraintRelay.accept(heightConstraint)
+    }
+    
+}
+
+extension TabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+//        if viewController is PreviousAppointmentsViewController {
+//            let modalView = PreviousAppointmentsViewController()
+//            modalView.modalPresentationStyle = .formSheet
+//            present(modalView, animated:true)
+//            return false
+//        }
+        
+        return true
+        
+    }
+    
 }
 
 //탭 아이템 나타내는 구조체

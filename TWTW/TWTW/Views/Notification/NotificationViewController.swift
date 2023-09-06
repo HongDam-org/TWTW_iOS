@@ -8,7 +8,13 @@
 import Foundation
 
 //알림
-class NotificationViewController: UIViewController {
+final class NotificationViewController: UIViewController {
+    
+    // MARK: View Did Load
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .cyan
+    }
 }
 
 

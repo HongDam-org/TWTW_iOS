@@ -7,7 +7,8 @@
 
 import UIKit
 
-final class ViewController: UIViewController {
+/// MARK: 모임 리스트 
+final class MeetingListViewController: UIViewController {
     
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
@@ -19,12 +20,13 @@ final class ViewController: UIViewController {
     
     // MARK: - ViewDidAppear
     override func viewDidAppear(_ animated: Bool) {
-           super.viewDidAppear(animated)
-
-           let viewController = TabBarController()
-           viewController.modalPresentationStyle = .fullScreen
-           present(viewController, animated: true, completion: nil)
-       }
-
-
+        super.viewDidAppear(animated)
+        
+        let viewController = MainMapViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true, completion: nil)
+    }
+    
+    
+    
 }
