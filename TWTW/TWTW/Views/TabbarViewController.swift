@@ -22,11 +22,22 @@ final class TabBarController: UITabBarController {
 
     private let viewModel = BottomSheetViewModel()
     
+    init(delegates: BottomSheetDelegate? = nil, viewHeight: CGFloat) {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.delegates = delegates
+        self.viewHeight.accept(viewHeight)
+        setTabbar()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.layer.cornerRadius = 20
-        setTabbar()
         self.delegate = self
     }
     
@@ -75,7 +86,6 @@ final class TabBarController: UITabBarController {
             viewController.view.addGestureRecognizer(panGesture)
             print("viewHeight \(viewHeight.value)")
             viewModel.setupHeight(viewHeight: viewHeight.value)
-//            configureConstraints(viewController) 이거를 실행하면 tabbar 클릭이 안됌
         })
     }
     
@@ -94,18 +104,6 @@ final class TabBarController: UITabBarController {
                 }
             })
             .disposed(by: disposeBag)
-    }
-
-    
-    /// MARK: Set AutoLayout
-    private func configureConstraints(_ viewController: UIViewController) {
-        viewModel.setupHeight(viewHeight: viewHeight.value)
-        var heightConstraint: Constraint? = nil
-        viewController.view.snp.makeConstraints { make in
-//            make.leading.trailing.bottom.equalTo(self.view.safeAreaLayoutGuide)
-            heightConstraint = make.height.equalTo(viewModel.minHeight).constraint
-        }
-        viewModel.heightConstraintRelay.accept(heightConstraint)
     }
     
 }

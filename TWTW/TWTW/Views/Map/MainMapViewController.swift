@@ -49,6 +49,7 @@ final class MainMapViewController: UIViewController {
         collectionView.backgroundColor = .clear
         return collectionView
     }()
+    
     private lazy var myloctaionImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "myLocation"))
         imageView.isUserInteractionEnabled = true
@@ -57,13 +58,13 @@ final class MainMapViewController: UIViewController {
         return imageView
     }()
 
-    @objc private func mylocationTappedAction() {
+    @objc
+    private func mylocationTappedAction() {
         myLocationTappedSubject.accept(())
     }
 
     /// MARK: 버튼역할의 서치바UI
     private lazy var searchBar: UISearchBar = {
-
         let searchBar = UISearchBar()
         searchBar.placeholder = "장소, 주소 검색"
         searchBar.showsCancelButton = false
@@ -81,12 +82,13 @@ final class MainMapViewController: UIViewController {
 
         return searchBar
     }()
-    var searchBarSearchable : Bool = true //서치바 동작기능 변형 버튼기능->검색기능
+    var searchBarSearchable : Bool = true //서치바 동작기능 변형 버튼기능 -> 검색기능
 
     /// MARK:
     private lazy var tabBarViewController: TabBarController = {
-        let view = TabBarController()
+        let view = TabBarController(viewHeight: self.view.frame.height)
         view.viewHeight.accept(self.view.frame.height)
+        view.delegates = self
         view.selectedViewController = view.viewControllers?[0]
         return view
     }()
@@ -121,7 +123,7 @@ final class MainMapViewController: UIViewController {
         //기존 UI
         BottomSheetBind() // 맵 로드 이후
 
-
+        
         //새로운 UI
         setupCollectionViewUI()
         setupMyLocationUI()
