@@ -12,16 +12,16 @@ import RxCocoa
 import SnapKit
 
 final class TabBarController: UITabBarController {
-    private let disposeBag = DisposeBag()
     
     //BehaviorRelay로 탭 아이템 저장
     private let tabItemsRelay = BehaviorRelay<[TabItem]>(value: [])
     weak var delegates: BottomSheetDelegate?
     /// MainMapViewController view의 높이
     var viewHeight: BehaviorRelay<CGFloat> = BehaviorRelay(value: CGFloat())
-
     private let viewModel = BottomSheetViewModel()
+    private let disposeBag = DisposeBag()
     
+    // MARK: - init
     init(delegates: BottomSheetDelegate? = nil, viewHeight: CGFloat) {
         super.init(nibName: nil, bundle: nil)
         
@@ -34,11 +34,11 @@ final class TabBarController: UITabBarController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.layer.cornerRadius = 20
-        self.delegate = self
     }
     
     ///mark : Tabbar 와 VCs 연결
@@ -104,21 +104,6 @@ final class TabBarController: UITabBarController {
                 }
             })
             .disposed(by: disposeBag)
-    }
-    
-}
-
-extension TabBarController: UITabBarControllerDelegate {
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-//        if viewController is PreviousAppointmentsViewController {
-//            let modalView = PreviousAppointmentsViewController()
-//            modalView.modalPresentationStyle = .formSheet
-//            present(modalView, animated:true)
-//            return false
-//        }
-        
-        return true
-        
     }
     
 }

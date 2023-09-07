@@ -39,7 +39,7 @@ final class MainMapViewController: UIViewController {
 
     //MARK -  서치바 클릭 시 보여질 새로운 UI 요소 (circularView, nearbyPlacesCollectionView, collectionView위 버튼 (중간위치 찾을 VC이동,내위치))
 
-    // 목적지 근처 장소들을 보여줄 컬렉션 뷰
+    /// MARK: 목적지 근처 장소들을 보여줄 컬렉션 뷰
     private lazy var nearbyPlacesCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
@@ -82,9 +82,11 @@ final class MainMapViewController: UIViewController {
 
         return searchBar
     }()
-    var searchBarSearchable : Bool = true //서치바 동작기능 변형 버튼기능 -> 검색기능
+    
+    /// 서치바 동작기능 변형 버튼기능 -> 검색기능
+    var searchBarSearchable : Bool = true
 
-    /// MARK:
+    /// MARK: Tabbar Controller
     private lazy var tabBarViewController: TabBarController = {
         let view = TabBarController(viewHeight: self.view.frame.height)
         view.viewHeight.accept(self.view.frame.height)
@@ -123,7 +125,6 @@ final class MainMapViewController: UIViewController {
         //기존 UI
         BottomSheetBind() // 맵 로드 이후
 
-        
         //새로운 UI
         setupCollectionViewUI()
         setupMyLocationUI()
@@ -131,7 +132,6 @@ final class MainMapViewController: UIViewController {
         //키보드
 //        keyboardDisappear()
         addSubviews_TabbarController()
-
         view.layoutIfNeeded()
     }
 
@@ -141,14 +141,13 @@ final class MainMapViewController: UIViewController {
 
         setupSearchBar()
     }
-
+    
     // MARK: - Fuctions
     // 내 위치중심으로 지도 이동
     private func myLocationAction(){
         myLocationTapped
             .subscribe(onNext: {[weak self] in
                 self?.mapView.currentLocationTrackingMode = .onWithoutHeading
-
             })
             .disposed(by: disposeBag)
     }
@@ -164,8 +163,6 @@ final class MainMapViewController: UIViewController {
         circle.circleLineColor = .clear
 
         mapView.addCircle(circle)
-
-
     }
 
     // 키보드를 내리는 제스처 추가
@@ -254,9 +251,7 @@ final class MainMapViewController: UIViewController {
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
             make.leading.trailing.equalToSuperview().inset(5)
-
         }
-
     }
 
     /// MARK:  Configure   Constraints UI - TabbarController
@@ -273,21 +268,19 @@ final class MainMapViewController: UIViewController {
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(nearbyPlacesCollectionView.snp.width).multipliedBy(0.7)
             make.bottom.equalToSuperview().inset(20)
-
         }
-
     }
+    
     /// MARK: Configure   Constraints UI - MyLoaction
     private func configureConstraints_myLoaction() {
         myloctaionImageView.snp.remakeConstraints { make in
             make.trailing.equalToSuperview().inset(5)
             make.width.height.equalTo(view.snp.width).multipliedBy(0.1)
             make.bottom.equalTo(view.snp.bottom).offset(-initBottomheight - 10)
-
         }
-
     }
-    // 조건이 변화했을 때 updateLayout_myloctaionImageView() 제약조건변화
+    
+    /// 조건이 변화했을 때 updateLayout_myloctaionImageView() 제약조건변화
     private func updateLayout_myloctaionImageView() {
         if searchBarSearchable {
             myloctaionImageView.snp.remakeConstraints { make in
@@ -307,7 +300,7 @@ final class MainMapViewController: UIViewController {
         view.layoutIfNeeded()
     }
 
-    ///MARK: Add  Gesture - Map
+    /// MARK: Add  Gesture - Map
     private func addTapGesture_Map(){
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         mapView.addGestureRecognizer(tapGesture ?? UITapGestureRecognizer())
@@ -346,6 +339,7 @@ final class MainMapViewController: UIViewController {
         myLocationcircular()
 
     }
+    
     ///MARK: -  새로운 UI 요소들을 숨기고 기존 요소들을 보이게 하는 함수
     private func hideSearchUIElements() {
         // 새로운 UI 요소들 숨기기
@@ -407,7 +401,7 @@ extension MainMapViewController: MTMapViewDelegate{
 extension MainMapViewController: CLLocationManagerDelegate {
 
     /// 위치 권한 확인 변화 됐을 때 실행
-    internal func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkAuthorizationStatus()
     }
 
@@ -454,7 +448,7 @@ extension MainMapViewController: UICollectionViewDataSource, UICollectionViewDel
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NearbyPlacesCollectionViewCell.cellIdentifier, for: indexPath) as! NearbyPlacesCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NearbyPlacesCollectionViewCell.cellIdentifier, for: indexPath) as? NearbyPlacesCollectionViewCell else { return UICollectionViewCell() }
 
         let data = dummyData[indexPath.item]
 
