@@ -476,4 +476,10 @@ extension MainMapViewController: UICollectionViewDelegateFlowLayout {
     }
 
 }
+extension MainMapViewController {
+    // MARK: - Height Update Method
 
+    func updateBottomSheetHeight(_ height: CGFloat) {
+        tabBarViewController.updateBottomSheetHeight(height)
+    }
+}

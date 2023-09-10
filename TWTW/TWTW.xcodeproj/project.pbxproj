@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3715AA092A93A12300421347 /* BottomSheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3715AA082A93A12300421347 /* BottomSheetModel.swift */; };
+		373C85462AADA91E00325155 /* BottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C85452AADA91E00325155 /* BottomSheetViewModel.swift */; };
 		3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8402A8D23EE00D63A16 /* SnapKit */; };
 		3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8432A8D242C00D63A16 /* Alamofire */; };
 		3751E8472A8D246A00D63A16 /* RxKakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8462A8D246A00D63A16 /* RxKakaoSDK */; };
@@ -72,8 +72,6 @@
 		37CF6F132A8E3DDD00FE3498 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CF6F0F2A8E3D6B00FE3498 /* libc++.tbd */; };
 		37CF6F142A8E3DEA00FE3498 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CF6F102A8E3D7400FE3498 /* libxml2.tbd */; };
 		37E043692AA5F4CE00F9E807 /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */; };
-		37F647872A885421006272FD /* BottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F647862A885421006272FD /* BottomSheetViewModel.swift */; };
-		37F647892A885B86006272FD /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F647882A885B86006272FD /* BottomSheetViewController.swift */; };
 		3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C36EB2A8FD0BE00838682 /* Map.swift */; };
 		3B1C36EF2A8FD30200838682 /* BottomSheetDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C36EE2A8FD30200838682 /* BottomSheetDelegate.swift */; };
 		3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */; };
@@ -81,7 +79,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3715AA082A93A12300421347 /* BottomSheetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetModel.swift; sourceTree = "<group>"; };
+		373C85452AADA91E00325155 /* BottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewModel.swift; sourceTree = "<group>"; };
 		3754BB6F2A9B455100522420 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewController.swift; sourceTree = "<group>"; };
 		3758F1882A7D007200E2933C /* TWTW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWTW.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,8 +149,6 @@
 		37CF6F102A8E3D7400FE3498 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		37CF6F112A8E3D7C00FE3498 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
-		37F647862A885421006272FD /* BottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewModel.swift; sourceTree = "<group>"; };
-		37F647882A885B86006272FD /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		3B1C36EB2A8FD0BE00838682 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		3B1C36EE2A8FD30200838682 /* BottomSheetDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetDelegate.swift; sourceTree = "<group>"; };
 		3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModel.swift; sourceTree = "<group>"; };
@@ -192,7 +188,6 @@
 				3799E4FD2A99D64B00E06218 /* PreviousAppointments */,
 				3799E4F82A99D61B00E06218 /* FriendsList */,
 				3799E4F72A99D5E900E06218 /* Notification */,
-				3715AA082A93A12300421347 /* BottomSheetModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -249,6 +244,7 @@
 				3758F18F2A7D007200E2933C /* MeetingListViewController.swift */,
 				3758F19F2A7D122100E2933C /* SignInViewController.swift */,
 				37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */,
+				373C85452AADA91E00325155 /* BottomSheetViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -324,7 +320,6 @@
 			isa = PBXGroup;
 			children = (
 				37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */,
-				37F647882A885B86006272FD /* BottomSheetViewController.swift */,
 				375E8B012A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift */,
 			);
 			path = Map;
@@ -496,7 +491,6 @@
 		3B267B992A87B80C00F3949A /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				37F647862A885421006272FD /* BottomSheetViewModel.swift */,
 				3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */,
 			);
 			path = Map;
@@ -636,17 +630,16 @@
 				3799E4F32A99C79100E06218 /* VCScenesCoordinator.swift in Sources */,
 				37BAF8932A948EF700BD85DC /* SearchPlacesMapViewController.swift in Sources */,
 				3B1C36EF2A8FD30200838682 /* BottomSheetDelegate.swift in Sources */,
+				373C85462AADA91E00325155 /* BottomSheetViewModel.swift in Sources */,
 				3758F1A02A7D122100E2933C /* SignInViewController.swift in Sources */,
 				3799E5022A99D68500E06218 /* CallViewController.swift in Sources */,
 				3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */,
 				3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */,
 				3799E5052A99D6DC00E06218 /* PreviousAppointmentsViewController.swift in Sources */,
 				3758F1902A7D007200E2933C /* MeetingListViewController.swift in Sources */,
-				3715AA092A93A12300421347 /* BottomSheetModel.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
 				37E043692AA5F4CE00F9E807 /* TabbarViewController.swift in Sources */,
-				37F647872A885421006272FD /* BottomSheetViewModel.swift in Sources */,
 				3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */,
 				3754BB702A9B455100522420 /* Color.swift in Sources */,
 				37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */,
@@ -654,7 +647,6 @@
 				3799E4F12A99C4D100E06218 /* AppCoordinator.swift in Sources */,
 				3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */,
 				375916372A7EB36000C21E1F /* SignInService.swift in Sources */,
-				37F647892A885B86006272FD /* BottomSheetViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
