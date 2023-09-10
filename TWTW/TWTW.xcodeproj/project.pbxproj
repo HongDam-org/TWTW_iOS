@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		373C85462AADA91E00325155 /* BottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C85452AADA91E00325155 /* BottomSheetViewModel.swift */; };
+		373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C85492AADBCAF00325155 /* TabBarViewModel.swift */; };
 		3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8402A8D23EE00D63A16 /* SnapKit */; };
 		3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8432A8D242C00D63A16 /* Alamofire */; };
 		3751E8472A8D246A00D63A16 /* RxKakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8462A8D246A00D63A16 /* RxKakaoSDK */; };
@@ -80,6 +81,7 @@
 
 /* Begin PBXFileReference section */
 		373C85452AADA91E00325155 /* BottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewModel.swift; sourceTree = "<group>"; };
+		373C85492AADBCAF00325155 /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
 		3754BB6F2A9B455100522420 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewController.swift; sourceTree = "<group>"; };
 		3758F1882A7D007200E2933C /* TWTW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWTW.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -499,6 +501,7 @@
 		3B6BA98A2A7F7D1600A11FE4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				373C85492AADBCAF00325155 /* TabBarViewModel.swift */,
 				3799E4FF2A99D65900E06218 /* Call */,
 				3799E4FB2A99D64200E06218 /* PreviousAppointments */,
 				3799E4F92A99D62100E06218 /* FriendsList */,
@@ -623,6 +626,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */,
 				3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */,
 				375E8B022A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift in Sources */,
 				3799E5092A99D72D00E06218 /* NotificationViewController.swift in Sources */,
