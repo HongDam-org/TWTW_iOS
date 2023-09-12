@@ -41,13 +41,14 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.layer.cornerRadius = 20
+       
         
         // 뷰의 높이를 설정하고
         let viewHeight = self.view.bounds.height
         // BottomSheetViewModel에 높이를 설정
         tabBarViewModel.setupHeight(viewHeight: viewHeight)
-        print("🍎\(viewHeight)")
+       // print("🍎\(viewHeight)")
+        
     }
     
     // 뷰의 높이를 설정하는 메서드
@@ -127,7 +128,7 @@ class TabBarController: UITabBarController {
             // ViewModel을 사용하여 최종 높이를 계산
             let finalHeight = tabBarViewModel.calculateFinalHeight(changedHeight: targetHeight)
 
-            UIView.animate(withDuration: 0.1) {
+            UIView.animate(withDuration: 0.2) {
                 self.updateBottomSheetHeight(finalHeight)
                 self.view.layoutIfNeeded()
             }

@@ -10,7 +10,8 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class TabBarViewModel {
+///TabBarViewModel
+final class TabBarViewModel {
     // bottomSheetView 높이를 나타내는 BehaviorRelay
     var heightConstraintRelay: BehaviorRelay<Constraint?> = BehaviorRelay(value: nil)
     
