@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 //알림
 final class NotificationViewController: UIViewController {
