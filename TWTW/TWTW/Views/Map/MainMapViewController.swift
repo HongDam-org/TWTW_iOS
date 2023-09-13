@@ -118,7 +118,6 @@ final class MainMapViewController: KakaoMapViewController {
     // MARK: -  View Did Appear
     override func viewDidAppear(_ animated: Bool) {
   //      setupMyLocationUI()
-
         setupSearchBar()
     }
     
@@ -192,7 +191,7 @@ final class MainMapViewController: KakaoMapViewController {
     /// MARK: set up myLocation UI
     private func setupMyLocationUI() {
         myLocationAction()
-        addSubViews_myLocation()
+        //addSubViews_myLocation()
     }
 
 
@@ -286,7 +285,7 @@ final class MainMapViewController: KakaoMapViewController {
                     if let myloctaionImageViewFrame = self?.tabBarViewController.myloctaionImageView.frame,
                        let tapLocation = tapLocation,
                        myloctaionImageViewFrame.contains(CGPoint(x: tapLocation.x, y: -6)) { //바텀시트와 5 포인트 떨어진 위치에 배치해둬서 수치로 넣어둠
-                        self?.myLocationAction()
+                        self?.mylocationTappedAction()
                         
                     } else {
                         UIView.animate(withDuration: 0.5, animations: {
