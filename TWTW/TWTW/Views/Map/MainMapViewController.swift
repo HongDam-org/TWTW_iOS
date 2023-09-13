@@ -11,10 +11,11 @@ import RxSwift
 import SnapKit
 import CoreLocation
 import RxGesture
+import KakaoMapsSDK
 
 
 ///MainMapViewController - 지도화면
-final class MainMapViewController: UIViewController {
+final class MainMapViewController: KakaoMapViewController {
     //PublishRelay
     private let myLocationTappedSubject = PublishRelay<Void>()
 
@@ -95,20 +96,6 @@ final class MainMapViewController: UIViewController {
         return view
     }()
 
-    /// MARK: 지도
-    private lazy var mapView: MTMapView = {
-        let mapView = MTMapView()
-        mapView.delegate = self
-        mapView.baseMapType = .standard
-        mapView.setMapCenter(MTMapPoint(geoCoord: Map.DEFAULT_POSITION), zoomLevel: 1, animated: true)
-
-        mapView.showCurrentLocationMarker = true
-        DispatchQueue.global().async {
-            mapView.currentLocationTrackingMode = .onWithoutHeading
-        }
-        return mapView
-    }()
-
     private let disposeBag = DisposeBag()
     private let viewModel = MainMapViewModel()
     private var tapGesture: UITapGestureRecognizer?
@@ -143,26 +130,27 @@ final class MainMapViewController: UIViewController {
     }
     
     // MARK: - Fuctions
+    
+    /// MARK: 지도 그리기
+    override func addViews() {
+        
+        let mapviewInfo: MapviewInfo = MapviewInfo(viewName: "mapview", viewInfoName: "map", defaultPosition: Map.DEFAULT_POSITION)
+        
+        if mapController?.addView(mapviewInfo) == Result.OK {
+            print("OK")
+            createRouteStyleSet()
+            createRouteline()
+        }
+    }
+    
+    
     // 내 위치중심으로 지도 이동
     private func myLocationAction(){
         myLocationTapped
             .subscribe(onNext: {[weak self] in
-                self?.mapView.currentLocationTrackingMode = .onWithoutHeading
+//                self?.mapView.currentLocationTrackingMode = .onWithoutHeading
             })
             .disposed(by: disposeBag)
-    }
-
-
-    // 내 위치중심으로 원반경 추가
-    private func circularOverlay(center: MTMapPoint, radius: Double){
-        let circle = MTMapCircle()
-        circle.circleCenterPoint = center
-        circle.circleRadius = Float(radius)
-        circle.circleFillColor = UIColor.mapCircleColor
-        circle.circleLineWidth = 0.0
-        circle.circleLineColor = .clear
-
-        mapView.addCircle(circle)
     }
 
     // 키보드를 내리는 제스처 추가
@@ -352,9 +340,9 @@ final class MainMapViewController: UIViewController {
 
     private func myLocationcircular() {
         // 서치바를 통해 원반경을 보여줄 때
-        if searchBarSearchable, let userLocation = mapView.mapCenterPoint {
-            circularOverlay(center: userLocation, radius: 500)// 반경500m
-        }
+//        if searchBarSearchable, let userLocation = mapView.mapCenterPoint {
+//            circularOverlay(center: userLocation, radius: 500)// 반경500m
+//        }
     }
 
     /// MARK: 터치 이벤트 실행
@@ -362,6 +350,96 @@ final class MainMapViewController: UIViewController {
     private func handleTap(_ gesture: UITapGestureRecognizer) {
         viewModel.checkingTouchEvents()
     }
+    
+    /// 길찾기 표시
+    func createRouteStyleSet() {
+
+        let mapView = mapController?.getView("mapview") as? KakaoMap
+        let manager = mapView?.getRouteManager()
+        let _ = manager?.addRouteLayer(layerID: "RouteLayer", zOrder: 0)
+        let patternImages = [UIImage(named: "route_pattern_arrow.png"), UIImage(named: "route_pattern_walk.png"), UIImage(named: "route_pattern_long_dot.png")]
+        
+        // pattern
+        let styleSet = RouteStyleSet(styleID: "routeStyleSet1")
+        styleSet.addPattern(RoutePattern(pattern: patternImages[0]!, distance: 60, symbol: nil, pinStart: false, pinEnd: false))
+        styleSet.addPattern(RoutePattern(pattern: patternImages[1]!, distance: 6, symbol: nil, pinStart: true, pinEnd: true))
+        styleSet.addPattern(RoutePattern(pattern: patternImages[2]!, distance: 6, symbol: UIImage(named: "route_pattern_long_airplane.png")!, pinStart: true, pinEnd: true))
+        
+        let colors = [
+            UIColor(hexCode: "ff0000"),
+            UIColor(hexCode: "00ff00"),
+            UIColor(hexCode: "0000ff"),
+            UIColor(hexCode: "ffff00") ]
+
+        let strokeColors = [
+            UIColor(hexCode: "ffffff"),
+            UIColor(hexCode: "ddffdd"),
+            UIColor(hexCode: "00ddff"),
+            UIColor(hexCode: "ffffdd") ]
+            
+        let patternIndex = [-1, 0, 1, 2]
+        
+        for index in 0 ..< colors.count {
+            let routeStyle = RouteStyle(styles: [
+                PerLevelRouteStyle(width: 18, color: colors[index], strokeWidth: 4, strokeColor: strokeColors[index], level: 0, patternIndex: patternIndex[index])
+            ])
+ 
+            styleSet.addStyle(routeStyle)
+        }
+
+        manager?.addRouteStyleSet(styleSet)
+    }
+    
+    /// MARK:  지도에 선 그리기
+    func createRouteline() {
+        let mapView = mapController?.getView("mapview") as! KakaoMap
+        let manager = mapView.getRouteManager()
+        let layer = manager.addRouteLayer(layerID: "RouteLayer", zOrder: 0)
+        
+        let segmentPoints = routeSegmentPoints()
+        var segments: [RouteSegment] = [RouteSegment]()
+        var styleIndex: UInt = 0
+        for points in segmentPoints {
+            // 경로 포인트로 RouteSegment 생성. 사용할 스타일 인덱스도 지정한다.
+            let seg = RouteSegment(points: points, styleIndex: styleIndex)
+            segments.append(seg)
+            styleIndex = (styleIndex + 1) % 4
+        }
+        
+        let options = RouteOptions(routeID: "routes", styleID: "routeStyleSet1", zOrder: 0)
+        options.segments = segments
+        let route = layer?.addRoute(option: options)
+        route?.show()
+        
+        let pnt = segments[0].points[0]
+        mapView.moveCamera(CameraUpdate.make(target: pnt, zoomLevel: 15, mapView: mapView))
+    }
+    
+    /// 위도 경도를 이용하여 point를 찍음
+    func routeSegmentPoints() -> [[MapPoint]] {
+        var segments = [[MapPoint]]()
+        
+        var points = [MapPoint]()
+        points.append(MapPoint(longitude: 127.1059968,
+                               latitude: 37.3597093))
+        points.append(MapPoint(longitude: 127.1058342,
+                               latitude: 37.3597078))
+        
+        segments.append(points)
+        
+        points = [MapPoint]()   // 따로 표시가 됨
+        points.append(MapPoint(longitude: 129.0759853,
+                               latitude: 35.1794697))
+        points.append(MapPoint(longitude: 129.0764276,
+                               latitude: 35.1795108))
+        points.append(MapPoint(longitude: 129.0762855,
+                               latitude: 35.1793188))
+        segments.append(points)
+        return segments
+    }
+    
+    
+    
 }
 
 // MARK: - extension
@@ -380,22 +458,6 @@ extension MainMapViewController: BottomSheetDelegate {
     }
 }
 
-// MARK: - MTMapViewDelegate
-extension MainMapViewController: MTMapViewDelegate{
-
-    /// Custom: 현 위치 트래킹 함수
-    func mapView(_ mapView: MTMapView!, updateCurrentLocation location: MTMapPoint!, withAccuracy accuracy: MTMapLocationAccuracy) {
-        let currentLocation = location?.mapPointGeo()
-        if let latitude = currentLocation?.latitude, let longitude = currentLocation?.longitude{
-            print("MTMapView updateCurrentLocation (\(latitude),\(longitude)) accuracy (\(accuracy))")
-        }
-    }
-
-    /// 단말기 머리 방향 업데이트
-    func mapView(_ mapView: MTMapView?, updateDeviceHeading headingAngle: MTMapRotationAngle) {
-        print("MTMapView updateDeviceHeading (\(headingAngle)) degrees")
-    }
-}
 
 // MARK: - CLLocationManagerDelegate
 extension MainMapViewController: CLLocationManagerDelegate {

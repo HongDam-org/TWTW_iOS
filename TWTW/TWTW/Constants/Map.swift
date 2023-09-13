@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import KakaoMapsSDK
+
 struct Map {
-    static let DEFAULT_POSITION = MTMapPointGeo(latitude: 37.576568, longitude: 127.029148) //초기 지도의 기본 위치 : 서울
+    static let DEFAULT_POSITION = MapPoint(longitude: 127.029148, latitude: 37.576568) //초기 지도의 기본 위치 : 서울
 }
