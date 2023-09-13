@@ -359,7 +359,7 @@ final class MainMapViewController: KakaoMapViewController {
     
     // MARK: - Route Functions
     
-    /// 길찾기 표시
+    /// MARK: 길찾기 표시
     func createRouteStyleSet() {
 
         let mapView = mapController?.getView("mapview") as? KakaoMap
@@ -428,7 +428,9 @@ final class MainMapViewController: KakaoMapViewController {
         var segments = [[MapPoint]]()
         
         var points = [MapPoint]()
-        points.append(MapPoint(longitude: 126.7335293, latitude: 37.3401906))
+        let longitude: Double = locationManager.location?.coordinate.longitude.magnitude ?? 0.0
+        let latitude: Double = locationManager.location?.coordinate.latitude.magnitude ?? 0.0
+        points.append(MapPoint(longitude: longitude, latitude: latitude))
         points.append(MapPoint(longitude: 126.7323429, latitude: 37.3416939))
         
         segments.append(points)
@@ -446,7 +448,7 @@ final class MainMapViewController: KakaoMapViewController {
     
     // MARK: - Poi Functions
     
-    /// POI가 속할 LabelLayer를 생성
+    /// MARK: POI가 속할 LabelLayer를 생성
     func createLabelLayer() {
         guard let view = mapController?.getView("mapview") as? KakaoMap else { return }
         let manager = view.getLabelManager()    //LabelManager를 가져온다. LabelLayer는 LabelManger를 통해 추가할 수 있다.
@@ -456,7 +458,7 @@ final class MainMapViewController: KakaoMapViewController {
         createPoiStyle()
     }
     
-    /// POI 스타일 설정
+    /// MARK: POI 스타일 설정
     func createPoiStyle() {
         guard let view = mapController?.getView("mapview") as? KakaoMap else { return }
         let manager = view.getLabelManager()
@@ -468,15 +470,16 @@ final class MainMapViewController: KakaoMapViewController {
         createPois()
     }
     
-    /// POI를 생성
+    /// MARK:  POI를 생성
     func createPois() {
         guard let view = mapController?.getView("mapview") as? KakaoMap else { return }
         let manager = view.getLabelManager()
         let layer = manager.getLabelLayer(layerID: "PoiLayer")   // 생성한 POI를 추가할 레이어를 가져온다.
         let poiOption = PoiOptions(styleID: "customStyle1") // 생성할 POI의 Option을 지정하기 위한 자료를 담는 클래스를 생성. 사용할 스타일의 ID를 지정한다.
         poiOption.rank = 0
-        
-        let poi1 = layer?.addPoi(option: poiOption, at: MapPoint(longitude: 126.7335293, latitude: 37.3401906), callback: nil)
+        let longitude: Double = locationManager.location?.coordinate.longitude.magnitude ?? 0.0
+        let latitude: Double = locationManager.location?.coordinate.latitude.magnitude ?? 0.0
+        let poi1 = layer?.addPoi(option: poiOption, at: MapPoint(longitude: longitude, latitude: latitude), callback: nil)
         let poi2 = layer?.addPoi(option: poiOption, at: MapPoint(longitude: 126.7323429, latitude: 37.3416939), callback: nil)
         poi1?.show()
         poi2?.show()
