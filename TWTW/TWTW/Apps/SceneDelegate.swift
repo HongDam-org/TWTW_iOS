@@ -36,7 +36,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     KeychainWrapper.saveString(value: oauthToken.accessToken, forKey: "AccessToken")
                     
                     // 로그인 성공 후 메인 화면으로 이동
-                    let viewController = ViewController()
+                    let viewController = MeetingListViewController()
                     viewController.modalPresentationStyle = .fullScreen
                     self?.window?.rootViewController?.present(viewController, animated: true, completion: nil)
                 }, onError: { error in

@@ -85,7 +85,7 @@ final class SignInViewController: UIViewController {
     private func onKakaoLoginImageViewTapped() {
         signInViewModel.kakaoLogin()
             .subscribe(onNext:{ [weak self] kakaoUserInfo in
-                let viewController = ViewController()
+                let viewController = MeetingListViewController()
                 viewController.modalPresentationStyle = .fullScreen
                 self?.present(viewController, animated: true, completion: nil)
             })
@@ -108,7 +108,7 @@ final class SignInViewController: UIViewController {
     private func checkKakaoOAuthToken(){
         signInViewModel.checkKakaoOAuthToken()
             .subscribe(onNext: {[weak self] kakaoUserInfo in
-                let viewController = ViewController()
+                let viewController = MeetingListViewController()
                 viewController.modalPresentationStyle = .fullScreen
                 self?.present(viewController, animated: true, completion: nil)
                 
@@ -130,7 +130,7 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
         let email = appleIDCredential.email
         
         // 로그인 성공 처리
-        let viewController = ViewController()
+        let viewController = MeetingListViewController()
         viewController.modalPresentationStyle = .fullScreen
         self.present(viewController, animated: true, completion: nil)
         
