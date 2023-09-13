@@ -62,6 +62,7 @@ final class MainMapViewController: KakaoMapViewController {
     @objc
     private func mylocationTappedAction() {
         moveCameraToCurrentPosition()
+        createPolygonStyleSet()
 //        myLocationTappedSubject.accept(())
     }
 
@@ -496,6 +497,67 @@ final class MainMapViewController: KakaoMapViewController {
         let poi2 = layer?.addPoi(option: poiOption, at: MapPoint(longitude: 126.7323429, latitude: 37.3416939), callback: nil)
         poi1?.show()
         poi2?.show()
+    }
+    
+    // MARK: - PolyGon
+    
+    /// MARK: Draw Polygon Style Set
+    private func createPolygonStyleSet() {
+        guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
+        let manager = mapView.getShapeManager()
+
+        // 레벨별 스타일을 생성.
+        let perLevelStyle1 = PerLevelPolygonStyle(color: UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.3),
+                                                  strokeWidth: 1,
+                                                  strokeColor: UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+                                                  level: 0)
+        let perLevelStyle2 = PerLevelPolygonStyle(color: UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.3),
+                                                  strokeWidth: 1,
+                                                  strokeColor: UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
+                                                  level: 15)
+        
+        // 각 레벨별 스타일로 구성된 2개의 Polygon Style
+        let shapeStyle1 = PolygonStyle(styles: [perLevelStyle1, perLevelStyle2])
+        
+        // PolygonStyle을 PolygonStyleSet에 추가.
+        let shapeStyleSet = PolygonStyleSet(styleSetID: "aroundMyPoistion", styles: [shapeStyle1])
+        manager.addPolygonStyleSet(shapeStyleSet)
+        
+        createShape()
+    }
+    
+    /// MARK: Draw Polygon Shpae
+    private func createShape() {
+        guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
+        let manager = mapView.getShapeManager()
+        let layer = manager.addShapeLayer(layerID: "shapeLayer", zOrder: 10001)
+        
+        let points = Primitives.getCirclePoints(radius: 500, numPoints: 90, cw: true)
+        let polygon = Polygon(exteriorRing: points, hole: nil, styleIndex: 0)
+        
+        let longitude: Double = locationManager.location?.coordinate.longitude.magnitude ?? 0.0
+        let latitude: Double = locationManager.location?.coordinate.latitude.magnitude ?? 0.0
+        
+        let options = PolygonShapeOptions(shapeID: "CircleShape", styleID: "aroundMyPoistion", zOrder: 1)
+        options.basePosition = MapPoint(longitude: longitude, latitude: latitude)
+        options.polygons.append(polygon)
+        
+        let shape = layer?.addPolygonShape(options)
+        shape?.show()
+        
+        removePolygon()
+    }
+    
+    /// MARK: Polygon 제거
+    /// 2초뒤 자동으로 사라짐
+    private func removePolygon(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+            guard let self = self else {return}
+            guard let mapView = self.mapController?.getView("mapview") as? KakaoMap else { return }
+            let manager = mapView.getShapeManager()
+            let layer = manager.getShapeLayer(layerID: "shapeLayer")
+            manager.removeShapeLayer(layerID: "shapeLayer")
+        }
     }
     
 }
