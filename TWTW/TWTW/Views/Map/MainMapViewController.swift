@@ -50,15 +50,6 @@ final class MainMapViewController: UIViewController {
         return collectionView
     }()
     
-    private lazy var myloctaionImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "myLocation"))
-        imageView.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(mylocationTappedAction))
-        imageView.addGestureRecognizer(tapGesture)
-        return imageView
-    }()
-
-    @objc
     private func mylocationTappedAction() {
         myLocationTappedSubject.accept(())
     }
@@ -123,11 +114,11 @@ final class MainMapViewController: UIViewController {
         configureLocationManager()
         setupMapViewUI() //지도
         //기존 UI
-        BottomSheetBind() // 맵 로드 이후
+        bottomSheetBind() // 맵 로드 이후
 
         //새로운 UI
         setupCollectionViewUI()
-        setupMyLocationUI()
+ //       setupMyLocationUI()
 
         //키보드
 //        keyboardDisappear()
@@ -137,7 +128,7 @@ final class MainMapViewController: UIViewController {
 
     // MARK: -  View Did Appear
     override func viewDidAppear(_ animated: Bool) {
-        setupMyLocationUI()
+  //      setupMyLocationUI()
 
         setupSearchBar()
     }
@@ -193,11 +184,7 @@ final class MainMapViewController: UIViewController {
         nearbyPlacesCollectionView.dataSource = self
         nearbyPlacesCollectionView.delegate = self
     }
-    /// MARK: set up myLocation UI
-    private func setupMyLocationUI() {
-        myLocationAction()
-        addSubViews_myLocation()
-    }
+
 
 
     /// MARK: Add  UI
@@ -226,11 +213,6 @@ final class MainMapViewController: UIViewController {
         configureConstraints_nearbyPlacesCollectionView()
     }
     
-    /// MARK: Add  UI -  myLoaction
-    private func addSubViews_myLocation(){
-        view.addSubview(myloctaionImageView)
-        configureConstraints_myLoaction()
-    }
 
     ///MARK: Setup - SearchBar
     private func setupSearchBar() {
@@ -271,34 +253,6 @@ final class MainMapViewController: UIViewController {
         }
     }
     
-    /// MARK: Configure   Constraints UI - MyLoaction
-    private func configureConstraints_myLoaction() {
-        myloctaionImageView.snp.remakeConstraints { make in
-            make.trailing.equalToSuperview().inset(5)
-            make.width.height.equalTo(view.snp.width).multipliedBy(0.1)
-            make.bottom.equalTo(view.snp.bottom).offset(-initBottomheight - 10)
-        }
-    }
-    
-    /// 조건이 변화했을 때 updateLayout_myloctaionImageView() 제약조건변화
-    private func updateLayout_myloctaionImageView() {
-        if searchBarSearchable {
-            myloctaionImageView.snp.remakeConstraints { make in
-                make.trailing.equalToSuperview().inset(5)
-                make.width.height.equalTo(view.snp.width).multipliedBy(0.1)
-                make.bottom.equalTo(view.snp.bottom).offset(-initBottomheight - 10)
-            }
-        } else {
-            myloctaionImageView.snp.remakeConstraints { make in
-                make.trailing.equalToSuperview().inset(5)
-                make.width.height.equalTo(view.snp.width).multipliedBy(0.1)
-                make.bottom.equalTo(nearbyPlacesCollectionView.snp.top).offset(-5)
-            }
-        }
-
-        // 변경된 제약 조건 적용
-        view.layoutIfNeeded()
-    }
 
     /// MARK: Add  Gesture - Map
     private func addTapGesture_Map(){
@@ -307,7 +261,7 @@ final class MainMapViewController: UIViewController {
     }
 
     /// MARK: viewModel binding
-    private func BottomSheetBind(){
+    private func bottomSheetBind(){
         viewModel.checkTouchEventRelay
             .filter { [weak self] _ in
                 return self?.searchBarSearchable == true
@@ -315,14 +269,23 @@ final class MainMapViewController: UIViewController {
             .bind { [weak self] check in
                 if check {
                     // 화면 터치시 주변 UI 숨기기
-                    UIView.animate(withDuration: 0.5, animations: {
-                        self?.tabBarViewController.view.alpha = 0
-                    }) { (completed) in
-                        if completed {
-                            self?.tabBarViewController.view.isHidden = true
+                    let tapLocation = self?.tapGesture?.location(in: self?.view)
+                    // 탭 위치가 myloctaionImageView의 프레임 내에 있는지 확인
+                    if let myloctaionImageViewFrame = self?.tabBarViewController.myloctaionImageView.frame,
+                       let tapLocation = tapLocation,
+                       myloctaionImageViewFrame.contains(CGPoint(x: tapLocation.x, y: -6)) { //바텀시트와 5 포인트 떨어진 위치에 배치해둬서 수치로 넣어둠
+                        self?.myLocationAction()
+                        
+                    } else {
+                        UIView.animate(withDuration: 0.5, animations: {
+                            self?.tabBarViewController.view.alpha = 0
+                        }) { (completed) in
+                            if completed {
+                                self?.tabBarViewController.view.isHidden = true
+                            }
                         }
-                    }
-                } else {
+                    }}
+                else {
                     self?.tabBarViewController.view.alpha = 1
                     self?.tabBarViewController.view.isHidden = false
                 }
@@ -431,7 +394,7 @@ extension MainMapViewController: UISearchBarDelegate {
             // 처음 클릭시 새로운 UI를 보이도록 처리
             showSearchUIElements()
             searchBarSearchable = false// 검색 동작 가능하도록 플래그를 변경
-            updateLayout_myloctaionImageView()
+         //   updateLayout_myloctaionImageView()
             return false
         } else {
             // 이미 검색 UI가 보이는 경우 검색 동작을 허용
@@ -483,3 +446,4 @@ extension MainMapViewController {
         tabBarViewController.updateBottomSheetHeight(height)
     }
 }
+
