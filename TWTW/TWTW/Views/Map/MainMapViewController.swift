@@ -129,17 +129,18 @@ final class MainMapViewController: KakaoMapViewController {
         setupSearchBar()
     }
     
-    // MARK: - Fuctions
+    // MARK: - Add UI
     
     /// MARK: 지도 그리기
     override func addViews() {
         
         let mapviewInfo: MapviewInfo = MapviewInfo(viewName: "mapview", viewInfoName: "map", defaultPosition: Map.DEFAULT_POSITION)
         
-        if mapController?.addView(mapviewInfo) == Result.OK {
-            print("OK")
+        if mapController?.addView(mapviewInfo) == Result.OK {   // 지도가 다 그려진 다음 실행
+            print("Success Build Map")
             createRouteStyleSet()
             createRouteline()
+            createLabelLayer()
         }
     }
     
@@ -175,12 +176,14 @@ final class MainMapViewController: KakaoMapViewController {
         addTapGesture_Map()
 
     }
+    
     /// MARK: set up CollectionView UI
     private func setupCollectionViewUI() {
         addSubViews_nearbyPlacesCollectionView()
         nearbyPlacesCollectionView.dataSource = self
         nearbyPlacesCollectionView.delegate = self
     }
+    
     /// MARK: set up myLocation UI
     private func setupMyLocationUI() {
         myLocationAction()
@@ -194,6 +197,7 @@ final class MainMapViewController: KakaoMapViewController {
         configureConstraints()
 
     }
+    
     /// MARK: Add  UI - SearchBar
     private func addSubViews_SearchBar(){
         view.addSubview(searchBar)
@@ -234,6 +238,7 @@ final class MainMapViewController: KakaoMapViewController {
         }
 
     }
+    
     /// MARK: Configure   Constraints UI - SearchBar
     private func configureConstraints_SearchBar() {
         searchBar.snp.makeConstraints { make in
@@ -351,6 +356,9 @@ final class MainMapViewController: KakaoMapViewController {
         viewModel.checkingTouchEvents()
     }
     
+    
+    // MARK: - Route Functions
+    
     /// 길찾기 표시
     func createRouteStyleSet() {
 
@@ -362,8 +370,8 @@ final class MainMapViewController: KakaoMapViewController {
         // pattern
         let styleSet = RouteStyleSet(styleID: "routeStyleSet1")
         styleSet.addPattern(RoutePattern(pattern: patternImages[0]!, distance: 60, symbol: nil, pinStart: false, pinEnd: false))
-        styleSet.addPattern(RoutePattern(pattern: patternImages[1]!, distance: 6, symbol: nil, pinStart: true, pinEnd: true))
-        styleSet.addPattern(RoutePattern(pattern: patternImages[2]!, distance: 6, symbol: UIImage(named: "route_pattern_long_airplane.png")!, pinStart: true, pinEnd: true))
+        styleSet.addPattern(RoutePattern(pattern: patternImages[1]!, distance: 6, symbol: nil, pinStart: false, pinEnd: false))
+//        styleSet.addPattern(RoutePattern(pattern: patternImages[2]!, distance: 6, symbol: UIImage(named: "route_pattern_long_airplane.png")!, pinStart: true, pinEnd: true))
         
         let colors = [
             UIColor(hexCode: "ff0000"),
@@ -420,10 +428,8 @@ final class MainMapViewController: KakaoMapViewController {
         var segments = [[MapPoint]]()
         
         var points = [MapPoint]()
-        points.append(MapPoint(longitude: 127.1059968,
-                               latitude: 37.3597093))
-        points.append(MapPoint(longitude: 127.1058342,
-                               latitude: 37.3597078))
+        points.append(MapPoint(longitude: 126.7335293, latitude: 37.3401906))
+        points.append(MapPoint(longitude: 126.7323429, latitude: 37.3416939))
         
         segments.append(points)
         
@@ -438,7 +444,43 @@ final class MainMapViewController: KakaoMapViewController {
         return segments
     }
     
+    // MARK: - Poi Functions
     
+    /// POI가 속할 LabelLayer를 생성
+    func createLabelLayer() {
+        guard let view = mapController?.getView("mapview") as? KakaoMap else { return }
+        let manager = view.getLabelManager()    //LabelManager를 가져온다. LabelLayer는 LabelManger를 통해 추가할 수 있다.
+        
+        let layerOption = LabelLayerOptions(layerID: "PoiLayer", competitionType: .none, competitionUnit: .poi, orderType: .rank, zOrder: 10001)
+        let _ = manager.addLabelLayer(option: layerOption)
+        createPoiStyle()
+    }
+    
+    /// POI 스타일 설정
+    func createPoiStyle() {
+        guard let view = mapController?.getView("mapview") as? KakaoMap else { return }
+        let manager = view.getLabelManager()
+
+        let iconStyle = PoiIconStyle(symbol: UIImage(named: "route_pattern_long_dot.png")?.resize(newWidth: 30, newHeight: 30), anchorPoint: CGPoint(x: 0.0, y: 0.0))
+        let perLevelStyle = PerLevelPoiStyle(iconStyle: iconStyle, level: 0)  // 이 스타일이 적용되기 시작할 레벨.
+        let poiStyle = PoiStyle(styleID: "customStyle1", styles: [perLevelStyle])
+        manager.addPoiStyle(poiStyle)
+        createPois()
+    }
+    
+    /// POI를 생성
+    func createPois() {
+        guard let view = mapController?.getView("mapview") as? KakaoMap else { return }
+        let manager = view.getLabelManager()
+        let layer = manager.getLabelLayer(layerID: "PoiLayer")   // 생성한 POI를 추가할 레이어를 가져온다.
+        let poiOption = PoiOptions(styleID: "customStyle1") // 생성할 POI의 Option을 지정하기 위한 자료를 담는 클래스를 생성. 사용할 스타일의 ID를 지정한다.
+        poiOption.rank = 0
+        
+        let poi1 = layer?.addPoi(option: poiOption, at: MapPoint(longitude: 126.7335293, latitude: 37.3401906), callback: nil)
+        let poi2 = layer?.addPoi(option: poiOption, at: MapPoint(longitude: 126.7323429, latitude: 37.3416939), callback: nil)
+        poi1?.show()
+        poi2?.show()
+    }
     
 }
 
@@ -457,7 +499,6 @@ extension MainMapViewController: BottomSheetDelegate {
         }
     }
 }
-
 
 // MARK: - CLLocationManagerDelegate
 extension MainMapViewController: CLLocationManagerDelegate {
@@ -538,6 +579,7 @@ extension MainMapViewController: UICollectionViewDelegateFlowLayout {
     }
 
 }
+
 extension MainMapViewController {
     // MARK: - Height Update Method
 
