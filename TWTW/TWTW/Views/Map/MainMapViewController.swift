@@ -61,7 +61,8 @@ final class MainMapViewController: KakaoMapViewController {
 
     @objc
     private func mylocationTappedAction() {
-        myLocationTappedSubject.accept(())
+        moveCameraToCurrentPosition()
+//        myLocationTappedSubject.accept(())
     }
 
     /// MARK: 버튼역할의 서치바UI
@@ -152,6 +153,18 @@ final class MainMapViewController: KakaoMapViewController {
 //                self?.mapView.currentLocationTrackingMode = .onWithoutHeading
             })
             .disposed(by: disposeBag)
+    }
+    
+    /// MARK: 현재 자신의 위치로 카메라 옮기기
+    private func moveCameraToCurrentPosition() {
+        guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
+        
+        // 자신의 현재 위치
+        let longitude: Double = locationManager.location?.coordinate.longitude.magnitude ?? 0.0
+        let latitude: Double = locationManager.location?.coordinate.latitude.magnitude ?? 0.0
+        
+        mapView.moveCamera(CameraUpdate.make(target: MapPoint(longitude: longitude, latitude: latitude), zoomLevel: 15, rotation: 1.7, tilt: 0.0, mapView: mapView))
+        
     }
 
     // 키보드를 내리는 제스처 추가
@@ -360,11 +373,10 @@ final class MainMapViewController: KakaoMapViewController {
     // MARK: - Route Functions
     
     /// MARK: 길찾기 표시
-    func createRouteStyleSet() {
-
-        let mapView = mapController?.getView("mapview") as? KakaoMap
-        let manager = mapView?.getRouteManager()
-        let _ = manager?.addRouteLayer(layerID: "RouteLayer", zOrder: 0)
+    private func createRouteStyleSet() {
+        guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
+        let manager = mapView.getRouteManager()
+        let _ = manager.addRouteLayer(layerID: "RouteLayer", zOrder: 0)
         let patternImages = [UIImage(named: "route_pattern_arrow.png"), UIImage(named: "route_pattern_walk.png"), UIImage(named: "route_pattern_long_dot.png")]
         
         // pattern
@@ -395,12 +407,12 @@ final class MainMapViewController: KakaoMapViewController {
             styleSet.addStyle(routeStyle)
         }
 
-        manager?.addRouteStyleSet(styleSet)
+        manager.addRouteStyleSet(styleSet)
     }
     
     /// MARK:  지도에 선 그리기
-    func createRouteline() {
-        let mapView = mapController?.getView("mapview") as! KakaoMap
+    private func createRouteline() {
+        guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
         let manager = mapView.getRouteManager()
         let layer = manager.addRouteLayer(layerID: "RouteLayer", zOrder: 0)
         
@@ -424,10 +436,11 @@ final class MainMapViewController: KakaoMapViewController {
     }
     
     /// 위도 경도를 이용하여 point를 찍음
-    func routeSegmentPoints() -> [[MapPoint]] {
+    private func routeSegmentPoints() -> [[MapPoint]] {
         var segments = [[MapPoint]]()
         
         var points = [MapPoint]()
+        
         let longitude: Double = locationManager.location?.coordinate.longitude.magnitude ?? 0.0
         let latitude: Double = locationManager.location?.coordinate.latitude.magnitude ?? 0.0
         points.append(MapPoint(longitude: longitude, latitude: latitude))
@@ -449,7 +462,7 @@ final class MainMapViewController: KakaoMapViewController {
     // MARK: - Poi Functions
     
     /// MARK: POI가 속할 LabelLayer를 생성
-    func createLabelLayer() {
+    private func createLabelLayer() {
         guard let view = mapController?.getView("mapview") as? KakaoMap else { return }
         let manager = view.getLabelManager()    //LabelManager를 가져온다. LabelLayer는 LabelManger를 통해 추가할 수 있다.
         
@@ -459,7 +472,7 @@ final class MainMapViewController: KakaoMapViewController {
     }
     
     /// MARK: POI 스타일 설정
-    func createPoiStyle() {
+    private func createPoiStyle() {
         guard let view = mapController?.getView("mapview") as? KakaoMap else { return }
         let manager = view.getLabelManager()
 
@@ -471,7 +484,7 @@ final class MainMapViewController: KakaoMapViewController {
     }
     
     /// MARK:  POI를 생성
-    func createPois() {
+    private func createPois() {
         guard let view = mapController?.getView("mapview") as? KakaoMap else { return }
         let manager = view.getLabelManager()
         let layer = manager.getLabelLayer(layerID: "PoiLayer")   // 생성한 POI를 추가할 레이어를 가져온다.
