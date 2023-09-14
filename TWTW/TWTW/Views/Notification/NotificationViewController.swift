@@ -14,7 +14,8 @@ final class NotificationViewController: UIViewController {
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .cyan
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 20
     }
 }
 

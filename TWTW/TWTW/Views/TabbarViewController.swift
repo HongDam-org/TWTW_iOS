@@ -59,7 +59,11 @@ class TabBarController: UITabBarController {
         let viewHeight = self.view.bounds.height
         // BottomSheetViewModel에 높이를 설정
         tabBarViewModel.setupHeight(viewHeight: viewHeight)
+        tabBar.backgroundColor = UIColor(white: 1, alpha: 1)
+        view.backgroundColor = .clear
+     
     }
+
     
     // 뷰의 높이를 설정하는 메서드
     func setViewHeight(_ height: CGFloat) {
@@ -152,7 +156,6 @@ class TabBarController: UITabBarController {
                 self.updateBottomSheetHeight(finalHeight)
                 self.view.layoutIfNeeded()
             }
-            
             delegates?.didUpdateBottomSheetHeight(finalHeight)
         default:
             break
@@ -171,6 +174,12 @@ class TabBarController: UITabBarController {
         // 바텀시트와 5 포인트 떨어진 위치로 유지
         myloctaionImageView.snp.updateConstraints { make in
             make.bottom.equalTo(self.view.snp.top).offset(-5)
+        }
+        if newHeight <= tabBarViewModel.maxHeight && newHeight > tabBarViewModel.midHeight {
+            myloctaionImageView.snp.updateConstraints { make in
+                make.bottom.equalTo(self.view.snp.top).offset(myloctaionImageView.frame.height+5)
+            }
+
         }
 ///mark: 후에 사용할 조건문
         //        if height >= tabBarViewModel.maxHeight {

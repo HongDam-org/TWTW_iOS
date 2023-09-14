@@ -98,6 +98,7 @@ final class MainMapViewController: KakaoMapViewController {
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
+  
         hideSearchUIElements()
         initBottomheight = view.bounds.height*(0.2)
         configureLocationManager()
@@ -125,7 +126,7 @@ final class MainMapViewController: KakaoMapViewController {
     
     /// MARK: 지도 그리기
     override func addViews() {
-        
+        view.backgroundColor = .white
         let mapviewInfo: MapviewInfo = MapviewInfo(viewName: "mapview", viewInfoName: "map", defaultPosition: Map.DEFAULT_POSITION)
         
         if mapController?.addView(mapviewInfo) == Result.OK {   // 지도가 다 그려진 다음 실행
@@ -234,8 +235,9 @@ final class MainMapViewController: KakaoMapViewController {
     private func configureConstraints(){
         ///mapView
         mapView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalTo(view.safeAreaLayoutGuide)
         }
+        
 
     }
     
@@ -250,8 +252,9 @@ final class MainMapViewController: KakaoMapViewController {
     /// MARK:  Configure   Constraints UI - TabbarController
     private func configureConstraints_TabbarController(){
         tabBarViewController.view.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.height.equalTo(initBottomheight)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 
