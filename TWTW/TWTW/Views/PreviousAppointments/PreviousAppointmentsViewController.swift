@@ -29,7 +29,7 @@ final class PreviousAppointmentsViewController: UIViewController {
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .blue
         view.layer.cornerRadius = 20
         addSubViews()
         bind()

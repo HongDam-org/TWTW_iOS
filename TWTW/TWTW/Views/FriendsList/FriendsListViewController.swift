@@ -25,6 +25,7 @@ final class FriendsListViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.layer.cornerRadius = 20
+
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(FriendsListColletionViewCell.self, forCellWithReuseIdentifier: cellWithReuseIdentifier)
