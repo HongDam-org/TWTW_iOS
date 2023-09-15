@@ -346,8 +346,11 @@ final class MainMapViewController: KakaoMapViewController {
     /// MARK: 길찾기 표시
     private func createRouteStyleSet() {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
+        // 라우트 매니저 초기화
         let manager = mapView.getRouteManager()
+        // 라우트 레이어 추가
         let _ = manager.addRouteLayer(layerID: "RouteLayer", zOrder: 0)
+        // 라인 패턴 이미지 배열
         let patternImages = [UIImage(named: "route_pattern_arrow.png"), UIImage(named: "route_pattern_walk.png"), UIImage(named: "route_pattern_long_dot.png")]
         
         // pattern
@@ -357,26 +360,33 @@ final class MainMapViewController: KakaoMapViewController {
 //        styleSet.addPattern(RoutePattern(pattern: patternImages[2]!, distance: 6, symbol: UIImage(named: "route_pattern_long_airplane.png")!, pinStart: true, pinEnd: true))
         
         let colors = [
-            UIColor(hexCode: "ff0000"),
-            UIColor(hexCode: "00ff00"),
+            UIColor(hexCode: "ffffff"),
+            UIColor(hexCode: "000000"),
             UIColor(hexCode: "0000ff"),
             UIColor(hexCode: "ffff00") ]
 
         let strokeColors = [
-            UIColor(hexCode: "ffffff"),
+            UIColor(hexCode: "000000"),
             UIColor(hexCode: "ddffdd"),
             UIColor(hexCode: "00ddff"),
             UIColor(hexCode: "ffffdd") ]
             
         let patternIndex = [-1, 0, 1, 2]
         
-        for index in 0 ..< colors.count {
-            let routeStyle = RouteStyle(styles: [
-                PerLevelRouteStyle(width: 18, color: colors[index], strokeWidth: 4, strokeColor: strokeColors[index], level: 0, patternIndex: patternIndex[index])
-            ])
- 
-            styleSet.addStyle(routeStyle)
-        }
+        //0:빈 경로 1:화살표(네이버지도 유사) 2:... 3: ...
+//        for index in 0 ..< colors.count {
+//            let routeStyle = RouteStyle(styles: [
+//                PerLevelRouteStyle(width: 15, color: colors[2], strokeWidth: 4, strokeColor: strokeColors[2], level: 0, patternIndex: patternIndex[3])
+//            ])
+//
+//            styleSet.addStyle(routeStyle)
+//        }
+        ///mark: 맵위 line
+        let routeStyle = RouteStyle(styles: [
+            PerLevelRouteStyle(width: 15, color: UIColor.mapLineColor ?? .clear, strokeWidth: 4, strokeColor: UIColor.mapStrokeColor ?? .clear, level: 0, patternIndex: 0)
+        ])
+
+        styleSet.addStyle(routeStyle)
 
         manager.addRouteStyleSet(styleSet)
     }
@@ -447,7 +457,7 @@ final class MainMapViewController: KakaoMapViewController {
         guard let view = mapController?.getView("mapview") as? KakaoMap else { return }
         let manager = view.getLabelManager()
 
-        let iconStyle = PoiIconStyle(symbol: UIImage(named: "route_pattern_long_dot.png")?.resize(newWidth: 30, newHeight: 30), anchorPoint: CGPoint(x: 0.0, y: 0.0))
+        let iconStyle = PoiIconStyle(symbol: UIImage(named: "route_pattern_long_dot.png")?.resize(newWidth: 15, newHeight: 15), anchorPoint: CGPoint(x: 0.0, y: 0.0))
         let perLevelStyle = PerLevelPoiStyle(iconStyle: iconStyle, level: 0)  // 이 스타일이 적용되기 시작할 레벨.
         let poiStyle = PoiStyle(styleID: "customStyle1", styles: [perLevelStyle])
         manager.addPoiStyle(poiStyle)
@@ -477,14 +487,13 @@ final class MainMapViewController: KakaoMapViewController {
         let manager = mapView.getShapeManager()
 
         // 레벨별 스타일을 생성.
-        let perLevelStyle1 = PerLevelPolygonStyle(color: UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.3),
+        let perLevelStyle1 = PerLevelPolygonStyle(color: UIColor.mapCircleColor ?? .black,
                                                   strokeWidth: 1,
-                                                  strokeColor: UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
-                                                  level: 0)
-        let perLevelStyle2 = PerLevelPolygonStyle(color: UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.3),
+                                                  strokeColor: .clear, level: 0)
+                                                 
+        let perLevelStyle2 = PerLevelPolygonStyle(color: UIColor.mapCircleColor ?? .black,
                                                   strokeWidth: 1,
-                                                  strokeColor: UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0),
-                                                  level: 15)
+                                                  strokeColor: .clear, level: 15)
         
         // 각 레벨별 스타일로 구성된 2개의 Polygon Style
         let shapeStyle1 = PolygonStyle(styles: [perLevelStyle1, perLevelStyle2])
@@ -586,7 +595,6 @@ extension MainMapViewController: UISearchBarDelegate {
             return false
         } else {
             // 이미 검색 UI가 보이는 경우 검색 동작을 허용
-
             return true
         }
     }

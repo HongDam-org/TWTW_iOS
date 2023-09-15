@@ -12,8 +12,13 @@ extension UIColor {
     
     ///맵 위 반경
     static let mapCircleColor = UIColor(named: "mapCircleColor")
-    
-    
+    //길찾기
+    ///stroke line color
+    static let mapStrokeColor = UIColor(named: "mapStrokeColor")
+
+    ///line color
+    static let mapLineColor = UIColor(named: "mapLineColor")
+
     convenience init(hexCode: String, alpha: CGFloat = 1.0) {
         var hexFormatted: String = hexCode.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
         

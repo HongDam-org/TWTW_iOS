@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3701108B2AB2E49D005B0B24 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3701108A2AB2E49D005B0B24 /* Test.swift */; };
 		3703095B2AAF1C8400F9CD80 /* FriendsListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3703095A2AAF1C8400F9CD80 /* FriendsListCollectionView.swift */; };
 		3703095F2AAF20D900F9CD80 /* FriendsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3703095E2AAF20D900F9CD80 /* FriendsListModel.swift */; };
 		373C85462AADA91E00325155 /* BottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C85452AADA91E00325155 /* BottomSheetViewModel.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3701108A2AB2E49D005B0B24 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		3703095A2AAF1C8400F9CD80 /* FriendsListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCollectionView.swift; sourceTree = "<group>"; };
 		3703095E2AAF20D900F9CD80 /* FriendsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListModel.swift; sourceTree = "<group>"; };
 		373C85452AADA91E00325155 /* BottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewModel.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				3799E5012A99D68500E06218 /* CallViewController.swift */,
+				3701108A2AB2E49D005B0B24 /* Test.swift */,
 			);
 			path = Call;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */,
 				3799E5052A99D6DC00E06218 /* PreviousAppointmentsViewController.swift in Sources */,
 				3BF9EFB12AB1DEDB0014855E /* UIImage+Ext.swift in Sources */,
+				3701108B2AB2E49D005B0B24 /* Test.swift in Sources */,
 				3758F1902A7D007200E2933C /* MeetingListViewController.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
