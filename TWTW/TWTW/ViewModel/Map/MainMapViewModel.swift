@@ -8,6 +8,8 @@
 import Foundation
 import RxSwift
 import RxRelay
+import CoreLocation
+import UIKit
 
 final class MainMapViewModel: NSObject {
     
@@ -15,14 +17,20 @@ final class MainMapViewModel: NSObject {
     ///  true: UI 제거하기, false: UI 표시
     var checkTouchEventRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
-    /// MARK: 내위치 선택했을 때
-    let myLocationTappedSubject = PublishRelay<Void>()
-    
     /// MARK: 검색지 주변 장소 데이터
     var placeData: BehaviorRelay<[SearchNearByPlaces]> = BehaviorRelay(value: [])
     
     /// 서치바 동작기능 변형 버튼기능 -> 검색기능
-    var searchBarSearchable : BehaviorRelay<Bool> = BehaviorRelay(value: true)
+    var searchBarSearchable: BehaviorRelay<Bool> = BehaviorRelay(value: true)
+    
+    /// MARK: tabbar bottm height
+    var initBottomheight: BehaviorRelay<Double> = BehaviorRelay(value: 0.0)
+    
+    /// MARK: 현재 자신의 위치
+    let locationManager: BehaviorRelay<CLLocationManager> = BehaviorRelay(value: CLLocationManager())
+    
+    /// MARK: 지도 화면 터치 했을 때
+    var tapGesture: BehaviorRelay<UITapGestureRecognizer> = BehaviorRelay(value: UITapGestureRecognizer())
     
     // MARK: - Logic
     

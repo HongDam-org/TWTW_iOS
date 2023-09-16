@@ -59,20 +59,15 @@ final class MainMapViewController: KakaoMapViewController {
         return view
     }()
 
-    /// 서치바 동작기능 변형 버튼기능 -> 검색기능
-    var searchBarSearchable : Bool = true
     private let disposeBag = DisposeBag()
     private let viewModel = MainMapViewModel()
-    private var tapGesture: UITapGestureRecognizer?
-    private let locationManager = CLLocationManager()
-    private var initBottomheight = 0.0
 
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
   
         hideSearchUIElements()
-        initBottomheight = view.bounds.height*(0.2)
+        viewModel.initBottomheight.accept(view.bounds.height*(0.2))
         configureLocationManager()
         setupMapViewUI() //지도
         //기존 UI
@@ -80,11 +75,13 @@ final class MainMapViewController: KakaoMapViewController {
 
         //새로운 UI
         setupCollectionViewUI()
- //       setupMyLocationUI()
 
         //키보드
 //        keyboardDisappear()
         addSubviews_TabbarController()
+        
+        
+        viewModel.searchInputData_Dummy()
         view.layoutIfNeeded()
     }
 
@@ -114,8 +111,8 @@ final class MainMapViewController: KakaoMapViewController {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
         
         // 자신의 현재 위치
-        let longitude: Double = locationManager.location?.coordinate.longitude.magnitude ?? 0.0
-        let latitude: Double = locationManager.location?.coordinate.latitude.magnitude ?? 0.0
+        let longitude: Double = viewModel.locationManager.value.location?.coordinate.longitude.magnitude ?? 0.0
+        let latitude: Double = viewModel.locationManager.value.location?.coordinate.latitude.magnitude ?? 0.0
         
         mapView.moveCamera(CameraUpdate.make(target: MapPoint(longitude: longitude, latitude: latitude), zoomLevel: 15, rotation: 1.7, tilt: 0.0, mapView: mapView))
         
@@ -133,15 +130,20 @@ final class MainMapViewController: KakaoMapViewController {
 
     /// MARK: configureLocationManager
     private func configureLocationManager() {
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
+        viewModel.locationManager.value.delegate = self
+        viewModel.locationManager.value.requestWhenInUseAuthorization()
     }
 
     /// MARK: set up MapView UI
     private func setupMapViewUI() {
         addSubViews()
         addTapGesture_Map()
-
+    }
+    
+    /// MARK: Add  UI
+    private func addSubViews() {
+        view.addSubview(mapView)
+        configureConstraints()
     }
     
     /// MARK: set up CollectionView UI
@@ -151,12 +153,13 @@ final class MainMapViewController: KakaoMapViewController {
         nearbyPlacesCollectionView.delegate = self
     }
 
-    /// MARK: Add  UI
-    private func addSubViews() {
-        view.addSubview(mapView)
-        configureConstraints()
-
+    ///MARK: Setup - SearchBar
+    private func setupSearchBar() {
+        addSubViews_SearchBar()
+        searchBar.delegate = self // 서치바의 delegate 설정
     }
+    
+    // MARK: - addSubViews
     
     /// MARK: Add  UI - SearchBar
     private func addSubViews_SearchBar(){
@@ -179,12 +182,8 @@ final class MainMapViewController: KakaoMapViewController {
     }
     
 
-    ///MARK: Setup - SearchBar
-    private func setupSearchBar() {
-        addSubViews_SearchBar()
-        searchBar.delegate = self // 서치바의 delegate 설정
-    }
-
+    // MARK: - Constraints
+    
     /// MARK: Configure Constraints UI
     private func configureConstraints(){
         ///mapView
@@ -207,7 +206,7 @@ final class MainMapViewController: KakaoMapViewController {
     private func configureConstraints_TabbarController(){
         tabBarViewController.view.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(initBottomheight)
+            make.height.equalTo(viewModel.initBottomheight.value)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -224,8 +223,8 @@ final class MainMapViewController: KakaoMapViewController {
 
     /// MARK: Add  Gesture - Map
     private func addTapGesture_Map(){
-        tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        mapView.addGestureRecognizer(tapGesture ?? UITapGestureRecognizer())
+        viewModel.tapGesture.accept(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
+        mapView.addGestureRecognizer(viewModel.tapGesture.value)
     }
 
     /// MARK: 내위치 탭 했을 때
@@ -238,19 +237,17 @@ final class MainMapViewController: KakaoMapViewController {
     private func bottomSheetBind(){
         viewModel.checkTouchEventRelay
             .filter { [weak self] _ in
-                return self?.searchBarSearchable == true
+                return self?.viewModel.searchBarSearchable.value == true
             }
             .bind { [weak self] check in
                 if check {
                     // 화면 터치시 주변 UI 숨기기
-                    let tapLocation = self?.tapGesture?.location(in: self?.view)
+                    let tapLocation = self?.viewModel.tapGesture.value.location(in: self?.view)
                     // 탭 위치가 myloctaionImageView의 프레임 내에 있는지 확인
-                    if let myloctaionImageViewFrame = self?.tabBarViewController.myloctaionImageView.frame,
-                       let tapLocation = tapLocation,
-                       myloctaionImageViewFrame.contains(CGPoint(x: tapLocation.x, y: -6)) { //바텀시트와 5 포인트 떨어진 위치에 배치해둬서 수치로 넣어둠
+                    if let myloctaionImageViewFrame = self?.tabBarViewController.myloctaionImageView.frame, let tapLocation = tapLocation, myloctaionImageViewFrame.contains(CGPoint(x: tapLocation.x, y: -6)) { //바텀시트와 5 포인트 떨어진 위치에 배치해둬서 수치로 넣어둠
                         self?.mylocationTappedAction()
-                        
-                    } else {
+                    }
+                    else {
                         UIView.animate(withDuration: 0.5, animations: {
                             self?.tabBarViewController.view.alpha = 0
                         }) { (completed) in
@@ -258,7 +255,8 @@ final class MainMapViewController: KakaoMapViewController {
                                 self?.tabBarViewController.view.isHidden = true
                             }
                         }
-                    }}
+                    }
+                }
                 else {
                     self?.tabBarViewController.view.alpha = 1
                     self?.tabBarViewController.view.isHidden = false
@@ -273,8 +271,6 @@ final class MainMapViewController: KakaoMapViewController {
 
         //새로운 UI요소 보이기
         nearbyPlacesCollectionView.isHidden = false
-        myLocationcircular()
-
     }
     
     ///MARK: -  새로운 UI 요소들을 숨기고 기존 요소들을 보이게 하는 함수
@@ -285,13 +281,6 @@ final class MainMapViewController: KakaoMapViewController {
         // 기존 UI 요소 보이기
         tabBarViewController.view.isHidden = false
 
-    }
-
-    private func myLocationcircular() {
-        // 서치바를 통해 원반경을 보여줄 때
-//        if searchBarSearchable, let userLocation = mapView.mapCenterPoint {
-//            circularOverlay(center: userLocation, radius: 500)// 반경500m
-//        }
     }
 
     /// MARK: 터치 이벤트 실행
@@ -319,21 +308,21 @@ final class MainMapViewController: KakaoMapViewController {
         styleSet.addPattern(RoutePattern(pattern: patternImages[1]!, distance: 6, symbol: nil, pinStart: false, pinEnd: false))
 //        styleSet.addPattern(RoutePattern(pattern: patternImages[2]!, distance: 6, symbol: UIImage(named: "route_pattern_long_airplane.png")!, pinStart: true, pinEnd: true))
         
-        let colors = [
-            UIColor(hexCode: "ffffff"),
-            UIColor(hexCode: "000000"),
-            UIColor(hexCode: "0000ff"),
-            UIColor(hexCode: "ffff00") ]
-
-        let strokeColors = [
-            UIColor(hexCode: "000000"),
-            UIColor(hexCode: "ddffdd"),
-            UIColor(hexCode: "00ddff"),
-            UIColor(hexCode: "ffffdd") ]
-            
-        let patternIndex = [-1, 0, 1, 2]
-        
-        //0:빈 경로 1:화살표(네이버지도 유사) 2:... 3: ...
+//        let colors = [
+//            UIColor(hexCode: "ffffff"),
+//            UIColor(hexCode: "000000"),
+//            UIColor(hexCode: "0000ff"),
+//            UIColor(hexCode: "ffff00") ]
+//
+//        let strokeColors = [
+//            UIColor(hexCode: "000000"),
+//            UIColor(hexCode: "ddffdd"),
+//            UIColor(hexCode: "00ddff"),
+//            UIColor(hexCode: "ffffdd") ]
+//
+//        let patternIndex = [-1, 0, 1, 2]
+//
+//        //0:빈 경로 1:화살표(네이버지도 유사) 2:... 3: ...
 //        for index in 0 ..< colors.count {
 //            let routeStyle = RouteStyle(styles: [
 //                PerLevelRouteStyle(width: 15, color: colors[2], strokeWidth: 4, strokeColor: strokeColors[2], level: 0, patternIndex: patternIndex[3])
@@ -382,8 +371,8 @@ final class MainMapViewController: KakaoMapViewController {
         
         var points = [MapPoint]()
         
-        let longitude: Double = locationManager.location?.coordinate.longitude.magnitude ?? 0.0
-        let latitude: Double = locationManager.location?.coordinate.latitude.magnitude ?? 0.0
+        let longitude: Double = viewModel.locationManager.value.location?.coordinate.longitude.magnitude ?? 0.0
+        let latitude: Double = viewModel.locationManager.value.location?.coordinate.latitude.magnitude ?? 0.0
         points.append(MapPoint(longitude: longitude, latitude: latitude))
         points.append(MapPoint(longitude: 126.7323429, latitude: 37.3416939))
         
@@ -399,6 +388,7 @@ final class MainMapViewController: KakaoMapViewController {
         segments.append(points)
         return segments
     }
+    
     
     // MARK: - Poi Functions
     
@@ -431,13 +421,14 @@ final class MainMapViewController: KakaoMapViewController {
         let layer = manager.getLabelLayer(layerID: "PoiLayer")   // 생성한 POI를 추가할 레이어를 가져온다.
         let poiOption = PoiOptions(styleID: "customStyle1") // 생성할 POI의 Option을 지정하기 위한 자료를 담는 클래스를 생성. 사용할 스타일의 ID를 지정한다.
         poiOption.rank = 0
-        let longitude: Double = locationManager.location?.coordinate.longitude.magnitude ?? 0.0
-        let latitude: Double = locationManager.location?.coordinate.latitude.magnitude ?? 0.0
+        let longitude: Double = viewModel.locationManager.value.location?.coordinate.longitude.magnitude ?? 0.0
+        let latitude: Double = viewModel.locationManager.value.location?.coordinate.latitude.magnitude ?? 0.0
         let poi1 = layer?.addPoi(option: poiOption, at: MapPoint(longitude: longitude, latitude: latitude), callback: nil)
         let poi2 = layer?.addPoi(option: poiOption, at: MapPoint(longitude: 126.7323429, latitude: 37.3416939), callback: nil)
         poi1?.show()
         poi2?.show()
     }
+    
     
     // MARK: - PolyGon
     
@@ -474,8 +465,8 @@ final class MainMapViewController: KakaoMapViewController {
         let points = Primitives.getCirclePoints(radius: 500, numPoints: 90, cw: true)
         let polygon = Polygon(exteriorRing: points, hole: nil, styleIndex: 0)
         
-        let longitude: Double = locationManager.location?.coordinate.longitude.magnitude ?? 0.0
-        let latitude: Double = locationManager.location?.coordinate.latitude.magnitude ?? 0.0
+        let longitude: Double = viewModel.locationManager.value.location?.coordinate.longitude.magnitude ?? 0.0
+        let latitude: Double = viewModel.locationManager.value.location?.coordinate.latitude.magnitude ?? 0.0
         
         let options = PolygonShapeOptions(shapeID: "CircleShape", styleID: "aroundMyPoistion", zOrder: 1)
         options.basePosition = MapPoint(longitude: longitude, latitude: latitude)
@@ -494,7 +485,6 @@ final class MainMapViewController: KakaoMapViewController {
             guard let self = self else {return}
             guard let mapView = self.mapController?.getView("mapview") as? KakaoMap else { return }
             let manager = mapView.getShapeManager()
-            let layer = manager.getShapeLayer(layerID: "shapeLayer")
             manager.removeShapeLayer(layerID: "shapeLayer")
         }
     }
@@ -519,7 +509,6 @@ extension MainMapViewController: BottomSheetDelegate {
 
 // MARK: - CLLocationManagerDelegate
 extension MainMapViewController: CLLocationManagerDelegate {
-
     /// 위치 권한 확인 변화 됐을 때 실행
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkAuthorizationStatus()
@@ -527,7 +516,7 @@ extension MainMapViewController: CLLocationManagerDelegate {
 
     /// 위치 권한 확인을 위한 메소드 checkAuthorizationStatus()
     private func checkAuthorizationStatus() {
-        let status = locationManager.authorizationStatus
+        let status = viewModel.locationManager.value.authorizationStatus
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
             print("위치 서비스 권한이 허용")
@@ -536,7 +525,7 @@ extension MainMapViewController: CLLocationManagerDelegate {
             print("위치 서비스 권한이 거부")
         case .notDetermined:
             print("위치 서비스 권한이 아직 결정되지 않음")
-            locationManager.requestWhenInUseAuthorization()
+            viewModel.locationManager.value.requestWhenInUseAuthorization()
         default:
             fatalError("알 수 없는 권한 상태")
         }
@@ -547,10 +536,10 @@ extension MainMapViewController: CLLocationManagerDelegate {
 extension MainMapViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
 
-        if searchBarSearchable {
+        if viewModel.searchBarSearchable.value {
             // 처음 클릭시 새로운 UI를 보이도록 처리
             showSearchUIElements()
-            searchBarSearchable = false// 검색 동작 가능하도록 플래그를 변경
+            viewModel.searchBarSearchable.accept(false) // 검색 동작 가능하도록 플래그를 변경
             return false
         } else {
             // 이미 검색 UI가 보이는 경우 검색 동작을 허용
@@ -558,6 +547,7 @@ extension MainMapViewController: UISearchBarDelegate {
         }
     }
 }
+
 
 // MARK: -  UICollectionViewDataSource, UICollectionViewDelegate
 extension MainMapViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -576,6 +566,7 @@ extension MainMapViewController: UICollectionViewDataSource, UICollectionViewDel
         return cell
     }
 }
+
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension MainMapViewController: UICollectionViewDelegateFlowLayout {
