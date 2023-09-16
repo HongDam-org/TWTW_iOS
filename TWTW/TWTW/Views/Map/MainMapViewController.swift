@@ -16,27 +16,6 @@ import KakaoMapsSDK
 
 ///MainMapViewController - 지도화면
 final class MainMapViewController: KakaoMapViewController {
-    //PublishRelay
-    private let myLocationTappedSubject = PublishRelay<Void>()
-
-    var myLocationTapped: ControlEvent<Void>{
-        return ControlEvent(events: myLocationTappedSubject.asObservable())
-    }
-
-    // 더미 데이터
-    private let dummyData: [(imageName: String, title: String, subTitle: String)] = [
-        ("image", "Place 1","detail aboudPlace 1"),
-        ("image", "Place 2","detail aboudPlace 2"),
-        ("image", "Place 3","detail aboudPlace 3"),
-        ("image", "Place 4","detail aboudPlace 4"),
-        ("image", "Place 5","detail aboudPlace 5"),
-        ("image", "Place 6","detail aboudPlace 6"),
-        ("image", "Place 7","detail aboudPlace 7"),
-        ("image", "Place 8","detail aboudPlace 8"),
-        ("image", "Place 9","detail aboudPlace 9"),
-        ("image", "Place 10","detail aboudPlace 10")
-
-    ]
 
     //MARK -  서치바 클릭 시 보여질 새로운 UI 요소 (circularView, nearbyPlacesCollectionView, collectionView위 버튼 (중간위치 찾을 VC이동,내위치))
 
@@ -50,12 +29,6 @@ final class MainMapViewController: KakaoMapViewController {
         collectionView.backgroundColor = .clear
         return collectionView
     }()
-    
-    private func mylocationTappedAction() {
-        moveCameraToCurrentPosition()
-        createPolygonStyleSet()
-//        myLocationTappedSubject.accept(())
-    }
 
     /// MARK: 버튼역할의 서치바UI
     private lazy var searchBar: UISearchBar = {
@@ -77,9 +50,6 @@ final class MainMapViewController: KakaoMapViewController {
         return searchBar
     }()
     
-    /// 서치바 동작기능 변형 버튼기능 -> 검색기능
-    var searchBarSearchable : Bool = true
-
     /// MARK: Tabbar Controller
     private lazy var tabBarViewController: TabBarController = {
         let view = TabBarController(viewHeight: self.view.frame.height)
@@ -89,6 +59,8 @@ final class MainMapViewController: KakaoMapViewController {
         return view
     }()
 
+    /// 서치바 동작기능 변형 버튼기능 -> 검색기능
+    var searchBarSearchable : Bool = true
     private let disposeBag = DisposeBag()
     private let viewModel = MainMapViewModel()
     private var tapGesture: UITapGestureRecognizer?
@@ -137,16 +109,6 @@ final class MainMapViewController: KakaoMapViewController {
         }
     }
     
-    
-    // 내 위치중심으로 지도 이동
-    private func myLocationAction(){
-        myLocationTapped
-            .subscribe(onNext: {[weak self] in
-//                self?.mapView.currentLocationTrackingMode = .onWithoutHeading
-            })
-            .disposed(by: disposeBag)
-    }
-    
     /// MARK: 현재 자신의 위치로 카메라 옮기기
     private func moveCameraToCurrentPosition() {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
@@ -188,14 +150,6 @@ final class MainMapViewController: KakaoMapViewController {
         nearbyPlacesCollectionView.dataSource = self
         nearbyPlacesCollectionView.delegate = self
     }
-    
-    /// MARK: set up myLocation UI
-    private func setupMyLocationUI() {
-        myLocationAction()
-        //addSubViews_myLocation()
-    }
-
-
 
     /// MARK: Add  UI
     private func addSubViews() {
@@ -274,6 +228,12 @@ final class MainMapViewController: KakaoMapViewController {
         mapView.addGestureRecognizer(tapGesture ?? UITapGestureRecognizer())
     }
 
+    /// MARK: 내위치 탭 했을 때
+    private func mylocationTappedAction() {
+        moveCameraToCurrentPosition()
+        createPolygonStyleSet()
+    }
+    
     /// MARK: viewModel binding
     private func bottomSheetBind(){
         viewModel.checkTouchEventRelay
@@ -591,7 +551,6 @@ extension MainMapViewController: UISearchBarDelegate {
             // 처음 클릭시 새로운 UI를 보이도록 처리
             showSearchUIElements()
             searchBarSearchable = false// 검색 동작 가능하도록 플래그를 변경
-         //   updateLayout_myloctaionImageView()
             return false
         } else {
             // 이미 검색 UI가 보이는 경우 검색 동작을 허용
@@ -603,17 +562,17 @@ extension MainMapViewController: UISearchBarDelegate {
 // MARK: -  UICollectionViewDataSource, UICollectionViewDelegate
 extension MainMapViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dummyData.count
+        return viewModel.placeData.value.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NearbyPlacesCollectionViewCell.cellIdentifier, for: indexPath) as? NearbyPlacesCollectionViewCell else { return UICollectionViewCell() }
 
-        let data = dummyData[indexPath.item]
+        let data = viewModel.placeData.value[indexPath.item]
 
-        cell.imageView.image = UIImage(named: data.imageName)
-        cell.titleLabel.text = data.title
-        cell.subTitleLabel.text = data.subTitle
+        cell.imageView.image = UIImage(named: data.imageName ?? "")
+        cell.titleLabel.text = data.title ?? ""
+        cell.subTitleLabel.text = data.subTitle ?? ""
         return cell
     }
 }
