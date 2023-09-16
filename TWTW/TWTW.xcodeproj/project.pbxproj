@@ -42,6 +42,10 @@
 		37BAF8962A949C4900BD85DC /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 37BAF8952A949C4900BD85DC /* Config.xcconfig */; };
 		37E043692AA5F4CE00F9E807 /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */; };
 		3B1850A92AB5A955001945EE /* SearchNearByPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1850A82AB5A955001945EE /* SearchNearByPlaces.swift */; };
+		3B1850AB2AB5C620001945EE /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1850AA2AB5C620001945EE /* SearchService.swift */; };
+		3B1850AE2AB5C781001945EE /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1850AD2AB5C781001945EE /* EndPoint.swift */; };
+		3B1850B02AB5C939001945EE /* Domain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1850AF2AB5C938001945EE /* Domain.swift */; };
+		3B1850B22AB5CCA6001945EE /* SearchPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1850B12AB5CCA6001945EE /* SearchPlaces.swift */; };
 		3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C36EB2A8FD0BE00838682 /* Map.swift */; };
 		3B1C36EF2A8FD30200838682 /* BottomSheetDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C36EE2A8FD30200838682 /* BottomSheetDelegate.swift */; };
 		3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */; };
@@ -82,6 +86,10 @@
 		37BAF8952A949C4900BD85DC /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
 		3B1850A82AB5A955001945EE /* SearchNearByPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNearByPlaces.swift; sourceTree = "<group>"; };
+		3B1850AA2AB5C620001945EE /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		3B1850AD2AB5C781001945EE /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		3B1850AF2AB5C938001945EE /* Domain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain.swift; sourceTree = "<group>"; };
+		3B1850B12AB5CCA6001945EE /* SearchPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaces.swift; sourceTree = "<group>"; };
 		3B1C36EB2A8FD0BE00838682 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		3B1C36EE2A8FD30200838682 /* BottomSheetDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetDelegate.swift; sourceTree = "<group>"; };
 		3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModel.swift; sourceTree = "<group>"; };
@@ -172,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				375916362A7EB36000C21E1F /* SignInService.swift */,
+				3B1850AA2AB5C620001945EE /* SearchService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -327,13 +336,24 @@
 			isa = PBXGroup;
 			children = (
 				3B1850A82AB5A955001945EE /* SearchNearByPlaces.swift */,
+				3B1850B12AB5CCA6001945EE /* SearchPlaces.swift */,
 			);
 			path = Map;
+			sourceTree = "<group>";
+		};
+		3B1850AC2AB5C779001945EE /* API */ = {
+			isa = PBXGroup;
+			children = (
+				3B1850AD2AB5C781001945EE /* EndPoint.swift */,
+				3B1850AF2AB5C938001945EE /* Domain.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		3B1C36EA2A8FD0A900838682 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				3B1850AC2AB5C779001945EE /* API */,
 				3B1C36EB2A8FD0BE00838682 /* Map.swift */,
 			);
 			path = Constants;
@@ -463,9 +483,11 @@
 				3B1850A92AB5A955001945EE /* SearchNearByPlaces.swift in Sources */,
 				375E8B022A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift in Sources */,
 				3799E5092A99D72D00E06218 /* NotificationViewController.swift in Sources */,
+				3B1850AE2AB5C781001945EE /* EndPoint.swift in Sources */,
 				3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */,
 				3703095F2AAF20D900F9CD80 /* FriendsListModel.swift in Sources */,
 				3799E4F32A99C79100E06218 /* VCScenesCoordinator.swift in Sources */,
+				3B1850B02AB5C939001945EE /* Domain.swift in Sources */,
 				37BAF8932A948EF700BD85DC /* SearchPlacesMapViewController.swift in Sources */,
 				3B1C36EF2A8FD30200838682 /* BottomSheetDelegate.swift in Sources */,
 				373C85462AADA91E00325155 /* BottomSheetViewModel.swift in Sources */,
@@ -473,12 +495,14 @@
 				3799E5022A99D68500E06218 /* CallViewController.swift in Sources */,
 				3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */,
 				3703095B2AAF1C8400F9CD80 /* FriendsListCollectionView.swift in Sources */,
+				3B1850B22AB5CCA6001945EE /* SearchPlaces.swift in Sources */,
 				3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */,
 				3799E5052A99D6DC00E06218 /* PreviousAppointmentsViewController.swift in Sources */,
 				3BF9EFB12AB1DEDB0014855E /* UIImage+Ext.swift in Sources */,
 				3701108B2AB2E49D005B0B24 /* Test.swift in Sources */,
 				3758F1902A7D007200E2933C /* MeetingListViewController.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
+				3B1850AB2AB5C620001945EE /* SearchService.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
 				37E043692AA5F4CE00F9E807 /* TabbarViewController.swift in Sources */,
 				3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */,

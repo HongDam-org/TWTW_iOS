@@ -56,6 +56,7 @@ final class MainMapViewController: KakaoMapViewController {
         view.viewHeight.accept(self.view.frame.height)
         view.delegates = self
         view.selectedViewController = view.viewControllers?[0]
+        view.tabBar.layer.cornerRadius = 10
         return view
     }()
 
@@ -80,14 +81,12 @@ final class MainMapViewController: KakaoMapViewController {
 //        keyboardDisappear()
         addSubviews_TabbarController()
         
-        
+        // 더미 데이터 삽입
         viewModel.searchInputData_Dummy()
-        view.layoutIfNeeded()
     }
 
     // MARK: -  View Did Appear
     override func viewDidAppear(_ animated: Bool) {
-  //      setupMyLocationUI()
         setupSearchBar()
     }
     
@@ -136,14 +135,7 @@ final class MainMapViewController: KakaoMapViewController {
 
     /// MARK: set up MapView UI
     private func setupMapViewUI() {
-        addSubViews()
         addTapGesture_Map()
-    }
-    
-    /// MARK: Add  UI
-    private func addSubViews() {
-        view.addSubview(mapView)
-        configureConstraints()
     }
     
     /// MARK: set up CollectionView UI
@@ -184,16 +176,6 @@ final class MainMapViewController: KakaoMapViewController {
 
     // MARK: - Constraints
     
-    /// MARK: Configure Constraints UI
-    private func configureConstraints(){
-        ///mapView
-        mapView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-
-    }
-    
     /// MARK: Configure   Constraints UI - SearchBar
     private func configureConstraints_SearchBar() {
         searchBar.snp.makeConstraints { make in
@@ -205,7 +187,7 @@ final class MainMapViewController: KakaoMapViewController {
     /// MARK:  Configure   Constraints UI - TabbarController
     private func configureConstraints_TabbarController(){
         tabBarViewController.view.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(viewModel.initBottomheight.value)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
@@ -500,10 +482,17 @@ extension MainMapViewController: UISearchBarDelegate {
             // 처음 클릭시 새로운 UI를 보이도록 처리
             showSearchUIElements()
             viewModel.searchBarSearchable.accept(false) // 검색 동작 가능하도록 플래그를 변경
+            viewModel.searchToGetPlace(word: "a")
             return false
         } else {
             // 이미 검색 UI가 보이는 경우 검색 동작을 허용
             return true
+        }
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        if let word = searchBar.text {
+            viewModel.searchToGetPlace(word: word)
         }
     }
 }

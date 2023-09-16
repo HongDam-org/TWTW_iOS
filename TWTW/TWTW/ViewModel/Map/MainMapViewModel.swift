@@ -14,6 +14,9 @@ import KakaoMapsSDK
 
 final class MainMapViewModel: NSObject {
     
+    /// 검색 Service
+    private let searchService = SearchService()
+    
     /// 지도 화면 터치 감지 Relay
     ///  true: UI 제거하기, false: UI 표시
     var checkTouchEventRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
@@ -106,5 +109,15 @@ final class MainMapViewModel: NSObject {
         return segments
     }
     
+    
+    
+    // MARK: - API Connect
+    
+    /// MARK: 장소 검색 함수
+    /// - Parameter word: 검색한 단어
+    /// - Returns: 검색한 장소 리스트
+    func searchToGetPlace(word: String) -> Observable<SearchPlaces>{
+        searchService.searchPlaces(place: word, x: 0, y: 0, page: 0, categoryGroupCode: "")
+    }
 }
 
