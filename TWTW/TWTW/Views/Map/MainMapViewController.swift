@@ -346,47 +346,7 @@ final class MainMapViewController: KakaoMapViewController {
         let manager = mapView.getRouteManager()
         let layer = manager.addRouteLayer(layerID: "RouteLayer", zOrder: 0)
         
-        let segmentPoints = routeSegmentPoints()
-        var segments: [RouteSegment] = [RouteSegment]()
-        var styleIndex: UInt = 0
-        for points in segmentPoints {
-            // 경로 포인트로 RouteSegment 생성. 사용할 스타일 인덱스도 지정한다.
-            let seg = RouteSegment(points: points, styleIndex: styleIndex)
-            segments.append(seg)
-            styleIndex = (styleIndex + 1) % 4
-        }
-        
-        let options = RouteOptions(routeID: "routes", styleID: "routeStyleSet1", zOrder: 0)
-        options.segments = segments
-        let route = layer?.addRoute(option: options)
-        route?.show()
-        
-        let pnt = segments[0].points[0]
-        mapView.moveCamera(CameraUpdate.make(target: pnt, zoomLevel: 15, mapView: mapView))
-    }
-    
-    /// 위도 경도를 이용하여 point를 찍음
-    private func routeSegmentPoints() -> [[MapPoint]] {
-        var segments = [[MapPoint]]()
-        
-        var points = [MapPoint]()
-        
-        let longitude: Double = viewModel.locationManager.value.location?.coordinate.longitude.magnitude ?? 0.0
-        let latitude: Double = viewModel.locationManager.value.location?.coordinate.latitude.magnitude ?? 0.0
-        points.append(MapPoint(longitude: longitude, latitude: latitude))
-        points.append(MapPoint(longitude: 126.7323429, latitude: 37.3416939))
-        
-        segments.append(points)
-        
-        points = [MapPoint]()   // 따로 표시가 됨
-        points.append(MapPoint(longitude: 129.0759853,
-                               latitude: 35.1794697))
-        points.append(MapPoint(longitude: 129.0764276,
-                               latitude: 35.1795108))
-        points.append(MapPoint(longitude: 129.0762855,
-                               latitude: 35.1793188))
-        segments.append(points)
-        return segments
+        viewModel.createRouteline(mapView: mapView, layer: layer)
     }
     
     
