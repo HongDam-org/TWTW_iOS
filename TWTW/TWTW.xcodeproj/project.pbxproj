@@ -41,6 +41,7 @@
 		37BAF8932A948EF700BD85DC /* SearchPlacesMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BAF8922A948EF700BD85DC /* SearchPlacesMapViewController.swift */; };
 		37BAF8962A949C4900BD85DC /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 37BAF8952A949C4900BD85DC /* Config.xcconfig */; };
 		37E043692AA5F4CE00F9E807 /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */; };
+		37EF0CFB2AB85C2400D77B0A /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */; };
 		3B1850A92AB5A955001945EE /* SearchNearByPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1850A82AB5A955001945EE /* SearchNearByPlaces.swift */; };
 		3B1850AB2AB5C620001945EE /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1850AA2AB5C620001945EE /* SearchService.swift */; };
 		3B1850AE2AB5C781001945EE /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1850AD2AB5C781001945EE /* EndPoint.swift */; };
@@ -85,6 +86,7 @@
 		37BAF8922A948EF700BD85DC /* SearchPlacesMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapViewController.swift; sourceTree = "<group>"; };
 		37BAF8952A949C4900BD85DC /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
+		37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		3B1850A82AB5A955001945EE /* SearchNearByPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNearByPlaces.swift; sourceTree = "<group>"; };
 		3B1850AA2AB5C620001945EE /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		3B1850AD2AB5C781001945EE /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				3758F1B62A7DFB6200E2933C /* Bundle+Ext.swift */,
 				3754BB6F2A9B455100522420 /* Color+Ext.swift */,
 				3BF9EFB02AB1DEDB0014855E /* UIImage+Ext.swift */,
+				37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -504,6 +507,7 @@
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
 				3B1850AB2AB5C620001945EE /* SearchService.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
+				37EF0CFB2AB85C2400D77B0A /* UIViewController+Ext.swift in Sources */,
 				37E043692AA5F4CE00F9E807 /* TabbarViewController.swift in Sources */,
 				3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */,
 				3754BB702A9B455100522420 /* Color+Ext.swift in Sources */,

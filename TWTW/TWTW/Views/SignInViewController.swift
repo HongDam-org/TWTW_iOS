@@ -109,8 +109,8 @@ final class SignInViewController: UIViewController {
         signInViewModel.checkKakaoOAuthToken()
             .subscribe(onNext: {[weak self] kakaoUserInfo in
                 let viewController = MeetingListViewController()
-                viewController.modalPresentationStyle = .fullScreen
-                self?.present(viewController, animated: true, completion: nil)
+                self?.navigationController?.pushViewController(viewController, animated: true)
+                 
                 
             })
             .disposed(by: disposeBag)

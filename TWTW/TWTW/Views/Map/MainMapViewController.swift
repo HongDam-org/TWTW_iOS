@@ -16,9 +16,9 @@ import KakaoMapsSDK
 
 ///MainMapViewController - 지도화면
 final class MainMapViewController: KakaoMapViewController {
-
+    
     //MARK -  서치바 클릭 시 보여질 새로운 UI 요소 (circularView, nearbyPlacesCollectionView, collectionView위 버튼 (중간위치 찾을 VC이동,내위치))
-
+    
     /// MARK: 목적지 근처 장소들을 보여줄 컬렉션 뷰
     private lazy var nearbyPlacesCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -29,7 +29,7 @@ final class MainMapViewController: KakaoMapViewController {
         collectionView.backgroundColor = .clear
         return collectionView
     }()
-
+    
     /// MARK: 버튼역할의 서치바UI
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -39,14 +39,14 @@ final class MainMapViewController: KakaoMapViewController {
         searchBar.searchTextField.backgroundColor = .white
         searchBar.layer.cornerRadius = 15
         searchBar.clipsToBounds = true
-
+        
         ///MARK: searchBar shadow
         searchBar.layer.shadowColor = UIColor.gray.cgColor
         searchBar.layer.shadowOpacity = 0.5
         searchBar.layer.shadowOffset = CGSize(width: 0, height: 1.5)
         searchBar.layer.shadowRadius = 1.5
         searchBar.layer.masksToBounds = false
-
+        
         return searchBar
     }()
     
@@ -59,32 +59,35 @@ final class MainMapViewController: KakaoMapViewController {
         view.tabBar.layer.cornerRadius = 10
         return view
     }()
-
+    
     private let disposeBag = DisposeBag()
     private let viewModel = MainMapViewModel()
-
+    
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-  
+        
         hideSearchUIElements()
         viewModel.initBottomheight.accept(view.bounds.height*(0.3))
         configureLocationManager()
         setupMapViewUI() //지도
         //기존 UI
         bottomSheetBind() // 맵 로드 이후
-
+        
         //새로운 UI
         setupCollectionViewUI()
-
+        
         //키보드
-//        keyboardDisappear()
+        //        keyboardDisappear()
         addSubviews_TabbarController()
         
         // 더미 데이터 삽입
         viewModel.searchInputData_Dummy()
+        
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        
     }
-
+    
     // MARK: -  View Did Appear
     override func viewDidAppear(_ animated: Bool) {
         setupSearchBar()
@@ -116,7 +119,7 @@ final class MainMapViewController: KakaoMapViewController {
         mapView.moveCamera(CameraUpdate.make(target: MapPoint(longitude: longitude, latitude: latitude), zoomLevel: 15, rotation: 1.7, tilt: 0.0, mapView: mapView))
         
     }
-
+    
     // 키보드를 내리는 제스처 추가
     private func keyboardDisappear(){
         self.view.rx.tapGesture()
@@ -126,13 +129,13 @@ final class MainMapViewController: KakaoMapViewController {
             })
             .disposed(by: disposeBag)
     }
-
+    
     /// MARK: configureLocationManager
     private func configureLocationManager() {
         viewModel.locationManager.value.delegate = self
         viewModel.locationManager.value.requestWhenInUseAuthorization()
     }
-
+    
     /// MARK: set up MapView UI
     private func setupMapViewUI() {
         addTapGesture_Map()
@@ -144,7 +147,7 @@ final class MainMapViewController: KakaoMapViewController {
         nearbyPlacesCollectionView.dataSource = self
         nearbyPlacesCollectionView.delegate = self
     }
-
+    
     ///MARK: Setup - SearchBar
     private func setupSearchBar() {
         addSubViews_SearchBar()
@@ -157,23 +160,23 @@ final class MainMapViewController: KakaoMapViewController {
     private func addSubViews_SearchBar(){
         view.addSubview(searchBar)
         configureConstraints_SearchBar()
-
+        
     }
-
+    
     /// MARK:
     private func addSubviews_TabbarController(){
         view.addSubview(tabBarViewController.view)
         tabBarViewController.didMove(toParent: self)
         configureConstraints_TabbarController()
     }
-
+    
     /// MARK: Add  UI -  CollectionView
     private func addSubViews_nearbyPlacesCollectionView(){
         view.addSubview(nearbyPlacesCollectionView)
         configureConstraints_nearbyPlacesCollectionView()
     }
     
-
+    
     // MARK: - Constraints
     
     /// MARK: Configure   Constraints UI - SearchBar
@@ -183,7 +186,7 @@ final class MainMapViewController: KakaoMapViewController {
             make.leading.trailing.equalToSuperview().inset(5)
         }
     }
-
+    
     /// MARK:  Configure   Constraints UI - TabbarController
     private func configureConstraints_TabbarController(){
         tabBarViewController.view.snp.makeConstraints { make in
@@ -192,7 +195,7 @@ final class MainMapViewController: KakaoMapViewController {
             make.bottom.equalToSuperview()//(view.safeAreaLayoutGuide)
         }
     }
-
+    
     /// MARK: Configure   Constraints UI - CollectionView
     private func configureConstraints_nearbyPlacesCollectionView() {
         nearbyPlacesCollectionView.snp.makeConstraints { make in
@@ -202,13 +205,13 @@ final class MainMapViewController: KakaoMapViewController {
         }
     }
     
-
+    
     /// MARK: Add  Gesture - Map
     private func addTapGesture_Map(){
         viewModel.tapGesture.accept(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
         mapView.addGestureRecognizer(viewModel.tapGesture.value)
     }
-
+    
     /// MARK: 내위치 탭 했을 때
     private func mylocationTappedAction() {
         moveCameraToCurrentPosition()
@@ -245,12 +248,12 @@ final class MainMapViewController: KakaoMapViewController {
                 }
             } .disposed(by: disposeBag)
     }
-
+    
     ///MARK: -  새로운 UI 요소들을 표시하고 기존 요소들을 숨기는 함수
     private func showSearchUIElements() {
         // 기존 UI 요소 숨기기
         tabBarViewController.view.isHidden = true
-
+        
         //새로운 UI요소 보이기
         nearbyPlacesCollectionView.isHidden = false
     }
@@ -259,12 +262,12 @@ final class MainMapViewController: KakaoMapViewController {
     private func hideSearchUIElements() {
         // 새로운 UI 요소들 숨기기
         nearbyPlacesCollectionView.isHidden = true
-
+        
         // 기존 UI 요소 보이기
         tabBarViewController.view.isHidden = false
-
+        
     }
-
+    
     /// MARK: 터치 이벤트 실행
     @objc
     private func handleTap(_ gesture: UITapGestureRecognizer) {
@@ -288,37 +291,37 @@ final class MainMapViewController: KakaoMapViewController {
         let styleSet = RouteStyleSet(styleID: "routeStyleSet1")
         styleSet.addPattern(RoutePattern(pattern: patternImages[0]!, distance: 60, symbol: nil, pinStart: false, pinEnd: false))
         styleSet.addPattern(RoutePattern(pattern: patternImages[1]!, distance: 6, symbol: nil, pinStart: false, pinEnd: false))
-//        styleSet.addPattern(RoutePattern(pattern: patternImages[2]!, distance: 6, symbol: UIImage(named: "route_pattern_long_airplane.png")!, pinStart: true, pinEnd: true))
+        //        styleSet.addPattern(RoutePattern(pattern: patternImages[2]!, distance: 6, symbol: UIImage(named: "route_pattern_long_airplane.png")!, pinStart: true, pinEnd: true))
         
-//        let colors = [
-//            UIColor(hexCode: "ffffff"),
-//            UIColor(hexCode: "000000"),
-//            UIColor(hexCode: "0000ff"),
-//            UIColor(hexCode: "ffff00") ]
-//
-//        let strokeColors = [
-//            UIColor(hexCode: "000000"),
-//            UIColor(hexCode: "ddffdd"),
-//            UIColor(hexCode: "00ddff"),
-//            UIColor(hexCode: "ffffdd") ]
-//
-//        let patternIndex = [-1, 0, 1, 2]
-//
-//        //0:빈 경로 1:화살표(네이버지도 유사) 2:... 3: ...
-//        for index in 0 ..< colors.count {
-//            let routeStyle = RouteStyle(styles: [
-//                PerLevelRouteStyle(width: 15, color: colors[2], strokeWidth: 4, strokeColor: strokeColors[2], level: 0, patternIndex: patternIndex[3])
-//            ])
-//
-//            styleSet.addStyle(routeStyle)
-//        }
+        //        let colors = [
+        //            UIColor(hexCode: "ffffff"),
+        //            UIColor(hexCode: "000000"),
+        //            UIColor(hexCode: "0000ff"),
+        //            UIColor(hexCode: "ffff00") ]
+        //
+        //        let strokeColors = [
+        //            UIColor(hexCode: "000000"),
+        //            UIColor(hexCode: "ddffdd"),
+        //            UIColor(hexCode: "00ddff"),
+        //            UIColor(hexCode: "ffffdd") ]
+        //
+        //        let patternIndex = [-1, 0, 1, 2]
+        //
+        //        //0:빈 경로 1:화살표(네이버지도 유사) 2:... 3: ...
+        //        for index in 0 ..< colors.count {
+        //            let routeStyle = RouteStyle(styles: [
+        //                PerLevelRouteStyle(width: 15, color: colors[2], strokeWidth: 4, strokeColor: strokeColors[2], level: 0, patternIndex: patternIndex[3])
+        //            ])
+        //
+        //            styleSet.addStyle(routeStyle)
+        //        }
         ///mark: 맵위 line
         let routeStyle = RouteStyle(styles: [
             PerLevelRouteStyle(width: 15, color: UIColor.mapLineColor ?? .clear, strokeWidth: 4, strokeColor: UIColor.mapStrokeColor ?? .clear, level: 0, patternIndex: 0)
         ])
-
+        
         styleSet.addStyle(routeStyle)
-
+        
         manager.addRouteStyleSet(styleSet)
     }
     
@@ -348,7 +351,7 @@ final class MainMapViewController: KakaoMapViewController {
     private func createPoiStyle() {
         guard let view = mapController?.getView("mapview") as? KakaoMap else { return }
         let manager = view.getLabelManager()
-
+        
         let iconStyle = PoiIconStyle(symbol: UIImage(named: "route_pattern_long_dot.png")?.resize(newWidth: 15, newHeight: 15), anchorPoint: CGPoint(x: 0.0, y: 0.0))
         let perLevelStyle = PerLevelPoiStyle(iconStyle: iconStyle, level: 0)  // 이 스타일이 적용되기 시작할 레벨.
         let poiStyle = PoiStyle(styleID: "customStyle1", styles: [perLevelStyle])
@@ -378,12 +381,12 @@ final class MainMapViewController: KakaoMapViewController {
     private func createPolygonStyleSet() {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
         let manager = mapView.getShapeManager()
-
+        
         // 레벨별 스타일을 생성.
         let perLevelStyle1 = PerLevelPolygonStyle(color: UIColor.mapCircleColor ?? .black,
                                                   strokeWidth: 1,
                                                   strokeColor: .clear, level: 0)
-                                                 
+        
         let perLevelStyle2 = PerLevelPolygonStyle(color: UIColor.mapCircleColor ?? .black,
                                                   strokeWidth: 1,
                                                   strokeColor: .clear, level: 15)
@@ -442,7 +445,7 @@ extension MainMapViewController: BottomSheetDelegate {
         tabBarViewController.view.snp.updateConstraints { make in
             make.height.equalTo(height)
         }
-
+        
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
@@ -455,7 +458,7 @@ extension MainMapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkAuthorizationStatus()
     }
-
+    
     /// 위치 권한 확인을 위한 메소드 checkAuthorizationStatus()
     private func checkAuthorizationStatus() {
         let status = viewModel.locationManager.value.authorizationStatus
@@ -477,17 +480,13 @@ extension MainMapViewController: CLLocationManagerDelegate {
 // MARK: - SearchBar Delegate
 extension MainMapViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-
-        if viewModel.searchBarSearchable.value {
-            // 처음 클릭시 새로운 UI를 보이도록 처리
-            showSearchUIElements()
-            viewModel.searchBarSearchable.accept(false) // 검색 동작 가능하도록 플래그를 변경
-            viewModel.searchToGetPlace(word: "a")
-            return false
-        } else {
-            // 이미 검색 UI가 보이는 경우 검색 동작을 허용
-            return true
-        }
+        
+        // if viewModel.searchBarSearchable.value {
+        let vc = SearchPlacesMapViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        return false
+        
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
@@ -503,12 +502,12 @@ extension MainMapViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.placeData.value.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NearbyPlacesCollectionViewCell.cellIdentifier, for: indexPath) as? NearbyPlacesCollectionViewCell else { return UICollectionViewCell() }
-
+        
         let data = viewModel.placeData.value[indexPath.item]
-
+        
         cell.imageView.image = UIImage(named: data.imageName ?? "")
         cell.titleLabel.text = data.title ?? ""
         cell.subTitleLabel.text = data.subTitle ?? ""
@@ -532,12 +531,12 @@ extension MainMapViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
     }
-
+    
 }
 
 extension MainMapViewController {
     // MARK: - Height Update Method
-
+    
     func updateBottomSheetHeight(_ height: CGFloat) {
         tabBarViewController.updateBottomSheetHeight(height)
     }

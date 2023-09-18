@@ -21,10 +21,8 @@ final class MeetingListViewController: UIViewController {
     // MARK: - ViewDidAppear
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        let viewController = MainMapViewController()
-        viewController.modalPresentationStyle = .fullScreen
-        present(viewController, animated: true, completion: nil)
+        let mainMapVC = MainMapViewController()
+              navigationController?.pushViewController(mainMapVC, animated: true)
     }
     
     
