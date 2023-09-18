@@ -68,7 +68,7 @@ final class MainMapViewController: KakaoMapViewController {
         super.viewDidLoad()
   
         hideSearchUIElements()
-        viewModel.initBottomheight.accept(view.bounds.height*(0.2))
+        viewModel.initBottomheight.accept(view.bounds.height*(0.3))
         configureLocationManager()
         setupMapViewUI() //지도
         //기존 UI
@@ -187,9 +187,9 @@ final class MainMapViewController: KakaoMapViewController {
     /// MARK:  Configure   Constraints UI - TabbarController
     private func configureConstraints_TabbarController(){
         tabBarViewController.view.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalToSuperview()
             make.height.equalTo(viewModel.initBottomheight.value)
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()//(view.safeAreaLayoutGuide)
         }
     }
 
@@ -226,7 +226,7 @@ final class MainMapViewController: KakaoMapViewController {
                     // 화면 터치시 주변 UI 숨기기
                     let tapLocation = self?.viewModel.tapGesture.value.location(in: self?.view)
                     // 탭 위치가 myloctaionImageView의 프레임 내에 있는지 확인
-                    if let myloctaionImageViewFrame = self?.tabBarViewController.myloctaionImageView.frame, let tapLocation = tapLocation, myloctaionImageViewFrame.contains(CGPoint(x: tapLocation.x, y: -6)) { //바텀시트와 5 포인트 떨어진 위치에 배치해둬서 수치로 넣어둠
+                    if let myloctaionImageViewFrame = self?.tabBarViewController.myloctaionImageView.frame, let tapLocation = tapLocation, myloctaionImageViewFrame.contains(CGPoint(x: tapLocation.x, y: -6)){ //바텀시트와 5 포인트 떨어진 위치에 배치해둬서 수치로 넣어둠
                         self?.mylocationTappedAction()
                     }
                     else {
