@@ -11,6 +11,7 @@ import RxKakaoSDKUser
 import RxRelay
 import KakaoSDKAuth
 import KakaoSDKCommon
+import Alamofire
 
 /// 로그인 Service
 final class SignInService{
@@ -49,8 +50,6 @@ final class SignInService{
             return Disposables.create()
         }
     }
-    
-    
     
     /// 카카오 사용자 정보 불러오기
     func fetchKakaoUserInfo() -> Observable<KakaoSDKUser.User>{
@@ -97,5 +96,23 @@ final class SignInService{
         }
     }
     
+    
+    func sendingLoginInfoToServer() -> Observable<Login> {
+        let url = Domain.REST_API + LoginPath.login
+        let body: Parameters = [
+        
+        ]
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .post,
+                       parameters: body,
+                       encoding: JSONEncoding.default)
+            .responseDecodable(of: Login.self) { response in
+                
+            }
+            
+            return Disposables.create()
+        }
+    }
     
 }
