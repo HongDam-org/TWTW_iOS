@@ -96,21 +96,23 @@ final class SignInService{
         }
     }
     
-    
-    func sendingLoginInfoToServer() -> Observable<Login> {
+    /// 서버로 보내는 데이터
+    func sendingLoginInfoToServer(request: LoginRequest) -> Observable<LoginResponse> {
         let url = Domain.REST_API + LoginPath.login
-        let body: Parameters = [
         
-        ]
         return Observable.create { observer in
             AF.request(url,
                        method: .post,
-                       parameters: body,
-                       encoding: JSONEncoding.default)
-            .responseDecodable(of: Login.self) { response in
-                
+                       parameters: request,
+                       encoder: JSONParameterEncoder.default)
+            .responseDecodable(of: LoginResponse.self) { response in
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data)
+                case .failure(let error):
+                    observer.onError(error)
+                }
             }
-            
             return Disposables.create()
         }
     }

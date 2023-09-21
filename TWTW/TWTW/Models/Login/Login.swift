@@ -7,7 +7,18 @@
 
 import Foundation
 
-struct Login: Codable {
+struct LoginResponse: Codable {
     let accessToken: String?
     let refreshToken: String?
+}
+
+struct LoginRequest: Codable {
+    let nickname: String?
+    let phoneNumber: String?
+    let oauthRequest: OAuthRequest?
+}
+
+struct OAuthRequest: Codable {
+    let token: String?
+    let authType: String?
 }
