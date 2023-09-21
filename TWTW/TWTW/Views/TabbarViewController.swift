@@ -186,15 +186,15 @@ class TabBarController: UITabBarController {
             
 
         }
-///mark: 후에 사용할 조건문
-        //        if height >= tabBarViewModel.maxHeight {
-        //                 print("max")
-        //             }
-        //             else if height >= tabBarViewModel.midHeight{
-        //                 print("mid")
-        //             }else {
-        //                 print("min")
-        //             }
+//        ///mark: 후에 사용할 조건문
+//                if height >= tabBarViewModel.maxHeight {
+//                         print("max")
+//                     }
+//                     else if height >= tabBarViewModel.midHeight{
+//                         print("mid")
+//                     }else {
+//                         print("min")
+//                     }
         
         viewHeight.accept(newHeight)
         tabBarViewModel.heightConstraintRelay.accept(tabBarViewModel.heightConstraintRelay.value?.update(offset: newHeight))
