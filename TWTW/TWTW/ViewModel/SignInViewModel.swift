@@ -17,6 +17,16 @@ final class SignInViewModel {
     private let disposeBag = DisposeBag()
     private let signInServices = SignInService()
     
+    var nickName: BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    var phoneNumber: BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    /// MARK: Kakao UserId, Apple: UserIdentifier
+    var identifier: BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    /// Kakao 로그인 or Apple 로그인
+    var authType: BehaviorRelay<String> = BehaviorRelay(value: "")
+    
     // MARK: - API Connect
     
     /// 카카오 로그인
@@ -29,6 +39,15 @@ final class SignInViewModel {
         return signInServices.checkKakaoOAuthToken()
     }
     
-    
+    func sendingLoginInfoToServer() -> Observable<LoginResponse>{
+        print(nickName.value)
+        
+        let loginRequest = LoginRequest(nickname: nickName.value,
+                                        phoneNumber: phoneNumber.value,
+                                        oauthRequest: OAuthRequest(token: identifier.value,
+                                                                   authType: authType.value))
+        
+        return signInServices.sendingLoginInfoToServer(request: loginRequest)
+    }
         
 }

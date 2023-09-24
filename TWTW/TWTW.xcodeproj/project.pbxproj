@@ -43,7 +43,7 @@
 		37E043692AA5F4CE00F9E807 /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */; };
 		37EF0CFB2AB85C2400D77B0A /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */; };
 		3B0691552ABBD73900C98D6D /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0691542ABBD73900C98D6D /* Login.swift */; };
-		3B0D6AA92ABBD1A900B08CAB /* Apple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D6AA82ABBD1A900B08CAB /* Apple.swift */; };
+		3B0D6AA92ABBD1A900B08CAB /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D6AA82ABBD1A900B08CAB /* SignIn.swift */; };
 		3B1850A92AB5A955001945EE /* SearchNearByPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1850A82AB5A955001945EE /* SearchNearByPlaces.swift */; };
 		3B1850AB2AB5C620001945EE /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1850AA2AB5C620001945EE /* SearchService.swift */; };
 		3B1850AE2AB5C781001945EE /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1850AD2AB5C781001945EE /* EndPoint.swift */; };
@@ -90,7 +90,7 @@
 		37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
 		37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		3B0691542ABBD73900C98D6D /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
-		3B0D6AA82ABBD1A900B08CAB /* Apple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apple.swift; sourceTree = "<group>"; };
+		3B0D6AA82ABBD1A900B08CAB /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		3B1850A82AB5A955001945EE /* SearchNearByPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNearByPlaces.swift; sourceTree = "<group>"; };
 		3B1850AA2AB5C620001945EE /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		3B1850AD2AB5C781001945EE /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
@@ -371,7 +371,7 @@
 			children = (
 				3B1850AC2AB5C779001945EE /* API */,
 				3B1C36EB2A8FD0BE00838682 /* Map.swift */,
-				3B0D6AA82ABBD1A900B08CAB /* Apple.swift */,
+				3B0D6AA82ABBD1A900B08CAB /* SignIn.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -512,7 +512,7 @@
 				3758F1A02A7D122100E2933C /* SignInViewController.swift in Sources */,
 				3799E5022A99D68500E06218 /* CallViewController.swift in Sources */,
 				3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */,
-				3B0D6AA92ABBD1A900B08CAB /* Apple.swift in Sources */,
+				3B0D6AA92ABBD1A900B08CAB /* SignIn.swift in Sources */,
 				3703095B2AAF1C8400F9CD80 /* FriendsListCollectionView.swift in Sources */,
 				3B1850B22AB5CCA6001945EE /* SearchPlaces.swift in Sources */,
 				3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */,

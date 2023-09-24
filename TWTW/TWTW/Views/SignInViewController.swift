@@ -44,8 +44,7 @@ final class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        checkKakaoOAuthToken()
-        checkAutoAppleAuth(key: Apple.identifier)
+        
         setupUI()
         addSubViews()
     }
@@ -123,6 +122,7 @@ final class SignInViewController: UIViewController {
         }
     }
     
+    
 }
 
 //MARK: - extension :ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding
@@ -136,15 +136,27 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
         
         let fullName = appleIDCredential.fullName
         let email = appleIDCredential.email
-        let check = KeychainWrapper.saveString(value: userIdentifier, forKey: Apple.identifier)
         
-        if check{
-            // 로그인 성공 처리
-            let viewController = MeetingListViewController()
-            navigationController?.pushViewController(viewController, animated: true)
-        }
+        signInViewModel.nickName.accept(String(describing: fullName))
+        signInViewModel.authType.accept("APPLE")
+        signInViewModel.identifier.accept(String(describing: userIdentifier))
+        
+        
+        
+        signInViewModel.sendingLoginInfoToServer()
+            .subscribe(onNext:{ [weak self] data in
+                guard let self = self else {return}
+                if KeychainWrapper.saveString(value: data.accessToken ?? "", forKey: SignIn.accessToken.rawValue) && KeychainWrapper.saveString(value: data.refreshToken ?? "", forKey: SignIn.refreshToken.rawValue) {
+                    let viewController = MeetingListViewController()
+                    self.navigationController?.pushViewController(viewController, animated: true)
+                }
+            }, onError: { error in
+                
+            })
+            .disposed(by: disposeBag)
+        
     }
-    
+
     /// 로그인 오류 처리
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("loginWithAppleAccount() error: \(error)")
