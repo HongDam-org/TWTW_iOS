@@ -7,9 +7,16 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 ///mark: - 검색 결과를 표시하는 새로운 View Controller
 final class SearchPlacesMapViewController: UIViewController {
+    private let disposeBag = DisposeBag()
+    ///지역 더미데이터
+    let localPlaces = ["인천", "부산", "서울", "천안", "정왕"]
+    ///필터링지역들
+    var filteredPlaces = [String]()
+    
     /// MARK: 서치바UI
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -17,61 +24,111 @@ final class SearchPlacesMapViewController: UIViewController {
         searchBar.showsCancelButton = false
         searchBar.backgroundImage = UIImage()
         searchBar.searchTextField.backgroundColor = .white
-        searchBar.layer.cornerRadius = 15
-        searchBar.clipsToBounds = true
-        
-        ///MARK: searchBar shadow
-        searchBar.layer.shadowColor = UIColor.gray.cgColor
-        searchBar.layer.shadowOpacity = 0.5
-        searchBar.layer.shadowOffset = CGSize(width: 0, height: 1.5)
-        searchBar.layer.shadowRadius = 1.5
-        searchBar.layer.masksToBounds = false
-        
+        //delegate
+        searchBar.delegate = self
         return searchBar
+    }()
+    private lazy var backButton: UIButton = {
+        let button = UIButton()
+        button.tintColor = .black
+        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        return button
+    }()
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        //delegate, dataSource
+        tableView.delegate = self
+        tableView.dataSource = self
+        return tableView
     }()
     
  
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
         setNavi()
         addSubViews_SearchBar()
-        searchBar.delegate = self
+        setLocal()
+        backButtonAction()
         
     }
+    var naviBarHeight :CGFloat =  0.0
+    var NaviBarWidth : CGFloat = 0.0
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        hiddenNavi()
-        
-    }
+ 
     ///mark: - 네비게이션 item보이기
     private func setNavi(){
-        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+       naviBarHeight = navigationController?.navigationBar.frame.height ?? 10
+       
     }
-    ///mark: - 네비게이션 item숨기기
-    private func hiddenNavi(){
-        /// SearchPlacesMapViewController에서 뒤로 돌아갈 때 MainMapVC로 돌아가면서 네비게이션 바를 숨김
-        if let mainMapVC = navigationController?.viewControllers.first(where: { $0 is MainMapViewController }) as? MainMapViewController {
-            mainMapVC.navigationController?.setNavigationBarHidden(true, animated: false)
-        }
-        
-    }
+  
     /// MARK: Add  UI - SearchBar
     private func addSubViews_SearchBar(){
         view.addSubview(searchBar)
-        configureConstraints_SearchBar()
+        view.addSubview(backButton)
+        view.addSubview(tableView)
+
+        configureConstraints()
         
     }
-    /// MARK: Configure   Constraints UI - SearchBar
-    private func configureConstraints_SearchBar() {
+    /// MARK: Configure   Constraints
+    private func configureConstraints() {
+       
         searchBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
-            make.leading.trailing.equalToSuperview().inset(5)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.equalToSuperview().inset(naviBarHeight)
+            make.trailing.equalToSuperview().inset(5)
+
+        }
+        backButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.equalToSuperview().inset(5)
+            make.width.height.equalTo(searchBar.snp.height)
+        }
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom)
+            make.left.right.bottom.equalToSuperview()
         }
     }
+    ///mark: 커스텀 네비게이션 뒤로가기 버튼
+    private func backButtonAction(){
+        backButton.rx.tap
+                 .subscribe(onNext: { [weak self] in
+                     self?.navigationController?.popViewController(animated: true)
+                 })
+                 .disposed(by: disposeBag)
+         
+    }
+    ///mark: 초기에 모든 지역
+    private func setLocal(){
+        filteredPlaces = localPlaces
+        tableView.reloadData()
+    }
 }
+/// MARK: Extension
 extension SearchPlacesMapViewController : UISearchBarDelegate{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            filteredPlaces = localPlaces
+        }
+        else {
+            filteredPlaces = localPlaces.filter { place  in
+                return place.lowercased().contains(searchText.lowercased())
+            }
+        }
+        tableView.reloadData()
+    }
+}
+extension SearchPlacesMapViewController : UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return filteredPlaces.count
+    }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.textLabel?.text = filteredPlaces[indexPath.row]
+        return cell
+    }
 }
