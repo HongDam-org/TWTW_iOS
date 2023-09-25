@@ -52,6 +52,7 @@
 		3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C36EB2A8FD0BE00838682 /* Map.swift */; };
 		3B1C36EF2A8FD30200838682 /* BottomSheetDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C36EE2A8FD30200838682 /* BottomSheetDelegate.swift */; };
 		3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */; };
+		3B26F32F2AC11DAD00EFEE12 /* InputInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26F32E2AC11DAD00EFEE12 /* InputInfoViewController.swift */; };
 		3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */; };
 		3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */; };
 		3BF9EFA42AB1AE790014855E /* KakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */; };
@@ -99,6 +100,7 @@
 		3B1C36EB2A8FD0BE00838682 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		3B1C36EE2A8FD30200838682 /* BottomSheetDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetDelegate.swift; sourceTree = "<group>"; };
 		3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModel.swift; sourceTree = "<group>"; };
+		3B26F32E2AC11DAD00EFEE12 /* InputInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputInfoViewController.swift; sourceTree = "<group>"; };
 		3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignInViewModel.swift; path = TWTW/ViewModel/SignInViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3BF9EF9F2AB1AE220014855E /* TWTW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWTW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapViewController.swift; sourceTree = "<group>"; };
@@ -174,9 +176,9 @@
 				3799E4F52A99D59F00E06218 /* Notification */,
 				37BAF8912A948EC600BD85DC /* SearchPlaces */,
 				377D3A6B2A86339B00377899 /* Map */,
+				3B26F32D2AC11D9400EFEE12 /* Login */,
 				3758F1962A7D007300E2933C /* LaunchScreen.storyboard */,
 				3758F18F2A7D007200E2933C /* MeetingListViewController.swift */,
-				3758F19F2A7D122100E2933C /* SignInViewController.swift */,
 				37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */,
 				373C85452AADA91E00325155 /* BottomSheetViewModel.swift */,
 			);
@@ -392,6 +394,15 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
+		3B26F32D2AC11D9400EFEE12 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				3758F19F2A7D122100E2933C /* SignInViewController.swift */,
+				3B26F32E2AC11DAD00EFEE12 /* InputInfoViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		3B6BA98A2A7F7D1600A11FE4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -526,6 +537,7 @@
 				37EF0CFB2AB85C2400D77B0A /* UIViewController+Ext.swift in Sources */,
 				37E043692AA5F4CE00F9E807 /* TabbarViewController.swift in Sources */,
 				3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */,
+				3B26F32F2AC11DAD00EFEE12 /* InputInfoViewController.swift in Sources */,
 				3754BB702A9B455100522420 /* Color+Ext.swift in Sources */,
 				37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */,
 				3799E4EF2A99C4C200E06218 /* TabBarCoordinator.swift in Sources */,

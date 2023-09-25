@@ -25,18 +25,18 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         var rootViewController: UIViewController?
         
         
-        // 자동로그인
-        if let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue), let refreshToken =  KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue){
-            
-            
-            
-            
-        }
-        else{
-            rootViewController = SignInViewController()
-        }
+//        // 자동로그인
+//        if let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue), let refreshToken =  KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue){
+//            
+//            
+//            
+//            
+//        }
+//        else{
+//            rootViewController = SignInViewController()
+//        }
         
-        
+        rootViewController = InputInfoViewController()
         let navigationController = UINavigationController(rootViewController: rootViewController ?? UIViewController())
         window?.rootViewController = navigationController
         //화면 보이게 윈도우 키 윈도우 설정
