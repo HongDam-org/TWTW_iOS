@@ -15,20 +15,24 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     private let disposeBag = DisposeBag()
+    private let service = SignInViewModel.shared
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        //루트 뷰 컨트롤러를 SignInViewController로 설정
-        
         var rootViewController: UIViewController?
         
-        
-        // 자동로그인
         if let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue), let refreshToken = KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue){
             
-            
+            /*
+             1. AccessToken 유효성 확인
+              1.1 AccessToken 만료된 경우 재발급 API 호출 -> 2번으로 진행
+              1.2 AccessToken 만료되지 않은 경우 -> 자동 로그인 진행
+             2. SignIn 진행
+             3. response status가 SignUp인 경우 -> 회원 가입 페이지 이동
+              3.1 SignIn인 경우 로그인 끝 -> Main으로 이동
+             */
             
             
         }
@@ -52,7 +56,15 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
         }
     }
-    
+        
+    /// MARK:
+    private func getNewToken(){
+        service.getNewAccessToken()
+            .subscribe(onNext:{ data in
+                
+            })
+            .disposed(by: disposeBag)
+    }
     
     /// MARK:
     private func kakatoAutoLogin(){

@@ -109,14 +109,36 @@ final class SignInService{
                        method: .post,
                        parameters: token,
                        encoder: JSONParameterEncoder.default)
-            .validate(statusCode: 200..<201)
+            .validate { request, response, data in
+                if 200..<201 ~= response.statusCode {
+                    return .success(())
+                } else if response.statusCode == 400 {
+                    return .failure(AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: response.statusCode)))
+                } else {
+                    return .failure(AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: response.statusCode)))
+                }
+            }
             .responseDecodable(of: TokenResponse.self) { response in
                 switch response.result {
                 case .success(let data):
                     observer.onNext(data)
                 case .failure(let error):
-                    observer.onError(error)
+                    if let statusCodeError = error as? AFError,
+                       case .responseValidationFailed(let reason) = statusCodeError,
+                       case .unacceptableStatusCode(let code) = reason {
+                        if code == 400 {
+                            observer.onNext(TokenResponse(accessToken: nil, refreshToken: nil))
+                        }
+                        else {
+                            observer.onError(error)
+                        }
+                    }
+                    else {
+                        observer.onError(error)
+                    }
                 }
+                
+                
             }
             
             return Disposables.create()

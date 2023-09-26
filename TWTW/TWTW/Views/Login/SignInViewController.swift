@@ -37,7 +37,7 @@ final class SignInViewController: UIViewController {
     }()
     
     private let disposeBag = DisposeBag()
-    private let signInViewModel = SignInViewModel()
+    private let signInViewModel = SignInViewModel.shared
     
     // MARK: - View Did Load
     
@@ -143,10 +143,10 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
         
         
         
-        signInViewModel.sendingLoginInfoToServer()
+        signInViewModel.signInService()
             .subscribe(onNext:{ [weak self] data in
                 guard let self = self else {return}
-                if KeychainWrapper.saveString(value: data.accessToken ?? "", forKey: SignIn.accessToken.rawValue) && KeychainWrapper.saveString(value: data.refreshToken ?? "", forKey: SignIn.refreshToken.rawValue) {
+                if KeychainWrapper.saveString(value: data.tokenDto?.accessToken ?? "", forKey: SignIn.accessToken.rawValue) && KeychainWrapper.saveString(value: data.tokenDto?.refreshToken ?? "", forKey: SignIn.refreshToken.rawValue) {
                     let viewController = MeetingListViewController()
                     self.navigationController?.pushViewController(viewController, animated: true)
                 }

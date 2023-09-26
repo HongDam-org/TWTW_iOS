@@ -14,6 +14,8 @@ import KakaoSDKCommon
 
 /// 로그인 ViewModel
 final class SignInViewModel {
+    static let shared = SignInViewModel()
+    private init() {}
     private let disposeBag = DisposeBag()
     private let signInServices = SignInService()
     
