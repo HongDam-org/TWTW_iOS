@@ -45,6 +45,7 @@ final class SignInViewController: UIViewController {
         super.viewDidLoad()
         
         checkKakaoOAuthToken()
+        checkAutoAppleAuth(key: Apple.identifier)
         setupUI()
         addSubViews()
     }
@@ -53,7 +54,6 @@ final class SignInViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .white
     }
-    
     
     /// MARK: Add UI
     private func addSubViews() {
@@ -86,8 +86,7 @@ final class SignInViewController: UIViewController {
         signInViewModel.kakaoLogin()
             .subscribe(onNext:{ [weak self] kakaoUserInfo in
                 let viewController = MeetingListViewController()
-                viewController.modalPresentationStyle = .fullScreen
-                self?.present(viewController, animated: true, completion: nil)
+                self?.navigationController?.pushViewController(viewController, animated: true)
             })
             .disposed(by: disposeBag)
     }
@@ -110,10 +109,18 @@ final class SignInViewController: UIViewController {
             .subscribe(onNext: {[weak self] kakaoUserInfo in
                 let viewController = MeetingListViewController()
                 self?.navigationController?.pushViewController(viewController, animated: true)
-                 
-                
             })
             .disposed(by: disposeBag)
+    }
+    
+    /// MARK: 애플 자동 로그인
+    private func checkAutoAppleAuth(key: String){
+        if let identifier = KeychainWrapper.loadString(forKey: key) {
+            if !identifier.isEmpty {
+                let viewController = MeetingListViewController()
+                navigationController?.pushViewController(viewController, animated: true)
+            }
+        }
     }
     
 }
@@ -126,14 +133,16 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
         // 사용자의 고유 Apple ID와 이름 가져오기, 첫 로그인 이후에 로그인 시 정보를 제공하지 않음
         let userIdentifier = appleIDCredential.user
+        
         let fullName = appleIDCredential.fullName
         let email = appleIDCredential.email
+        let check = KeychainWrapper.saveString(value: userIdentifier, forKey: Apple.identifier)
         
-        // 로그인 성공 처리
-        let viewController = MeetingListViewController()
-        viewController.modalPresentationStyle = .fullScreen
-        self.present(viewController, animated: true, completion: nil)
-        
+        if check{
+            // 로그인 성공 처리
+            let viewController = MeetingListViewController()
+            navigationController?.pushViewController(viewController, animated: true)
+        }
     }
     
     /// 로그인 오류 처리
