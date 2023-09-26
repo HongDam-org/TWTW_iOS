@@ -96,15 +96,45 @@ final class SignInService{
         }
     }
     
-    /// 서버로 보내는 데이터
-    func sendingLoginInfoToServer(request: LoginRequest) -> Observable<LoginResponse> {
-        let url = Domain.REST_API + LoginPath.login
+    
+    
+    /// AccessToken 재발급할 때 사용
+    /// - Parameter token: AccessToken, RefreshToken
+    /// - Returns: New AccesToken, New RefreshToken
+    func getNewAccessToken(token: TokenResponse) -> Observable<TokenResponse> {
+        let url = Domain.REST_API + LoginPath.updateToken
+        
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .post,
+                       parameters: token,
+                       encoder: JSONParameterEncoder.default)
+            .validate(statusCode: 200..<201)
+            .responseDecodable(of: TokenResponse.self) { response in
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    /// 회원가입할 떄 호출
+    /// - Parameter request: 서버에 보내는 회원가입 정보
+    /// - Returns: 회원 상태, AccesToken, RefreshToken
+    func signUpService(request: LoginRequest) -> Observable<LoginResponse> {
+        let url = Domain.REST_API + LoginPath.signUp
         
         return Observable.create { observer in
             AF.request(url,
                        method: .post,
                        parameters: request,
                        encoder: JSONParameterEncoder.default)
+            .validate(statusCode: 200..<201)
             .responseDecodable(of: LoginResponse.self) { response in
                 switch response.result {
                 case .success(let data):
@@ -116,5 +146,30 @@ final class SignInService{
             return Disposables.create()
         }
     }
+    
+    /// 로그인 API
+    /// - Parameter request: Kakao, Apple에서 발급받는 Token, AuthType
+    /// - Returns: status, Tokens
+    func signInService(request: OAuthRequest) -> Observable<LoginResponse> {
+        let url = Domain.REST_API + LoginPath.signIn
+        
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .post,
+                       parameters: request,
+                       encoder: JSONParameterEncoder.default)
+            .validate(statusCode: 200..<201)
+            .responseDecodable(of: LoginResponse.self) { response in
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
     
 }

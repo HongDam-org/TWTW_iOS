@@ -39,15 +39,33 @@ final class SignInViewModel {
         return signInServices.checkKakaoOAuthToken()
     }
     
-    func sendingLoginInfoToServer() -> Observable<LoginResponse>{
-        print(nickName.value)
-        
+    
+    /// 회원가입할 떄 호출
+    /// - Returns: 회원 상태, AccesToken, RefreshToken
+    func signUp() -> Observable<LoginResponse>{
         let loginRequest = LoginRequest(nickname: nickName.value,
-                                        phoneNumber: phoneNumber.value,
+                                        phoneNumber: phoneNumber.value, 
+                                        profileImage: nil,
                                         oauthRequest: OAuthRequest(token: identifier.value,
                                                                    authType: authType.value))
         
-        return signInServices.sendingLoginInfoToServer(request: loginRequest)
+        return signInServices.signUpService(request: loginRequest)
     }
+    
+    /// AccessToken 재발급할 때 사용
+    /// - Returns: New AccesToken, New RefreshToken
+    func getNewAccessToken() -> Observable<TokenResponse> {
+        let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue)
+        let refreshToken = KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue)
         
+        return signInServices.getNewAccessToken(token: TokenResponse(accessToken: accessToken,
+                                                                     refreshToken: refreshToken))
+    }
+    
+    /// 로그인 API
+    /// - Returns: status, Tokens
+    func signInService() -> Observable<LoginResponse> {
+        return signInServices.signInService(request: OAuthRequest(token: identifier.value,
+                                                                  authType: authType.value))
+    }
 }

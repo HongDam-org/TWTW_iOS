@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct LoginResponse: Codable {
+struct TokenResponse: Codable {
     let accessToken: String?
     let refreshToken: String?
 }
@@ -15,10 +15,16 @@ struct LoginResponse: Codable {
 struct LoginRequest: Codable {
     let nickname: String?
     let phoneNumber: String?
+    let profileImage: String?
     let oauthRequest: OAuthRequest?
 }
 
 struct OAuthRequest: Codable {
     let token: String?
     let authType: String?
+}
+
+struct LoginResponse: Codable {
+    let status: String?
+    let tokenDto: TokenResponse?
 }
