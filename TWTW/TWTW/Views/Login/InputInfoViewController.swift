@@ -15,13 +15,14 @@ final class InputInfoViewController: UIViewController {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "프로필 설정"
+        label.font = .systemFont(ofSize: 30, weight: .bold)
         return label
     }()
     
     /// MARK: 이미지 버튼
     private lazy var imageButton: UIButton = {
         let btn = UIButton()
-        btn.setImage(UIImage(named: Login.profile), for: .normal)
+        btn.setImage(UIImage(named: Login.profile)?.resize(newWidth: 200, newHeight: 200), for: .normal)
         return btn
     }()
     
@@ -90,6 +91,7 @@ final class InputInfoViewController: UIViewController {
         imageButton.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
+            make.width.height.equalTo(200)
         }
         
         cameraUIView.snp.makeConstraints { make in
@@ -100,6 +102,7 @@ final class InputInfoViewController: UIViewController {
         
         cameraImage.snp.makeConstraints { make in
             make.center.equalToSuperview()
+            make.width.height.equalTo(imageButton.snp.width).multipliedBy(0.15)
         }
         
         nickNameTitle.snp.makeConstraints { make in
