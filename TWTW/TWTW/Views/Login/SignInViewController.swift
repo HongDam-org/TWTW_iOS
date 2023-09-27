@@ -84,8 +84,10 @@ final class SignInViewController: UIViewController {
     private func onKakaoLoginImageViewTapped() {
         signInViewModel.kakaoLogin()
             .subscribe(onNext:{ [weak self] kakaoUserInfo in
-                let viewController = MeetingListViewController()
-                self?.navigationController?.pushViewController(viewController, animated: true)
+                guard let self = self else {return}
+                signInViewModel.identifier.accept("\(kakaoUserInfo.id ?? 0)")
+                signInViewModel.authType.accept(authType.kakao.rawValue)
+                signIn()
             })
             .disposed(by: disposeBag)
     }
@@ -102,26 +104,30 @@ final class SignInViewController: UIViewController {
         authorizationController.performRequests()
     }
     
-    /// MARK: OAuth Token 자동 로그인
-    private func checkKakaoOAuthToken(){
-        signInViewModel.checkKakaoOAuthToken()
-            .subscribe(onNext: {[weak self] kakaoUserInfo in
-                let viewController = MeetingListViewController()
-                self?.navigationController?.pushViewController(viewController, animated: true)
+    /// MARK: 로그인 서비스
+    private func signIn(){
+        signInViewModel.signInService()
+            .subscribe(onNext:{ [weak self] data in
+                guard let self = self else {return}
+                if KeychainWrapper.saveString(value: data.tokenDto?.accessToken ?? "", forKey: SignIn.accessToken.rawValue) && KeychainWrapper.saveString(value: data.tokenDto?.refreshToken ?? "", forKey: SignIn.refreshToken.rawValue) {
+                    
+                    switch (data.status ?? "") {
+                    case LoginStatus.SignIn.rawValue:
+                        let viewController = MeetingListViewController()
+                        navigationController?.pushViewController(viewController, animated: true)
+                    case LoginStatus.SignUp.rawValue:
+                        let viewController = InputInfoViewController()
+                        navigationController?.pushViewController(viewController, animated: true)
+                    default:
+                        print("잘못된 접근")
+                    }
+                    
+                }
+            }, onError: { error in
+                print("\(#function) error! \n\(error)")
             })
             .disposed(by: disposeBag)
     }
-    
-    /// MARK: 애플 자동 로그인
-    private func checkAutoAppleAuth(key: String){
-        if let identifier = KeychainWrapper.loadString(forKey: key) {
-            if !identifier.isEmpty {
-                let viewController = MeetingListViewController()
-                navigationController?.pushViewController(viewController, animated: true)
-            }
-        }
-    }
-    
     
 }
 
@@ -141,20 +147,7 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
         signInViewModel.authType.accept("APPLE")
         signInViewModel.identifier.accept(String(describing: userIdentifier))
         
-        
-        
-        signInViewModel.signInService()
-            .subscribe(onNext:{ [weak self] data in
-                guard let self = self else {return}
-                if KeychainWrapper.saveString(value: data.tokenDto?.accessToken ?? "", forKey: SignIn.accessToken.rawValue) && KeychainWrapper.saveString(value: data.tokenDto?.refreshToken ?? "", forKey: SignIn.refreshToken.rawValue) {
-                    let viewController = MeetingListViewController()
-                    self.navigationController?.pushViewController(viewController, animated: true)
-                }
-            }, onError: { error in
-                
-            })
-            .disposed(by: disposeBag)
-        
+        signIn()
     }
 
     /// 로그인 오류 처리
@@ -166,5 +159,7 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window ?? UIWindow()
     }
+    
+    
     
 }

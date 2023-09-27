@@ -112,7 +112,7 @@ final class SignInService{
             .validate { request, response, data in
                 if 200..<201 ~= response.statusCode {
                     return .success(())
-                } else if response.statusCode == 400 {
+                } else if response.statusCode == 401 {
                     return .failure(AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: response.statusCode)))
                 } else {
                     return .failure(AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: response.statusCode)))

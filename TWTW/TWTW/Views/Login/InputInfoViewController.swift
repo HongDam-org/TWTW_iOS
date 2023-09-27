@@ -43,7 +43,8 @@ final class InputInfoViewController: UIViewController {
     /// MARK: 닉네임 설정 제목
     private lazy var nickNameTitle: UILabel = {
         let label = UILabel()
-        
+        label.text = "닉네임"
+        label.textColor = .black
         return label
     }()
     
@@ -51,6 +52,7 @@ final class InputInfoViewController: UIViewController {
     private lazy var nickName: UITextField = {
         let field = UITextField()
         field.placeholder = "닉네임을 입력하세요"
+        field.textAlignment = .left
         return field
     }()
     
@@ -58,6 +60,7 @@ final class InputInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .white
         addSubViews()
     }
     
@@ -99,6 +102,18 @@ final class InputInfoViewController: UIViewController {
             make.center.equalToSuperview()
         }
         
+        nickNameTitle.snp.makeConstraints { make in
+            make.top.equalTo(cameraUIView.snp.bottom).offset(40)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.width.equalTo(50)
+        }
+        
+        nickName.snp.makeConstraints { make in
+            make.top.equalTo(nickNameTitle.snp.top)
+            make.leading.equalTo(nickNameTitle.snp.trailing).offset(20)
+            make.centerY.equalTo(nickNameTitle.snp.centerY)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
+        }
         
     }
     
@@ -123,7 +138,7 @@ struct VCPreViewInputInfoViewController:PreviewProvider {
 }
 struct VCPreViewInputInfoViewController2:PreviewProvider {
     static var previews: some View {
-        InputInfoViewController().toPreview().previewDevice("iPhone 11")
+        InputInfoViewController().toPreview().previewDevice("iPhone SE (3rd generation)")
         // 실행할 ViewController이름 구분해서 잘 지정하기
     }
 }
