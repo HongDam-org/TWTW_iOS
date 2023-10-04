@@ -23,28 +23,35 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         var rootViewController: UIViewController?
         
-//        if let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue), let refreshToken = KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue){
-//            
-//            /*
-//             1. AccessToken 유효성 확인
-//              1.1 AccessToken 만료된 경우 재발급 API 호출 -> 2번으로 진행
-//              1.2 AccessToken 만료되지 않은 경우 -> 자동 로그인 진행
-//             2. SignIn 진행
-//             3. response status가 SignUp인 경우 -> 회원 가입 페이지 이동
-//              3.1 SignIn인 경우 로그인 끝 -> Main으로 이동
-//             */
-//            
-//            // 토큰 재발급
-//            if getNewToken() {
-//                rootViewController = MeetingListViewController()
-//            }
-//            else{
-//                rootViewController = SignInViewController()
-//            }
-//        }
-//        else{
-//            rootViewController = SignInViewController()
-//        }
+        if let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue), let refreshToken = KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue){
+            
+            signInViewModel.checkAccessTokenValidation()
+                .subscribe(onNext:{ _ in
+                    rootViewController = MeetingListViewController()
+                },onError: { [weak self] error in
+                    guard let self = self else {return}
+                    print(#function)
+                    print(error)
+                    
+                    /// 새로운 토큰 발급 받기
+                    signInViewModel.getNewAccessToken()
+                        .subscribe(onNext:{ data in // 재발급 성공
+                            if let access = data.accessToken, let refresh = data.refreshToken {
+                                if KeychainWrapper.saveString(value: access, forKey: SignIn.accessToken.rawValue) && KeychainWrapper.saveString(value: refresh, forKey: SignIn.refreshToken.rawValue){
+                                    rootViewController = MeetingListViewController()
+                                }
+                            }
+                        },onError: { error in   // Refresh 토큰 까지 만료된 경우
+                            print("\(#function) error!\n\(error)")
+                            rootViewController = SignInViewController()
+                        })
+                        .disposed(by: disposeBag)
+                })
+                .disposed(by: disposeBag)
+        }
+        else{
+            rootViewController = SignInViewController()
+        }
         
         rootViewController = InputInfoViewController()
         let navigationController = UINavigationController(rootViewController: rootViewController ?? UIViewController())
@@ -53,29 +60,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
         
     }
-    
-    /// MARK: 새로운 토큰 발급
-    private func getNewToken() -> Bool {
-        var check: Bool = false
         
-        signInViewModel.getNewAccessToken()
-            .subscribe(onNext:{ [weak self] data in
-                guard let self = self else { return }
-                if let access = data.accessToken, let refresh = data.refreshToken {
-                    if KeychainWrapper.saveString(value: access, forKey: SignIn.accessToken.rawValue) && KeychainWrapper.saveString(value: refresh, forKey: SignIn.refreshToken.rawValue){
-                        check = true
-                    }
-                }
-            },onError: { [weak self] error in
-                guard let self = self else { return }
-                print("\(#function) error!\n\(error)")
-            })
-            .disposed(by: disposeBag)
-        
-        return check
-        
-    }
-    
     ///mark: -카카오로그인 설정
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         if let url = URLContexts.first?.url {
@@ -86,3 +71,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
 }
+
+/*
+ 1. AccessToken 유효성 확인
+ 1.1 AccessToken 만료된 경우 재발급 API 호출 -> 2번으로 진행
+ 1.2 AccessToken 만료되지 않은 경우 -> 자동 로그인 진행
+ 2. SignIn 진행
+ 3. response status가 SignUp인 경우 -> 회원 가입 페이지 이동
+ 3.1 SignIn인 경우 로그인 끝 -> Main으로 이동
+ */

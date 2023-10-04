@@ -11,13 +11,16 @@ import UIKit
 extension UIColor {
     
     ///맵 위 반경
-    static let mapCircleColor = UIColor(named: "mapCircleColor")
+    static let mapCircleColor = UIColor(named: mapColors.mapCircleColor.rawValue)
     //길찾기
     ///stroke line color
-    static let mapStrokeColor = UIColor(named: "mapStrokeColor")
+    static let mapStrokeColor = UIColor(named: mapColors.mapStrokeColor.rawValue)
 
     ///line color
-    static let mapLineColor = UIColor(named: "mapLineColor")
+    static let mapLineColor = UIColor(named: mapColors.mapLineColor.rawValue)
+    
+    /// profile Textfield background Color
+    static let profileTextFieldColor = UIColor(named: profileColors.profileTextFieldColor.rawValue)
 
     convenience init(hexCode: String, alpha: CGFloat = 1.0) {
         var hexFormatted: String = hexCode.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
@@ -37,4 +40,14 @@ extension UIColor {
                   alpha: alpha)
     }
     
+}
+
+enum mapColors: String {
+    case mapCircleColor = "mapCircleColor"
+    case mapStrokeColor = "mapStrokeColor"
+    case mapLineColor = "mapLineColor"
+}
+
+enum profileColors: String{
+    case profileTextFieldColor = "profileTextFieldColor"
 }

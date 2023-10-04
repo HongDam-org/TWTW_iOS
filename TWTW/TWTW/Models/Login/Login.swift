@@ -14,7 +14,6 @@ struct TokenResponse: Codable {
 
 struct LoginRequest: Codable {
     let nickname: String?
-    let phoneNumber: String?
     let profileImage: String?
     let oauthRequest: OAuthRequest?
 }

@@ -18,6 +18,7 @@ final class InputInfoViewController: UIViewController {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "프로필 설정"
+        label.textColor = .black
         label.font = .systemFont(ofSize: 30, weight: .bold)
         return label
     }()
@@ -47,23 +48,42 @@ final class InputInfoViewController: UIViewController {
     /// MARK: 닉네임 설정 제목
     private lazy var nickNameTitle: UILabel = {
         let label = UILabel()
-        label.text = "닉네임"
+        label.text = "닉네임 입력"
         label.textColor = .black
+        label.font = .systemFont(ofSize: 17, weight: .bold)
         return label
     }()
     
     /// MARK: 닉네임 입력
     private lazy var nickName: UITextField = {
         let field = UITextField()
-        field.placeholder = "닉네임을 입력하세요"
+        field.attributedPlaceholder = NSAttributedString(string: "닉네임을 입력해주세요!", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
         field.textAlignment = .left
+        field.backgroundColor = UIColor.profileTextFieldColor
+        field.layer.cornerRadius = 10
+        field.layer.borderWidth = 1
+        field.layer.borderColor = UIColor.profileTextFieldColor?.cgColor
+        field.textColor = .black
+        field.delegate = self
+        
+        let leftView = UIView(frame: CGRect(x: .zero, y: .zero, width: 10, height: field.frame.height))
+        field.leftView = leftView
+        field.leftViewMode = .always
         return field
+    }()
+    
+    /// MARK: 완료 버튼
+    private lazy var doneButton: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("완료", for: .normal)
+        btn.setTitleColor(.white, for: .normal)
+        btn.backgroundColor = .systemBlue
+        btn.layer.cornerRadius = 10
+        return btn
     }()
     
     private let disposeBag = DisposeBag()
     private let viewModel = SignInViewModel.shared
-    /// 선택한 이미지들
-    private var selectedPhotoImages: BehaviorRelay<UIImage> = BehaviorRelay(value: UIImage(resource: .profile))
     
     // MARK: - View Did Load
     override func viewDidLoad() {
@@ -73,6 +93,11 @@ final class InputInfoViewController: UIViewController {
         addSubViews()
     }
     
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        nickName.endEditing(true)
+    }
     
     // MARK: - Functions
     
@@ -84,6 +109,7 @@ final class InputInfoViewController: UIViewController {
         cameraUIView.addSubview(cameraImage)
         view.addSubview(nickNameTitle)
         view.addSubview(nickName)
+        view.addSubview(doneButton)
         
         constraints()
         setCornerRadius()
@@ -115,16 +141,25 @@ final class InputInfoViewController: UIViewController {
         }
         
         nickNameTitle.snp.makeConstraints { make in
-            make.top.equalTo(cameraUIView.snp.bottom).offset(40)
+            make.top.equalTo(cameraUIView.snp.bottom).offset(20)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.width.equalTo(50)
+            let labelSize = ((nickNameTitle.text ?? "") as NSString).size(withAttributes: [ NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .bold) ])
+            make.width.equalTo(labelSize.width)
         }
         
         nickName.snp.makeConstraints { make in
             make.top.equalTo(nickNameTitle.snp.top)
-            make.leading.equalTo(nickNameTitle.snp.trailing).offset(20)
+            make.leading.equalTo(nickNameTitle.snp.trailing).offset(10)
             make.centerY.equalTo(nickNameTitle.snp.centerY)
+            make.height.equalTo(30)
             make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
+        }
+        
+        doneButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(nickName.snp.top).offset(50)
+            make.width.equalTo(view.safeAreaLayoutGuide.layoutFrame.width/5)
+            make.height.equalTo(30)
         }
         
     }
@@ -136,7 +171,6 @@ final class InputInfoViewController: UIViewController {
         imageButton.layer.cornerRadius = imageButton.frame.width/2
         cameraUIView.layer.cornerRadius = cameraUIView.frame.width/2
     }
-    
     
     /// MARK: ViewModel binding
     private func bind(){
@@ -152,6 +186,13 @@ final class InputInfoViewController: UIViewController {
             .bind { [weak self ] _ in
                 guard let self = self  else {return}
                 selectedList()
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.nickName
+            .bind { [weak self] text in
+                guard let self = self  else {return}
+                viewModel.checkTextFieldTextCount(text: text)
             }
             .disposed(by: disposeBag)
         
@@ -209,13 +250,26 @@ final class InputInfoViewController: UIViewController {
         present(imagePickerController, animated: true, completion: nil)
     }
     
+    /// MARK: 회원가입
+    private func signUp(){
+        viewModel.signUp()
+            .subscribe(onNext:{ [weak self] data in
+                guard let self = self else {return}
+                let viewController = MeetingListViewController()
+                navigationController?.pushViewController(viewController, animated: true)
+            },onError: { error in   // 에러 처리 해야함
+                print(#function)
+                print(error)
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 /// MARK: 카메라 사진찍은 경우 or iOS 14이전
 extension InputInfoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-            self.selectedPhotoImages.accept(image)
+            self.viewModel.selectedPhotoImages.accept(image)
             self.imageButton.setImage(image.resize(newWidth: 200, newHeight: 200), for: .normal)
             self.setCornerRadius()
         }
@@ -235,7 +289,7 @@ extension InputInfoViewController: PHPickerViewControllerDelegate {
                 DispatchQueue.main.async {
                     guard let self = self else {return}
                     if let image = image as? UIImage {
-                        self.selectedPhotoImages.accept(image)
+                        self.viewModel.selectedPhotoImages.accept(image)
                         self.imageButton.setImage(image.resize(newWidth: 200, newHeight: 200), for: .normal)
                         self.setCornerRadius()
                     }
@@ -250,4 +304,10 @@ extension InputInfoViewController: PHPickerViewControllerDelegate {
         picker.dismiss(animated: true, completion: nil)
     }
     
+}
+
+extension InputInfoViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return viewModel.calculateTextField(text: textField.text ?? "", string: string)
+    }
 }

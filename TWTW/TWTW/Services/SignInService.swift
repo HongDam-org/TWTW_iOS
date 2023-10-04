@@ -194,4 +194,27 @@ final class SignInService{
     }
     
     
+    /// Access Token 유효성 검사
+    /// - Returns: true: AccessToken 유효, false: 만료
+    func checkAccessTokenValidation() -> Observable<Bool> {
+        let url = Domain.REST_API + LoginPath.checkValidation
+        let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue) ?? ""
+        
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .get,
+                       headers: ["Authorization": "Bearer \(accessToken)"])
+            .validate(statusCode: 204..<205)
+            .response{ res in
+                switch res.result{
+                case .success(_):
+                    observer.onNext(true)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+        
+    }
 }

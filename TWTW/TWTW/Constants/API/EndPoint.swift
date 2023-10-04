@@ -16,4 +16,5 @@ struct LoginPath {
     static let signUp = "/auth/save"
     static let signIn = "/auth/login"
     static let updateToken = "/auth/refresh"
+    static let checkValidation = "/auth/validate"
 }
