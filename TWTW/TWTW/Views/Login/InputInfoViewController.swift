@@ -185,21 +185,29 @@ final class InputInfoViewController: UIViewController {
         imageButton.rx.tap
             .bind { [weak self ] _ in
                 guard let self = self  else {return}
-                selectedList()
+                selectedPicture()
             }
             .disposed(by: disposeBag)
         
-        viewModel.nickName
-            .bind { [weak self] text in
+        doneButton.rx.tap
+            .bind { [weak self ] _ in
                 guard let self = self  else {return}
-                viewModel.checkTextFieldTextCount(text: text)
+                checkOverlapId()
             }
             .disposed(by: disposeBag)
+        
         
     }
     
-    /// MARK:
-    private func selectedList(){
+    /// MARK: 아이디 중복 확인 검사
+    private func checkOverlapId(){
+        // ID 중복 검사 코드 작성
+        let viewController = MeetingListViewController()
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    /// MARK: 사진 선택하는 actionSheet
+    private func selectedPicture(){
         let alert = UIAlertController(title: "프로필 선택", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
         let cameraAction =  UIAlertAction(title: "카메라 선택", style: UIAlertAction.Style.default) { [weak self] _ in
@@ -208,7 +216,6 @@ final class InputInfoViewController: UIViewController {
         }
         let photoAction =  UIAlertAction(title: "사진 선택", style: UIAlertAction.Style.default){ [weak self] _ in
             guard let self = self else { return }
-            print("called")
             selectedPhoto()
         }
         
@@ -309,5 +316,12 @@ extension InputInfoViewController: PHPickerViewControllerDelegate {
 extension InputInfoViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return viewModel.calculateTextField(text: textField.text ?? "", string: string)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        checkOverlapId()
+        print(#function)
+        return true
     }
 }
