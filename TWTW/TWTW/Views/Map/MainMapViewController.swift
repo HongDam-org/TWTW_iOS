@@ -62,7 +62,8 @@ final class MainMapViewController: KakaoMapViewController {
     
     private let disposeBag = DisposeBag()
     private let viewModel = MainMapViewModel()
-    var selectedCoordinate: CLLocationCoordinate2D?
+   // var selectedCoordinate: CLLocationCoordinate2D?
+    
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,18 +84,11 @@ final class MainMapViewController: KakaoMapViewController {
         
         // 더미 데이터 삽입
         viewModel.searchInputData_Dummy()
-        
+        setupSearchBar()
         navigationController?.setNavigationBarHidden(true, animated: false)
         
     }
     
-    // MARK: -  View Did Appear
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        setupSearchBar()
-        //선택하고 돌아왔을때 실행
-        moveCameraToSelectedPosition()
-    }
 
   
     
@@ -112,21 +106,7 @@ final class MainMapViewController: KakaoMapViewController {
             createLabelLayer()
         }
     }
-    private func moveCameraToSelectedPosition(){
-        // 저장된 좌표가 있는지 확인
-        if let selectedCoordinate = selectedCoordinate {
-            // 저장된 좌표가 있다면 해당 위치로 카메라 이동
-         //  moveCameraToCurrentPosition() //내위치 이건되는데
-           moveCameraToCoordinate(selectedCoordinate)
-           // print(selectedCoordinate)
-           // print("🥲")
 
-        } else {
-            // 저장된 좌표가 없을 때의 처리: 내 위치로 카메라 이동
-            moveCameraToCurrentPosition()
-          //  print("🥲🥲")
-        }
-    }
     
     /// MARK:선택한 좌표로 카메라 옮기기
     private func moveCameraToCoordinate(_ coordinate: CLLocationCoordinate2D) {
@@ -134,7 +114,7 @@ final class MainMapViewController: KakaoMapViewController {
        print(coordinate.longitude)
         print("🥲")
         // 선택한 좌표로 카메라 이동
-        mapView.moveCamera(CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude, latitude: coordinate.latitude), zoomLevel: 15, rotation: 0.0, tilt: 0.0, mapView: mapView))
+        mapView.moveCamera(CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude, latitude: coordinate.latitude), zoomLevel: 15, rotation: 1.7, tilt: 0.0, mapView: mapView))
     }
     /// MARK: 현재 자신의 위치로 카메라 옮기기
     private func moveCameraToCurrentPosition() {
@@ -180,6 +160,8 @@ final class MainMapViewController: KakaoMapViewController {
     private func setupSearchBar() {
         addSubViews_SearchBar()
         searchBar.delegate = self // 서치바의 delegate 설정
+        view.bringSubviewToFront(searchBar)
+
     }
     
     // MARK: - addSubViews
@@ -515,7 +497,11 @@ extension MainMapViewController: UISearchBarDelegate {
         // if viewModel.searchBarSearchable.value {
         let vc = SearchPlacesMapViewController()
         self.navigationController?.pushViewController(vc, animated: true)
-        
+        vc.selectedCoordinateSubject.bind {[weak self] location in
+            guard let self = self else {return}
+            print("🍎\(location)")
+            moveCameraToCoordinate(location)
+        }.disposed(by: disposeBag)
         return false
         
     }
