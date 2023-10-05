@@ -103,7 +103,7 @@ final class SignInService{
     /// - Returns: New AccesToken, New RefreshToken
     func getNewAccessToken(token: TokenResponse) -> Observable<TokenResponse> {
         let url = Domain.REST_API + LoginPath.updateToken
-        
+        print(url)
         return Observable.create { observer in
             AF.request(url,
                        method: .post,
@@ -150,7 +150,7 @@ final class SignInService{
     /// - Returns: 회원 상태, AccesToken, RefreshToken
     func signUpService(request: LoginRequest) -> Observable<LoginResponse> {
         let url = Domain.REST_API + LoginPath.signUp
-        
+        print(url)
         return Observable.create { observer in
             AF.request(url,
                        method: .post,
@@ -174,7 +174,8 @@ final class SignInService{
     /// - Returns: status, Tokens
     func signInService(request: OAuthRequest) -> Observable<LoginResponse> {
         let url = Domain.REST_API + LoginPath.signIn
-        
+        print(url)
+        print("body\n\(request)")
         return Observable.create { observer in
             AF.request(url,
                        method: .post,
@@ -199,7 +200,7 @@ final class SignInService{
     func checkAccessTokenValidation() -> Observable<Bool> {
         let url = Domain.REST_API + LoginPath.checkValidation
         let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue) ?? ""
-        
+        print(url)
         return Observable.create { observer in
             AF.request(url,
                        method: .get,
@@ -210,6 +211,8 @@ final class SignInService{
                 case .success(_):
                     observer.onNext(true)
                 case .failure(let error):
+                    print(#function)
+                    print(error)
                     observer.onError(error)
                 }
             }

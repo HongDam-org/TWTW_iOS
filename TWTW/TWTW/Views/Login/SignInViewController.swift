@@ -144,7 +144,7 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
         let email = appleIDCredential.email
         
         signInViewModel.nickName.accept(String(describing: fullName))
-        signInViewModel.authType.accept("APPLE")
+        signInViewModel.authType.accept(authType.apple.rawValue)
         signInViewModel.identifier.accept(String(describing: userIdentifier))
         
         signIn()

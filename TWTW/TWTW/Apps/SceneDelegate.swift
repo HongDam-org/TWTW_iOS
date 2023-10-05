@@ -21,13 +21,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        var rootViewController: UIViewController?
         
         if let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue), let refreshToken = KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue){
             
             signInViewModel.checkAccessTokenValidation()
-                .subscribe(onNext:{ _ in
-                    rootViewController = MeetingListViewController()
+                .subscribe(onNext:{ [weak self] _ in
+                    guard let self = self else {return}
+                    move(rootViewController: MeetingListViewController())
                 },onError: { [weak self] error in
                     guard let self = self else {return}
                     print(#function)
@@ -35,30 +35,25 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     
                     /// 새로운 토큰 발급 받기
                     signInViewModel.getNewAccessToken()
-                        .subscribe(onNext:{ data in // 재발급 성공
+                        .subscribe(onNext:{ [weak self] data in // 재발급 성공
+                            guard let self = self else {return}
                             if let access = data.accessToken, let refresh = data.refreshToken {
                                 if KeychainWrapper.saveString(value: access, forKey: SignIn.accessToken.rawValue) && KeychainWrapper.saveString(value: refresh, forKey: SignIn.refreshToken.rawValue){
-                                    rootViewController = MeetingListViewController()
+                                    move(rootViewController: MeetingListViewController())
                                 }
                             }
-                        },onError: { error in   // Refresh 토큰 까지 만료된 경우
+                        },onError: { [weak self] error in   // Refresh 토큰 까지 만료된 경우
+                            guard let self = self else {return}
                             print("\(#function) error!\n\(error)")
-                            rootViewController = SignInViewController()
+                            move(rootViewController: SignInViewController())
                         })
                         .disposed(by: disposeBag)
                 })
                 .disposed(by: disposeBag)
         }
         else{
-            rootViewController = SignInViewController()
+            move(rootViewController: SignInViewController())
         }
-        
-        rootViewController = InputInfoViewController()
-        let navigationController = UINavigationController(rootViewController: rootViewController ?? UIViewController())
-        window?.rootViewController = navigationController
-        //화면 보이게 윈도우 키 윈도우 설정
-        window?.makeKeyAndVisible()
-        
     }
         
     ///mark: -카카오로그인 설정
@@ -70,6 +65,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
     
+    /// MARK:
+    private func move(rootViewController: UIViewController?){
+        let navigationController = UINavigationController(rootViewController: rootViewController ?? UIViewController())
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
+    }
 }
 
 /*
