@@ -62,7 +62,7 @@ final class MainMapViewController: KakaoMapViewController {
     
     private let disposeBag = DisposeBag()
     private let viewModel = MainMapViewModel()
-    
+    var selectedCoordinate: CLLocationCoordinate2D?
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,8 +90,13 @@ final class MainMapViewController: KakaoMapViewController {
     
     // MARK: -  View Did Appear
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         setupSearchBar()
+        //선택하고 돌아왔을때 실행
+        moveCameraToSelectedPosition()
     }
+
+  
     
     // MARK: - Add UI
     
@@ -107,7 +112,30 @@ final class MainMapViewController: KakaoMapViewController {
             createLabelLayer()
         }
     }
+    private func moveCameraToSelectedPosition(){
+        // 저장된 좌표가 있는지 확인
+        if let selectedCoordinate = selectedCoordinate {
+            // 저장된 좌표가 있다면 해당 위치로 카메라 이동
+         //  moveCameraToCurrentPosition() //내위치 이건되는데
+           moveCameraToCoordinate(selectedCoordinate)
+           // print(selectedCoordinate)
+           // print("🥲")
+
+        } else {
+            // 저장된 좌표가 없을 때의 처리: 내 위치로 카메라 이동
+            moveCameraToCurrentPosition()
+          //  print("🥲🥲")
+        }
+    }
     
+    /// MARK:선택한 좌표로 카메라 옮기기
+    private func moveCameraToCoordinate(_ coordinate: CLLocationCoordinate2D) {
+        guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
+       print(coordinate.longitude)
+        print("🥲")
+        // 선택한 좌표로 카메라 이동
+        mapView.moveCamera(CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude, latitude: coordinate.latitude), zoomLevel: 15, rotation: 0.0, tilt: 0.0, mapView: mapView))
+    }
     /// MARK: 현재 자신의 위치로 카메라 옮기기
     private func moveCameraToCurrentPosition() {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
@@ -115,7 +143,7 @@ final class MainMapViewController: KakaoMapViewController {
         // 자신의 현재 위치
         let longitude: Double = viewModel.locationManager.value.location?.coordinate.longitude.magnitude ?? 0.0
         let latitude: Double = viewModel.locationManager.value.location?.coordinate.latitude.magnitude ?? 0.0
-        
+    
         mapView.moveCamera(CameraUpdate.make(target: MapPoint(longitude: longitude, latitude: latitude), zoomLevel: 15, rotation: 1.7, tilt: 0.0, mapView: mapView))
         
     }
@@ -214,7 +242,10 @@ final class MainMapViewController: KakaoMapViewController {
     
     /// MARK: 내위치 탭 했을 때
     private func mylocationTappedAction() {
-        moveCameraToCurrentPosition()
+        if let currentLocation = viewModel.locationManager.value.location?.coordinate {
+                moveCameraToCoordinate(currentLocation)
+            }
+      //  moveCameraToCurrentPosition()
         createPolygonStyleSet()
     }
     

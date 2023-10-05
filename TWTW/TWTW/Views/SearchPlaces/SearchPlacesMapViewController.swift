@@ -8,12 +8,21 @@
 import Foundation
 import UIKit
 import RxSwift
+import Alamofire
+import CoreLocation
 
 ///mark: - 검색 결과를 표시하는 새로운 View Controller
 final class SearchPlacesMapViewController: UIViewController {
     private let disposeBag = DisposeBag()
+    
     ///지역 더미데이터
-    let localPlaces = ["인천", "부산", "서울", "천안", "정왕"]
+    let localPlaces = ["이디야커피 안성죽산점","인천","부산", "서울", "천안", "정왕"]
+    let searchService = SearchService()
+
+    /// mainMap으로 넘길 선택한 장소의 좌표
+  //  var selectedCoordinate: CLLocationCoordinate2D?
+
+    
     ///필터링지역들
     var filteredPlaces = [String]()
     
@@ -51,6 +60,8 @@ final class SearchPlacesMapViewController: UIViewController {
         addSubViews_SearchBar()
         setLocal()
         backButtonAction()
+        
+   
         
     }
     var naviBarHeight :CGFloat =  0.0
@@ -121,7 +132,7 @@ extension SearchPlacesMapViewController : UISearchBarDelegate{
         tableView.reloadData()
     }
 }
-extension SearchPlacesMapViewController : UITableViewDataSource, UITableViewDelegate {
+extension SearchPlacesMapViewController : UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredPlaces.count
     }
@@ -130,5 +141,19 @@ extension SearchPlacesMapViewController : UITableViewDataSource, UITableViewDele
         let cell = UITableViewCell()
         cell.textLabel?.text = filteredPlaces[indexPath.row]
         return cell
+    }
+}
+extension SearchPlacesMapViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     //  MapSharedData.shared.selectedCoordinate = CLLocationCoordinate2D(latitude: xCoordinate, longitude: yCoordinate)
+        // 현재 화면에 표시되고 있는 MainMapViewController 인스턴스 가져오기
+        if let mainMapVC = navigationController?.viewControllers.first(where: { $0 is MainMapViewController }) as? MainMapViewController {
+            let xCoordinate = 0.0
+            let yCoordinate = 0.0
+            
+            // 선택한 장소의 좌표를 설정
+            mainMapVC.selectedCoordinate = CLLocationCoordinate2D(latitude: xCoordinate, longitude: yCoordinate)
+        }
+        navigationController?.popViewController(animated: true)
     }
 }
