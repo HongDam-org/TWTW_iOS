@@ -57,7 +57,7 @@ final class InputInfoViewController: UIViewController {
     /// MARK: 닉네임 입력
     private lazy var nickName: UITextField = {
         let field = UITextField()
-        field.attributedPlaceholder = NSAttributedString(string: "닉네임을 입력해주세요!", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+        field.attributedPlaceholder = NSAttributedString(string: "닉네임을 입력해주세요!", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
         field.textAlignment = .left
         field.backgroundColor = UIColor.profileTextFieldColor
         field.layer.cornerRadius = 10
@@ -70,6 +70,23 @@ final class InputInfoViewController: UIViewController {
         field.leftView = leftView
         field.leftViewMode = .always
         return field
+    }()
+    
+    /// MARK: 설명 글 담을 UIView
+    private lazy var descriptionUIView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
+        return view
+    }()
+    
+    /// MARK: 설명
+    private lazy var descriptions: UILabel = {
+        let label = UILabel()
+        label.text = "∙ 특수문자, 띄어쓰기를를 입력할 수 없습니다.\n∙ 최소 2글자, 최대 8글자 입력가능합니다."
+        label.numberOfLines = 2
+        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.44)
+        label.font = .systemFont(ofSize: 17)
+        return label
     }()
     
     /// MARK: 완료 버튼
@@ -109,6 +126,8 @@ final class InputInfoViewController: UIViewController {
         cameraUIView.addSubview(cameraImage)
         view.addSubview(nickNameTitle)
         view.addSubview(nickName)
+        view.addSubview(descriptionUIView)
+        descriptionUIView.addSubview(descriptions)
         view.addSubview(doneButton)
         
         constraints()
@@ -155,9 +174,22 @@ final class InputInfoViewController: UIViewController {
             make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
         }
         
+        descriptionUIView.snp.makeConstraints { make in
+            make.top.equalTo(nickName.snp.top).offset(50)
+            make.horizontalEdges.equalToSuperview()
+            let labelSize = ((descriptions.text ?? "") as NSString).size(withAttributes: [ NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17) ])
+            make.height.equalTo(labelSize.height+40)
+        }
+        
+        descriptions.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(20)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+        }
+        
         doneButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(nickName.snp.top).offset(50)
+            make.top.equalTo(descriptionUIView.snp.bottom).offset(20)
             make.width.equalTo(view.safeAreaLayoutGuide.layoutFrame.width/5)
             make.height.equalTo(30)
         }
@@ -230,9 +262,8 @@ final class InputInfoViewController: UIViewController {
     /// 사진 앱에서 사진 선택
     private func selectedPhoto() {
         if #available(iOS 14, *){
-            print("called1")
             var configuration = PHPickerConfiguration()
-            configuration.selectionLimit = 10
+            configuration.selectionLimit = 1
             configuration.filter = .any(of: [.images])
             
             let picker = PHPickerViewController(configuration: configuration)
