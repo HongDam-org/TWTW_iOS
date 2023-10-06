@@ -43,11 +43,11 @@ extension UIColor {
 }
 
 enum mapColors: String {
-    case mapCircleColor = "mapCircleColor"
-    case mapStrokeColor = "mapStrokeColor"
-    case mapLineColor = "mapLineColor"
+    case mapCircleColor
+    case mapStrokeColor
+    case mapLineColor
 }
 
 enum profileColors: String{
-    case profileTextFieldColor = "profileTextFieldColor"
+    case profileTextFieldColor
 }
