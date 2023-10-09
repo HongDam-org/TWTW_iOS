@@ -37,7 +37,7 @@ final class SignInViewController: UIViewController {
     }()
     
     private let disposeBag = DisposeBag()
-    private let viewModel = SignInViewModel()
+    var viewModel: SignInViewModel?
     
     // MARK: - View Did Load
     
@@ -82,11 +82,11 @@ final class SignInViewController: UIViewController {
     /// kakao 로그인 버튼 터치 했을 때
     @objc
     private func onKakaoLoginImageViewTapped() {
-        viewModel.kakaoLogin()
+        viewModel?.kakaoLogin()
             .subscribe(onNext:{ [weak self] kakaoUserInfo in
                 guard let self = self else {return}
-                viewModel.identifier.accept("\(kakaoUserInfo.id ?? 0)")
-                viewModel.authType.accept(authType.kakao.rawValue)
+                viewModel?.identifier.accept("\(kakaoUserInfo.id ?? 0)")
+                viewModel?.authType.accept(authType.kakao.rawValue)
                 signIn()
             })
             .disposed(by: disposeBag)
@@ -106,21 +106,21 @@ final class SignInViewController: UIViewController {
     
     /// MARK: 로그인 서비스
     private func signIn(){
-        viewModel.signInService()
+        viewModel?.signInService()
             .subscribe(onNext:{ [weak self] data in
                 guard let self = self else {return}
                 if KeychainWrapper.saveString(value: data.tokenDto?.accessToken ?? "", forKey: SignIn.accessToken.rawValue) && KeychainWrapper.saveString(value: data.tokenDto?.refreshToken ?? "", forKey: SignIn.refreshToken.rawValue) {
                     
-                    switch (data.status ?? "") {
-                    case LoginStatus.SignIn.rawValue:
-                        let viewController = MeetingListViewController()
-                        navigationController?.pushViewController(viewController, animated: true)
-                    case LoginStatus.SignUp.rawValue:
-                        let viewController = InputInfoViewController(viewModel: viewModel)
-                        navigationController?.pushViewController(viewController, animated: true)
-                    default:
-                        print("잘못된 접근")
-                    }
+//                    switch (data.status ?? "") {
+//                    case LoginStatus.SignIn.rawValue:
+//                        let viewController = MeetingListViewController()
+//                        navigationController?.pushViewController(viewController, animated: true)
+//                    case LoginStatus.SignUp.rawValue:
+//                        let viewController = InputInfoViewController(viewModel: viewModel)
+//                        navigationController?.pushViewController(viewController, animated: true)
+//                    default:
+//                        print("잘못된 접근")
+//                    }
                     
                 }
             }, onError: { error in
@@ -143,9 +143,9 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
         let fullName = appleIDCredential.fullName
         let email = appleIDCredential.email
         
-        viewModel.nickName.accept(String(describing: fullName))
-        viewModel.authType.accept(authType.apple.rawValue)
-        viewModel.identifier.accept(String(describing: userIdentifier))
+        viewModel?.nickName.accept(String(describing: fullName))
+        viewModel?.authType.accept(authType.apple.rawValue)
+        viewModel?.identifier.accept(String(describing: userIdentifier))
         
         signIn()
     }

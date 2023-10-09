@@ -53,6 +53,11 @@
 		3B1C36EF2A8FD30200838682 /* BottomSheetDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C36EE2A8FD30200838682 /* BottomSheetDelegate.swift */; };
 		3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */; };
 		3B26F32F2AC11DAD00EFEE12 /* InputInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26F32E2AC11DAD00EFEE12 /* InputInfoViewController.swift */; };
+		3B274D6D2AD3F6F400D79698 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D6C2AD3F6F400D79698 /* Coordinator.swift */; };
+		3B274D712AD3F77600D79698 /* DefaultLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D702AD3F77600D79698 /* DefaultLoginCoordinator.swift */; };
+		3B274D732AD445B400D79698 /* DefaultSignUpCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D722AD445B400D79698 /* DefaultSignUpCoordinator.swift */; };
+		3B274D762AD4541E00D79698 /* CoordinatorFinishDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D752AD4541E00D79698 /* CoordinatorFinishDelegate.swift */; };
+		3B274D792AD4584600D79698 /* LoginCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D782AD4584600D79698 /* LoginCoordinatorProtocol.swift */; };
 		3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */; };
 		3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */; };
 		3BF9EFA42AB1AE790014855E /* KakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */; };
@@ -101,6 +106,11 @@
 		3B1C36EE2A8FD30200838682 /* BottomSheetDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetDelegate.swift; sourceTree = "<group>"; };
 		3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModel.swift; sourceTree = "<group>"; };
 		3B26F32E2AC11DAD00EFEE12 /* InputInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputInfoViewController.swift; sourceTree = "<group>"; };
+		3B274D6C2AD3F6F400D79698 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		3B274D702AD3F77600D79698 /* DefaultLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLoginCoordinator.swift; sourceTree = "<group>"; };
+		3B274D722AD445B400D79698 /* DefaultSignUpCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSignUpCoordinator.swift; sourceTree = "<group>"; };
+		3B274D752AD4541E00D79698 /* CoordinatorFinishDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorFinishDelegate.swift; sourceTree = "<group>"; };
+		3B274D782AD4584600D79698 /* LoginCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignInViewModel.swift; path = TWTW/ViewModel/SignInViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3BF9EF9F2AB1AE220014855E /* TWTW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWTW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapViewController.swift; sourceTree = "<group>"; };
@@ -207,6 +217,7 @@
 		3799E4ED2A99C4A000E06218 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				3B274D6E2AD3F6F800D79698 /* Protocol */,
 				3799E4EE2A99C4C200E06218 /* TabBarCoordinator.swift */,
 				3799E4F02A99C4D100E06218 /* AppCoordinator.swift */,
 				3799E4F22A99C79100E06218 /* VCScenesCoordinator.swift */,
@@ -397,10 +408,54 @@
 		3B26F32D2AC11D9400EFEE12 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				3758F19F2A7D122100E2933C /* SignInViewController.swift */,
-				3B26F32E2AC11DAD00EFEE12 /* InputInfoViewController.swift */,
+				3B274D6B2AD3F6CC00D79698 /* Coordinator */,
+				3B274D6A2AD3F6C100D79698 /* ViewController */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		3B274D6A2AD3F6C100D79698 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3B26F32E2AC11DAD00EFEE12 /* InputInfoViewController.swift */,
+				3758F19F2A7D122100E2933C /* SignInViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		3B274D6B2AD3F6CC00D79698 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				3B274D742AD4540C00D79698 /* Delegate */,
+				3B274D6F2AD3F76600D79698 /* Protocol */,
+				3B274D702AD3F77600D79698 /* DefaultLoginCoordinator.swift */,
+				3B274D722AD445B400D79698 /* DefaultSignUpCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		3B274D6E2AD3F6F800D79698 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				3B274D6C2AD3F6F400D79698 /* Coordinator.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		3B274D6F2AD3F76600D79698 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				3B274D782AD4584600D79698 /* LoginCoordinatorProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		3B274D742AD4540C00D79698 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				3B274D752AD4541E00D79698 /* CoordinatorFinishDelegate.swift */,
+			);
+			path = Delegate;
 			sourceTree = "<group>";
 		};
 		3B6BA98A2A7F7D1600A11FE4 /* ViewModel */ = {
@@ -506,9 +561,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B274D712AD3F77600D79698 /* DefaultLoginCoordinator.swift in Sources */,
 				373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */,
 				3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */,
 				3B1850A92AB5A955001945EE /* SearchNearByPlaces.swift in Sources */,
+				3B274D762AD4541E00D79698 /* CoordinatorFinishDelegate.swift in Sources */,
 				375E8B022A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift in Sources */,
 				3799E5092A99D72D00E06218 /* NotificationViewController.swift in Sources */,
 				3B1850AE2AB5C781001945EE /* EndPoint.swift in Sources */,
@@ -517,12 +574,14 @@
 				3799E4F32A99C79100E06218 /* VCScenesCoordinator.swift in Sources */,
 				3B1850B02AB5C939001945EE /* Domain.swift in Sources */,
 				37BAF8932A948EF700BD85DC /* SearchPlacesMapViewController.swift in Sources */,
+				3B274D732AD445B400D79698 /* DefaultSignUpCoordinator.swift in Sources */,
 				3B1C36EF2A8FD30200838682 /* BottomSheetDelegate.swift in Sources */,
 				373C85462AADA91E00325155 /* BottomSheetViewModel.swift in Sources */,
 				3B0691552ABBD73900C98D6D /* Login.swift in Sources */,
 				3758F1A02A7D122100E2933C /* SignInViewController.swift in Sources */,
 				3799E5022A99D68500E06218 /* CallViewController.swift in Sources */,
 				3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */,
+				3B274D792AD4584600D79698 /* LoginCoordinatorProtocol.swift in Sources */,
 				3B0D6AA92ABBD1A900B08CAB /* SignIn.swift in Sources */,
 				3703095B2AAF1C8400F9CD80 /* FriendsListCollectionView.swift in Sources */,
 				3B1850B22AB5CCA6001945EE /* SearchPlaces.swift in Sources */,
@@ -538,6 +597,7 @@
 				37E043692AA5F4CE00F9E807 /* TabbarViewController.swift in Sources */,
 				3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */,
 				3B26F32F2AC11DAD00EFEE12 /* InputInfoViewController.swift in Sources */,
+				3B274D6D2AD3F6F400D79698 /* Coordinator.swift in Sources */,
 				3754BB702A9B455100522420 /* Color+Ext.swift in Sources */,
 				37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */,
 				3799E4EF2A99C4C200E06218 /* TabBarCoordinator.swift in Sources */,

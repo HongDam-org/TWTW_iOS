@@ -16,6 +16,7 @@ import KakaoSDKCommon
 /// 로그인 ViewModel
 ///  Singleton
 final class SignInViewModel {
+    weak var coordinator: LoginCoordinatorProtocol?
     private let disposeBag = DisposeBag()
     private let signInServices = SignInService()
     final let maxLength = 8
@@ -32,6 +33,12 @@ final class SignInViewModel {
     
     /// 사용자가 지정한 닉네임
     var nickName: BehaviorRelay<String> = BehaviorRelay(value: "")
+    
+    
+    init(coordinator: LoginCoordinatorProtocol) {
+        self.coordinator = coordinator
+        checkSavingTokens()
+    }
     
     
     
@@ -59,6 +66,18 @@ final class SignInViewModel {
         }
     }
     
+    /// MARK: 저장된 토큰 확인
+    private func checkSavingTokens(){
+        if let _ = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue),
+            let _ = KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue){
+            checkAccessTokenValidation()
+        }
+        else{
+            //SignInViewController 이동
+            coordinator?.moveLogin()
+        }
+    }
+    
     // MARK: - API Connect
     
     /// 카카오 로그인
@@ -71,25 +90,45 @@ final class SignInViewModel {
         return signInServices.checkKakaoOAuthToken()
     }
     
-    /// 회원가입할 떄 호출
-    /// - Returns: 회원 상태, AccesToken, RefreshToken
-    func signUp() -> Observable<LoginResponse>{
-        let loginRequest = LoginRequest(nickname: nickName.value,
-                                        profileImage: nil,
-                                        oauthRequest: OAuthRequest(token: identifier.value,
-                                                                   authType: authType.value))
-        
-        return signInServices.signUpService(request: loginRequest)
-    }
+    
     
     /// AccessToken 재발급할 때 사용
-    /// - Returns: New AccesToken, New RefreshToken
-    func getNewAccessToken() -> Observable<TokenResponse> {
+    func getNewAccessToken(){
         let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue)
         let refreshToken = KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue)
         
-        return signInServices.getNewAccessToken(token: TokenResponse(accessToken: accessToken,
-                                                                     refreshToken: refreshToken))
+        signInServices.getNewAccessToken(token: TokenResponse(accessToken: accessToken, refreshToken: refreshToken))
+            .subscribe(onNext:{ [weak self] data in // 재발급 성공
+                guard let self = self else {return}
+                if let access = data.accessToken, let refresh = data.refreshToken {
+                    if KeychainWrapper.saveString(value: access, forKey: SignIn.accessToken.rawValue) && KeychainWrapper.saveString(value: refresh, forKey: SignIn.refreshToken.rawValue){
+                        // move MeetingListViewController
+                        
+                    }
+                }
+            },onError: { [weak self] error in   // Refresh 토큰 까지 만료된 경우
+                guard let self = self else {return}
+                print("\(#function) error!\n\(error)")
+                // move SignInViewController
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    /// Access Token 유효성 검사
+    func checkAccessTokenValidation() {
+        signInServices.checkAccessTokenValidation()
+            .subscribe(onNext:{ [weak self] _ in
+                guard let self = self else {return}
+                // MeetingListViewController로 이동
+
+            },onError: { [weak self] error in
+                guard let self = self else {return}
+                print(#function)
+                print(error)
+                
+                getNewAccessToken()
+            })
+            .disposed(by: disposeBag)
     }
     
     /// 로그인 API
@@ -99,11 +138,7 @@ final class SignInViewModel {
                                                                   authType: authType.value))
     }
     
-    /// Access Token 유효성 검사
-    /// - Returns: true: AccessToken 유효, false: 만료
-    func checkAccessTokenValidation() -> Observable<Bool> {
-        return signInServices.checkAccessTokenValidation()
-    }
+    
     
     /// ID 중복 검사
     /// - Returns: true: Id 사용가능, false: 중복
@@ -122,4 +157,26 @@ final class SignInViewModel {
             return Disposables.create()
         }
     }
+    
+    /// 회원가입할 떄 호출
+    /// - Returns: 회원 상태, AccesToken, RefreshToken
+    func signUp() -> Observable<LoginResponse>{
+        let loginRequest = LoginRequest(nickname: nickName.value,
+                                        profileImage: nil,
+                                        oauthRequest: OAuthRequest(token: identifier.value,
+                                                                   authType: authType.value))
+        
+        return signInServices.signUpService(request: loginRequest)
+    }
 }
+
+
+
+/*
+ 1. AccessToken 유효성 확인
+ 1.1 AccessToken 만료된 경우 재발급 API 호출 -> 2번으로 진행
+ 1.2 AccessToken 만료되지 않은 경우 -> 자동 로그인 진행
+ 2. SignIn 진행
+ 3. response status가 SignUp인 경우 -> 회원 가입 페이지 이동
+ 3.1 SignIn인 경우 로그인 끝 -> Main으로 이동
+ */
