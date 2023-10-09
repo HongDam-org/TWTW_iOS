@@ -17,4 +17,5 @@ struct LoginPath {
     static let signIn = "/auth/login"
     static let updateToken = "/auth/refresh"
     static let checkValidation = "/auth/validate"
+    static let checkOverlapId = "/member/duplicate/Id"
 }

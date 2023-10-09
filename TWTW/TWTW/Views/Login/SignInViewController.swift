@@ -37,7 +37,7 @@ final class SignInViewController: UIViewController {
     }()
     
     private let disposeBag = DisposeBag()
-    private let signInViewModel = SignInViewModel.shared
+    private let viewModel = SignInViewModel()
     
     // MARK: - View Did Load
     
@@ -82,11 +82,11 @@ final class SignInViewController: UIViewController {
     /// kakao 로그인 버튼 터치 했을 때
     @objc
     private func onKakaoLoginImageViewTapped() {
-        signInViewModel.kakaoLogin()
+        viewModel.kakaoLogin()
             .subscribe(onNext:{ [weak self] kakaoUserInfo in
                 guard let self = self else {return}
-                signInViewModel.identifier.accept("\(kakaoUserInfo.id ?? 0)")
-                signInViewModel.authType.accept(authType.kakao.rawValue)
+                viewModel.identifier.accept("\(kakaoUserInfo.id ?? 0)")
+                viewModel.authType.accept(authType.kakao.rawValue)
                 signIn()
             })
             .disposed(by: disposeBag)
@@ -106,7 +106,7 @@ final class SignInViewController: UIViewController {
     
     /// MARK: 로그인 서비스
     private func signIn(){
-        signInViewModel.signInService()
+        viewModel.signInService()
             .subscribe(onNext:{ [weak self] data in
                 guard let self = self else {return}
                 if KeychainWrapper.saveString(value: data.tokenDto?.accessToken ?? "", forKey: SignIn.accessToken.rawValue) && KeychainWrapper.saveString(value: data.tokenDto?.refreshToken ?? "", forKey: SignIn.refreshToken.rawValue) {
@@ -116,7 +116,7 @@ final class SignInViewController: UIViewController {
                         let viewController = MeetingListViewController()
                         navigationController?.pushViewController(viewController, animated: true)
                     case LoginStatus.SignUp.rawValue:
-                        let viewController = InputInfoViewController()
+                        let viewController = InputInfoViewController(viewModel: viewModel)
                         navigationController?.pushViewController(viewController, animated: true)
                     default:
                         print("잘못된 접근")
@@ -143,9 +143,9 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
         let fullName = appleIDCredential.fullName
         let email = appleIDCredential.email
         
-        signInViewModel.nickName.accept(String(describing: fullName))
-        signInViewModel.authType.accept(authType.apple.rawValue)
-        signInViewModel.identifier.accept(String(describing: userIdentifier))
+        viewModel.nickName.accept(String(describing: fullName))
+        viewModel.authType.accept(authType.apple.rawValue)
+        viewModel.identifier.accept(String(describing: userIdentifier))
         
         signIn()
     }

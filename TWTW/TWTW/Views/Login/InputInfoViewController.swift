@@ -100,7 +100,16 @@ final class InputInfoViewController: UIViewController {
     }()
     
     private let disposeBag = DisposeBag()
-    private let viewModel = SignInViewModel.shared
+    private var viewModel: SignInViewModel
+    
+    init(viewModel: SignInViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - View Did Load
     override func viewDidLoad() {
@@ -133,6 +142,7 @@ final class InputInfoViewController: UIViewController {
         constraints()
         setCornerRadius()
         bind()
+        
     }
     
     /// MARK: Set Constraints
@@ -224,6 +234,7 @@ final class InputInfoViewController: UIViewController {
         doneButton.rx.tap
             .bind { [weak self ] _ in
                 guard let self = self  else {return}
+                
                 checkOverlapId()
             }
             .disposed(by: disposeBag)
@@ -233,9 +244,17 @@ final class InputInfoViewController: UIViewController {
     
     /// MARK: 아이디 중복 확인 검사
     private func checkOverlapId(){
-        // ID 중복 검사 코드 작성
-        let viewController = MeetingListViewController()
-        navigationController?.pushViewController(viewController, animated: true)
+        viewModel.checkOverlapId()
+            .subscribe(onNext:{ [weak self] _ in
+                guard let self = self else {return}
+                let viewController = MeetingListViewController()
+                navigationController?.pushViewController(viewController, animated: true)
+            },onError: { [weak self] error in
+                guard let self = self else {return}
+                showAlert(title:"중복된 아이디입니다.", message: nil)
+            })
+            .disposed(by: disposeBag)
+        
     }
     
     /// MARK: 사진 선택하는 actionSheet
@@ -301,6 +320,14 @@ final class InputInfoViewController: UIViewController {
             })
             .disposed(by: disposeBag)
     }
+    
+    /// MARK: 알림 팝업
+    private func showAlert(title: String?, message: String?){
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "확인", style: .default)
+        ac.addAction(ok)
+        present(ac, animated: true)
+    }
 }
 
 /// MARK: 카메라 사진찍은 경우 or iOS 14이전
@@ -352,7 +379,6 @@ extension InputInfoViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         checkOverlapId()
-        print(#function)
         return true
     }
 }

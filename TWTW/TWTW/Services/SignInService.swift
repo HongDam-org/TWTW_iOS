@@ -220,4 +220,31 @@ final class SignInService{
         }
         
     }
+    
+    /// ID 중복 검사
+    /// - Returns: true: Id 사용가능, false: 중복
+    func checkOverlapId(id: String) -> Observable<Void> {
+        var url = Domain.REST_API + LoginPath.checkOverlapId
+        url = url.replacingOccurrences(of: "Id", with: id)
+        print(url)
+        
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .get)
+            .validate(statusCode: 200..<201)
+            .response{ res in
+                print(res)
+                switch res.result{
+                case .success(_):
+                    observer.onNext(())
+                case .failure(let error):
+                    print(#function)
+                    print(error)
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+        
+    }
 }

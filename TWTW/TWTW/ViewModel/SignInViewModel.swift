@@ -16,8 +16,6 @@ import KakaoSDKCommon
 /// 로그인 ViewModel
 ///  Singleton
 final class SignInViewModel {
-    static let shared = SignInViewModel()
-    private init() {}
     private let disposeBag = DisposeBag()
     private let signInServices = SignInService()
     final let maxLength = 8
@@ -105,5 +103,23 @@ final class SignInViewModel {
     /// - Returns: true: AccessToken 유효, false: 만료
     func checkAccessTokenValidation() -> Observable<Bool> {
         return signInServices.checkAccessTokenValidation()
+    }
+    
+    /// ID 중복 검사
+    /// - Returns: true: Id 사용가능, false: 중복
+    func checkOverlapId() -> Observable<Void> {
+      
+        return Observable.create { [weak self]  observer in
+            guard let self = self  else { fatalError() }
+            signInServices.checkOverlapId(id: nickName.value)
+                .subscribe(onNext: { _ in
+                    observer.onNext(())
+                },onError: {  [weak self] error in
+                    guard let self = self  else {return}
+                    observer.onError(error)
+                })
+                .disposed(by: disposeBag)
+            return Disposables.create()
+        }
     }
 }
