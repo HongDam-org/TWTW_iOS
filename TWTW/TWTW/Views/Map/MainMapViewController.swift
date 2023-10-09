@@ -114,7 +114,10 @@ final class MainMapViewController: KakaoMapViewController {
        print(coordinate.longitude)
         print("🥲")
         // 선택한 좌표로 카메라 이동
-        mapView.moveCamera(CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude, latitude: coordinate.latitude), zoomLevel: 15, rotation: 1.7, tilt: 0.0, mapView: mapView))
+//        mapView.moveCamera(CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude, latitude: coordinate.latitude), zoomLevel: 15, rotation: 1.7, tilt: 0.0, mapView: mapView))
+
+        mapView.animateCamera(cameraUpdate: CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude, latitude: coordinate.latitude), zoomLevel: 15, rotation: 1.7, tilt: 0.0, mapView: mapView), options: CameraAnimationOptions(autoElevation: true, consecutive: true, durationInMillis: 2000))
+        
     }
     /// MARK: 현재 자신의 위치로 카메라 옮기기
     private func moveCameraToCurrentPosition() {
@@ -499,8 +502,11 @@ extension MainMapViewController: UISearchBarDelegate {
         self.navigationController?.pushViewController(vc, animated: true)
         vc.selectedCoordinateSubject.bind {[weak self] location in
             guard let self = self else {return}
-            print("🍎\(location)")
-            moveCameraToCoordinate(location)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
+
+                self.moveCameraToCoordinate(location)
+                
+            }
         }.disposed(by: disposeBag)
         return false
         
