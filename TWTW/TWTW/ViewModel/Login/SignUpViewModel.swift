@@ -94,9 +94,14 @@ final class SignUpViewModel {
     ///   - output: Output 구조체
     func checkOverlapId(nickName: String, output: Output) {
         signUpServices.checkOverlapId(id: nickName)
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] check in
                 guard let self = self  else {return}
-                signUp(nickName: nickName, output: output)
+                if !check {
+                    signUp(nickName: nickName, output: output)
+                }
+                else{
+                    output.overlapNickNameSubject.onNext(())
+                }
             },onError: { error in
                 output.overlapNickNameSubject.onNext(())
             })

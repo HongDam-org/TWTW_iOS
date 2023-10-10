@@ -42,7 +42,7 @@ final class SignUpService {
     
     /// ID 중복 검사
     /// - Parameter id: nickName
-    func checkOverlapId(id: String) -> Observable<Void> {
+    func checkOverlapId(id: String) -> Observable<Bool> {
         var url = Domain.REST_API + LoginPath.checkOverlapId
         url = url.replacingOccurrences(of: "Id", with: id)
         print(url)
@@ -51,11 +51,11 @@ final class SignUpService {
             AF.request(url,
                        method: .get)
             .validate(statusCode: 200..<201)
-            .response{ res in
+            .responseDecodable(of: OverLapIdResponse.self){ res in
                 print(res)
                 switch res.result{
-                case .success(_):
-                    observer.onNext(())
+                case .success(let data):
+                    observer.onNext(data.isPresent ?? true)
                 case .failure(let error):
                     print(#function)
                     print(error)

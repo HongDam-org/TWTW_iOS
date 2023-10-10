@@ -27,3 +27,7 @@ struct LoginResponse: Codable {
     let status: String?
     let tokenDto: TokenResponse?
 }
+
+struct OverLapIdResponse: Codable {
+    let isPresent: Bool?
+}
