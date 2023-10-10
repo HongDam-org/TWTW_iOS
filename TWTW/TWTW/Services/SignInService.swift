@@ -103,6 +103,7 @@ final class SignInService{
     /// - Returns: New AccesToken, New RefreshToken
     func getNewAccessToken(token: TokenResponse) -> Observable<TokenResponse> {
         let url = Domain.REST_API + LoginPath.updateToken
+        print(#function)
         print(url)
         return Observable.create { observer in
             AF.request(url,
@@ -145,37 +146,15 @@ final class SignInService{
         }
     }
     
-    /// 회원가입할 떄 호출
-    /// - Parameter request: 서버에 보내는 회원가입 정보
-    /// - Returns: 회원 상태, AccesToken, RefreshToken
-    func signUpService(request: LoginRequest) -> Observable<LoginResponse> {
-        let url = Domain.REST_API + LoginPath.signUp
-        print(url)
-        return Observable.create { observer in
-            AF.request(url,
-                       method: .post,
-                       parameters: request,
-                       encoder: JSONParameterEncoder.default)
-            .validate(statusCode: 200..<201)
-            .responseDecodable(of: LoginResponse.self) { response in
-                switch response.result {
-                case .success(let data):
-                    observer.onNext(data)
-                case .failure(let error):
-                    observer.onError(error)
-                }
-            }
-            return Disposables.create()
-        }
-    }
-    
+
     /// 로그인 API
     /// - Parameter request: Kakao, Apple에서 발급받는 Token, AuthType
     /// - Returns: status, Tokens
     func signInService(request: OAuthRequest) -> Observable<LoginResponse> {
         let url = Domain.REST_API + LoginPath.signIn
+        print(#function)
         print(url)
-        print("body\n\(request)")
+        print(request)
         return Observable.create { observer in
             AF.request(url,
                        method: .post,
@@ -200,6 +179,7 @@ final class SignInService{
     func checkAccessTokenValidation() -> Observable<Bool> {
         let url = Domain.REST_API + LoginPath.checkValidation
         let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue) ?? ""
+        print(#function)
         print(url)
         return Observable.create { observer in
             AF.request(url,
@@ -221,30 +201,5 @@ final class SignInService{
         
     }
     
-    /// ID 중복 검사
-    /// - Returns: true: Id 사용가능, false: 중복
-    func checkOverlapId(id: String) -> Observable<Void> {
-        var url = Domain.REST_API + LoginPath.checkOverlapId
-        url = url.replacingOccurrences(of: "Id", with: id)
-        print(url)
-        
-        return Observable.create { observer in
-            AF.request(url,
-                       method: .get)
-            .validate(statusCode: 200..<201)
-            .response{ res in
-                print(res)
-                switch res.result{
-                case .success(_):
-                    observer.onNext(())
-                case .failure(let error):
-                    print(#function)
-                    print(error)
-                    observer.onError(error)
-                }
-            }
-            return Disposables.create()
-        }
-        
-    }
+   
 }

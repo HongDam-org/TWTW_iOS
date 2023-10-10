@@ -7,27 +7,39 @@
 
 import Foundation
 import UIKit
-import RxSwift
 
-final class AppCoordinator: Coordinator {
+final class DefaultAppCoordinator: AppCoordinator {    
+    
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
-    
-    private let disposeBag = DisposeBag()
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func start() {
+        moveLogin()
+    }
+    
+    func moveLogin() {
         let defaultLoginCoordinator = DefaultLoginCoordinator(navigationController: navigationController)
         defaultLoginCoordinator.delegate = self
         defaultLoginCoordinator.start()
         childCoordinators.append(defaultLoginCoordinator)
     }
     
+    func moveMain() {
+        childCoordinators.removeAll()
+        // MeetingListCoodrinator로 이동
+        print("called DefaultAppCoordinator \(#function)")
+    }
+    
 }
 
-extension AppCoordinator: CoordinatorFinishDelegate {
+extension DefaultAppCoordinator: CoordinatorFinishDelegate {
+    func finishLogin(_ coordinator: DefaultLoginCoordinator) {
+        childCoordinators = childCoordinators.filter { $0 !== coordinator }
+        moveMain()
+    }
     
 }

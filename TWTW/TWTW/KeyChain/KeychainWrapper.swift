@@ -48,4 +48,14 @@ final class KeychainWrapper {
         }
         return nil
     }
+    
+    static func delete(key: String) -> Bool {
+        let deleteQuery: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
+                                            kSecAttrAccount: key]
+        let status = SecItemDelete(deleteQuery as CFDictionary)
+        if status == errSecSuccess { return true }
+        
+        print("deleteItem Error : \(status.description)")
+        return false
+    }
 }

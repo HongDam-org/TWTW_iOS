@@ -1,5 +1,5 @@
 //
-//  InputInfoViewController.swift
+//  SignUpViewController.swift
 //  TWTW
 //
 //  Created by 정호진 on 2023/09/25.
@@ -12,7 +12,7 @@ import PhotosUI
 import RxSwift
 import RxRelay
 
-final class InputInfoViewController: UIViewController {
+final class SignUpViewController: UIViewController {
     
     /// MARK: 프로필 설정 제목
     private lazy var titleLabel: UILabel = {
@@ -64,7 +64,6 @@ final class InputInfoViewController: UIViewController {
         field.layer.borderWidth = 1
         field.layer.borderColor = UIColor.profileTextFieldColor?.cgColor
         field.textColor = .black
-        field.delegate = self
         
         let leftView = UIView(frame: CGRect(x: .zero, y: .zero, width: 10, height: field.frame.height))
         field.leftView = leftView
@@ -100,16 +99,7 @@ final class InputInfoViewController: UIViewController {
     }()
     
     private let disposeBag = DisposeBag()
-    private var viewModel: SignInViewModel
-    
-    init(viewModel: SignInViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var viewModel: SignUpViewModel?
     
     // MARK: - View Did Load
     override func viewDidLoad() {
@@ -142,7 +132,6 @@ final class InputInfoViewController: UIViewController {
         constraints()
         setCornerRadius()
         bind()
-        
     }
     
     /// MARK: Set Constraints
@@ -216,13 +205,12 @@ final class InputInfoViewController: UIViewController {
     
     /// MARK: ViewModel binding
     private func bind(){
-        nickName.rx.text
-            .bind { [weak self] text in
-                guard let self = self  else {return}
-                guard let text = text else {return}
-                viewModel.nickName.accept(text)
-            }
-            .disposed(by: disposeBag)
+        let input = SignUpViewModel.Input(doneButtonTapEvents: doneButton.rx.tap.asObservable(),
+                                          keyboardReturnTapEvents: nickName.rx.controlEvent([.editingDidEndOnExit]).asObservable(),
+                                          nickNameEditEvents: nickName.rx.text.orEmpty.asObservable(),
+                                          imageButtonTapEvents: imageButton.rx.tap.asObservable())
+        
+        let output = viewModel?.bind(input: input)
         
         imageButton.rx.tap
             .bind { [weak self ] _ in
@@ -231,31 +219,57 @@ final class InputInfoViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        doneButton.rx.tap
-            .bind { [weak self ] _ in
-                guard let self = self  else {return}
-                
-                checkOverlapId()
+        nickName.rx.text.orEmpty
+            .asObservable()
+            .scan("") { lastValue, newValue in
+                let removedSpaceString = newValue.replacingOccurrences(of: " ", with: "")
+                return removedSpaceString.count == newValue.count ? newValue : lastValue
             }
-            .disposed(by: disposeBag)
+            .bind(to: nickName.rx.text)
+            .disposed(by: self.disposeBag)
         
+//        // 키보드 return 버튼
+//        nickName.rx.controlEvent([.editingDidEndOnExit])
+//            .bind(onNext:{ _ in
+//                print("done")
+//            })
+//            .disposed(by: disposeBag)
         
+        bindNickNameFiltering(output: output)
+        bindOverlapNickNameSubject(output: output)
+        bindFailureSubject(output: output)
     }
     
-    /// MARK: 아이디 중복 확인 검사
-    private func checkOverlapId(){
-        viewModel.checkOverlapId()
-            .subscribe(onNext:{ [weak self] _ in
+    /// MARK: 닉네임 필터링 binding
+    private func bindNickNameFiltering(output: SignUpViewModel.Output?){
+        output?.nickNameFilteringRelay
+            .asDriver()
+            .drive(nickName.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
+    /// MARK: 닉네임 필터링 binding
+    private func bindOverlapNickNameSubject(output: SignUpViewModel.Output?){
+        output?.overlapNickNameSubject
+            .bind(onNext: { [weak self] _ in
                 guard let self = self else {return}
-                let viewController = MeetingListViewController()
-                navigationController?.pushViewController(viewController, animated: true)
-            },onError: { [weak self] error in
-                guard let self = self else {return}
-                showAlert(title:"중복된 아이디입니다.", message: nil)
+                showAlert(title: "중복된 닉네임입니다.", message: nil)
             })
             .disposed(by: disposeBag)
-        
     }
+    
+    /// MARK: 닉네임 필터링 binding
+    private func bindFailureSubject(output: SignUpViewModel.Output?){
+        output?.failureSignUpSubject
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else {return}
+                showAlert(title: "회원가입 실패!", message: "다시 시도해주세요.")
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    
+    
     
     /// MARK: 사진 선택하는 actionSheet
     private func selectedPicture(){
@@ -307,19 +321,6 @@ final class InputInfoViewController: UIViewController {
         present(imagePickerController, animated: true, completion: nil)
     }
     
-    /// MARK: 회원가입
-    private func signUp(){
-        viewModel.signUp()
-            .subscribe(onNext:{ [weak self] data in
-                guard let self = self else {return}
-                let viewController = MeetingListViewController()
-                navigationController?.pushViewController(viewController, animated: true)
-            },onError: { error in   // 에러 처리 해야함
-                print(#function)
-                print(error)
-            })
-            .disposed(by: disposeBag)
-    }
     
     /// MARK: 알림 팝업
     private func showAlert(title: String?, message: String?){
@@ -331,10 +332,10 @@ final class InputInfoViewController: UIViewController {
 }
 
 /// MARK: 카메라 사진찍은 경우 or iOS 14이전
-extension InputInfoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-            self.viewModel.selectedPhotoImages.accept(image)
+//            self.viewModel.selectedPhotoImages.accept(image)
             self.imageButton.setImage(image.resize(newWidth: 200, newHeight: 200), for: .normal)
             self.setCornerRadius()
         }
@@ -343,7 +344,7 @@ extension InputInfoViewController: UIImagePickerControllerDelegate, UINavigation
 }
 
 /// MARK: iOS14 이후 사진 선택
-extension InputInfoViewController: PHPickerViewControllerDelegate {
+extension SignUpViewController: PHPickerViewControllerDelegate {
     
     /// 사진을 선택완료 했을 때 실행
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
@@ -354,7 +355,7 @@ extension InputInfoViewController: PHPickerViewControllerDelegate {
                 DispatchQueue.main.async {
                     guard let self = self else {return}
                     if let image = image as? UIImage {
-                        self.viewModel.selectedPhotoImages.accept(image)
+//                        self.viewModel.selectedPhotoImages.accept(image)
                         self.imageButton.setImage(image.resize(newWidth: 200, newHeight: 200), for: .normal)
                         self.setCornerRadius()
                     }
@@ -369,16 +370,4 @@ extension InputInfoViewController: PHPickerViewControllerDelegate {
         picker.dismiss(animated: true, completion: nil)
     }
     
-}
-
-extension InputInfoViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return viewModel.calculateTextField(text: textField.text ?? "", string: string)
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        checkOverlapId()
-        return true
-    }
 }

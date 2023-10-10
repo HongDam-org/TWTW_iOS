@@ -20,9 +20,14 @@ enum LoginStatus: String {
 }
 
 /// 사용자 로그인한 종류
-enum authType: String {
+enum AuthType: String {
     case kakao = "KAKAO"
     case apple = "APPLE"
+}
+
+enum SignInSaveKeyChain: String {
+    case authType
+    case identifier
 }
 
 /// 로그인할 때 사용할 변수

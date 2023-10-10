@@ -8,5 +8,5 @@
 import Foundation
 
 protocol CoordinatorFinishDelegate {
-    
+    func finishLogin(_ coordinator: DefaultLoginCoordinator)
 }
