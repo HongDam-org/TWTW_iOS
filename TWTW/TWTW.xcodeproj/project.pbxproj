@@ -208,9 +208,8 @@
 		375916352A7EB31C00C21E1F /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				375916362A7EB36000C21E1F /* SignInService.swift */,
+				3B274D852AD534E000D79698 /* Login */,
 				3B1850AA2AB5C620001945EE /* SearchService.swift */,
-				3B274D832AD5207100D79698 /* SignUpService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -477,6 +476,15 @@
 			children = (
 				3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */,
 				3B274D7C2AD4D19B00D79698 /* SignUpViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		3B274D852AD534E000D79698 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				375916362A7EB36000C21E1F /* SignInService.swift */,
+				3B274D832AD5207100D79698 /* SignUpService.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";

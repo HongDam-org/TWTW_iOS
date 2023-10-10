@@ -15,7 +15,6 @@ import KakaoSDKCommon
 import RxCocoa
 
 /// 로그인 ViewModel
-///  Singleton
 final class SignInViewModel {
     var coordinator: LoginCoordinatorProtocol?
     private let disposeBag = DisposeBag()
@@ -37,11 +36,8 @@ final class SignInViewModel {
     
     /// MARK: 저장된 토큰 확인
     func checkSavingTokens(){
-        let _ = KeychainWrapper.delete(key: SignIn.accessToken.rawValue)
-        let _ = KeychainWrapper.delete(key: SignIn.refreshToken.rawValue)
-        if let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue),
-            let refreshToken = KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue){
-            
+        if let _ = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue),
+            let _ = KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue){
             checkAccessTokenValidation()
         }
         else{
@@ -51,6 +47,7 @@ final class SignInViewModel {
     }
     
     /// MARK: binding Input
+    /// - Parameter input: Input 구조체
     func bind(input: Input){
         input.kakaoLoginButtonTapped.bind { [weak self] _ in
             guard let self = self else {return}
@@ -71,11 +68,6 @@ final class SignInViewModel {
             })
             .disposed(by: disposeBag)
         
-    }
-
-    /// 자동 로그인 통신
-    func checkKakaoOAuthToken() -> Observable<KakaoSDKUser.User>{
-        return signInServices.checkKakaoOAuthToken()
     }
     
     /// Access Token 유효성 검사
@@ -118,6 +110,9 @@ final class SignInViewModel {
     }
  
     /// 로그인 API
+    /// - Parameters:
+    ///   - authType: 인증 방식 ex)카카오, 애플
+    ///   - identifier: 유저 고유의 identifier
     func signInService(authType: String, identifier: String) {
         let _ = KeychainWrapper.saveString(value: authType, forKey: SignInSaveKeyChain.authType.rawValue)
         let _ = KeychainWrapper.saveString(value: identifier, forKey: SignInSaveKeyChain.identifier.rawValue)

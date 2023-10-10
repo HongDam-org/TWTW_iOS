@@ -27,10 +27,12 @@ final class DefaultSignUpCoordinator: SignUpCoordinatorProtocol {
         moveSignUp()
     }
     
+    /// 회원가입 완료
     func moveMain() {
         delegate?.finishSignUp()
     }
     
+    /// 회원가입으로 이동
     func moveSignUp() {
         signUpViewController.viewModel = signUpViewModel
         navigationController.pushViewController(signUpViewController, animated: true)

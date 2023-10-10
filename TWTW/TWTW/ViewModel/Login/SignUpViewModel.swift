@@ -86,6 +86,8 @@ final class SignUpViewModel {
         return output
     }
 
+    // MARK: - API Connect
+    
     /// ID 중복 검사
     /// - Parameters:
     ///   - nickName: user NickName

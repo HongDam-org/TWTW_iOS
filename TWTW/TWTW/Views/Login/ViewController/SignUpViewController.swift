@@ -228,13 +228,6 @@ final class SignUpViewController: UIViewController {
             .bind(to: nickName.rx.text)
             .disposed(by: self.disposeBag)
         
-//        // 키보드 return 버튼
-//        nickName.rx.controlEvent([.editingDidEndOnExit])
-//            .bind(onNext:{ _ in
-//                print("done")
-//            })
-//            .disposed(by: disposeBag)
-        
         bindNickNameFiltering(output: output)
         bindOverlapNickNameSubject(output: output)
         bindFailureSubject(output: output)
@@ -335,7 +328,7 @@ final class SignUpViewController: UIViewController {
 extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-//            self.viewModel.selectedPhotoImages.accept(image)
+
             self.imageButton.setImage(image.resize(newWidth: 200, newHeight: 200), for: .normal)
             self.setCornerRadius()
         }
@@ -355,7 +348,7 @@ extension SignUpViewController: PHPickerViewControllerDelegate {
                 DispatchQueue.main.async {
                     guard let self = self else {return}
                     if let image = image as? UIImage {
-//                        self.viewModel.selectedPhotoImages.accept(image)
+
                         self.imageButton.setImage(image.resize(newWidth: 200, newHeight: 200), for: .normal)
                         self.setCornerRadius()
                     }

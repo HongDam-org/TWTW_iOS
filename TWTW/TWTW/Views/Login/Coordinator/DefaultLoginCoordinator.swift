@@ -43,6 +43,7 @@ final class DefaultLoginCoordinator: LoginCoordinatorProtocol {
         childCoordinators.append(defaultSignUpCoordinator)
     }
     
+    /// 로그인 완료된 경우
     func moveMain() {
         delegate?.finishLogin(self)
     }

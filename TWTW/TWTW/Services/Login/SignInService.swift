@@ -61,42 +61,6 @@ final class SignInService{
             })
     }
     
-    /// 카카오 OAuth 확인하는 함수
-    func checkKakaoOAuthToken() -> Observable<KakaoSDKUser.User>{
-        return Observable.create { [weak self] observer in
-            if (AuthApi.hasToken()) {   // 카카오 토큰이 있는지 확인
-                UserApi.shared.rx.accessTokenInfo()
-                    .subscribe(
-                        onSuccess: { (AccessTokenInfo) in   // Access
-                            self?.fetchKakaoUserInfo()
-                                .subscribe(onNext:{ kakakUserInfo in
-                                    observer.onNext(kakakUserInfo)
-                                })
-                                .disposed(by: self?.disposeBag ?? DisposeBag())
-                        },
-                        onFailure: { error in   // Access Token, Refresh Token 만료된 상황
-                            if let sdkError = error as? SdkError, sdkError.isInvalidTokenError() == true {
-                                if sdkError.isApiFailed{
-                                    print("Kakao Token Error!\n\(sdkError.getApiError())")
-                                }
-                                else if sdkError.isAuthFailed{
-                                    print("Kakao Token Error!\n\(sdkError.getAuthError())")
-                                }
-                                else if sdkError.isClientFailed{
-                                    print("Kakao Token Error!\n\(sdkError.getClientError())")
-                                }
-                            }
-                            else { // 이상한 오류 발생
-                                print("Kakao Token Error!!\n\(error)")
-                            }
-                        })
-                    .disposed(by: self?.disposeBag ?? DisposeBag())
-            }
-            return Disposables.create()
-        }
-    }
-    
-    
     
     /// AccessToken 재발급할 때 사용
     /// - Parameter token: AccessToken, RefreshToken
