@@ -16,14 +16,14 @@ import RxCocoa
 
 /// 로그인 ViewModel
 final class SignInViewModel {
-    var coordinator: LoginCoordinatorProtocol?
+    var coordinator: SignInCoordinatorProtocol?
     private let disposeBag = DisposeBag()
     private let signInServices = SignInService()
 
     
     // MARK: - init
     
-    init(coordinator: LoginCoordinatorProtocol) {
+    init(coordinator: SignInCoordinatorProtocol) {
         self.coordinator = coordinator
         
     }

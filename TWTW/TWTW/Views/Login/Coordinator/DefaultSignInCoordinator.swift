@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-final class DefaultLoginCoordinator: LoginCoordinatorProtocol {
+final class DefaultSignInCoordinator: SignInCoordinatorProtocol {
     
     var childCoordinators: [Coordinator] = []
     
-    var delegate: CoordinatorFinishDelegate?
+    var delegate: SignInCoordinatorFinishDelegate?
     var navigationController: UINavigationController
     private let signInViewController: SignInViewController
     private var signInViewModel: SignInViewModel?
@@ -52,7 +52,7 @@ final class DefaultLoginCoordinator: LoginCoordinatorProtocol {
     
 }
 
-extension DefaultLoginCoordinator: SignUpCoordinatorFinishDelegate {
+extension DefaultSignInCoordinator: SignUpCoordinatorFinishDelegate {
     func finishSignUp() {
         moveMain()
     }

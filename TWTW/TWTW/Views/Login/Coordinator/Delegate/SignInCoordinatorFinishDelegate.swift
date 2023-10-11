@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol CoordinatorFinishDelegate {
-    func finishLogin(_ coordinator: DefaultLoginCoordinator)
+protocol SignInCoordinatorFinishDelegate {
+    func finishLogin(_ coordinator: DefaultSignInCoordinator)
 }

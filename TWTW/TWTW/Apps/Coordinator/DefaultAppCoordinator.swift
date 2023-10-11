@@ -22,7 +22,7 @@ final class DefaultAppCoordinator: AppCoordinator {
     }
     
     func moveLogin() {
-        let defaultLoginCoordinator = DefaultLoginCoordinator(navigationController: navigationController)
+        let defaultLoginCoordinator = DefaultSignInCoordinator(navigationController: navigationController)
         defaultLoginCoordinator.delegate = self
         defaultLoginCoordinator.start()
         childCoordinators.append(defaultLoginCoordinator)
@@ -36,8 +36,8 @@ final class DefaultAppCoordinator: AppCoordinator {
     
 }
 
-extension DefaultAppCoordinator: CoordinatorFinishDelegate {
-    func finishLogin(_ coordinator: DefaultLoginCoordinator) {
+extension DefaultAppCoordinator: SignInCoordinatorFinishDelegate {
+    func finishLogin(_ coordinator: DefaultSignInCoordinator) {
         childCoordinators = childCoordinators.filter { $0 !== coordinator }
         moveMain()
     }

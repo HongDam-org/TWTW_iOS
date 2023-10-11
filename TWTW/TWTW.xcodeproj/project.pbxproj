@@ -54,10 +54,10 @@
 		3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */; };
 		3B26F32F2AC11DAD00EFEE12 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26F32E2AC11DAD00EFEE12 /* SignUpViewController.swift */; };
 		3B274D6D2AD3F6F400D79698 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D6C2AD3F6F400D79698 /* Coordinator.swift */; };
-		3B274D712AD3F77600D79698 /* DefaultLoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D702AD3F77600D79698 /* DefaultLoginCoordinator.swift */; };
+		3B274D712AD3F77600D79698 /* DefaultSignInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D702AD3F77600D79698 /* DefaultSignInCoordinator.swift */; };
 		3B274D732AD445B400D79698 /* DefaultSignUpCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D722AD445B400D79698 /* DefaultSignUpCoordinator.swift */; };
-		3B274D762AD4541E00D79698 /* CoordinatorFinishDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D752AD4541E00D79698 /* CoordinatorFinishDelegate.swift */; };
-		3B274D792AD4584600D79698 /* LoginCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D782AD4584600D79698 /* LoginCoordinatorProtocol.swift */; };
+		3B274D762AD4541E00D79698 /* SignInCoordinatorFinishDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D752AD4541E00D79698 /* SignInCoordinatorFinishDelegate.swift */; };
+		3B274D792AD4584600D79698 /* SignInCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D782AD4584600D79698 /* SignInCoordinatorProtocol.swift */; };
 		3B274D7B2AD4CFDA00D79698 /* SignUpCoordinatorFinishDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D7A2AD4CFDA00D79698 /* SignUpCoordinatorFinishDelegate.swift */; };
 		3B274D7D2AD4D19B00D79698 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D7C2AD4D19B00D79698 /* SignUpViewModel.swift */; };
 		3B274D802AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D7F2AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift */; };
@@ -112,10 +112,10 @@
 		3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModel.swift; sourceTree = "<group>"; };
 		3B26F32E2AC11DAD00EFEE12 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		3B274D6C2AD3F6F400D79698 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		3B274D702AD3F77600D79698 /* DefaultLoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLoginCoordinator.swift; sourceTree = "<group>"; };
+		3B274D702AD3F77600D79698 /* DefaultSignInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSignInCoordinator.swift; sourceTree = "<group>"; };
 		3B274D722AD445B400D79698 /* DefaultSignUpCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSignUpCoordinator.swift; sourceTree = "<group>"; };
-		3B274D752AD4541E00D79698 /* CoordinatorFinishDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorFinishDelegate.swift; sourceTree = "<group>"; };
-		3B274D782AD4584600D79698 /* LoginCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorProtocol.swift; sourceTree = "<group>"; };
+		3B274D752AD4541E00D79698 /* SignInCoordinatorFinishDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInCoordinatorFinishDelegate.swift; sourceTree = "<group>"; };
+		3B274D782AD4584600D79698 /* SignInCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		3B274D7A2AD4CFDA00D79698 /* SignUpCoordinatorFinishDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpCoordinatorFinishDelegate.swift; sourceTree = "<group>"; };
 		3B274D7C2AD4D19B00D79698 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		3B274D7F2AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpCoordinatorProtocol.swift; sourceTree = "<group>"; };
@@ -438,7 +438,7 @@
 			children = (
 				3B274D742AD4540C00D79698 /* Delegate */,
 				3B274D6F2AD3F76600D79698 /* Protocol */,
-				3B274D702AD3F77600D79698 /* DefaultLoginCoordinator.swift */,
+				3B274D702AD3F77600D79698 /* DefaultSignInCoordinator.swift */,
 				3B274D722AD445B400D79698 /* DefaultSignUpCoordinator.swift */,
 			);
 			path = Coordinator;
@@ -456,7 +456,7 @@
 		3B274D6F2AD3F76600D79698 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				3B274D782AD4584600D79698 /* LoginCoordinatorProtocol.swift */,
+				3B274D782AD4584600D79698 /* SignInCoordinatorProtocol.swift */,
 				3B274D7F2AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift */,
 			);
 			path = Protocol;
@@ -465,7 +465,7 @@
 		3B274D742AD4540C00D79698 /* Delegate */ = {
 			isa = PBXGroup;
 			children = (
-				3B274D752AD4541E00D79698 /* CoordinatorFinishDelegate.swift */,
+				3B274D752AD4541E00D79698 /* SignInCoordinatorFinishDelegate.swift */,
 				3B274D7A2AD4CFDA00D79698 /* SignUpCoordinatorFinishDelegate.swift */,
 			);
 			path = Delegate;
@@ -592,11 +592,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B274D712AD3F77600D79698 /* DefaultLoginCoordinator.swift in Sources */,
+				3B274D712AD3F77600D79698 /* DefaultSignInCoordinator.swift in Sources */,
 				373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */,
 				3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */,
 				3B1850A92AB5A955001945EE /* SearchNearByPlaces.swift in Sources */,
-				3B274D762AD4541E00D79698 /* CoordinatorFinishDelegate.swift in Sources */,
+				3B274D762AD4541E00D79698 /* SignInCoordinatorFinishDelegate.swift in Sources */,
 				375E8B022A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift in Sources */,
 				3799E5092A99D72D00E06218 /* NotificationViewController.swift in Sources */,
 				3B1850AE2AB5C781001945EE /* EndPoint.swift in Sources */,
@@ -613,7 +613,7 @@
 				3B274D7B2AD4CFDA00D79698 /* SignUpCoordinatorFinishDelegate.swift in Sources */,
 				3799E5022A99D68500E06218 /* CallViewController.swift in Sources */,
 				3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */,
-				3B274D792AD4584600D79698 /* LoginCoordinatorProtocol.swift in Sources */,
+				3B274D792AD4584600D79698 /* SignInCoordinatorProtocol.swift in Sources */,
 				3B0D6AA92ABBD1A900B08CAB /* LoginConstants.swift in Sources */,
 				3703095B2AAF1C8400F9CD80 /* FriendsListCollectionView.swift in Sources */,
 				3B1850B22AB5CCA6001945EE /* SearchPlaces.swift in Sources */,
