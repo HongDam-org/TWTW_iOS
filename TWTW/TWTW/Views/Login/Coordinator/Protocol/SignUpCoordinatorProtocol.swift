@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 회원가입 Protocol
 protocol SignUpCoordinatorProtocol: Coordinator {
     func moveMain()
     func moveSignUp()

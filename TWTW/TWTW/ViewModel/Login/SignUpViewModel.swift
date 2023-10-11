@@ -56,7 +56,7 @@ final class SignUpViewModel {
         input.doneButtonTapEvents
             .bind { [weak self] _ in
                 guard let self = self  else { return }
-                if output.nickNameFilteringRelay.value != ""{
+                if output.nickNameFilteringRelay.value != ""  && output.nickNameFilteringRelay.value.count >= minLength{
                     checkOverlapId(nickName: output.nickNameFilteringRelay.value, output: output)
                 }
             }
@@ -65,7 +65,7 @@ final class SignUpViewModel {
         input.keyboardReturnTapEvents
             .bind { [weak self] _ in
                 guard let self = self  else { return }
-                if output.nickNameFilteringRelay.value != ""{
+                if output.nickNameFilteringRelay.value != "" && output.nickNameFilteringRelay.value.count >= minLength{
                     checkOverlapId(nickName: output.nickNameFilteringRelay.value, output: output)
                 }
             }

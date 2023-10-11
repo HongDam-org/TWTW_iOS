@@ -328,7 +328,7 @@ final class SignUpViewController: UIViewController {
 extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-
+            
             self.imageButton.setImage(image.resize(newWidth: 200, newHeight: 200), for: .normal)
             self.setCornerRadius()
         }
@@ -348,14 +348,13 @@ extension SignUpViewController: PHPickerViewControllerDelegate {
                 DispatchQueue.main.async {
                     guard let self = self else {return}
                     if let image = image as? UIImage {
-
+                        
                         self.imageButton.setImage(image.resize(newWidth: 200, newHeight: 200), for: .normal)
                         self.setCornerRadius()
                     }
                 }
             }
         }
-        
     }
     
     /// 취소버튼 누른 경우

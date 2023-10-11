@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 회원가입 종료 신호 보내는 Delegate
 protocol SignUpCoordinatorFinishDelegate {
     func finishSignUp()
 }

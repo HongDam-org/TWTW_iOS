@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-final class DefaultAppCoordinator: AppCoordinator {    
+/// App Coordinator
+final class DefaultAppCoordinator: AppCoordinator {
     
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController

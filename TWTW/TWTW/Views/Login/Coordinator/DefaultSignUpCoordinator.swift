@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+/// 회원가입 관리하는 Coordinator
 final class DefaultSignUpCoordinator: SignUpCoordinatorProtocol {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController

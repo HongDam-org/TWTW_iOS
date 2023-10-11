@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+/// 로그인 관리하는 Coordinator
 final class DefaultSignInCoordinator: SignInCoordinatorProtocol {
     
     var childCoordinators: [Coordinator] = []
