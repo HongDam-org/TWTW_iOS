@@ -7,9 +7,15 @@
 
 import Foundation
 
-struct Search {
-    /// 검색어 및 카테고리를 통한 검색
+struct SearchPath {
     static let placeAndCategory = "/plans/search/destination/"
     
-    
+}
+
+struct LoginPath {
+    static let signUp = "/auth/save"
+    static let signIn = "/auth/login"
+    static let updateToken = "/auth/refresh"
+    static let checkValidation = "/auth/validate"
+    static let checkOverlapId = "/member/duplicate/Id"
 }

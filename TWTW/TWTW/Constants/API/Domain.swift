@@ -8,5 +8,5 @@
 import Foundation
 
 struct Domain {
-    static let REST_API = Bundle.main.object(forInfoDictionaryKey: "REST_API") as? String ?? ""
+    static let REST_API = "http://" + (Bundle.main.object(forInfoDictionaryKey: "IP") as? String ?? "") + (Bundle.main.object(forInfoDictionaryKey: "PORT") as? String ?? "") + "/api/v1"
 }

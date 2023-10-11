@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import RxKakaoSDKAuth
 import RxSwift
+import RxGesture
 import AuthenticationServices
 
 /// 로그인 화면
@@ -19,9 +20,7 @@ final class SignInViewController: UIViewController {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "kakao_login") // 카카오 로그인 이미지 설정
         imageView.contentMode = .scaleAspectFit
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onKakaoLoginImageViewTapped))
         imageView.isUserInteractionEnabled = true
-        imageView.addGestureRecognizer(tapGesture)
         return imageView
     }()
     
@@ -37,23 +36,23 @@ final class SignInViewController: UIViewController {
     }()
     
     private let disposeBag = DisposeBag()
-    private let signInViewModel = SignInViewModel()
+    var viewModel: SignInViewModel?
     
     // MARK: - View Did Load
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        checkKakaoOAuthToken()
+        
         setupUI()
         addSubViews()
+        bind()
     }
     
     /// MARK: Set Up About UI
     private func setupUI() {
         view.backgroundColor = .white
     }
-    
     
     /// MARK: Add UI
     private func addSubViews() {
@@ -80,42 +79,26 @@ final class SignInViewController: UIViewController {
     
     // MARK: - Functions
     
-    /// kakao 로그인 버튼 터치 했을 때
-    @objc
-    private func onKakaoLoginImageViewTapped() {
-        signInViewModel.kakaoLogin()
-            .subscribe(onNext:{ [weak self] kakaoUserInfo in
-                let viewController = MeetingListViewController()
-                viewController.modalPresentationStyle = .fullScreen
-                self?.present(viewController, animated: true, completion: nil)
-            })
-            .disposed(by: disposeBag)
-    }
-    
     /// 애플 로그인 과정을 시작하는 함수
     @objc
     private func onAppleLoginImageViewTapped() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email] // 사용자의 이름과 이메일을 요청
+        request.requestedScopes = []
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
     }
     
-    /// MARK: OAuth Token 자동 로그인
-    private func checkKakaoOAuthToken(){
-        signInViewModel.checkKakaoOAuthToken()
-            .subscribe(onNext: {[weak self] kakaoUserInfo in
-                let viewController = MeetingListViewController()
-                viewController.modalPresentationStyle = .fullScreen
-                self?.present(viewController, animated: true, completion: nil)
-                
-            })
-            .disposed(by: disposeBag)
+    /// binding ViewModel
+    private func bind(){
+        let input = SignInViewModel.Input(kakaoLoginButtonTapped: kakaoLoginImageView.rx.tapGesture().when(.recognized).asObservable())
+        
+        viewModel?.bind(input: input)
     }
     
+ 
 }
 
 //MARK: - extension :ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding
@@ -126,16 +109,10 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
         // 사용자의 고유 Apple ID와 이름 가져오기, 첫 로그인 이후에 로그인 시 정보를 제공하지 않음
         let userIdentifier = appleIDCredential.user
-        let fullName = appleIDCredential.fullName
-        let email = appleIDCredential.email
         
-        // 로그인 성공 처리
-        let viewController = MeetingListViewController()
-        viewController.modalPresentationStyle = .fullScreen
-        self.present(viewController, animated: true, completion: nil)
-        
+        viewModel?.signInService(authType: AuthType.apple.rawValue, identifier: userIdentifier)
     }
-    
+
     /// 로그인 오류 처리
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("loginWithAppleAccount() error: \(error)")
@@ -145,5 +122,4 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window ?? UIWindow()
     }
-    
 }

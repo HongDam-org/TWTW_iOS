@@ -143,7 +143,7 @@ class TabBarController: UITabBarController {
             var heightByTouch = viewHeight.value + gapTouchY
             
             // 최소 높이와 최대 높이를 벗어나지 않도록 보정
-            heightByTouch = min(max(heightByTouch, tabBarViewModel.minHeight * (1 - acceptableRange)), tabBarViewModel.maxHeight * (1 + acceptableRange))
+            heightByTouch = min(max(heightByTouch, tabBarViewModel.noneHeight * (1)), tabBarViewModel.maxHeight * (1 + acceptableRange))
             
             updateBottomSheetHeight(heightByTouch)
         case .ended, .cancelled:
@@ -162,6 +162,7 @@ class TabBarController: UITabBarController {
         }
         
     }
+    
     // 뷰의 높이 업데이트
     func updateBottomSheetHeight(_ height: CGFloat) {
         var newHeight = height
@@ -171,25 +172,29 @@ class TabBarController: UITabBarController {
                 isFirstLoad = false
             }
         }
+        
         // 바텀시트와 5 포인트 떨어진 위치로 유지
         myloctaionImageView.snp.updateConstraints { make in
             make.bottom.equalTo(self.view.snp.top).offset(-5)
         }
-        if newHeight <= tabBarViewModel.maxHeight && newHeight > tabBarViewModel.midHeight {
+        
+        if newHeight > tabBarViewModel.midHeight {
+            view.sendSubviewToBack(myloctaionImageView)
             myloctaionImageView.snp.updateConstraints { make in
                 make.bottom.equalTo(self.view.snp.top).offset(myloctaionImageView.frame.height+5)
             }
+            
 
         }
-///mark: 후에 사용할 조건문
-        //        if height >= tabBarViewModel.maxHeight {
-        //                 print("max")
-        //             }
-        //             else if height >= tabBarViewModel.midHeight{
-        //                 print("mid")
-        //             }else {
-        //                 print("min")
-        //             }
+//        ///mark: 후에 사용할 조건문
+//                if height >= tabBarViewModel.maxHeight {
+//                         print("max")
+//                     }
+//                     else if height >= tabBarViewModel.midHeight{
+//                         print("mid")
+//                     }else {
+//                         print("min")
+//                     }
         
         viewHeight.accept(newHeight)
         tabBarViewModel.heightConstraintRelay.accept(tabBarViewModel.heightConstraintRelay.value?.update(offset: newHeight))

@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string> 위치권한을 요청합니다.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>위치권한을 요청합니다.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string> 위치권한을 요청합니다.</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -27,19 +21,26 @@
 			</array>
 		</dict>
 	</array>
-	<key>KAKAO_NATIVE_APP_KEY</key>
-	<string>${KAKAO_NATIVE_APP_KEY}</string>
+	<key>IP</key>
+	<string>$(IP)</string>
+	<key>PORT</key>
+	<string>$(PORT)</string>
 	<key>KAKAO_APP_KEY</key>
+	<string>${KAKAO_NATIVE_APP_KEY}</string>
+	<key>KAKAO_NATIVE_APP_KEY</key>
 	<string>${KAKAO_NATIVE_APP_KEY}</string>
 	<key>KAKAO_PHASE</key>
 	<string></string>
-	<key>REST_API</key>
-	<string>$(REST_API)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakaokompassauth</string>
 		<string>kakaolink</string>
 	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

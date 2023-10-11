@@ -14,7 +14,7 @@ final class SearchService {
     
     /// MARK: 검색어와 카테고리를 통한 장소 검색
     func searchPlaces(place: String, x: Double, y: Double, page: Int, categoryGroupCode: String) -> Observable<SearchPlaces>{
-        let url = Domain.REST_API + Search.placeAndCategory
+        let url = Domain.REST_API + SearchPath.placeAndCategory
         
         return Observable.create { observer in
             AF.request(url,
