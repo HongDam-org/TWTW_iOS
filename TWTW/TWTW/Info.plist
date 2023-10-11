@@ -21,6 +21,10 @@
 			</array>
 		</dict>
 	</array>
+	<key>IP</key>
+	<string>$(IP)</string>
+	<key>PORT</key>
+	<string>$(PORT)</string>
 	<key>KAKAO_APP_KEY</key>
 	<string>${KAKAO_NATIVE_APP_KEY}</string>
 	<key>KAKAO_NATIVE_APP_KEY</key>
@@ -37,8 +41,6 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>REST_API</key>
-	<string>$(REST_API)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
