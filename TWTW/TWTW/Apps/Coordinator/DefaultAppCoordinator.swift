@@ -23,17 +23,19 @@ final class DefaultAppCoordinator: AppCoordinator {
     }
     
     func moveLogin() {
-        let defaultLoginCoordinator = DefaultSignInCoordinator(navigationController: navigationController)
-        defaultLoginCoordinator.delegate = self
-        defaultLoginCoordinator.start()
-        childCoordinators.append(defaultLoginCoordinator)
+        let defaultSignInCoordinator = DefaultSignInCoordinator(navigationController: navigationController)
+        defaultSignInCoordinator.delegate = self
+        defaultSignInCoordinator.start()
+        childCoordinators.append(defaultSignInCoordinator)
     }
     
     func moveMain() {
-        childCoordinators.removeAll()
-        // MeetingListCoodrinator로 이동
-        print("called DefaultAppCoordinator \(#function)")
-    }
+            childCoordinators.removeAll()
+            // MeetingListCoodrinator로 이동
+            let meetingListCoordinator = MeetingListCoordinator(navigationController: navigationController)
+            meetingListCoordinator.start()
+            print("called DefaultAppCoordinator \(#function)")
+        }
     
 }
 
