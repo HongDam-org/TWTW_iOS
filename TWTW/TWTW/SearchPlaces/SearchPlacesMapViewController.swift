@@ -15,20 +15,15 @@ import CoreLocation
 
 ///mark: - 검색 결과를 표시하는 새로운 View Controller
 final class SearchPlacesMapViewController: UIViewController {
-    private let disposeBag = DisposeBag()
-    
+    let disposeBag = DisposeBag()
     ///지역 더미데이터
     let localPlaces = ["이디야커피 안성죽산점","인천","부산", "서울", "천안", "정왕"]
     let searchService = SearchService()
-
-    /// mainMap으로 넘길 선택한 장소의 좌표
-  //  var selectedCoordinate: CLLocationCoordinate2D?
-
-    
     ///필터링지역들
     var filteredPlaces = [String]()
-    var selectedCoordinateSubject = PublishRelay<CLLocationCoordinate2D>()
-
+   // var selectedCoordinateSubject = PublishRelay<CLLocationCoordinate2D>()
+    let viewModel: SearchPlacesMapViewModel
+    
     /// MARK: 서치바UI
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -55,7 +50,15 @@ final class SearchPlacesMapViewController: UIViewController {
         return tableView
     }()
     
- 
+    init(viewModel: SearchPlacesMapViewModel){
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -63,9 +66,7 @@ final class SearchPlacesMapViewController: UIViewController {
         addSubViews_SearchBar()
         setLocal()
         backButtonAction()
-        
-   
-        
+
     }
     var naviBarHeight :CGFloat =  0.0
     var NaviBarWidth : CGFloat = 0.0
@@ -147,28 +148,14 @@ extension SearchPlacesMapViewController : UITableViewDataSource{
     }
 }
 extension SearchPlacesMapViewController: UITableViewDelegate {
-    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //     //  MapSharedData.shared.selectedCoordinate = CLLocationCoordinate2D(latitude: xCoordinate, longitude: yCoordinate)
-    //        // 현재 화면에 표시되고 있는 MainMapViewController 인스턴스 가져오기
-    //        if let mainMapVC = navigationController?.viewControllers.first(where: { $0 is MainMapViewController }) as? MainMapViewController {
-    //            let xCoordinate = 0.0
-    //            let yCoordinate = 0.0
-    //
-    //            // 선택한 장소의 좌표를 설정
-    //            mainMapVC.selectedCoordinate = CLLocationCoordinate2D(latitude: xCoordinate, longitude: yCoordinate)
-    //        }
-    //        navigationController?.popViewController(animated: true)
-    //    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let xCoordinate = 0.0
         let yCoordinate = 0.0
 
-        // 선택한 좌표를 MainMapViewController로 subject
-       
-            
-        selectedCoordinateSubject.accept(CLLocationCoordinate2D(latitude: xCoordinate, longitude: yCoordinate))
-      
-
-        navigationController?.popViewController(animated: true)
+        ///선택한 좌표이동
+        viewModel.selectLocation(xCoordinate: xCoordinate,yCoordinate: yCoordinate)
+//        selectedCoordinateSubject.accept(CLLocationCoordinate2D(latitude: xCoordinate, longitude: yCoordinate))
+        
+      //  navigationController?.popViewController(animated: true)
     }
 }

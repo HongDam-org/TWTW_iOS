@@ -8,6 +8,6 @@
 import Foundation
 
 protocol AppCoordinator: Coordinator {
-    func moveLogin()
+    func moveSignIn()
     func moveMain()
 }

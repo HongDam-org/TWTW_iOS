@@ -19,10 +19,10 @@ final class DefaultAppCoordinator: AppCoordinator {
     }
     
     func start() {
-        moveLogin()
+        moveSignIn()
     }
     
-    func moveLogin() {
+    func moveSignIn() {
         let defaultSignInCoordinator = DefaultSignInCoordinator(navigationController: navigationController)
         defaultSignInCoordinator.delegate = self
         defaultSignInCoordinator.start()
@@ -35,6 +35,7 @@ final class DefaultAppCoordinator: AppCoordinator {
             let meetingListCoordinator = MeetingListCoordinator(navigationController: navigationController)
             meetingListCoordinator.start()
             print("called DefaultAppCoordinator \(#function)")
+
         }
     
 }

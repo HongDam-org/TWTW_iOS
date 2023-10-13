@@ -13,7 +13,11 @@ import UIKit
 import KakaoMapsSDK
 
 final class MainMapViewModel: NSObject {
+    let coordinator: MainMapCoordinator
     
+    init(coordinator: MainMapCoordinator) {
+        self.coordinator = coordinator
+    }
     /// 검색 Service
     private let searchService = SearchService()
     
@@ -109,6 +113,12 @@ final class MainMapViewModel: NSObject {
         return segments
     }
     
+    // SearchBar 클릭 이벤트(SearchPlacesMapCoordinator를 시작)
+
+           func showSearchPlacesMap() {
+               coordinator.showSearchPlacesMap()
+           
+    }
     
     
     // MARK: - API Connect

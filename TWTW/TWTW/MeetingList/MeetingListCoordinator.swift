@@ -23,9 +23,11 @@ class MeetingListCoordinator: Coordinator {
         navigationController.pushViewController(meetingListViewController, animated: true)
        
     }
-    func buttonTapped(){
-        navigationController.pushViewController(MainMapViewController(), animated: true)
-        //TabbarController로 이동
+        func buttonTapped(){
+                  let mainMapCoordinator = MainMapCoordinator(navigationController: navigationController, tabBarController: UITabBarController())
+            
+               mainMapCoordinator.start()
+             
      
     }
 

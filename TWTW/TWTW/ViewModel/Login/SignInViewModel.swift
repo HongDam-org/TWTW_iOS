@@ -42,7 +42,7 @@ final class SignInViewModel {
         }
         else{
             //SignInViewController 이동
-            coordinator?.moveLogin()
+            coordinator?.moveSignIn()
         }
     }
     
@@ -104,7 +104,7 @@ final class SignInViewModel {
             },onError: { [weak self] error in   // Refresh 토큰 까지 만료된 경우
                 guard let self = self else {return}
                 print("\(#function) error!\n\(error)")
-                coordinator?.moveLogin()
+                coordinator?.moveSignIn()
             })
             .disposed(by: disposeBag)
     }

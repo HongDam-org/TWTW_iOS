@@ -61,8 +61,17 @@ final class MainMapViewController: KakaoMapViewController {
     }()
     
     private let disposeBag = DisposeBag()
-    private let viewModel = MainMapViewModel()
-   // var selectedCoordinate: CLLocationCoordinate2D?
+    private let viewModel : MainMapViewModel
+    
+    init(viewModel: MainMapViewModel){
+        self.viewModel = viewModel
+        super.init()
+        //self.viewModel.delegate = self
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - View Did Load
     override func viewDidLoad() {
@@ -89,8 +98,8 @@ final class MainMapViewController: KakaoMapViewController {
         
     }
     
-
-  
+    
+    
     
     // MARK: - Add UI
     
@@ -106,28 +115,14 @@ final class MainMapViewController: KakaoMapViewController {
             createLabelLayer()
         }
     }
-
+    
     
     /// MARK:선택한 좌표로 카메라 옮기기
     private func moveCameraToCoordinate(_ coordinate: CLLocationCoordinate2D) {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
-       print(coordinate.longitude)
-        print("🥲")
-        // 선택한 좌표로 카메라 이동
-//        mapView.moveCamera(CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude, latitude: coordinate.latitude), zoomLevel: 15, rotation: 1.7, tilt: 0.0, mapView: mapView))
-
+        print(coordinate.longitude)
+        
         mapView.animateCamera(cameraUpdate: CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude, latitude: coordinate.latitude), zoomLevel: 15, rotation: 1.7, tilt: 0.0, mapView: mapView), options: CameraAnimationOptions(autoElevation: true, consecutive: true, durationInMillis: 2000))
-        
-    }
-    /// MARK: 현재 자신의 위치로 카메라 옮기기
-    private func moveCameraToCurrentPosition() {
-        guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
-        
-        // 자신의 현재 위치
-        let longitude: Double = viewModel.locationManager.value.location?.coordinate.longitude.magnitude ?? 0.0
-        let latitude: Double = viewModel.locationManager.value.location?.coordinate.latitude.magnitude ?? 0.0
-    
-        mapView.moveCamera(CameraUpdate.make(target: MapPoint(longitude: longitude, latitude: latitude), zoomLevel: 15, rotation: 1.7, tilt: 0.0, mapView: mapView))
         
     }
     
@@ -164,7 +159,7 @@ final class MainMapViewController: KakaoMapViewController {
         addSubViews_SearchBar()
         searchBar.delegate = self // 서치바의 delegate 설정
         view.bringSubviewToFront(searchBar)
-
+        
     }
     
     // MARK: - addSubViews
@@ -228,9 +223,9 @@ final class MainMapViewController: KakaoMapViewController {
     /// MARK: 내위치 탭 했을 때
     private func mylocationTappedAction() {
         if let currentLocation = viewModel.locationManager.value.location?.coordinate {
-                moveCameraToCoordinate(currentLocation)
-            }
-      //  moveCameraToCurrentPosition()
+            moveCameraToCoordinate(currentLocation)
+        }
+        //  moveCameraToCurrentPosition()
         createPolygonStyleSet()
     }
     
@@ -307,31 +302,7 @@ final class MainMapViewController: KakaoMapViewController {
         let styleSet = RouteStyleSet(styleID: "routeStyleSet1")
         styleSet.addPattern(RoutePattern(pattern: patternImages[0]!, distance: 60, symbol: nil, pinStart: false, pinEnd: false))
         styleSet.addPattern(RoutePattern(pattern: patternImages[1]!, distance: 6, symbol: nil, pinStart: false, pinEnd: false))
-        //        styleSet.addPattern(RoutePattern(pattern: patternImages[2]!, distance: 6, symbol: UIImage(named: "route_pattern_long_airplane.png")!, pinStart: true, pinEnd: true))
         
-        //        let colors = [
-        //            UIColor(hexCode: "ffffff"),
-        //            UIColor(hexCode: "000000"),
-        //            UIColor(hexCode: "0000ff"),
-        //            UIColor(hexCode: "ffff00") ]
-        //
-        //        let strokeColors = [
-        //            UIColor(hexCode: "000000"),
-        //            UIColor(hexCode: "ddffdd"),
-        //            UIColor(hexCode: "00ddff"),
-        //            UIColor(hexCode: "ffffdd") ]
-        //
-        //        let patternIndex = [-1, 0, 1, 2]
-        //
-        //        //0:빈 경로 1:화살표(네이버지도 유사) 2:... 3: ...
-        //        for index in 0 ..< colors.count {
-        //            let routeStyle = RouteStyle(styles: [
-        //                PerLevelRouteStyle(width: 15, color: colors[2], strokeWidth: 4, strokeColor: strokeColors[2], level: 0, patternIndex: patternIndex[3])
-        //            ])
-        //
-        //            styleSet.addStyle(routeStyle)
-        //        }
-        ///mark: 맵위 line
         let routeStyle = RouteStyle(styles: [
             PerLevelRouteStyle(width: 15, color: UIColor.mapLineColor ?? .clear, strokeWidth: 4, strokeColor: UIColor.mapStrokeColor ?? .clear, level: 0, patternIndex: 0)
         ])
@@ -496,18 +467,7 @@ extension MainMapViewController: CLLocationManagerDelegate {
 // MARK: - SearchBar Delegate
 extension MainMapViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        
-        // if viewModel.searchBarSearchable.value {
-        let vc = SearchPlacesMapViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
-        vc.selectedCoordinateSubject.bind {[weak self] location in
-            guard let self = self else {return}
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
-
-                self.moveCameraToCoordinate(location)
-                
-            }
-        }.disposed(by: disposeBag)
+        viewModel.showSearchPlacesMap()
         return false
         
     }

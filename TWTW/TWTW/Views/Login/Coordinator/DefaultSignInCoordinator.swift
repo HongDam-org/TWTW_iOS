@@ -30,7 +30,7 @@ final class DefaultSignInCoordinator: SignInCoordinatorProtocol {
     }
     
     /// 로그인 페이지로 이동
-    func moveLogin() {
+    func moveSignIn() {
         print(#function)
         signInViewController.viewModel = signInViewModel
         navigationController.viewControllers = [signInViewController]
