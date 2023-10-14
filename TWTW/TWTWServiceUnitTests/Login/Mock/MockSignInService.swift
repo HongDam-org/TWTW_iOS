@@ -37,6 +37,7 @@ final class MockSignInService: SignInProtocol {
         return Observable.create { observer in
             observer.onNext(LoginResponse(status: "SIGNUP", tokenDto: TokenResponse(accessToken: "abc", refreshToken: "def")))
             observer.onNext(LoginResponse(status: "SIGNIN", tokenDto: TokenResponse(accessToken: "abc11", refreshToken: "def22")))
+            
             observer.onError(NSError(domain: "not connect", code: 500, userInfo: nil))
             return Disposables.create()
         }
@@ -44,8 +45,8 @@ final class MockSignInService: SignInProtocol {
     
     func checkAccessTokenValidation() -> Observable<Void> {
         return Observable.create { observer in
-            observer.onNext(())
-            observer.onError(NSError(domain: "not Validate", code: 401, userInfo: nil))
+//            observer.onNext(())
+            observer.onError(NSError(domain: "inValid Token", code: 400, userInfo: nil))
             return Disposables.create()
         }
     }

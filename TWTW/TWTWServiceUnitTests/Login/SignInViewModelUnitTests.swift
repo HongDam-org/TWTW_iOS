@@ -16,6 +16,7 @@ final class SignInViewModelUnitTests: XCTestCase {
     private var disposeBag: DisposeBag!
     private var scheduler: TestScheduler!
     private var viewModel: SignInViewModel!
+    private var output: SignInViewModel.Output!
     
     /// MARK: - Test Setting
     override func setUpWithError() throws {
@@ -38,7 +39,21 @@ final class SignInViewModelUnitTests: XCTestCase {
     /// 토큰이 유효한지 테스트
     /// 새로운 토큰 발급받는 테스트까지 진행
     func testCheckValidate(){
-        viewModel.checkAccessTokenValidation()
+        let checkAccessTokenObserver = self.scheduler.createObserver(Bool.self)
+
+        self.output = viewModel.createOutput()
+        viewModel.checkAccessTokenValidation(output: output)
+        
+        output.checkAccessTokenValidation
+            .subscribe(checkAccessTokenObserver)
+            .disposed(by: disposeBag)
+        
+        scheduler.start()
+        
+        XCTAssertEqual(checkAccessTokenObserver.events, [ /*.next(0, true),*/
+                                                          .next(0, false), ])
+
+        
     }
     
     /// 회원인지 아닌지 구분하는 테스트..

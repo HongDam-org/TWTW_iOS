@@ -32,13 +32,19 @@ final class SignInViewModel {
         let kakaoLoginButtonTapped: Observable<ControlEvent<UITapGestureRecognizer>.Element>
     }
     
+    struct Output{
+        var checkAccessTokenValidation: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        var checkGetNewAccessToken: BehaviorRelay<TokenResponse?> = BehaviorRelay(value: nil)
+        var checkSignInService: BehaviorRelay<String?> = BehaviorRelay(value: nil)
+    }
+    
     // MARK: - Functions
     
     /// MARK: 저장된 토큰 확인
-    func checkSavingTokens(){
+    func checkSavingTokens(output: Output){
         if let _ = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue),
             let _ = KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue){
-            checkAccessTokenValidation()
+            checkAccessTokenValidation(output: output)
         }
         else{
             //SignInViewController 이동
@@ -57,6 +63,11 @@ final class SignInViewModel {
         .disposed(by: disposeBag)
     }
     
+    func createOutput() -> Output {
+        let output = Output()
+        return output
+    }
+    
     // MARK: - API Connect
     
     /// 카카오 로그인
@@ -71,24 +82,25 @@ final class SignInViewModel {
     }
     
     /// Access Token 유효성 검사
-    func checkAccessTokenValidation() {
+    func checkAccessTokenValidation(output: Output) {
         signInServices?.checkAccessTokenValidation()
             .subscribe(onNext:{ [weak self] _ in
                 guard let self = self else {return}
                 // MeetingListViewController로 이동
+                output.checkAccessTokenValidation.accept(true)
                 coordinator?.moveMain()
             },onError: { [weak self] error in
                 guard let self = self else {return}
                 print(#function)
                 print(error)
-                
-                getNewAccessToken()
+                output.checkAccessTokenValidation.accept(false)
+                getNewAccessToken(output: output)
             })
             .disposed(by: disposeBag)
     }
     
     /// AccessToken 재발급할 때 사용
-    func getNewAccessToken(){
+    func getNewAccessToken(output: Output){
         let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue)
         let refreshToken = KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue)
         
@@ -98,12 +110,14 @@ final class SignInViewModel {
                 if let access = data.accessToken, let refresh = data.refreshToken {
                     if KeychainWrapper.saveString(value: access, forKey: SignIn.accessToken.rawValue) && KeychainWrapper.saveString(value: refresh, forKey: SignIn.refreshToken.rawValue){
                         // move MeetingListViewController
+                        output.checkGetNewAccessToken.accept(TokenResponse(accessToken: accessToken, refreshToken: refreshToken))
                         coordinator?.moveMain()
                     }
                 }
             },onError: { [weak self] error in   // Refresh 토큰 까지 만료된 경우
                 guard let self = self else {return}
                 print("\(#function) error!\n\(error)")
+                output.checkGetNewAccessToken.accept(nil)
                 coordinator?.moveLogin()
             })
             .disposed(by: disposeBag)
@@ -125,6 +139,7 @@ final class SignInViewModel {
                     switch (data.status ?? "") {
                     case LoginStatus.SignIn.rawValue:
                         coordinator?.moveMain()
+                        
                     case LoginStatus.SignUp.rawValue:
                         coordinator?.moveSignUp()
                     default:
