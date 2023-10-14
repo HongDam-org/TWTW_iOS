@@ -38,11 +38,7 @@ final class TabBarViewModel {
         self.maxHeight = viewHeight * 0.8
     }
     
-     //목표 높이 계산
-//    func calculateTargetHeight(viewHeight: CGFloat) -> CGFloat {
-//        let newHeight = viewHeight
-//        return min(max(newHeight, minHeight * (1 - acceptableRange)), maxHeight * (1 + acceptableRange))
-//    }
+
 //    
     // 최종 높이 계산
     func calculateFinalHeight(changedHeight: CGFloat) -> CGFloat {
@@ -57,35 +53,7 @@ final class TabBarViewModel {
         }
     }
     
-    // 화면 이동 처리
-//    func handlePan(gesture gestureRecognizer: UIPanGestureRecognizer, view: UIView) -> Observable<CGFloat> {
-//        if gestureRecognizer.state == .began {
-//            initialTouchY = gestureRecognizer.location(in: view).y
-//        }
-//
-//        let lastTouchY = gestureRecognizer.location(in: view).y
-//        var heightByTouch: CGFloat = 0.0
-//        gapTouchY = (initialTouchY - lastTouchY) // 이동된 Y좌표 갭
-//
-//        let floorViewBoundsHeight = floor(view.bounds.height)
-//        let ceilMaxHeight = ceil(maxHeight)
-//
-//        if floorViewBoundsHeight > ceilMaxHeight {
-//            heightByTouch = minHeight + gapTouchY
-//        } else {
-//            heightByTouch = view.bounds.height + gapTouchY
-//        }
-//        let newHeight = calculateTargetHeight(viewHeight: heightByTouch)
-//
-//        heightConstraintRelay.accept(heightConstraintRelay.value?.update(offset: newHeight))
-//
-//        let targetHeight = calculateFinalHeight(changedHeight: newHeight)
-//        return gestureRecognizer.rx.event
-//            .filter { $0.state == .ended || $0.state == .cancelled }
-//            .map { _ in targetHeight }
-//
-//    }
-//
+
 }
 
 

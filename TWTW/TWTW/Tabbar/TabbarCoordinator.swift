@@ -47,16 +47,6 @@ class TabBarCoordinator: Coordinator{
             TabItem(title: "전화", imageName: "phone")
         ]
         
-//        viewControllers = [
-//            PreviousAppointmentsViewController(),
-//            PreviousAppointmentsViewController(),
-//            FriendsListViewController(),
-//            NotificationViewController(),
-//            CallViewController()
-//        ]
-//        tabItemsRelay.accept(tabItems)
-        
-//        addSubViews()
-//        bindTabItems()
+
     }
 }

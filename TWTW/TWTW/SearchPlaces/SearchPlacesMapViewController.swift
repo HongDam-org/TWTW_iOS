@@ -149,13 +149,11 @@ extension SearchPlacesMapViewController : UITableViewDataSource{
 }
 extension SearchPlacesMapViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let xCoordinate = 0.0
-        let yCoordinate = 0.0
+        let xCoordinate = 10.0
+        let yCoordinate = 10.0
 
         ///선택한 좌표이동
         viewModel.selectLocation(xCoordinate: xCoordinate,yCoordinate: yCoordinate)
-//        selectedCoordinateSubject.accept(CLLocationCoordinate2D(latitude: xCoordinate, longitude: yCoordinate))
-        
-      //  navigationController?.popViewController(animated: true)
+
     }
 }

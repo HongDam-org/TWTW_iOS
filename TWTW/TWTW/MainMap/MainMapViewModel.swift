@@ -18,6 +18,7 @@ final class MainMapViewModel: NSObject {
     init(coordinator: MainMapCoordinator) {
         self.coordinator = coordinator
     }
+    
     /// 검색 Service
     private let searchService = SearchService()
     
@@ -47,6 +48,7 @@ final class MainMapViewModel: NSObject {
         let check = checkTouchEventRelay.value
         checkTouchEventRelay.accept(!check)
     }
+  
     
     /// MARK: 검색지 주변 장소 더미 데이터
     func searchInputData_Dummy(){
@@ -112,7 +114,8 @@ final class MainMapViewModel: NSObject {
         segments.append(points)
         return segments
     }
-    
+    var cameraCoordinateObservable: Observable<CLLocationCoordinate2D>?
+
     // SearchBar 클릭 이벤트(SearchPlacesMapCoordinator를 시작)
 
            func showSearchPlacesMap() {
