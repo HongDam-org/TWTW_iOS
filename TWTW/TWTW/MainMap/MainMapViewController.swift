@@ -51,7 +51,7 @@ final class MainMapViewController: KakaoMapViewController {
     }()
     
     /// MARK: Tabbar Controller
-    private lazy var tabBarViewController: TabBarController = {
+    private lazy var tabbarController: TabBarController = {
         let view = TabBarController(viewHeight: self.view.frame.height)
         view.viewHeight.accept(self.view.frame.height)
         view.delegates = self
@@ -76,6 +76,8 @@ final class MainMapViewController: KakaoMapViewController {
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
+   
+   
         
         moveCameraToSearchPlacesCoordinate()
         hideSearchUIElements()
@@ -184,8 +186,8 @@ final class MainMapViewController: KakaoMapViewController {
     
     /// MARK:
     private func addSubviews_TabbarController(){
-        view.addSubview(tabBarViewController.view)
-        tabBarViewController.didMove(toParent: self)
+        view.addSubview(tabbarController.view)
+        tabbarController.didMove(toParent: self)
         configureConstraints_TabbarController()
     }
     
@@ -208,7 +210,7 @@ final class MainMapViewController: KakaoMapViewController {
     
     /// MARK:  Configure   Constraints UI - TabbarController
     private func configureConstraints_TabbarController(){
-        tabBarViewController.view.snp.makeConstraints { make in
+        tabbarController.view.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(viewModel.initBottomheight.value)
             make.bottom.equalToSuperview()//(view.safeAreaLayoutGuide)
@@ -251,22 +253,22 @@ final class MainMapViewController: KakaoMapViewController {
                     // 화면 터치시 주변 UI 숨기기
                     let tapLocation = self?.viewModel.tapGesture.value.location(in: self?.view)
                     // 탭 위치가 myloctaionImageView의 프레임 내에 있는지 확인
-                    if let myloctaionImageViewFrame = self?.tabBarViewController.myloctaionImageView.frame, let tapLocation = tapLocation, myloctaionImageViewFrame.contains(CGPoint(x: tapLocation.x, y: -6)){ //바텀시트와 5 포인트 떨어진 위치에 배치해둬서 수치로 넣어둠
+                    if let myloctaionImageViewFrame = self?.tabbarController.myloctaionImageView.frame, let tapLocation = tapLocation, myloctaionImageViewFrame.contains(CGPoint(x: tapLocation.x, y: -6)){ //바텀시트와 5 포인트 떨어진 위치에 배치해둬서 수치로 넣어둠
                         self?.mylocationTappedAction()
                     }
                     else {
                         UIView.animate(withDuration: 0.5, animations: {
-                            self?.tabBarViewController.view.alpha = 0
+                            self?.tabbarController.view.alpha = 0
                         }) { (completed) in
                             if completed {
-                                self?.tabBarViewController.view.isHidden = true
+                                self?.tabbarController.view.isHidden = true
                             }
                         }
                     }
                 }
                 else {
-                    self?.tabBarViewController.view.alpha = 1
-                    self?.tabBarViewController.view.isHidden = false
+                    self?.tabbarController.view.alpha = 1
+                    self?.tabbarController.view.isHidden = false
                 }
             } .disposed(by: disposeBag)
     }
@@ -274,7 +276,7 @@ final class MainMapViewController: KakaoMapViewController {
     ///MARK: -  새로운 UI 요소들을 표시하고 기존 요소들을 숨기는 함수
     private func showSearchUIElements() {
         // 기존 UI 요소 숨기기
-        tabBarViewController.view.isHidden = true
+        tabbarController.view.isHidden = true
         
         //새로운 UI요소 보이기
         nearbyPlacesCollectionView.isHidden = false
@@ -286,7 +288,7 @@ final class MainMapViewController: KakaoMapViewController {
         nearbyPlacesCollectionView.isHidden = true
         
         // 기존 UI 요소 보이기
-        tabBarViewController.view.isHidden = false
+        tabbarController.view.isHidden = false
         
     }
     
@@ -440,7 +442,7 @@ final class MainMapViewController: KakaoMapViewController {
 // BottomSheetDelegate 프로토콜
 extension MainMapViewController: BottomSheetDelegate {
     func didUpdateBottomSheetHeight(_ height: CGFloat) {
-        tabBarViewController.view.snp.updateConstraints { make in
+        tabbarController.view.snp.updateConstraints { make in
             make.height.equalTo(height)
         }
         
@@ -532,7 +534,7 @@ extension MainMapViewController {
     // MARK: - Height Update Method
     
     func updateBottomSheetHeight(_ height: CGFloat) {
-        tabBarViewController.updateBottomSheetHeight(height)
+        tabbarController.updateBottomSheetHeight(height)
     }
 }
 

@@ -21,7 +21,7 @@ class SearchPlacesMapCoordinator: Coordinator {
     }
     
     func start() {
-        let searchPlacesMapViewModel = SearchPlacesMapViewModel(coordinator: self)
+        let searchPlacesMapViewModel = SearchPlacesMapViewModel()
         let searchPlaceMapViewController = SearchPlacesMapViewController(viewModel: searchPlacesMapViewModel)
         
         //vm구독

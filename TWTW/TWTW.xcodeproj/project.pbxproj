@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3703095B2AAF1C8400F9CD80 /* FriendsListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3703095A2AAF1C8400F9CD80 /* FriendsListCollectionView.swift */; };
 		3703095F2AAF20D900F9CD80 /* FriendsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3703095E2AAF20D900F9CD80 /* FriendsListModel.swift */; };
+		371C1D282ADABB3800B30DC5 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D272ADABB3800B30DC5 /* TabBarController.swift */; };
 		373C85462AADA91E00325155 /* BottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C85452AADA91E00325155 /* BottomSheetViewModel.swift */; };
 		373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C85492AADBCAF00325155 /* TabBarViewModel.swift */; };
 		3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8402A8D23EE00D63A16 /* SnapKit */; };
@@ -32,12 +33,10 @@
 		375E8B052A96187800F8DE42 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 375E8B042A96187800F8DE42 /* RxGesture */; };
 		377CB0592AD8665E003453D6 /* MeetingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0582AD8665E003453D6 /* MeetingListViewModel.swift */; };
 		377CB05B2AD8666F003453D6 /* MeetingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB05A2AD8666F003453D6 /* MeetingListCoordinator.swift */; };
-		377CB05D2AD867A9003453D6 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB05C2AD867A9003453D6 /* Test.swift */; };
 		377CB0612AD8699C003453D6 /* MainMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0602AD8699C003453D6 /* MainMapCoordinator.swift */; };
 		377CB0652AD87FD2003453D6 /* TabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0642AD87FD2003453D6 /* TabbarCoordinator.swift */; };
 		377CB06A2AD8C9AD003453D6 /* SearchPlacesMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0692AD8C9AD003453D6 /* SearchPlacesMapCoordinator.swift */; };
 		377CB06C2AD8C9C8003453D6 /* SearchPlacesMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB06B2AD8C9C8003453D6 /* SearchPlacesMapViewModel.swift */; };
-		377CB0722AD975A9003453D6 /* toTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0712AD975A9003453D6 /* toTest.swift */; };
 		3799E4F12A99C4D100E06218 /* DefaultAppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E4F02A99C4D100E06218 /* DefaultAppCoordinator.swift */; };
 		3799E4F32A99C79100E06218 /* VCScenesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E4F22A99C79100E06218 /* VCScenesCoordinator.swift */; };
 		3799E5022A99D68500E06218 /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5012A99D68500E06218 /* CallViewController.swift */; };
@@ -46,7 +45,6 @@
 		3799E5092A99D72D00E06218 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5082A99D72D00E06218 /* NotificationViewController.swift */; };
 		37BAF8932A948EF700BD85DC /* SearchPlacesMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BAF8922A948EF700BD85DC /* SearchPlacesMapViewController.swift */; };
 		37BAF8962A949C4900BD85DC /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 37BAF8952A949C4900BD85DC /* Config.xcconfig */; };
-		37E043692AA5F4CE00F9E807 /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */; };
 		37EF0CFB2AB85C2400D77B0A /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */; };
 		3B0691552ABBD73900C98D6D /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0691542ABBD73900C98D6D /* Login.swift */; };
 		3B0D6AA92ABBD1A900B08CAB /* LoginConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D6AA82ABBD1A900B08CAB /* LoginConstants.swift */; };
@@ -78,6 +76,7 @@
 /* Begin PBXFileReference section */
 		3703095A2AAF1C8400F9CD80 /* FriendsListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCollectionView.swift; sourceTree = "<group>"; };
 		3703095E2AAF20D900F9CD80 /* FriendsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListModel.swift; sourceTree = "<group>"; };
+		371C1D272ADABB3800B30DC5 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		373C85452AADA91E00325155 /* BottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewModel.swift; sourceTree = "<group>"; };
 		373C85492AADBCAF00325155 /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
 		3754BB6F2A9B455100522420 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
@@ -96,12 +95,10 @@
 		375E8B012A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlacesCollectionViewCell.swift; sourceTree = "<group>"; };
 		377CB0582AD8665E003453D6 /* MeetingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingListViewModel.swift; sourceTree = "<group>"; };
 		377CB05A2AD8666F003453D6 /* MeetingListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingListCoordinator.swift; sourceTree = "<group>"; };
-		377CB05C2AD867A9003453D6 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		377CB0602AD8699C003453D6 /* MainMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapCoordinator.swift; sourceTree = "<group>"; };
 		377CB0642AD87FD2003453D6 /* TabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarCoordinator.swift; sourceTree = "<group>"; };
 		377CB0692AD8C9AD003453D6 /* SearchPlacesMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapCoordinator.swift; sourceTree = "<group>"; };
 		377CB06B2AD8C9C8003453D6 /* SearchPlacesMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapViewModel.swift; sourceTree = "<group>"; };
-		377CB0712AD975A9003453D6 /* toTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toTest.swift; sourceTree = "<group>"; };
 		3799E4F02A99C4D100E06218 /* DefaultAppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppCoordinator.swift; sourceTree = "<group>"; };
 		3799E4F22A99C79100E06218 /* VCScenesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCScenesCoordinator.swift; sourceTree = "<group>"; };
 		3799E5012A99D68500E06218 /* CallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewController.swift; sourceTree = "<group>"; };
@@ -110,7 +107,6 @@
 		3799E5082A99D72D00E06218 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		37BAF8922A948EF700BD85DC /* SearchPlacesMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapViewController.swift; sourceTree = "<group>"; };
 		37BAF8952A949C4900BD85DC /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
-		37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
 		37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		3B0691542ABBD73900C98D6D /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		3B0D6AA82ABBD1A900B08CAB /* LoginConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConstants.swift; sourceTree = "<group>"; };
@@ -234,7 +230,6 @@
 				3758F18F2A7D007200E2933C /* MeetingListViewController.swift */,
 				377CB0582AD8665E003453D6 /* MeetingListViewModel.swift */,
 				377CB05A2AD8666F003453D6 /* MeetingListCoordinator.swift */,
-				377CB05C2AD867A9003453D6 /* Test.swift */,
 			);
 			path = MeetingList;
 			sourceTree = "<group>";
@@ -252,9 +247,9 @@
 		377CB0622AD869C5003453D6 /* Tabbar */ = {
 			isa = PBXGroup;
 			children = (
-				37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */,
 				373C85492AADBCAF00325155 /* TabBarViewModel.swift */,
 				377CB0642AD87FD2003453D6 /* TabbarCoordinator.swift */,
+				371C1D272ADABB3800B30DC5 /* TabBarController.swift */,
 			);
 			path = Tabbar;
 			sourceTree = "<group>";
@@ -265,7 +260,6 @@
 				37BAF8922A948EF700BD85DC /* SearchPlacesMapViewController.swift */,
 				377CB0692AD8C9AD003453D6 /* SearchPlacesMapCoordinator.swift */,
 				377CB06B2AD8C9C8003453D6 /* SearchPlacesMapViewModel.swift */,
-				377CB0712AD975A9003453D6 /* toTest.swift */,
 			);
 			path = SearchPlaces;
 			sourceTree = "<group>";
@@ -637,6 +631,7 @@
 				3B274D712AD3F77600D79698 /* DefaultSignInCoordinator.swift in Sources */,
 				373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */,
 				3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */,
+				371C1D282ADABB3800B30DC5 /* TabBarController.swift in Sources */,
 				3B1850A92AB5A955001945EE /* SearchNearByPlaces.swift in Sources */,
 				3B274D762AD4541E00D79698 /* SignInCoordinatorFinishDelegate.swift in Sources */,
 				375E8B022A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift in Sources */,
@@ -644,7 +639,6 @@
 				377CB0612AD8699C003453D6 /* MainMapCoordinator.swift in Sources */,
 				3B1850AE2AB5C781001945EE /* EndPoint.swift in Sources */,
 				3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */,
-				377CB0722AD975A9003453D6 /* toTest.swift in Sources */,
 				3703095F2AAF20D900F9CD80 /* FriendsListModel.swift in Sources */,
 				377CB06C2AD8C9C8003453D6 /* SearchPlacesMapViewModel.swift in Sources */,
 				3799E4F32A99C79100E06218 /* VCScenesCoordinator.swift in Sources */,
@@ -671,7 +665,6 @@
 				3B1850AB2AB5C620001945EE /* SearchService.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
 				37EF0CFB2AB85C2400D77B0A /* UIViewController+Ext.swift in Sources */,
-				37E043692AA5F4CE00F9E807 /* TabbarViewController.swift in Sources */,
 				3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */,
 				3B274D822AD4D40700D79698 /* AppCoordinator.swift in Sources */,
 				3B274D7D2AD4D19B00D79698 /* SignUpViewModel.swift in Sources */,
@@ -680,7 +673,6 @@
 				3754BB702A9B455100522420 /* Color+Ext.swift in Sources */,
 				37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */,
 				3799E4F12A99C4D100E06218 /* DefaultAppCoordinator.swift in Sources */,
-				377CB05D2AD867A9003453D6 /* Test.swift in Sources */,
 				3B274D842AD5207100D79698 /* SignUpService.swift in Sources */,
 				377CB05B2AD8666F003453D6 /* MeetingListCoordinator.swift in Sources */,
 				3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */,

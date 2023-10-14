@@ -36,7 +36,7 @@ class MainMapCoordinator: Coordinator {
         // TabBarCoordinator 시작
         showTabBarCoordinator()
         
-        //MainMapVC 푸시
+        //MainMapVC
         self.navigationController.pushViewController(mainMapViewController, animated: true)
         
         
