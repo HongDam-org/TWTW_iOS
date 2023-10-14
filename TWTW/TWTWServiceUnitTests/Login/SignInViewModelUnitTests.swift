@@ -22,10 +22,10 @@ final class SignInViewModelUnitTests: XCTestCase {
         scheduler = TestScheduler(initialClock: 0)
         
         let mockCoordinator = MockSignInCoordinator(childCoordinators: [], navigationController: UINavigationController())
-        mockCoordinator.delegate = self
         viewModel = SignInViewModel(coordinator: mockCoordinator,
                                     signInServices: MockSignInService())
         disposeBag = DisposeBag()
+        print("Start Unit Test")
     }
 
     /// MARK: - finsih test
@@ -35,18 +35,17 @@ final class SignInViewModelUnitTests: XCTestCase {
         viewModel = nil
     }
     
+    /// 토큰이 유효한지 테스트
+    /// 새로운 토큰 발급받는 테스트까지 진행
     func testCheckValidate(){
         viewModel.checkAccessTokenValidation()
-        
-        
     }
     
-    
-
-}
-
-extension SignInViewModelUnitTests: MockSignInCoordinatorDelegate{
-    func moveMain(function: String) {
-        <#code#>
+    /// 회원인지 아닌지 구분하는 테스트..
+    func testSignInService(){
+        viewModel.signInService(authType: "SIGNUP", identifier: "12345")
+            
+        
     }
+
 }

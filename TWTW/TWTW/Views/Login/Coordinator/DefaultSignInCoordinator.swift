@@ -26,7 +26,7 @@ final class DefaultSignInCoordinator: SignInCoordinatorProtocol {
     }
     
     func start() {
-        print("Called DefaultLoginCoordinator \(#function)")
+        print("Called DefaultSignInCoordinator \(#function)")
         signInViewModel?.checkSavingTokens()
     }
     

@@ -12,7 +12,7 @@ final class MockSignInCoordinator: SignInCoordinatorProtocol {
     
     var childCoordinators: [Coordinator]
     var navigationController: UINavigationController
-    var delegate: MockSignInCoordinatorDelegate?
+
     init(childCoordinators: [Coordinator], navigationController: UINavigationController?) {
         self.childCoordinators = childCoordinators
         self.navigationController = navigationController!
@@ -32,12 +32,6 @@ final class MockSignInCoordinator: SignInCoordinatorProtocol {
     
     func moveMain() {
         print("Mock \(#function)")
-        delegate?.moveMain(function: #function)
     }
     
 }
-
-protocol MockSignInCoordinatorDelegate {
-    func moveMain(function: String)
-}
-

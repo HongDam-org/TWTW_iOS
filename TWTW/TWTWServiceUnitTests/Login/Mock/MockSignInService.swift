@@ -19,6 +19,7 @@ final class MockSignInService: SignInProtocol {
     
     func fetchKakaoUserInfo() -> Observable<KakaoSDKUser.User> {
         return Observable.create { observer in
+            
             return Disposables.create()
         }
     }
@@ -27,6 +28,7 @@ final class MockSignInService: SignInProtocol {
         return Observable.create { observer in
             observer.onNext(TokenResponse(accessToken: "abc", refreshToken: "def"))
             observer.onNext(TokenResponse(accessToken: "abcvv", refreshToken: "defvv"))
+            observer.onError(NSError(domain: "not connect", code: 500, userInfo: nil))
             return Disposables.create()
         }
     }
@@ -35,15 +37,15 @@ final class MockSignInService: SignInProtocol {
         return Observable.create { observer in
             observer.onNext(LoginResponse(status: "SIGNUP", tokenDto: TokenResponse(accessToken: "abc", refreshToken: "def")))
             observer.onNext(LoginResponse(status: "SIGNIN", tokenDto: TokenResponse(accessToken: "abc11", refreshToken: "def22")))
+            observer.onError(NSError(domain: "not connect", code: 500, userInfo: nil))
             return Disposables.create()
         }
     }
     
     func checkAccessTokenValidation() -> Observable<Void> {
-        let error = NSError()
         return Observable.create { observer in
             observer.onNext(())
-            observer.onError(error)
+            observer.onError(NSError(domain: "not Validate", code: 401, userInfo: nil))
             return Disposables.create()
         }
     }
