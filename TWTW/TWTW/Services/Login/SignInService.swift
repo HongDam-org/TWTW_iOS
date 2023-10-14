@@ -14,7 +14,7 @@ import KakaoSDKCommon
 import Alamofire
 
 /// 로그인 Service
-final class SignInService{
+final class SignInService: SignInProtocol{
     private let disposeBag = DisposeBag()
     
     /// 카카오 로그인
@@ -52,7 +52,7 @@ final class SignInService{
     }
     
     /// 카카오 사용자 정보 불러오기
-    func fetchKakaoUserInfo() -> Observable<KakaoSDKUser.User>{
+    func fetchKakaoUserInfo() -> Observable<KakaoSDKUser.User> {
         return UserApi.shared.rx.me().asObservable()
             .do(onNext: { user in
                 print("fetchKakaoUserInfo \n\(user)")
@@ -74,43 +74,20 @@ final class SignInService{
                        method: .post,
                        parameters: token,
                        encoder: JSONParameterEncoder.default)
-            .validate { request, response, data in
-                if 200..<201 ~= response.statusCode {
-                    return .success(())
-                } else if response.statusCode == 401 {
-                    return .failure(AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: response.statusCode)))
-                } else {
-                    return .failure(AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: response.statusCode)))
-                }
-            }
+            .validate(statusCode: 200..<201)
             .responseDecodable(of: TokenResponse.self) { response in
                 switch response.result {
                 case .success(let data):
                     observer.onNext(data)
                 case .failure(let error):
-                    if let statusCodeError = error as? AFError,
-                       case .responseValidationFailed(let reason) = statusCodeError,
-                       case .unacceptableStatusCode(let code) = reason {
-                        if code == 400 {
-                            observer.onNext(TokenResponse(accessToken: nil, refreshToken: nil))
-                        }
-                        else {
-                            observer.onError(error)
-                        }
-                    }
-                    else {
-                        observer.onError(error)
-                    }
+                    observer.onError(error)
                 }
-                
-                
             }
-            
             return Disposables.create()
         }
     }
     
-
+    
     /// 로그인 API
     /// - Parameter request: Kakao, Apple에서 발급받는 Token, AuthType
     /// - Returns: status, Tokens
@@ -140,7 +117,7 @@ final class SignInService{
     
     /// Access Token 유효성 검사
     /// - Returns: true: AccessToken 유효, false: 만료
-    func checkAccessTokenValidation() -> Observable<Bool> {
+    func checkAccessTokenValidation() -> Observable<Void> {
         let url = Domain.REST_API + LoginPath.checkValidation
         let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue) ?? ""
         print(#function)
@@ -153,7 +130,7 @@ final class SignInService{
             .response{ res in
                 switch res.result{
                 case .success(_):
-                    observer.onNext(true)
+                    observer.onNext(())
                 case .failure(let error):
                     print(#function)
                     print(error)
@@ -165,5 +142,5 @@ final class SignInService{
         
     }
     
-   
+    
 }

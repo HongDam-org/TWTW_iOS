@@ -18,14 +18,14 @@ import RxCocoa
 final class SignInViewModel {
     var coordinator: SignInCoordinatorProtocol?
     private let disposeBag = DisposeBag()
-    private let signInServices = SignInService()
+    private var signInServices: SignInProtocol?
 
     
     // MARK: - init
     
-    init(coordinator: SignInCoordinatorProtocol) {
+    init(coordinator: SignInCoordinatorProtocol?, signInServices: SignInProtocol) {
         self.coordinator = coordinator
-        
+        self.signInServices = signInServices
     }
     
     struct Input {
@@ -61,7 +61,7 @@ final class SignInViewModel {
     
     /// 카카오 로그인
     func kakaoLogin(){
-        signInServices.kakaoLogin()
+        signInServices?.kakaoLogin()
             .subscribe(onNext:{ [weak self] kakaoUserInfo in
                 guard let self = self else {return}
                 signInService(authType: AuthType.kakao.rawValue, identifier: "\(kakaoUserInfo.id ?? 0)")
@@ -72,7 +72,7 @@ final class SignInViewModel {
     
     /// Access Token 유효성 검사
     func checkAccessTokenValidation() {
-        signInServices.checkAccessTokenValidation()
+        signInServices?.checkAccessTokenValidation()
             .subscribe(onNext:{ [weak self] _ in
                 guard let self = self else {return}
                 // MeetingListViewController로 이동
@@ -92,7 +92,7 @@ final class SignInViewModel {
         let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue)
         let refreshToken = KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue)
         
-        signInServices.getNewAccessToken(token: TokenResponse(accessToken: accessToken, refreshToken: refreshToken))
+        signInServices?.getNewAccessToken(token: TokenResponse(accessToken: accessToken, refreshToken: refreshToken))
             .subscribe(onNext:{ [weak self] data in // 재발급 성공
                 guard let self = self else {return}
                 if let access = data.accessToken, let refresh = data.refreshToken {
@@ -116,7 +116,7 @@ final class SignInViewModel {
     func signInService(authType: String, identifier: String) {
         let _ = KeychainWrapper.saveString(value: authType, forKey: SignInSaveKeyChain.authType.rawValue)
         let _ = KeychainWrapper.saveString(value: identifier, forKey: SignInSaveKeyChain.identifier.rawValue)
-        signInServices.signInService(request: OAuthRequest(token: identifier,
+        signInServices?.signInService(request: OAuthRequest(token: identifier,
                                                            authType: authType))
             .subscribe(onNext:{ [weak self] data in
                 guard let self = self else {return}

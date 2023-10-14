@@ -15,9 +15,6 @@
 		3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8402A8D23EE00D63A16 /* SnapKit */; };
 		3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8432A8D242C00D63A16 /* Alamofire */; };
 		3751E8472A8D246A00D63A16 /* RxKakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8462A8D246A00D63A16 /* RxKakaoSDK */; };
-		3751E84A2A8D24CE00D63A16 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8492A8D24CE00D63A16 /* RxCocoa */; };
-		3751E84C2A8D24CE00D63A16 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E84B2A8D24CE00D63A16 /* RxRelay */; };
-		3751E84E2A8D24CE00D63A16 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E84D2A8D24CE00D63A16 /* RxSwift */; };
 		3754BB702A9B455100522420 /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3754BB6F2A9B455100522420 /* Color+Ext.swift */; };
 		37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */; };
 		3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18B2A7D007200E2933C /* AppDelegate.swift */; };
@@ -64,10 +61,34 @@
 		3B274D822AD4D40700D79698 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D812AD4D40700D79698 /* AppCoordinator.swift */; };
 		3B274D842AD5207100D79698 /* SignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D832AD5207100D79698 /* SignUpService.swift */; };
 		3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */; };
+		3B6CF3C02ADAC1CA00325D05 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3BF2ADAC1CA00325D05 /* RxBlocking */; };
+		3B6CF3C22ADAC1CA00325D05 /* RxBlocking-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3C12ADAC1CA00325D05 /* RxBlocking-Dynamic */; };
+		3B6CF3C42ADAC1CA00325D05 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3C32ADAC1CA00325D05 /* RxCocoa */; };
+		3B6CF3C62ADAC1CA00325D05 /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3C52ADAC1CA00325D05 /* RxCocoa-Dynamic */; };
+		3B6CF3C82ADAC1CA00325D05 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3C72ADAC1CA00325D05 /* RxRelay */; };
+		3B6CF3CA2ADAC1CA00325D05 /* RxRelay-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3C92ADAC1CA00325D05 /* RxRelay-Dynamic */; };
+		3B6CF3CC2ADAC1CA00325D05 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3CB2ADAC1CA00325D05 /* RxSwift */; };
+		3B6CF3CE2ADAC1CA00325D05 /* RxSwift-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3CD2ADAC1CA00325D05 /* RxSwift-Dynamic */; };
+		3B6CF3D02ADAC1CA00325D05 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3CF2ADAC1CA00325D05 /* RxTest */; };
+		3B6CF3D22ADAC1CA00325D05 /* RxTest-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3D12ADAC1CA00325D05 /* RxTest-Dynamic */; };
+		3B6CF3D72ADAC80200325D05 /* SignInProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3D62ADAC80200325D05 /* SignInProtocol.swift */; };
+		3B6CF3D92ADACA7500325D05 /* MockSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3D82ADACA7500325D05 /* MockSignInService.swift */; };
+		3B6CF3DB2ADAD14A00325D05 /* MockSignInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3DA2ADAD14A00325D05 /* MockSignInCoordinator.swift */; };
+		3BE034982AD83AC800953498 /* SignInViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */; };
 		3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */; };
 		3BF9EFA42AB1AE790014855E /* KakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */; };
 		3BF9EFB12AB1DEDB0014855E /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF9EFB02AB1DEDB0014855E /* UIImage+Ext.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3BE034992AD83AC800953498 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3758F1802A7D007100E2933C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3758F1872A7D007100E2933C;
+			remoteInfo = TWTW;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		3701108A2AB2E49D005B0B24 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
@@ -122,6 +143,11 @@
 		3B274D812AD4D40700D79698 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		3B274D832AD5207100D79698 /* SignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpService.swift; sourceTree = "<group>"; };
 		3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignInViewModel.swift; path = TWTW/ViewModel/Login/SignInViewModel.swift; sourceTree = SOURCE_ROOT; };
+		3B6CF3D62ADAC80200325D05 /* SignInProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInProtocol.swift; sourceTree = "<group>"; };
+		3B6CF3D82ADACA7500325D05 /* MockSignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignInService.swift; sourceTree = "<group>"; };
+		3B6CF3DA2ADAD14A00325D05 /* MockSignInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignInCoordinator.swift; sourceTree = "<group>"; };
+		3BE034952AD83AC800953498 /* TWTWUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = TWTWUnitTests.xctest; path = "/Users/jeonghojin/Desktop/Project/TWTW/TWTW_iOS/TWTW/build/Debug-iphoneos/TWTWUnitTests.xctest"; sourceTree = "<absolute>"; };
+		3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelUnitTests.swift; sourceTree = "<group>"; };
 		3BF9EF9F2AB1AE220014855E /* TWTW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWTW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapViewController.swift; sourceTree = "<group>"; };
 		3BF9EFB02AB1DEDB0014855E /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
@@ -132,14 +158,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3751E84E2A8D24CE00D63A16 /* RxSwift in Frameworks */,
+				3B6CF3D02ADAC1CA00325D05 /* RxTest in Frameworks */,
+				3B6CF3C82ADAC1CA00325D05 /* RxRelay in Frameworks */,
 				3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */,
-				3751E84C2A8D24CE00D63A16 /* RxRelay in Frameworks */,
+				3B6CF3D22ADAC1CA00325D05 /* RxTest-Dynamic in Frameworks */,
+				3B6CF3C22ADAC1CA00325D05 /* RxBlocking-Dynamic in Frameworks */,
+				3B6CF3CA2ADAC1CA00325D05 /* RxRelay-Dynamic in Frameworks */,
+				3B6CF3C02ADAC1CA00325D05 /* RxBlocking in Frameworks */,
 				375E8B052A96187800F8DE42 /* RxGesture in Frameworks */,
+				3B6CF3CC2ADAC1CA00325D05 /* RxSwift in Frameworks */,
+				3B6CF3C62ADAC1CA00325D05 /* RxCocoa-Dynamic in Frameworks */,
 				3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */,
 				3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */,
-				3751E84A2A8D24CE00D63A16 /* RxCocoa in Frameworks */,
+				3B6CF3C42ADAC1CA00325D05 /* RxCocoa in Frameworks */,
 				3751E8472A8D246A00D63A16 /* RxKakaoSDK in Frameworks */,
+				3B6CF3CE2ADAC1CA00325D05 /* RxSwift-Dynamic in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3BE034922AD83AC800953498 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,6 +204,8 @@
 			children = (
 				3758F18A2A7D007200E2933C /* TWTW */,
 				3BF9EF9F2AB1AE220014855E /* TWTW.app */,
+				3BE034962AD83AC800953498 /* TWTWServiceUnitTests */,
+				3B6CF3BB2ADAC1A400325D05 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -483,6 +525,7 @@
 		3B274D852AD534E000D79698 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				3B6CF3D42ADAC7E500325D05 /* Protocol */,
 				375916362A7EB36000C21E1F /* SignInService.swift */,
 				3B274D832AD5207100D79698 /* SignUpService.swift */,
 			);
@@ -501,6 +544,47 @@
 				3B274D7E2AD4D1A200D79698 /* Login */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3B6CF3BB2ADAC1A400325D05 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3B6CF3D32ADAC3FE00325D05 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				3B6CF3D82ADACA7500325D05 /* MockSignInService.swift */,
+				3B6CF3DA2ADAD14A00325D05 /* MockSignInCoordinator.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		3B6CF3D42ADAC7E500325D05 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				3B6CF3D62ADAC80200325D05 /* SignInProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		3BE034962AD83AC800953498 /* TWTWServiceUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				3BE0349E2AD83B3D00953498 /* Login */,
+			);
+			path = TWTWServiceUnitTests;
+			sourceTree = "<group>";
+		};
+		3BE0349E2AD83B3D00953498 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				3B6CF3D32ADAC3FE00325D05 /* Mock */,
+				3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -523,15 +607,42 @@
 				3751E8402A8D23EE00D63A16 /* SnapKit */,
 				3751E8432A8D242C00D63A16 /* Alamofire */,
 				3751E8462A8D246A00D63A16 /* RxKakaoSDK */,
-				3751E8492A8D24CE00D63A16 /* RxCocoa */,
-				3751E84B2A8D24CE00D63A16 /* RxRelay */,
-				3751E84D2A8D24CE00D63A16 /* RxSwift */,
 				375E8B042A96187800F8DE42 /* RxGesture */,
 				3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */,
+				3B6CF3BF2ADAC1CA00325D05 /* RxBlocking */,
+				3B6CF3C12ADAC1CA00325D05 /* RxBlocking-Dynamic */,
+				3B6CF3C32ADAC1CA00325D05 /* RxCocoa */,
+				3B6CF3C52ADAC1CA00325D05 /* RxCocoa-Dynamic */,
+				3B6CF3C72ADAC1CA00325D05 /* RxRelay */,
+				3B6CF3C92ADAC1CA00325D05 /* RxRelay-Dynamic */,
+				3B6CF3CB2ADAC1CA00325D05 /* RxSwift */,
+				3B6CF3CD2ADAC1CA00325D05 /* RxSwift-Dynamic */,
+				3B6CF3CF2ADAC1CA00325D05 /* RxTest */,
+				3B6CF3D12ADAC1CA00325D05 /* RxTest-Dynamic */,
 			);
 			productName = TWTW;
 			productReference = 3BF9EF9F2AB1AE220014855E /* TWTW.app */;
 			productType = "com.apple.product-type.application";
+		};
+		3BE034942AD83AC800953498 /* TWTWUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3BE0349B2AD83AC800953498 /* Build configuration list for PBXNativeTarget "TWTWUnitTests" */;
+			buildPhases = (
+				3BE034912AD83AC800953498 /* Sources */,
+				3BE034922AD83AC800953498 /* Frameworks */,
+				3BE034932AD83AC800953498 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3BE0349A2AD83AC800953498 /* PBXTargetDependency */,
+			);
+			name = TWTWUnitTests;
+			packageProductDependencies = (
+			);
+			productName = TWTWUnitTests;
+			productReference = 3BE034952AD83AC800953498 /* TWTWUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -540,11 +651,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					3758F1872A7D007100E2933C = {
 						CreatedOnToolsVersion = 14.3.1;
+					};
+					3BE034942AD83AC800953498 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 3758F1872A7D007100E2933C;
 					};
 				};
 			};
@@ -561,15 +676,16 @@
 				3751E83F2A8D23EE00D63A16 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				3751E8422A8D242C00D63A16 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				3751E8452A8D246A00D63A16 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
-				3751E8482A8D24CE00D63A16 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				375E8B032A96187800F8DE42 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				3BF9EFA02AB1AE4A0014855E /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
+				3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 3758F17F2A7D007100E2933C;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				3758F1872A7D007100E2933C /* TWTW */,
+				3BE034942AD83AC800953498 /* TWTWUnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -585,6 +701,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3BE034932AD83AC800953498 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -592,6 +715,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B6CF3DB2ADAD14A00325D05 /* MockSignInCoordinator.swift in Sources */,
 				3B274D712AD3F77600D79698 /* DefaultSignInCoordinator.swift in Sources */,
 				373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */,
 				3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */,
@@ -605,6 +729,7 @@
 				3799E4F32A99C79100E06218 /* VCScenesCoordinator.swift in Sources */,
 				3B1850B02AB5C939001945EE /* Domain.swift in Sources */,
 				37BAF8932A948EF700BD85DC /* SearchPlacesMapViewController.swift in Sources */,
+				3B6CF3D92ADACA7500325D05 /* MockSignInService.swift in Sources */,
 				3B274D732AD445B400D79698 /* DefaultSignUpCoordinator.swift in Sources */,
 				3B1C36EF2A8FD30200838682 /* BottomSheetDelegate.swift in Sources */,
 				373C85462AADA91E00325155 /* BottomSheetViewModel.swift in Sources */,
@@ -639,12 +764,29 @@
 				3B274D842AD5207100D79698 /* SignUpService.swift in Sources */,
 				3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */,
 				3B274D802AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift in Sources */,
+				3B6CF3D72ADAC80200325D05 /* SignInProtocol.swift in Sources */,
 				375916372A7EB36000C21E1F /* SignInService.swift in Sources */,
 				3BF9EFA42AB1AE790014855E /* KakaoMapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3BE034912AD83AC800953498 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3BE034982AD83AC800953498 /* SignInViewModelUnitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3BE0349A2AD83AC800953498 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3758F1872A7D007100E2933C /* TWTW */;
+			targetProxy = 3BE034992AD83AC800953498 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3758F1962A7D007300E2933C /* LaunchScreen.storyboard */ = {
@@ -865,6 +1007,59 @@
 			};
 			name = Release;
 		};
+		3BE0349C2AD83AC800953498 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SN5J3DYFX4;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = JJ.TWTWUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TWTW.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TWTW";
+			};
+			name = Debug;
+		};
+		3BE0349D2AD83AC800953498 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SN5J3DYFX4;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = JJ.TWTWUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TWTW.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TWTW";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -882,6 +1077,15 @@
 			buildConfigurations = (
 				3758F19D2A7D007300E2933C /* Debug */,
 				3758F19E2A7D007300E2933C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3BE0349B2AD83AC800953498 /* Build configuration list for PBXNativeTarget "TWTWUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3BE0349C2AD83AC800953498 /* Debug */,
+				3BE0349D2AD83AC800953498 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -913,20 +1117,20 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		3751E8482A8D24CE00D63A16 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
-			};
-		};
 		375E8B032A96187800F8DE42 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 4.0.0;
+			};
+		};
+		3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.6.0;
 			};
 		};
 		3BF9EFA02AB1AE4A0014855E /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */ = {
@@ -955,25 +1159,60 @@
 			package = 3751E8452A8D246A00D63A16 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
 			productName = RxKakaoSDK;
 		};
-		3751E8492A8D24CE00D63A16 /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3751E8482A8D24CE00D63A16 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-		3751E84B2A8D24CE00D63A16 /* RxRelay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3751E8482A8D24CE00D63A16 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxRelay;
-		};
-		3751E84D2A8D24CE00D63A16 /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3751E8482A8D24CE00D63A16 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
-		};
 		375E8B042A96187800F8DE42 /* RxGesture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 375E8B032A96187800F8DE42 /* XCRemoteSwiftPackageReference "RxGesture" */;
 			productName = RxGesture;
+		};
+		3B6CF3BF2ADAC1CA00325D05 /* RxBlocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxBlocking;
+		};
+		3B6CF3C12ADAC1CA00325D05 /* RxBlocking-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = "RxBlocking-Dynamic";
+		};
+		3B6CF3C32ADAC1CA00325D05 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		3B6CF3C52ADAC1CA00325D05 /* RxCocoa-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = "RxCocoa-Dynamic";
+		};
+		3B6CF3C72ADAC1CA00325D05 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		3B6CF3C92ADAC1CA00325D05 /* RxRelay-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = "RxRelay-Dynamic";
+		};
+		3B6CF3CB2ADAC1CA00325D05 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		3B6CF3CD2ADAC1CA00325D05 /* RxSwift-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = "RxSwift-Dynamic";
+		};
+		3B6CF3CF2ADAC1CA00325D05 /* RxTest */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxTest;
+		};
+		3B6CF3D12ADAC1CA00325D05 /* RxTest-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = "RxTest-Dynamic";
 		};
 		3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */ = {
 			isa = XCSwiftPackageProductDependency;

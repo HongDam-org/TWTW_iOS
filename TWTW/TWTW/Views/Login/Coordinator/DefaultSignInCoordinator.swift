@@ -21,7 +21,8 @@ final class DefaultSignInCoordinator: SignInCoordinatorProtocol {
     init( navigationController: UINavigationController) {
         self.navigationController = navigationController
         self.signInViewController = SignInViewController()
-        self.signInViewModel = SignInViewModel(coordinator: self)
+        self.signInViewModel = SignInViewModel(coordinator: self,
+                                               signInServices: SignInService())
     }
     
     func start() {

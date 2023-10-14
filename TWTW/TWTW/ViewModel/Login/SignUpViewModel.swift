@@ -12,13 +12,14 @@ import RxRelay
 final class SignUpViewModel {
     weak var coordinator: SignUpCoordinatorProtocol?
     private let disposeBag = DisposeBag()
-    private let signUpServices = SignUpService()
+    private let signUpServices: SignUpService?
     final let maxLength = 8
     final let minLength = 2
 
     // MARK: - Init
-    init(coordinator: SignUpCoordinatorProtocol) {
+    init(coordinator: SignUpCoordinatorProtocol?, signUpServices: SignUpService?) {
         self.coordinator = coordinator
+        self.signUpServices = signUpServices
     }
 
     /// Input
@@ -93,7 +94,7 @@ final class SignUpViewModel {
     ///   - nickName: user NickName
     ///   - output: Output 구조체
     func checkOverlapId(nickName: String, output: Output) {
-        signUpServices.checkOverlapId(id: nickName)
+        signUpServices?.checkOverlapId(id: nickName)
             .subscribe(onNext: { [weak self] check in
                 guard let self = self  else {return}
                 if !check {
@@ -122,7 +123,7 @@ final class SignUpViewModel {
                                                                    authType: authType))
         print(#function)
         print(loginRequest)
-        signUpServices.signUpService(request: loginRequest)
+        signUpServices?.signUpService(request: loginRequest)
             .subscribe(onNext:{ [weak self] data in
                 guard let self = self else {return}
                 coordinator?.moveMain()
