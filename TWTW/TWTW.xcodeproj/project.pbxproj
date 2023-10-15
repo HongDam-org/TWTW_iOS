@@ -10,7 +10,10 @@
 		3703095B2AAF1C8400F9CD80 /* FriendsListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3703095A2AAF1C8400F9CD80 /* FriendsListCollectionView.swift */; };
 		3703095F2AAF20D900F9CD80 /* FriendsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3703095E2AAF20D900F9CD80 /* FriendsListModel.swift */; };
 		371C1D282ADABB3800B30DC5 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D272ADABB3800B30DC5 /* TabBarController.swift */; };
-		371C1D2A2ADAD49700B30DC5 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D292ADAD49700B30DC5 /* Test.swift */; };
+		371C1D2D2ADBAFA900B30DC5 /* NotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D2C2ADBAFA900B30DC5 /* NotificationCoordinator.swift */; };
+		371C1D2F2ADBAFCC00B30DC5 /* FriendsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D2E2ADBAFCC00B30DC5 /* FriendsListCoordinator.swift */; };
+		371C1D312ADBAFF300B30DC5 /* PreviousAppointmentsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D302ADBAFF300B30DC5 /* PreviousAppointmentsCoordinator.swift */; };
+		371C1D332ADBB00300B30DC5 /* CallCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D322ADBB00300B30DC5 /* CallCoordinator.swift */; };
 		373C85462AADA91E00325155 /* BottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C85452AADA91E00325155 /* BottomSheetViewModel.swift */; };
 		373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C85492AADBCAF00325155 /* TabBarViewModel.swift */; };
 		3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8402A8D23EE00D63A16 /* SnapKit */; };
@@ -35,7 +38,6 @@
 		377CB0592AD8665E003453D6 /* MeetingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0582AD8665E003453D6 /* MeetingListViewModel.swift */; };
 		377CB05B2AD8666F003453D6 /* MeetingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB05A2AD8666F003453D6 /* MeetingListCoordinator.swift */; };
 		377CB0612AD8699C003453D6 /* MainMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0602AD8699C003453D6 /* MainMapCoordinator.swift */; };
-		377CB0652AD87FD2003453D6 /* TabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0642AD87FD2003453D6 /* TabbarCoordinator.swift */; };
 		377CB06A2AD8C9AD003453D6 /* SearchPlacesMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0692AD8C9AD003453D6 /* SearchPlacesMapCoordinator.swift */; };
 		377CB06C2AD8C9C8003453D6 /* SearchPlacesMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB06B2AD8C9C8003453D6 /* SearchPlacesMapViewModel.swift */; };
 		3799E4F12A99C4D100E06218 /* DefaultAppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E4F02A99C4D100E06218 /* DefaultAppCoordinator.swift */; };
@@ -78,7 +80,10 @@
 		3703095A2AAF1C8400F9CD80 /* FriendsListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCollectionView.swift; sourceTree = "<group>"; };
 		3703095E2AAF20D900F9CD80 /* FriendsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListModel.swift; sourceTree = "<group>"; };
 		371C1D272ADABB3800B30DC5 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		371C1D292ADAD49700B30DC5 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		371C1D2C2ADBAFA900B30DC5 /* NotificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCoordinator.swift; sourceTree = "<group>"; };
+		371C1D2E2ADBAFCC00B30DC5 /* FriendsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCoordinator.swift; sourceTree = "<group>"; };
+		371C1D302ADBAFF300B30DC5 /* PreviousAppointmentsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousAppointmentsCoordinator.swift; sourceTree = "<group>"; };
+		371C1D322ADBB00300B30DC5 /* CallCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallCoordinator.swift; sourceTree = "<group>"; };
 		373C85452AADA91E00325155 /* BottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewModel.swift; sourceTree = "<group>"; };
 		373C85492AADBCAF00325155 /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
 		3754BB6F2A9B455100522420 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
@@ -98,7 +103,6 @@
 		377CB0582AD8665E003453D6 /* MeetingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingListViewModel.swift; sourceTree = "<group>"; };
 		377CB05A2AD8666F003453D6 /* MeetingListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingListCoordinator.swift; sourceTree = "<group>"; };
 		377CB0602AD8699C003453D6 /* MainMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapCoordinator.swift; sourceTree = "<group>"; };
-		377CB0642AD87FD2003453D6 /* TabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarCoordinator.swift; sourceTree = "<group>"; };
 		377CB0692AD8C9AD003453D6 /* SearchPlacesMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapCoordinator.swift; sourceTree = "<group>"; };
 		377CB06B2AD8C9C8003453D6 /* SearchPlacesMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapViewModel.swift; sourceTree = "<group>"; };
 		3799E4F02A99C4D100E06218 /* DefaultAppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppCoordinator.swift; sourceTree = "<group>"; };
@@ -162,7 +166,6 @@
 				3B0691532ABBD73200C98D6D /* Login */,
 				3B1850A72AB5A93B001945EE /* Map */,
 				3799E4FE2A99D65000E06218 /* Call */,
-				3799E4FD2A99D64B00E06218 /* PreviousAppointments */,
 				3799E4F82A99D61B00E06218 /* FriendsList */,
 				3799E4F72A99D5E900E06218 /* Notification */,
 			);
@@ -180,6 +183,10 @@
 		3758F18A2A7D007200E2933C /* TWTW */ = {
 			isa = PBXGroup;
 			children = (
+				3799E4FD2A99D64B00E06218 /* PreviousAppointments */,
+				3799E4F92A99D62100E06218 /* FriendsList */,
+				3799E4FF2A99D65900E06218 /* Call */,
+				3799E4F62A99D5C200E06218 /* Notification */,
 				377CB0682AD8C8E4003453D6 /* SearchPlaces */,
 				377CB0622AD869C5003453D6 /* Tabbar */,
 				377CB05F2AD86968003453D6 /* MainMap */,
@@ -249,7 +256,6 @@
 			isa = PBXGroup;
 			children = (
 				373C85492AADBCAF00325155 /* TabBarViewModel.swift */,
-				377CB0642AD87FD2003453D6 /* TabbarCoordinator.swift */,
 				371C1D272ADABB3800B30DC5 /* TabBarController.swift */,
 			);
 			path = Tabbar;
@@ -261,7 +267,6 @@
 				37BAF8922A948EF700BD85DC /* SearchPlacesMapViewController.swift */,
 				377CB0692AD8C9AD003453D6 /* SearchPlacesMapCoordinator.swift */,
 				377CB06B2AD8C9C8003453D6 /* SearchPlacesMapViewModel.swift */,
-				371C1D292ADAD49700B30DC5 /* Test.swift */,
 			);
 			path = SearchPlaces;
 			sourceTree = "<group>";
@@ -296,8 +301,10 @@
 		3799E4F62A99D5C200E06218 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
+				371C1D2C2ADBAFA900B30DC5 /* NotificationCoordinator.swift */,
 			);
-			path = Notification;
+			name = Notification;
+			path = ViewModel/Notification;
 			sourceTree = "<group>";
 		};
 		3799E4F72A99D5E900E06218 /* Notification */ = {
@@ -317,6 +324,7 @@
 		3799E4F92A99D62100E06218 /* FriendsList */ = {
 			isa = PBXGroup;
 			children = (
+				371C1D2E2ADBAFCC00B30DC5 /* FriendsListCoordinator.swift */,
 			);
 			path = FriendsList;
 			sourceTree = "<group>";
@@ -342,6 +350,7 @@
 		3799E4FD2A99D64B00E06218 /* PreviousAppointments */ = {
 			isa = PBXGroup;
 			children = (
+				371C1D302ADBAFF300B30DC5 /* PreviousAppointmentsCoordinator.swift */,
 			);
 			path = PreviousAppointments;
 			sourceTree = "<group>";
@@ -356,6 +365,7 @@
 		3799E4FF2A99D65900E06218 /* Call */ = {
 			isa = PBXGroup;
 			children = (
+				371C1D322ADBB00300B30DC5 /* CallCoordinator.swift */,
 			);
 			path = Call;
 			sourceTree = "<group>";
@@ -524,9 +534,6 @@
 		3B6BA98A2A7F7D1600A11FE4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				3799E4FF2A99D65900E06218 /* Call */,
-				3799E4F92A99D62100E06218 /* FriendsList */,
-				3799E4F62A99D5C200E06218 /* Notification */,
 				3B267B992A87B80C00F3949A /* Map */,
 				3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */,
 				3B274D7E2AD4D1A200D79698 /* Login */,
@@ -623,6 +630,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				371C1D332ADBB00300B30DC5 /* CallCoordinator.swift in Sources */,
 				3B274D712AD3F77600D79698 /* DefaultSignInCoordinator.swift in Sources */,
 				373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */,
 				3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */,
@@ -651,6 +659,7 @@
 				3B274D792AD4584600D79698 /* SignInCoordinatorProtocol.swift in Sources */,
 				3B0D6AA92ABBD1A900B08CAB /* LoginConstants.swift in Sources */,
 				3703095B2AAF1C8400F9CD80 /* FriendsListCollectionView.swift in Sources */,
+				371C1D312ADBAFF300B30DC5 /* PreviousAppointmentsCoordinator.swift in Sources */,
 				3B1850B22AB5CCA6001945EE /* SearchPlaces.swift in Sources */,
 				3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */,
 				3799E5052A99D6DC00E06218 /* PreviousAppointmentsViewController.swift in Sources */,
@@ -667,14 +676,14 @@
 				3B274D6D2AD3F6F400D79698 /* Coordinator.swift in Sources */,
 				3754BB702A9B455100522420 /* Color+Ext.swift in Sources */,
 				37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */,
+				371C1D2D2ADBAFA900B30DC5 /* NotificationCoordinator.swift in Sources */,
 				3799E4F12A99C4D100E06218 /* DefaultAppCoordinator.swift in Sources */,
 				3B274D842AD5207100D79698 /* SignUpService.swift in Sources */,
 				377CB05B2AD8666F003453D6 /* MeetingListCoordinator.swift in Sources */,
-				371C1D2A2ADAD49700B30DC5 /* Test.swift in Sources */,
 				3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */,
 				3B274D802AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift in Sources */,
+				371C1D2F2ADBAFCC00B30DC5 /* FriendsListCoordinator.swift in Sources */,
 				375916372A7EB36000C21E1F /* SignInService.swift in Sources */,
-				377CB0652AD87FD2003453D6 /* TabbarCoordinator.swift in Sources */,
 				377CB06A2AD8C9AD003453D6 /* SearchPlacesMapCoordinator.swift in Sources */,
 				3BF9EFA42AB1AE790014855E /* KakaoMapViewController.swift in Sources */,
 			);

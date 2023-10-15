@@ -21,7 +21,6 @@ final class SearchPlacesMapViewController: UIViewController {
     let searchService = SearchService()
     ///필터링지역들
     var filteredPlaces = [String]()
-   // var selectedCoordinateSubject = PublishRelay<CLLocationCoordinate2D>()
     let viewModel: SearchPlacesMapViewModel
     
     /// MARK: 서치바UI

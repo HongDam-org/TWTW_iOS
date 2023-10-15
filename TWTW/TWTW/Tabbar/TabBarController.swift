@@ -41,7 +41,6 @@ class TabBarController: UITabBarController {
         
         self.delegates = delegates
         self.viewHeight.accept(viewHeight)
-        
         setTabbar()
     }
     
@@ -52,18 +51,14 @@ class TabBarController: UITabBarController {
     // 뷰가 로드된 후 호출되는 메서드
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
+
         // 뷰의 높이를 설정하고
         let viewHeight = self.view.bounds.height
         // BottomSheetViewModel에 높이를 설정
         tabBarViewModel.setupHeight(viewHeight: viewHeight)
         tabBar.backgroundColor = UIColor(white: 1, alpha: 1)
         view.backgroundColor = .clear
-     
     }
-
     
     // 뷰의 높이를 설정하는 메서드
     func setViewHeight(_ height: CGFloat) {
@@ -72,7 +67,6 @@ class TabBarController: UITabBarController {
     
     // 탭바와 뷰컨트롤러 연결
     private func setTabbar() {
-        // 각 탭 아이템 생성
         let tabItems: [TabItem] = [
             TabItem(title: "홈", imageName: "house"),
             TabItem(title: "일정", imageName: "calendar"),
@@ -81,13 +75,25 @@ class TabBarController: UITabBarController {
             TabItem(title: "전화", imageName: "phone")
         ]
         
+        let homeCoordinator = PreviousAppointmentsCoordinator(navigationController: UINavigationController())
+        let scheduleCoordinator = PreviousAppointmentsCoordinator(navigationController: UINavigationController())
+        let friendsListCoordinator = FriendsListCoordinator(navigationController: UINavigationController())
+        let notificationCoordinator = NotificationCoordinator(navigationController: UINavigationController())
+        let callCoordinator = CallCoordinator(navigationController: UINavigationController())
+        
         viewControllers = [
-            PreviousAppointmentsViewController(),
-            PreviousAppointmentsViewController(),
-            FriendsListViewController(),
-            NotificationViewController(),
-            CallViewController()
+            homeCoordinator.navigationController,
+            scheduleCoordinator.navigationController,
+            friendsListCoordinator.navigationController,
+            notificationCoordinator.navigationController,
+            callCoordinator.navigationController
         ]
+        homeCoordinator.start()
+        scheduleCoordinator.start()
+        friendsListCoordinator.start()
+        notificationCoordinator.start()
+        callCoordinator.start()
+        
         tabItemsRelay.accept(tabItems)
         
         addSubViews()
@@ -126,9 +132,7 @@ class TabBarController: UITabBarController {
             make.width.height.equalTo(view.snp.width).dividedBy(10) // 이미지 크기 설정
         }
     }
-    
-    
-    // 팬 제스처 핸들링 메서드
+        // 팬 제스처 핸들링 메서드
     
     @objc private func handlePan(_ panGesture: UIPanGestureRecognizer) {
         switch panGesture.state {
@@ -160,7 +164,6 @@ class TabBarController: UITabBarController {
         default:
             break
         }
-        
     }
     
     // 뷰의 높이 업데이트
@@ -183,10 +186,8 @@ class TabBarController: UITabBarController {
             myloctaionImageView.snp.updateConstraints { make in
                 make.bottom.equalTo(self.view.snp.top).offset(myloctaionImageView.frame.height+5)
             }
-            
-
         }
-
+        
         viewHeight.accept(newHeight)
         tabBarViewModel.heightConstraintRelay.accept(tabBarViewModel.heightConstraintRelay.value?.update(offset: newHeight))
         delegates?.didUpdateBottomSheetHeight(newHeight)

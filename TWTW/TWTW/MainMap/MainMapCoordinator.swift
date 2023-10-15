@@ -16,39 +16,24 @@ class MainMapCoordinator: Coordinator {
     var tabBarController: UITabBarController // for TabBarCoordinator
     
     private let cameraCoordinateSubject = PublishSubject<CLLocationCoordinate2D>()
-    
     private var mainMapViewModel: MainMapViewModel?
 
     
     init(navigationController: UINavigationController, tabBarController: UITabBarController){
         self.navigationController = navigationController
         self.tabBarController = tabBarController
-        
-       
 
     }
     func start(){
         let mainMapViewModel = MainMapViewModel(coordinator: self)
         let mainMapViewController = MainMapViewController(viewModel: mainMapViewModel)
-        
         mainMapViewModel.cameraCoordinateObservable = cameraCoordinateSubject.asObservable()
-        
-        // TabBarCoordinator 시작
-       // showTabBarCoordinator()
-        
+
         //MainMapVC
         self.navigationController.pushViewController(mainMapViewController, animated: true)
-        
-        
-        //SearchPlaces는 MainMap에서 필요한 시점에 호출
+
     }
-    ///TabBarCoordinator을 시작하는 메소드
-//    func showTabBarCoordinator(){
-//        let tabBarCoordinator = TabBarCoordinator(tabBarController: tabBarController )
-//        tabBarCoordinator.start()
-//        childCoordinators.append(tabBarCoordinator)
-//    }
-    
+
     ///SearchPlacesMapCoordinator 시작하는 메소드
     func showSearchPlacesMap(){
         let searchPlacesMapCoordinator = SearchPlacesMapCoordinator(navigationController: navigationController, parentCoordinator: self)

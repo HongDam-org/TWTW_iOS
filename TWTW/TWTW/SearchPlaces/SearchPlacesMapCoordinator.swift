@@ -24,7 +24,7 @@ class SearchPlacesMapCoordinator: Coordinator {
         let searchPlacesMapViewModel = SearchPlacesMapViewModel()
         let searchPlaceMapViewController = SearchPlacesMapViewController(viewModel: searchPlacesMapViewModel)
         
-        //vm구독
+        ///searchPlacesMapViewModel 구독
         searchPlacesMapViewModel.selectedCoordinateSubject
                   .subscribe(onNext: { [weak self] coordinate in
                       // 좌표를 MainMapCoordinator로 전달
@@ -39,17 +39,6 @@ class SearchPlacesMapCoordinator: Coordinator {
     func finishSearchPlaces(){
         navigationController.popViewController(animated: true)
     }
-    
-    //화면전환,종료
-    //selectedCoordinateSubject구독헤서 vm은 좌표를 선택받고 여기서 처리
-//    func subscribeToSelectedCoordinate(_ viewModel: SearchPlacesMapViewModel){
-//        viewModel.selectedCoordinateSubject
-//            .subscribe(onNext: {[weak self]
-//                coordinate in
-//                self?.parentCoordinator?.getSelectedCoodinate(coordinate)
-//                self?.finishSearchPlaces()
-//            })
-//            .disposed(by: disposeBag)
-//    }
+
     
 }

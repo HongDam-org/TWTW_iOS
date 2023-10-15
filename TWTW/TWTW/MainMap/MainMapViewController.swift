@@ -98,13 +98,8 @@ final class MainMapViewController: KakaoMapViewController {
         viewModel.searchInputData_Dummy()
         setupSearchBar()
         navigationController?.setNavigationBarHidden(true, animated: false)
-        
-        
     }
-    
-    
-    
-    
+
     // MARK: - Add UI
     
     /// MARK: 지도 그리기
