@@ -17,17 +17,19 @@ final class DefaultSignInCoordinator: SignInCoordinatorProtocol {
     var navigationController: UINavigationController
     private let signInViewController: SignInViewController
     private var signInViewModel: SignInViewModel?
+    private let output: SignInViewModel.Output
     
     init( navigationController: UINavigationController) {
         self.navigationController = navigationController
         self.signInViewController = SignInViewController()
+        output = signInViewModel?.createOutput() ?? SignInViewModel.Output()
         self.signInViewModel = SignInViewModel(coordinator: self,
                                                signInServices: SignInService())
     }
     
     func start() {
         print("Called DefaultSignInCoordinator \(#function)")
-        guard let output = signInViewModel?.createOutput() else { return }
+
         signInViewModel?.checkSavingTokens(output: output)
     }
     
@@ -35,6 +37,7 @@ final class DefaultSignInCoordinator: SignInCoordinatorProtocol {
     func moveLogin() {
         print(#function)
         signInViewController.viewModel = signInViewModel
+        signInViewController.output = output
         navigationController.viewControllers = [signInViewController]
     }
     

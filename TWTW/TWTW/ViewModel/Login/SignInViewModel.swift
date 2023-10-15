@@ -32,7 +32,7 @@ final class SignInViewModel {
         let kakaoLoginButtonTapped: Observable<ControlEvent<UITapGestureRecognizer>.Element>
     }
     
-    struct Output{
+    struct Output {
         var checkAccessTokenValidation: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         var checkGetNewAccessToken: BehaviorRelay<TokenResponse?> = BehaviorRelay(value: nil)
         var checkSignInService: BehaviorRelay<String?> = BehaviorRelay(value: nil)
@@ -54,11 +54,11 @@ final class SignInViewModel {
     
     /// MARK: binding Input
     /// - Parameter input: Input 구조체
-    func bind(input: Input){
+    func bind(input: Input, output: Output){
         input.kakaoLoginButtonTapped.bind { [weak self] _ in
             guard let self = self else {return}
             print("called kakaoLogin")
-            kakaoLogin()
+            kakaoLogin(output: output)
         }
         .disposed(by: disposeBag)
     }
@@ -71,11 +71,11 @@ final class SignInViewModel {
     // MARK: - API Connect
     
     /// 카카오 로그인
-    func kakaoLogin(){
+    func kakaoLogin(output: Output){
         signInServices?.kakaoLogin()
             .subscribe(onNext:{ [weak self] kakaoUserInfo in
                 guard let self = self else {return}
-                signInService(authType: AuthType.kakao.rawValue, identifier: "\(kakaoUserInfo.id ?? 0)")
+                signInService(authType: AuthType.kakao.rawValue, identifier: "\(kakaoUserInfo.id ?? 0)", output: output)
             })
             .disposed(by: disposeBag)
         
@@ -127,19 +127,21 @@ final class SignInViewModel {
     /// - Parameters:
     ///   - authType: 인증 방식 ex)카카오, 애플
     ///   - identifier: 유저 고유의 identifier
-    func signInService(authType: String, identifier: String) {
+    func signInService(authType: String, identifier: String, output: Output) {
         let _ = KeychainWrapper.saveString(value: authType, forKey: SignInSaveKeyChain.authType.rawValue)
         let _ = KeychainWrapper.saveString(value: identifier, forKey: SignInSaveKeyChain.identifier.rawValue)
+        
         signInServices?.signInService(request: OAuthRequest(token: identifier,
                                                            authType: authType))
             .subscribe(onNext:{ [weak self] data in
                 guard let self = self else {return}
                 if KeychainWrapper.saveString(value: data.tokenDto?.accessToken ?? "", forKey: SignIn.accessToken.rawValue) && 
                     KeychainWrapper.saveString(value: data.tokenDto?.refreshToken ?? "", forKey: SignIn.refreshToken.rawValue) {
+                    
+                    output.checkSignInService.accept(data.status)
                     switch (data.status ?? "") {
                     case LoginStatus.SignIn.rawValue:
                         coordinator?.moveMain()
-                        
                     case LoginStatus.SignUp.rawValue:
                         coordinator?.moveSignUp()
                     default:

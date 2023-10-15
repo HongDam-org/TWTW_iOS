@@ -11,8 +11,10 @@ import KakaoSDKAuth
 import KakaoSDKUser
 
 final class MockSignInService: SignInProtocol {
+    
     func kakaoLogin() -> Observable<KakaoSDKUser.User> {
         return Observable.create { observer in
+            
             return Disposables.create()
         }
     }
@@ -35,10 +37,10 @@ final class MockSignInService: SignInProtocol {
     
     func signInService(request: OAuthRequest) -> Observable<LoginResponse> {
         return Observable.create { observer in
-            observer.onNext(LoginResponse(status: "SIGNUP", tokenDto: TokenResponse(accessToken: "abc", refreshToken: "def")))
+//            observer.onNext(LoginResponse(status: "SIGNUP", tokenDto: TokenResponse(accessToken: "abc", refreshToken: "def")))
             observer.onNext(LoginResponse(status: "SIGNIN", tokenDto: TokenResponse(accessToken: "abc11", refreshToken: "def22")))
             
-            observer.onError(NSError(domain: "not connect", code: 500, userInfo: nil))
+//            observer.onError(NSError(domain: "not connect", code: 500, userInfo: nil))
             return Disposables.create()
         }
     }

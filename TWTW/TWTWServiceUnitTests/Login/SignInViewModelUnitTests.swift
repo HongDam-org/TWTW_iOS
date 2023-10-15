@@ -26,6 +26,7 @@ final class SignInViewModelUnitTests: XCTestCase {
         viewModel = SignInViewModel(coordinator: mockCoordinator,
                                     signInServices: MockSignInService())
         disposeBag = DisposeBag()
+        self.output = viewModel.createOutput()
         print("Start Unit Test")
     }
 
@@ -41,7 +42,6 @@ final class SignInViewModelUnitTests: XCTestCase {
     func testCheckValidate(){
         let checkAccessTokenObserver = self.scheduler.createObserver(Bool.self)
 
-        self.output = viewModel.createOutput()
         viewModel.checkAccessTokenValidation(output: output)
         
         output.checkAccessTokenValidation
@@ -58,8 +58,15 @@ final class SignInViewModelUnitTests: XCTestCase {
     
     /// 회원인지 아닌지 구분하는 테스트..
     func testSignInService(){
-        viewModel.signInService(authType: "SIGNUP", identifier: "12345")
-            
+        let checkSignInServiceObserver = self.scheduler.createObserver(String?.self)
+        
+        viewModel.signInService(authType: "SIGNUP", identifier: "12345",output: output)
+        
+        output.checkSignInService.subscribe(checkSignInServiceObserver).disposed(by: disposeBag)
+        
+        scheduler.start()
+        
+        XCTAssertEqual(checkSignInServiceObserver.events, [ .next(0, LoginStatus.SignIn.rawValue) ])
         
     }
 
