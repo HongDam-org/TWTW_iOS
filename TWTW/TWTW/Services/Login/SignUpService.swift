@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 import RxSwift
 
-final class SignUpService {
+final class SignUpService: SignUpProtocol {
     private let disposeBag = DisposeBag()
     
     /// 회원가입할 떄 호출
