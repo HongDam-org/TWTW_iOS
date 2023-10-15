@@ -34,7 +34,7 @@ class MainMapCoordinator: Coordinator {
         mainMapViewModel.cameraCoordinateObservable = cameraCoordinateSubject.asObservable()
         
         // TabBarCoordinator 시작
-        showTabBarCoordinator()
+       // showTabBarCoordinator()
         
         //MainMapVC
         self.navigationController.pushViewController(mainMapViewController, animated: true)
@@ -43,11 +43,11 @@ class MainMapCoordinator: Coordinator {
         //SearchPlaces는 MainMap에서 필요한 시점에 호출
     }
     ///TabBarCoordinator을 시작하는 메소드
-    func showTabBarCoordinator(){
-        let tabBarCoordinator = TabBarCoordinator(tabBarController: tabBarController )
-        tabBarCoordinator.start()
-        childCoordinators.append(tabBarCoordinator)
-    }
+//    func showTabBarCoordinator(){
+//        let tabBarCoordinator = TabBarCoordinator(tabBarController: tabBarController )
+//        tabBarCoordinator.start()
+//        childCoordinators.append(tabBarCoordinator)
+//    }
     
     ///SearchPlacesMapCoordinator 시작하는 메소드
     func showSearchPlacesMap(){

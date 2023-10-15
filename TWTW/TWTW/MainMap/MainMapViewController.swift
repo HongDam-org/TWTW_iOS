@@ -120,7 +120,7 @@ final class MainMapViewController: KakaoMapViewController {
         }
     }
     /// MARK:SearchPlaces에서 받은  좌표로 카메라 옮기기
-    func moveCameraToSearchPlacesCoordinate(){
+    private func moveCameraToSearchPlacesCoordinate(){
         // cameraCoordinateObservable을 구독해서 좌표 변경 이벤트 처리
         viewModel.cameraCoordinateObservable?
             .subscribe(onNext: { [weak self] coordinate in
@@ -130,11 +130,10 @@ final class MainMapViewController: KakaoMapViewController {
             })
             .disposed(by: disposeBag)
     }
-    /// MARK:선택한 좌표로 카메라 옮기기 ⭐️private너
-     func moveCameraToCoordinate(_ coordinate: CLLocationCoordinate2D) {
+    /// MARK:선택한 좌표로 카메라 옮기기 
+    private func moveCameraToCoordinate(_ coordinate: CLLocationCoordinate2D) {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
-        print(coordinate.longitude)
-        print("asdf")
+  
         mapView.animateCamera(cameraUpdate: CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude, latitude: coordinate.latitude), zoomLevel: 15, rotation: 1.7, tilt: 0.0, mapView: mapView), options: CameraAnimationOptions(autoElevation: true, consecutive: true, durationInMillis: 2000))
         
     }

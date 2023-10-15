@@ -186,6 +186,7 @@ class TabBarController: UITabBarController {
             
 
         }
+
         viewHeight.accept(newHeight)
         tabBarViewModel.heightConstraintRelay.accept(tabBarViewModel.heightConstraintRelay.value?.update(offset: newHeight))
         delegates?.didUpdateBottomSheetHeight(newHeight)
