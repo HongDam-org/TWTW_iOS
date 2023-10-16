@@ -79,7 +79,7 @@ final class SignUpViewModel {
                     output.nickNameFilteringRelay.accept(text)
                 }
                 else{
-                    output.nickNameFilteringRelay.accept(output.nickNameFilteringRelay.value)
+                    output.nickNameFilteringRelay.accept(String(text.dropLast(text.count-maxLength)))
                 }
             }
             .disposed(by: disposeBag)
