@@ -75,6 +75,8 @@
 		3B6CF3D92ADACA7500325D05 /* MockSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3D82ADACA7500325D05 /* MockSignInService.swift */; };
 		3B6CF3DB2ADAD14A00325D05 /* MockSignInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3DA2ADAD14A00325D05 /* MockSignInCoordinator.swift */; };
 		3BAA4A192ADC1DEA009D14E7 /* SignUpProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA4A182ADC1DEA009D14E7 /* SignUpProtocol.swift */; };
+		3BAA4A1F2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA4A1E2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift */; };
+		3BAA4A222ADCD0C8009D14E7 /* MockSignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA4A212ADCD0C8009D14E7 /* MockSignUpService.swift */; };
 		3BE034982AD83AC800953498 /* SignInViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */; };
 		3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */; };
 		3BF9EFA42AB1AE790014855E /* KakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */; };
@@ -149,6 +151,8 @@
 		3B6CF3DA2ADAD14A00325D05 /* MockSignInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignInCoordinator.swift; sourceTree = "<group>"; };
 		3BAA4A172ADC11D8009D14E7 /* TWTWUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TWTWUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BAA4A182ADC1DEA009D14E7 /* SignUpProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpProtocol.swift; sourceTree = "<group>"; };
+		3BAA4A1E2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelUnitTests.swift; sourceTree = "<group>"; };
+		3BAA4A212ADCD0C8009D14E7 /* MockSignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignUpService.swift; sourceTree = "<group>"; };
 		3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelUnitTests.swift; sourceTree = "<group>"; };
 		3BF9EF9F2AB1AE220014855E /* TWTW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWTW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapViewController.swift; sourceTree = "<group>"; };
@@ -574,6 +578,32 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		3BAA4A1A2ADCCFEB009D14E7 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */,
+				3B6CF3D32ADAC3FE00325D05 /* Mock */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		3BAA4A1B2ADCCFF9009D14E7 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				3BAA4A202ADCD0AE009D14E7 /* Mock */,
+				3BAA4A1E2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		3BAA4A202ADCD0AE009D14E7 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				3BAA4A212ADCD0C8009D14E7 /* MockSignUpService.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
 		3BE034962AD83AC800953498 /* TWTWServiceUnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -585,8 +615,8 @@
 		3BE0349E2AD83B3D00953498 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				3B6CF3D32ADAC3FE00325D05 /* Mock */,
-				3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */,
+				3BAA4A1B2ADCCFF9009D14E7 /* SignUp */,
+				3BAA4A1A2ADCCFEB009D14E7 /* SignIn */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -720,6 +750,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B6CF3DB2ADAD14A00325D05 /* MockSignInCoordinator.swift in Sources */,
+				3BAA4A222ADCD0C8009D14E7 /* MockSignUpService.swift in Sources */,
 				3B274D712AD3F77600D79698 /* DefaultSignInCoordinator.swift in Sources */,
 				373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */,
 				3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */,
@@ -779,6 +810,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BAA4A1F2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift in Sources */,
 				3BE034982AD83AC800953498 /* SignInViewModelUnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
