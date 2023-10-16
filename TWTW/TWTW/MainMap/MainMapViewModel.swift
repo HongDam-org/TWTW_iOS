@@ -114,6 +114,7 @@ final class MainMapViewModel: NSObject {
         segments.append(points)
         return segments
     }
+    
     var cameraCoordinateObservable: Observable<CLLocationCoordinate2D>?
     
     // SearchBar 클릭 이벤트(SearchPlacesMapCoordinator를 시작)

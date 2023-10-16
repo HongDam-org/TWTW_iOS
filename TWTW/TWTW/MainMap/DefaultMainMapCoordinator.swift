@@ -11,7 +11,6 @@ import CoreLocation
 import RxSwift
 
 class DefaultMainMapCoordinator: MainMapCoordinator {
-  
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController //for SearchPlacesCoordinator
     var tabBarController: TabBarController // for TabBarCoordinator
@@ -20,20 +19,21 @@ class DefaultMainMapCoordinator: MainMapCoordinator {
     private var mainMapViewModel: MainMapViewModel?
 
     
-    init(navigationController: UINavigationController, tabBarController: TabBarController){
+    init(navigationController: UINavigationController){
         self.navigationController = navigationController
-        self.tabBarController = tabBarController
-
+        self.tabBarController = TabBarController(viewHeight: 0)
+        mainMapViewModel = MainMapViewModel(coordinator: self)
     }
+    
     func start(){
-        let mainMapViewModel = MainMapViewModel(coordinator: self)
-        let mainMapViewController = MainMapViewController(viewModel: mainMapViewModel)
+        guard let mainMapViewModel = mainMapViewModel else {return}
+        let mainMapViewController = MainMapViewController(viewModel: mainMapViewModel,
+                                                          tabbarController: tabBarController)
         
         mainMapViewModel.cameraCoordinateObservable = cameraCoordinateSubject.asObservable()
 
         //MainMapVC
         self.navigationController.pushViewController(mainMapViewController, animated: true)
-
     }
 
     ///SearchPlacesMapCoordinator 시작하는 메소드
@@ -49,5 +49,4 @@ extension DefaultMainMapCoordinator : SearchPlacesMapCoordDelegate{
     func didSelectCoordinate(coordinate: CLLocationCoordinate2D) {
         cameraCoordinateSubject.onNext(coordinate)
     }
-    
 }

@@ -9,13 +9,11 @@ import Foundation
 import UIKit
 
 class DefaultMeetingListCoordinator: MeetingListCoordinatorProtocol {
-    
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-      
     }
     
     func start() {
@@ -23,15 +21,11 @@ class DefaultMeetingListCoordinator: MeetingListCoordinatorProtocol {
         let meetingListViewController = MeetingListViewController(viewModel: meetingListViewModel)
         
         navigationController.pushViewController(meetingListViewController, animated: true)
-       
     }
-        func moveMainMap(){
-            let tabBarController = TabBarController(viewHeight: 0)
-            let mainMapCoordinator = DefaultMainMapCoordinator(navigationController: navigationController, tabBarController: tabBarController)
-            
-               mainMapCoordinator.start()
-             
-     
+    
+    func moveMainMap(){
+        let mainMapCoordinator = DefaultMainMapCoordinator(navigationController: navigationController)
+        mainMapCoordinator.start()
     }
-
+    
 }

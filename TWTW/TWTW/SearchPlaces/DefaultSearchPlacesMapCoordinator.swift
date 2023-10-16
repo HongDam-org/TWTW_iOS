@@ -36,6 +36,7 @@ class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtocol {
         
         navigationController.pushViewController(searchPlaceMapViewController, animated: true)
     }
+    
     func finishSearchPlaces(){
         navigationController.popViewController(animated: true)
     }

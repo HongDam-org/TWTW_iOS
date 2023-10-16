@@ -16,7 +16,6 @@ import KakaoMapsSDK
 
 ///MainMapViewController - 지도화면
 final class MainMapViewController: KakaoMapViewController {
-    
     //MARK -  서치바 클릭 시 보여질 새로운 UI 요소 (circularView, nearbyPlacesCollectionView, collectionView위 버튼 (중간위치 찾을 VC이동,내위치))
     
     /// MARK: 목적지 근처 장소들을 보여줄 컬렉션 뷰
@@ -50,21 +49,23 @@ final class MainMapViewController: KakaoMapViewController {
         return searchBar
     }()
     
-    /// MARK: Tabbar Controller
-    private lazy var tabbarController: TabBarController = {
-        let view = TabBarController(viewHeight: self.view.frame.height)
-        view.viewHeight.accept(self.view.frame.height)
-        view.delegates = self
-        view.selectedViewController = view.viewControllers?[0]
-        view.tabBar.layer.cornerRadius = 10
-        return view
-    }()
+//    /// MARK: Tabbar Controller
+//    private lazy var tabbarController: TabBarController = {
+//        let view = TabBarController(viewHeight: self.view.frame.height)
+//        view.viewHeight.accept(self.view.frame.height)
+//        view.delegates = self
+//        view.selectedViewController = view.viewControllers?[0]
+//        view.tabBar.layer.cornerRadius = 10
+//        return view
+//    }()
     
     private let disposeBag = DisposeBag()
-    private let viewModel : MainMapViewModel
+    private let viewModel: MainMapViewModel
+    var tabbarController: TabBarController
     
-    init(viewModel: MainMapViewModel){
+    init(viewModel: MainMapViewModel, tabbarController: TabBarController){
         self.viewModel = viewModel
+        self.tabbarController = tabbarController
         super.init()
         //self.viewModel.delegate = self
     }
@@ -77,8 +78,6 @@ final class MainMapViewController: KakaoMapViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
    
-   
-        
         moveCameraToSearchPlacesCoordinate()
         hideSearchUIElements()
         viewModel.initBottomheight.accept(view.bounds.height*(0.3))
@@ -114,6 +113,7 @@ final class MainMapViewController: KakaoMapViewController {
             createLabelLayer()
         }
     }
+    
     /// MARK:SearchPlaces에서 받은  좌표로 카메라 옮기기
     private func moveCameraToSearchPlacesCoordinate(){
         // cameraCoordinateObservable을 구독해서 좌표 변경 이벤트 처리
@@ -125,12 +125,12 @@ final class MainMapViewController: KakaoMapViewController {
             })
             .disposed(by: disposeBag)
     }
-    /// MARK:선택한 좌표로 카메라 옮기기 
+    
+    /// MARK:선택한 좌표로 카메라 옮기기
     private func moveCameraToCoordinate(_ coordinate: CLLocationCoordinate2D) {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
   
         mapView.animateCamera(cameraUpdate: CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude, latitude: coordinate.latitude), zoomLevel: 15, rotation: 1.7, tilt: 0.0, mapView: mapView), options: CameraAnimationOptions(autoElevation: true, consecutive: true, durationInMillis: 2000))
-        
     }
     
     // 키보드를 내리는 제스처 추가
@@ -175,7 +175,6 @@ final class MainMapViewController: KakaoMapViewController {
     private func addSubViewsSearchBar(){
         view.addSubview(searchBar)
         configureConstraintsSearchBar()
-        
     }
     
     /// MARK:
@@ -232,7 +231,6 @@ final class MainMapViewController: KakaoMapViewController {
         if let currentLocation = viewModel.locationManager.value.location?.coordinate {
             moveCameraToCoordinate(currentLocation)
         }
-        //  moveCameraToCurrentPosition()
         createPolygonStyleSet()
     }
     
@@ -513,20 +511,20 @@ extension MainMapViewController: UICollectionViewDelegateFlowLayout {
         let itemHeight = itemWidth * 1.5
         return CGSize(width: itemWidth, height: itemHeight)
     }
+    
     //셀사이 간격: 2
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 2
     }
+    
     //초기 셀 UIEdgeInsets 설정
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
     }
-    
 }
 
 extension MainMapViewController {
-    // MARK: - Height Update Method
-    
+    /// MARK:  Height Update Method
     func updateBottomSheetHeight(_ height: CGFloat) {
         tabbarController.updateBottomSheetHeight(height)
     }

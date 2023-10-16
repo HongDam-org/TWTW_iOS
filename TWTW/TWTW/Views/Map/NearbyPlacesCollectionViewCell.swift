@@ -22,6 +22,7 @@ class NearbyPlacesCollectionViewCell : UICollectionViewCell{
         view.backgroundColor = .white
         return view
     }()
+    
     /// 장소 사진
     let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -48,16 +49,19 @@ class NearbyPlacesCollectionViewCell : UICollectionViewCell{
         label.textColor = .gray
         return label
     }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubViews()
         
     }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Fuctions
+    
     /// MARK: Add  UI
     private func addSubViews(){
         contentView.addSubview(view)
@@ -71,9 +75,9 @@ class NearbyPlacesCollectionViewCell : UICollectionViewCell{
     /// MARK: Configure Constraints UI
     private func configureConstraints(){
         view.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(3)
-            
+            make.edges.equalToSuperview().inset(3)    
         }
+        
         imageView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(4)
             make.top.equalToSuperview().inset(4)
@@ -84,6 +88,7 @@ class NearbyPlacesCollectionViewCell : UICollectionViewCell{
             make.top.equalTo(imageView.snp.bottom).offset(3)
             make.leading.trailing.equalToSuperview().inset(4)
         }
+        
         subTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(3)
             make.leading.trailing.equalToSuperview().inset(4)
