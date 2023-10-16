@@ -48,9 +48,6 @@ final class DefaultSignInCoordinator: SignInCoordinatorProtocol {
     func moveMain() {
         delegate?.finishLogin(self)
     }
-    
-  
-    
 }
 
 extension DefaultSignInCoordinator: SignUpCoordinatorFinishDelegate {

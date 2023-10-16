@@ -9,13 +9,13 @@ import Foundation
 import UIKit
 
 class MeetingListViewModel{
-    var coordinator: MeetingListCoordinator
+    var coordinator: DefaultMeetingListCoordinator
     
-    init(coordinator: MeetingListCoordinator) {
+    init(coordinator: DefaultMeetingListCoordinator) {
         self.coordinator = coordinator
     }
     func buttonTapped(){
-        coordinator.buttonTapped()
+        coordinator.moveMainMap()
     }
     
 }

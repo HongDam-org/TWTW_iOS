@@ -32,9 +32,8 @@ final class DefaultAppCoordinator: AppCoordinator {
     func moveMain() {
             childCoordinators.removeAll()
             // MeetingListCoodrinator로 이동
-            let meetingListCoordinator = MeetingListCoordinator(navigationController: navigationController)
+            let meetingListCoordinator = DefaultMeetingListCoordinator(navigationController: navigationController)
             meetingListCoordinator.start()
-            print("called DefaultAppCoordinator \(#function)")
 
         }
     

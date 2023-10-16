@@ -13,9 +13,9 @@ import UIKit
 import KakaoMapsSDK
 
 final class MainMapViewModel: NSObject {
-    let coordinator: MainMapCoordinator
+    let coordinator: DefaultMainMapCoordinator
     
-    init(coordinator: MainMapCoordinator) {
+    init(coordinator: DefaultMainMapCoordinator) {
         self.coordinator = coordinator
     }
     
@@ -48,7 +48,7 @@ final class MainMapViewModel: NSObject {
         let check = checkTouchEventRelay.value
         checkTouchEventRelay.accept(!check)
     }
-  
+    
     
     /// MARK: 검색지 주변 장소 더미 데이터
     func searchInputData_Dummy(){
@@ -115,12 +115,12 @@ final class MainMapViewModel: NSObject {
         return segments
     }
     var cameraCoordinateObservable: Observable<CLLocationCoordinate2D>?
-
+    
     // SearchBar 클릭 이벤트(SearchPlacesMapCoordinator를 시작)
-
-           func showSearchPlacesMap() {
-               coordinator.showSearchPlacesMap()
-           
+    
+    func showSearchPlacesMap() {
+        coordinator.showSearchPlacesMap()
+        
     }
     
     

@@ -92,7 +92,7 @@ final class MainMapViewController: KakaoMapViewController {
         
         //키보드
         //        keyboardDisappear()
-        addSubviews_TabbarController()
+        addSubviewsTabbarController()
         
         // 더미 데이터 삽입
         viewModel.searchInputData_Dummy()
@@ -151,19 +151,19 @@ final class MainMapViewController: KakaoMapViewController {
     
     /// MARK: set up MapView UI
     private func setupMapViewUI() {
-        addTapGesture_Map()
+        addTapGestureMap()
     }
     
     /// MARK: set up CollectionView UI
     private func setupCollectionViewUI() {
-        addSubViews_nearbyPlacesCollectionView()
+        addSubViewsNearbyPlacesCollectionView()
         nearbyPlacesCollectionView.dataSource = self
         nearbyPlacesCollectionView.delegate = self
     }
     
     ///MARK: Setup - SearchBar
     private func setupSearchBar() {
-        addSubViews_SearchBar()
+        addSubViewsSearchBar()
         searchBar.delegate = self // 서치바의 delegate 설정
         view.bringSubviewToFront(searchBar)
         
@@ -172,30 +172,30 @@ final class MainMapViewController: KakaoMapViewController {
     // MARK: - addSubViews
     
     /// MARK: Add  UI - SearchBar
-    private func addSubViews_SearchBar(){
+    private func addSubViewsSearchBar(){
         view.addSubview(searchBar)
-        configureConstraints_SearchBar()
+        configureConstraintsSearchBar()
         
     }
     
     /// MARK:
-    private func addSubviews_TabbarController(){
+    private func addSubviewsTabbarController(){
         view.addSubview(tabbarController.view)
         tabbarController.didMove(toParent: self)
-        configureConstraints_TabbarController()
+        configureConstraintsTabbarController()
     }
     
     /// MARK: Add  UI -  CollectionView
-    private func addSubViews_nearbyPlacesCollectionView(){
+    private func addSubViewsNearbyPlacesCollectionView(){
         view.addSubview(nearbyPlacesCollectionView)
-        configureConstraints_nearbyPlacesCollectionView()
+        configureConstraintsNearbyPlacesCollectionView()
     }
     
     
     // MARK: - Constraints
     
     /// MARK: Configure   Constraints UI - SearchBar
-    private func configureConstraints_SearchBar() {
+    private func configureConstraintsSearchBar() {
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
             make.leading.trailing.equalToSuperview().inset(5)
@@ -203,7 +203,7 @@ final class MainMapViewController: KakaoMapViewController {
     }
     
     /// MARK:  Configure   Constraints UI - TabbarController
-    private func configureConstraints_TabbarController(){
+    private func configureConstraintsTabbarController(){
         tabbarController.view.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(viewModel.initBottomheight.value)
@@ -212,7 +212,7 @@ final class MainMapViewController: KakaoMapViewController {
     }
     
     /// MARK: Configure   Constraints UI - CollectionView
-    private func configureConstraints_nearbyPlacesCollectionView() {
+    private func configureConstraintsNearbyPlacesCollectionView() {
         nearbyPlacesCollectionView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(nearbyPlacesCollectionView.snp.width).multipliedBy(0.7)
@@ -222,7 +222,7 @@ final class MainMapViewController: KakaoMapViewController {
     
     
     /// MARK: Add  Gesture - Map
-    private func addTapGesture_Map(){
+    private func addTapGestureMap(){
         viewModel.tapGesture.accept(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
         mapView.addGestureRecognizer(viewModel.tapGesture.value)
     }

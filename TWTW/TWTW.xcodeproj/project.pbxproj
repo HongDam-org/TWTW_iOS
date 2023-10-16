@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		3703095B2AAF1C8400F9CD80 /* FriendsListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3703095A2AAF1C8400F9CD80 /* FriendsListCollectionView.swift */; };
 		3703095F2AAF20D900F9CD80 /* FriendsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3703095E2AAF20D900F9CD80 /* FriendsListModel.swift */; };
+		370AB4562ADD036D00951562 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB4552ADD036D00951562 /* Test.swift */; };
+		370AB4582ADD082000951562 /* SearchPlacesMapCoordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB4572ADD082000951562 /* SearchPlacesMapCoordDelegate.swift */; };
+		370AB45A2ADD12E000951562 /* DefaultMainMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB4592ADD12E000951562 /* DefaultMainMapCoordinator.swift */; };
+		370AB45E2ADD134800951562 /* DefaultMeetingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB45D2ADD134800951562 /* DefaultMeetingListCoordinator.swift */; };
+		370AB4602ADD161300951562 /* DefaultSearchPlacesMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB45F2ADD161300951562 /* DefaultSearchPlacesMapCoordinator.swift */; };
 		371C1D282ADABB3800B30DC5 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D272ADABB3800B30DC5 /* TabBarController.swift */; };
 		371C1D2D2ADBAFA900B30DC5 /* NotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D2C2ADBAFA900B30DC5 /* NotificationCoordinator.swift */; };
 		371C1D2F2ADBAFCC00B30DC5 /* FriendsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D2E2ADBAFCC00B30DC5 /* FriendsListCoordinator.swift */; };
@@ -79,6 +84,11 @@
 /* Begin PBXFileReference section */
 		3703095A2AAF1C8400F9CD80 /* FriendsListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCollectionView.swift; sourceTree = "<group>"; };
 		3703095E2AAF20D900F9CD80 /* FriendsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListModel.swift; sourceTree = "<group>"; };
+		370AB4552ADD036D00951562 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		370AB4572ADD082000951562 /* SearchPlacesMapCoordDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapCoordDelegate.swift; sourceTree = "<group>"; };
+		370AB4592ADD12E000951562 /* DefaultMainMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMainMapCoordinator.swift; sourceTree = "<group>"; };
+		370AB45D2ADD134800951562 /* DefaultMeetingListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMeetingListCoordinator.swift; sourceTree = "<group>"; };
+		370AB45F2ADD161300951562 /* DefaultSearchPlacesMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSearchPlacesMapCoordinator.swift; sourceTree = "<group>"; };
 		371C1D272ADABB3800B30DC5 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		371C1D2C2ADBAFA900B30DC5 /* NotificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCoordinator.swift; sourceTree = "<group>"; };
 		371C1D2E2ADBAFCC00B30DC5 /* FriendsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCoordinator.swift; sourceTree = "<group>"; };
@@ -204,6 +214,7 @@
 				37BAF8952A949C4900BD85DC /* Config.xcconfig */,
 				3758F1992A7D007300E2933C /* Info.plist */,
 				3758F1C12A7E741C00E2933C /* TWTW.entitlements */,
+				370AB4552ADD036D00951562 /* Test.swift */,
 			);
 			path = TWTW;
 			sourceTree = "<group>";
@@ -238,6 +249,7 @@
 				3758F18F2A7D007200E2933C /* MeetingListViewController.swift */,
 				377CB0582AD8665E003453D6 /* MeetingListViewModel.swift */,
 				377CB05A2AD8666F003453D6 /* MeetingListCoordinator.swift */,
+				370AB45D2ADD134800951562 /* DefaultMeetingListCoordinator.swift */,
 			);
 			path = MeetingList;
 			sourceTree = "<group>";
@@ -245,9 +257,10 @@
 		377CB05F2AD86968003453D6 /* MainMap */ = {
 			isa = PBXGroup;
 			children = (
+				370AB4592ADD12E000951562 /* DefaultMainMapCoordinator.swift */,
+				377CB0602AD8699C003453D6 /* MainMapCoordinator.swift */,
 				3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */,
 				37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */,
-				377CB0602AD8699C003453D6 /* MainMapCoordinator.swift */,
 			);
 			path = MainMap;
 			sourceTree = "<group>";
@@ -267,6 +280,8 @@
 				37BAF8922A948EF700BD85DC /* SearchPlacesMapViewController.swift */,
 				377CB0692AD8C9AD003453D6 /* SearchPlacesMapCoordinator.swift */,
 				377CB06B2AD8C9C8003453D6 /* SearchPlacesMapViewModel.swift */,
+				370AB4572ADD082000951562 /* SearchPlacesMapCoordDelegate.swift */,
+				370AB45F2ADD161300951562 /* DefaultSearchPlacesMapCoordinator.swift */,
 			);
 			path = SearchPlaces;
 			sourceTree = "<group>";
@@ -631,6 +646,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				371C1D332ADBB00300B30DC5 /* CallCoordinator.swift in Sources */,
+				370AB4582ADD082000951562 /* SearchPlacesMapCoordDelegate.swift in Sources */,
 				3B274D712AD3F77600D79698 /* DefaultSignInCoordinator.swift in Sources */,
 				373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */,
 				3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */,
@@ -647,12 +663,16 @@
 				3799E4F32A99C79100E06218 /* VCScenesCoordinator.swift in Sources */,
 				3B1850B02AB5C939001945EE /* Domain.swift in Sources */,
 				37BAF8932A948EF700BD85DC /* SearchPlacesMapViewController.swift in Sources */,
+				370AB4602ADD161300951562 /* DefaultSearchPlacesMapCoordinator.swift in Sources */,
+				370AB45A2ADD12E000951562 /* DefaultMainMapCoordinator.swift in Sources */,
 				3B274D732AD445B400D79698 /* DefaultSignUpCoordinator.swift in Sources */,
 				3B1C36EF2A8FD30200838682 /* BottomSheetDelegate.swift in Sources */,
 				373C85462AADA91E00325155 /* BottomSheetViewModel.swift in Sources */,
 				3B0691552ABBD73900C98D6D /* Login.swift in Sources */,
 				3758F1A02A7D122100E2933C /* SignInViewController.swift in Sources */,
+				370AB45E2ADD134800951562 /* DefaultMeetingListCoordinator.swift in Sources */,
 				377CB0592AD8665E003453D6 /* MeetingListViewModel.swift in Sources */,
+				370AB4562ADD036D00951562 /* Test.swift in Sources */,
 				3B274D7B2AD4CFDA00D79698 /* SignUpCoordinatorFinishDelegate.swift in Sources */,
 				3799E5022A99D68500E06218 /* CallViewController.swift in Sources */,
 				3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */,
