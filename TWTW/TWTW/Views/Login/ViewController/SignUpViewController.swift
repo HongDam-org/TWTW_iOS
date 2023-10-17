@@ -253,10 +253,12 @@ final class SignUpViewController: UIViewController {
     
     /// MARK: 닉네임 필터링 binding
     private func bindFailureSubject(output: SignUpViewModel.Output?){
-        output?.failureSignUpSubject
-            .bind(onNext: { [weak self] _ in
+        output?.checkSignUpSubject
+            .bind(onNext: { [weak self] check in
                 guard let self = self else {return}
-                showAlert(title: "회원가입 실패!", message: "다시 시도해주세요.")
+                if !check{
+                    showAlert(title: "회원가입 실패!", message: "다시 시도해주세요.")
+                }
             })
             .disposed(by: disposeBag)
     }
