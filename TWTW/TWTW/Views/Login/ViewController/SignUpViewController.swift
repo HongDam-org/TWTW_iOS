@@ -299,13 +299,12 @@ final class SignUpViewController: UIViewController {
             let nvPicker = UINavigationController(rootViewController: picker)
             nvPicker.modalPresentationStyle = .fullScreen
             present(nvPicker,animated: false)
+            return
         }
-        else {
-            let imagePickerController = UIImagePickerController()
-            imagePickerController.delegate = self
-            imagePickerController.sourceType = .photoLibrary
-            present(imagePickerController, animated: true, completion: nil)
-        }
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
     }
     
     /// MARK: 카메라로 사진 찍기

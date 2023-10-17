@@ -44,12 +44,10 @@ final class SignInViewModel {
     func checkSavingTokens(output: Output){
         if let _ = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue),
             let _ = KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue){
-            checkAccessTokenValidation(output: output)
+            return checkAccessTokenValidation(output: output)
         }
-        else{
-            //SignInViewController 이동
-            coordinator?.moveLogin()
-        }
+        //SignInViewController 이동
+        coordinator?.moveLogin()    
     }
     
     /// MARK: binding Input

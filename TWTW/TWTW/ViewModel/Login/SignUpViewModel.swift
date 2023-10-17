@@ -67,11 +67,9 @@ final class SignUpViewModel {
             .bind { [weak self] _ in
                 guard let self = self  else { return }
                 if output.nickNameFilteringRelay.value != "" && output.nickNameFilteringRelay.value.count >= minLength{
-                    checkOverlapId(nickName: output.nickNameFilteringRelay.value, output: output)
+                    return checkOverlapId(nickName: output.nickNameFilteringRelay.value, output: output)
                 }
-                else{
-                    output.checkSignUpSubject.onNext(false)
-                }
+                output.checkSignUpSubject.onNext(false)
             }
             .disposed(by: disposeBag)
         
@@ -79,11 +77,10 @@ final class SignUpViewModel {
             .bind { [weak self] text in
                 guard let self = self else {return}
                 if text.count <= maxLength{
-                    output.nickNameFilteringRelay.accept(text)
+                    return output.nickNameFilteringRelay.accept(text)
                 }
-                else{
-                    output.nickNameFilteringRelay.accept(String(text.dropLast(text.count-maxLength)))
-                }
+                output.nickNameFilteringRelay.accept(String(text.dropLast(text.count-maxLength)))
+                
             }
             .disposed(by: disposeBag)
         
@@ -106,11 +103,9 @@ final class SignUpViewModel {
             .subscribe(onNext: { [weak self] check in
                 guard let self = self  else {return}
                 if !check {
-                    signUp(nickName: nickName, output: output)
+                    return signUp(nickName: nickName, output: output)
                 }
-                else{
-                    output.overlapNickNameSubject.onNext(())
-                }
+                output.overlapNickNameSubject.onNext(())
             },onError: { error in
                 output.overlapNickNameSubject.onNext(())
             })

@@ -33,20 +33,20 @@ final class SignInService: SignInProtocol{
                         }
                     )
                     .disposed(by: self?.disposeBag ?? DisposeBag())
-            } else {
-                UserApi.shared.rx.loginWithKakaoAccount()
-                    .flatMap { _ in self?.fetchKakaoUserInfo() ?? .empty() }
-                    .subscribe(
-                        onNext: { userInfo in
-                            observer.onNext(userInfo)
-                        },
-                        onError: { error in
-                            print("loginWithKakaoAccount() error: \(error)")
-                        }
-                    )
-                    .disposed(by: self?.disposeBag ?? DisposeBag())
+                return Disposables.create()
             }
             
+            UserApi.shared.rx.loginWithKakaoAccount()
+                .flatMap { _ in self?.fetchKakaoUserInfo() ?? .empty() }
+                .subscribe(
+                    onNext: { userInfo in
+                        observer.onNext(userInfo)
+                    },
+                    onError: { error in
+                        print("loginWithKakaoAccount() error: \(error)")
+                    }
+                )
+                .disposed(by: self?.disposeBag ?? DisposeBag())
             return Disposables.create()
         }
     }

@@ -146,10 +146,10 @@
 		3B274D812AD4D40700D79698 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		3B274D832AD5207100D79698 /* SignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpService.swift; sourceTree = "<group>"; };
 		3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignInViewModel.swift; path = TWTW/ViewModel/Login/SignInViewModel.swift; sourceTree = SOURCE_ROOT; };
+		3B6C7F982ADE7C2E0060091C /* TWTWUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TWTWUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B6CF3D62ADAC80200325D05 /* SignInProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInProtocol.swift; sourceTree = "<group>"; };
 		3B6CF3D82ADACA7500325D05 /* MockSignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignInService.swift; sourceTree = "<group>"; };
 		3B6CF3DA2ADAD14A00325D05 /* MockSignInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignInCoordinator.swift; sourceTree = "<group>"; };
-		3BAA4A172ADC11D8009D14E7 /* TWTWUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TWTWUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BAA4A182ADC1DEA009D14E7 /* SignUpProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpProtocol.swift; sourceTree = "<group>"; };
 		3BAA4A1E2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelUnitTests.swift; sourceTree = "<group>"; };
 		3BAA4A212ADCD0C8009D14E7 /* MockSignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignUpService.swift; sourceTree = "<group>"; };
@@ -212,7 +212,7 @@
 				3BF9EF9F2AB1AE220014855E /* TWTW.app */,
 				3BE034962AD83AC800953498 /* TWTWServiceUnitTests */,
 				3B6CF3BB2ADAC1A400325D05 /* Frameworks */,
-				3BAA4A172ADC11D8009D14E7 /* TWTWUnitTests.xctest */,
+				3B6C7F982ADE7C2E0060091C /* TWTWUnitTests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -675,7 +675,7 @@
 			packageProductDependencies = (
 			);
 			productName = TWTWUnitTests;
-			productReference = 3BAA4A172ADC11D8009D14E7 /* TWTWUnitTests.xctest */;
+			productReference = 3B6C7F982ADE7C2E0060091C /* TWTWUnitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -1051,7 +1051,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SN5J3DYFX4;
+				DEVELOPMENT_TEAM = LVBMDY357W;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1078,7 +1078,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SN5J3DYFX4;
+				DEVELOPMENT_TEAM = LVBMDY357W;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;

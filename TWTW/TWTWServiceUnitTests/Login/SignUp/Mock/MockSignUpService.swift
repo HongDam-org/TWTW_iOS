@@ -21,10 +21,10 @@ final class MockSignUpService: SignUpProtocol {
         return Observable.create { observer in
             if id.contains("!") || id.contains("@") || id.contains("#") || id.contains("$") || id.contains("%") || id.contains(" ") {
                 observer.onNext(false)
+                return Disposables.create()
             }
-            else {
-                observer.onNext(true)
-            }
+            
+            observer.onNext(true)
             return Disposables.create()
         }
     }
