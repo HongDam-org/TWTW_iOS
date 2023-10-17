@@ -13,20 +13,23 @@ import RxSwift
 final class DefaultMainMapCoordinator: MainMapCoordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController //for SearchPlacesCoordinator
-    var tabBarController: TabBarController // for TabBarCoordinator
-    
+    private var tabBarController: TabBarController? // for TabBarCoordinator
+    private var tabbarCoordinator: DefaultTabbarCoordinator
     private let cameraCoordinateSubject = PublishSubject<CLLocationCoordinate2D>()
     private var mainMapViewModel: MainMapViewModel?
 
     
     init(navigationController: UINavigationController){
         self.navigationController = navigationController
-        self.tabBarController = TabBarController()
+        self.tabbarCoordinator = DefaultTabbarCoordinator(navigationController: navigationController)
+        tabbarCoordinator.delegate = self
+        tabbarCoordinator.start()
         mainMapViewModel = MainMapViewModel(coordinator: self)
     }
     
     func start(){
-        guard let mainMapViewModel = mainMapViewModel else {return}
+        guard let mainMapViewModel = mainMapViewModel, let tabBarController = tabBarController else {return}
+        
         let mainMapViewController = MainMapViewController(viewModel: mainMapViewModel,
                                                           tabbarController: tabBarController)
         
@@ -44,9 +47,15 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     }
 }
 
-extension DefaultMainMapCoordinator : SearchPlacesMapCoordDelegate{
+extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate{
     //SearchPlacesCoordinator에서 좌표 받는 함수
     func didSelectCoordinate(coordinate: CLLocationCoordinate2D) {
         cameraCoordinateSubject.onNext(coordinate)
+    }
+}
+
+extension DefaultMainMapCoordinator: TabbarCoordinatorDelegate {
+    func tabbarControllerInstance(tabBarController: TabBarController) {
+        self.tabBarController = tabBarController
     }
 }
