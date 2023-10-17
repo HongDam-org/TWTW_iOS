@@ -49,16 +49,6 @@ final class MainMapViewController: KakaoMapViewController {
         return searchBar
     }()
     
-//    /// MARK: Tabbar Controller
-//    private lazy var tabbarController: TabBarController = {
-//        let view = TabBarController(viewHeight: self.view.frame.height)
-//        view.viewHeight.accept(self.view.frame.height)
-//        view.delegates = self
-//        view.selectedViewController = view.viewControllers?[0]
-//        view.tabBar.layer.cornerRadius = 10
-//        return view
-//    }()
-    
     private let disposeBag = DisposeBag()
     private let viewModel: MainMapViewModel
     var tabbarController: TabBarController
@@ -77,7 +67,7 @@ final class MainMapViewController: KakaoMapViewController {
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-   
+        setTabbarController()
         moveCameraToSearchPlacesCoordinate()
         hideSearchUIElements()
         viewModel.initBottomheight.accept(view.bounds.height*(0.3))
@@ -97,6 +87,14 @@ final class MainMapViewController: KakaoMapViewController {
         viewModel.searchInputData_Dummy()
         setupSearchBar()
         navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    /// MARK:
+    private func setTabbarController(){
+        tabbarController.tabBar.layoutIfNeeded()
+        tabbarController.viewHeight.accept(self.view.frame.height)
+        tabbarController.delegates = self
+        tabbarController.tabBar.layer.cornerRadius = 10
     }
 
     // MARK: - Add UI
@@ -245,7 +243,8 @@ final class MainMapViewController: KakaoMapViewController {
                     // 화면 터치시 주변 UI 숨기기
                     let tapLocation = self?.viewModel.tapGesture.value.location(in: self?.view)
                     // 탭 위치가 myloctaionImageView의 프레임 내에 있는지 확인
-                    if let myloctaionImageViewFrame = self?.tabbarController.myloctaionImageView.frame, let tapLocation = tapLocation, myloctaionImageViewFrame.contains(CGPoint(x: tapLocation.x, y: -6)){ //바텀시트와 5 포인트 떨어진 위치에 배치해둬서 수치로 넣어둠
+                    if let myloctaionImageViewFrame = self?.tabbarController.myloctaionImageView.frame, 
+                        let tapLocation = tapLocation, myloctaionImageViewFrame.contains(CGPoint(x: tapLocation.x, y: -6)){ //바텀시트와 5 포인트 떨어진 위치에 배치해둬서 수치로 넣어둠
                         self?.mylocationTappedAction()
                     }
                     else {

@@ -36,11 +36,11 @@ class TabBarController: UITabBarController {
     
     
     // 초기화 메서드
-    init(delegates: BottomSheetDelegate? = nil, viewHeight: CGFloat) {
+    init(delegates: BottomSheetDelegate? = nil) {
         super.init(nibName: nil, bundle: nil)
         
         self.delegates = delegates
-        self.viewHeight.accept(viewHeight)
+        
         setTabbar()
     }
     
@@ -54,7 +54,9 @@ class TabBarController: UITabBarController {
 
         // 뷰의 높이를 설정하고
         let viewHeight = self.view.bounds.height
+        print(viewHeight)
         // BottomSheetViewModel에 높이를 설정
+        self.viewHeight.accept(viewHeight)
         tabBarViewModel.setupHeight(viewHeight: viewHeight)
         tabBar.backgroundColor = UIColor(white: 1, alpha: 1)
         view.backgroundColor = .clear

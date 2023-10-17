@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import RxSwift
 
-class DefaultMainMapCoordinator: MainMapCoordinator {
+final class DefaultMainMapCoordinator: MainMapCoordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController //for SearchPlacesCoordinator
     var tabBarController: TabBarController // for TabBarCoordinator
@@ -21,7 +21,7 @@ class DefaultMainMapCoordinator: MainMapCoordinator {
     
     init(navigationController: UINavigationController){
         self.navigationController = navigationController
-        self.tabBarController = TabBarController(viewHeight: 0)
+        self.tabBarController = TabBarController()
         mainMapViewModel = MainMapViewModel(coordinator: self)
     }
     

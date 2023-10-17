@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3703095B2AAF1C8400F9CD80 /* FriendsListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3703095A2AAF1C8400F9CD80 /* FriendsListCollectionView.swift */; };
 		3703095F2AAF20D900F9CD80 /* FriendsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3703095E2AAF20D900F9CD80 /* FriendsListModel.swift */; };
-		370AB4562ADD036D00951562 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB4552ADD036D00951562 /* Test.swift */; };
 		370AB4582ADD082000951562 /* SearchPlacesMapCoordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB4572ADD082000951562 /* SearchPlacesMapCoordDelegate.swift */; };
 		370AB45A2ADD12E000951562 /* DefaultMainMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB4592ADD12E000951562 /* DefaultMainMapCoordinator.swift */; };
 		370AB45E2ADD134800951562 /* DefaultMeetingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB45D2ADD134800951562 /* DefaultMeetingListCoordinator.swift */; };
@@ -84,7 +83,6 @@
 /* Begin PBXFileReference section */
 		3703095A2AAF1C8400F9CD80 /* FriendsListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCollectionView.swift; sourceTree = "<group>"; };
 		3703095E2AAF20D900F9CD80 /* FriendsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListModel.swift; sourceTree = "<group>"; };
-		370AB4552ADD036D00951562 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		370AB4572ADD082000951562 /* SearchPlacesMapCoordDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapCoordDelegate.swift; sourceTree = "<group>"; };
 		370AB4592ADD12E000951562 /* DefaultMainMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMainMapCoordinator.swift; sourceTree = "<group>"; };
 		370AB45D2ADD134800951562 /* DefaultMeetingListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMeetingListCoordinator.swift; sourceTree = "<group>"; };
@@ -214,7 +212,6 @@
 				37BAF8952A949C4900BD85DC /* Config.xcconfig */,
 				3758F1992A7D007300E2933C /* Info.plist */,
 				3758F1C12A7E741C00E2933C /* TWTW.entitlements */,
-				370AB4552ADD036D00951562 /* Test.swift */,
 			);
 			path = TWTW;
 			sourceTree = "<group>";
@@ -672,7 +669,6 @@
 				3758F1A02A7D122100E2933C /* SignInViewController.swift in Sources */,
 				370AB45E2ADD134800951562 /* DefaultMeetingListCoordinator.swift in Sources */,
 				377CB0592AD8665E003453D6 /* MeetingListViewModel.swift in Sources */,
-				370AB4562ADD036D00951562 /* Test.swift in Sources */,
 				3B274D7B2AD4CFDA00D79698 /* SignUpCoordinatorFinishDelegate.swift in Sources */,
 				3799E5022A99D68500E06218 /* CallViewController.swift in Sources */,
 				3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */,
