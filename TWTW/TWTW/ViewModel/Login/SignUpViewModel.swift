@@ -13,9 +13,9 @@ final class SignUpViewModel {
     weak var coordinator: SignUpCoordinatorProtocol?
     private let disposeBag = DisposeBag()
     private let signUpServices: SignUpProtocol?
-    final let maxLength = 8
-    final let minLength = 2
-
+    final private let maxLength = 8
+    final private let minLength = 2
+    
     // MARK: - Init
     init(coordinator: SignUpCoordinatorProtocol?, signUpServices: SignUpProtocol?) {
         self.coordinator = coordinator

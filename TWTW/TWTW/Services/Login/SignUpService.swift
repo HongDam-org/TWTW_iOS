@@ -42,6 +42,7 @@ final class SignUpService: SignUpProtocol {
     
     /// ID 중복 검사
     /// - Parameter id: nickName
+    /// - Returns: true 중복, false: 사용가능
     func checkOverlapId(id: String) -> Observable<Bool> {
         var url = Domain.REST_API + LoginPath.checkOverlapId
         url = url.replacingOccurrences(of: "Id", with: id)
