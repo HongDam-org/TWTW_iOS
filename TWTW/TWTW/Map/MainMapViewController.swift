@@ -57,7 +57,6 @@ final class MainMapViewController: KakaoMapViewController {
         self.viewModel = viewModel
         self.tabbarController = tabbarController
         super.init()
-        //self.viewModel.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -67,34 +66,48 @@ final class MainMapViewController: KakaoMapViewController {
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        setTabbarController()
-        moveCameraToSearchPlacesCoordinate()
-        ShowNearPlacesBind()
+        setupUI()
+        fetch()
+        setupBind()
         
+    }
+    private func setupUI(){
+        setTabbarController()
         viewModel.initBottomheight.accept(view.bounds.height*(0.3))
-        configureLocationManager()
-        setupMapViewUI() //지도
-        //기존 UI
-        bottomSheetBind() // 맵 로드 이후
         
         //새로운 UI
-        setupCollectionViewUI()
-        
+        addSubViewsNearbyPlacesCollectionView()
         addSubviewsTabbarController()
         
         // 더미 데이터 삽입
         viewModel.searchInputData_Dummy()
-        setupSearchBar()
+        addSubViewsSearchBar()
         navigationController?.setNavigationBarHidden(true, animated: false)
+        
+    }
+    private func setupBind(){
+        moveCameraToSearchPlacesCoordinate()
+        ShowNearPlacesBind()
+        configureLocationManager()
+        addTapGestureMap()
+        bottomSheetBind()
     }
     /// MARK:
     private func setTabbarController(){
         tabbarController.tabBar.layoutIfNeeded()
         tabbarController.viewHeight.accept(self.view.frame.height)
-        tabbarController.delegates = self
         tabbarController.tabBar.layer.cornerRadius = 10
     }
-    
+    private func fetch(){
+        tabbarController.delegates = self
+        
+        searchBar.delegate = self
+        
+        viewModel.locationManager.value.delegate = self
+        
+        nearbyPlacesCollectionView.dataSource = self
+        nearbyPlacesCollectionView.delegate = self
+    }
     // MARK: - Add UI
     
     /// MARK: 지도 그리기
@@ -131,36 +144,15 @@ final class MainMapViewController: KakaoMapViewController {
     
     /// MARK: configureLocationManager
     private func configureLocationManager() {
-        viewModel.locationManager.value.delegate = self
         viewModel.locationManager.value.requestWhenInUseAuthorization()
     }
-    
-    /// MARK: set up MapView UI
-    private func setupMapViewUI() {
-        addTapGestureMap()
-    }
-    
-    /// MARK: set up CollectionView UI
-    private func setupCollectionViewUI() {
-        addSubViewsNearbyPlacesCollectionView()
-        nearbyPlacesCollectionView.dataSource = self
-        nearbyPlacesCollectionView.delegate = self
-    }
-    
-    ///MARK: Setup - SearchBar
-    private func setupSearchBar() {
-        addSubViewsSearchBar()
-        searchBar.delegate = self // 서치바의 delegate 설정
-        view.bringSubviewToFront(searchBar)
-        
-    }
-    
     // MARK: - addSubViews
     
     /// MARK: Add  UI - SearchBar
     private func addSubViewsSearchBar(){
         view.addSubview(searchBar)
         configureConstraintsSearchBar()
+        view.bringSubviewToFront(searchBar)
     }
     
     /// MARK:
@@ -174,6 +166,7 @@ final class MainMapViewController: KakaoMapViewController {
     private func addSubViewsNearbyPlacesCollectionView(){
         view.addSubview(nearbyPlacesCollectionView)
         configureConstraintsNearbyPlacesCollectionView()
+        
     }
     
     
