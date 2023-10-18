@@ -17,6 +17,8 @@ import KakaoMapsSDK
 ///MainMapViewController - 지도화면
 final class MainMapViewController: KakaoMapViewController {
     //MARK -  서치바 클릭 시 보여질 새로운 UI 요소 (circularView, nearbyPlacesCollectionView, collectionView위 버튼 (중간위치 찾을 VC이동,내위치))
+    private let cellSpacing: CGFloat = 2
+    private let cellInset: CGFloat = 5
     
     /// MARK: 목적지 근처 장소들을 보여줄 컬렉션 뷰
     private lazy var nearbyPlacesCollectionView: UICollectionView = {
@@ -227,52 +229,53 @@ final class MainMapViewController: KakaoMapViewController {
     /// MARK: viewModel binding
     private func bottomSheetBind(){
         viewModel.checkTouchEventRelay
-        
             .bind { [weak self] check in
+                guard let self = self else { return }
+                
+                let isShowNearPlacesUI = self.viewModel.showNearPlacesUI.value
+                
                 if check {
-                    if self?.viewModel.showNearPlacesUI.value == false{
-                        // 화면 터치시 주변 UI 숨기기
-                        let tapLocation = self?.viewModel.tapGesture.value.location(in: self?.view)
-                        // 탭 위치가 myloctaionImageView의 프레임 내에 있는지 확인
-                        if let myloctaionImageViewFrame = self?.tabbarController.myloctaionImageView.frame,
-                           let tapLocation = tapLocation, myloctaionImageViewFrame.contains(CGPoint(x: tapLocation.x, y: -6)){ //바텀시트와 5 포인트 떨어진 위치에 배치해둬서 수치로 넣어둠
-                            self?.mylocationTappedAction()
-                            
-                        }
-                    }
-                    else {
-                        if self?.viewModel.showNearPlacesUI.value == true{
-                            UIView.animate(withDuration: 0.5, animations: {
-                                self?.nearbyPlacesCollectionView.alpha = 0
-                            }) { (completed) in
-                                if completed {
-                                    self?.nearbyPlacesCollectionView.isHidden = true
-                                }
-                            }
-                        }else{
-                            UIView.animate(withDuration: 0.5, animations: {
-                                self?.tabbarController.view.alpha = 0
-                            }) { (completed) in
-                                if completed {
-                                    self?.tabbarController.view.isHidden = true
-                                }
-                            }
-                        }
-                    }
-                }
-                else {
-                    if self?.viewModel.showNearPlacesUI.value == true{
+                    if !isShowNearPlacesUI {
+                        let tapLocation = self.viewModel.tapGesture.value.location(in: self.view)
+                        let myloctaionImageViewFrame = self.tabbarController.myloctaionImageView.frame
                         
-                        self?.nearbyPlacesCollectionView.alpha = 1
-                        self?.nearbyPlacesCollectionView.isHidden = false
+                        // 탭 위치가 myloctaionImageView의 프레임 내에 있는지 확인
+                        if myloctaionImageViewFrame.contains(CGPoint(x: tapLocation.x, y: -6)) {
+                            self.mylocationTappedAction()
+                        }else{
+                            self.handleTabbarVisibility(hide: true)}
+                    } else {
+                        self.handleNearbyPlacesVisibility(hide: true)
                     }
-                    else{
-                        self?.tabbarController.view.alpha = 1
-                        self?.tabbarController.view.isHidden = false
+                } else {
+                    if isShowNearPlacesUI {
+                        self.handleNearbyPlacesVisibility(hide: false)
+                    } else {
+                        self.handleTabbarVisibility(hide: false)
                     }
-                    
                 }
-            } .disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
+    }
+
+    ///MARK: 화면터치 시 show/hide UI
+    private func handleTabbarVisibility(hide: Bool){
+        UIView.animate(withDuration: 0.2, animations: {
+            self.tabbarController.view.alpha = hide ? 0 : 1
+        })  { (completed) in
+            if completed{
+                self.tabbarController.view.isHidden = hide
+            }
+        }
+    }
+    private func handleNearbyPlacesVisibility(hide: Bool){
+        UIView.animate(withDuration: 0.2, animations: {
+            self.nearbyPlacesCollectionView.alpha = hide ? 0 : 1
+        }) {(completed) in
+            if completed{
+                self.nearbyPlacesCollectionView.isHidden = hide
+            }
+        }
     }
     
     ///MARK: -  새로운 UI 요소들을 표시하고 기존 요소들을 숨기는 함수
@@ -509,11 +512,12 @@ extension MainMapViewController: UICollectionViewDelegateFlowLayout {
     
     //셀사이 간격: 2
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 2
+        return cellSpacing
     }
     
     //초기 셀 UIEdgeInsets 설정
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        return UIEdgeInsets(top: 0, left: cellInset, bottom: 0, right: cellInset)
     }
 }
+
