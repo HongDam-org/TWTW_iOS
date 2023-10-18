@@ -17,7 +17,6 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     private var tabbarCoordinator: DefaultTabbarCoordinator
     private let cameraCoordinateSubject = PublishSubject<CLLocationCoordinate2D>()
     private var mainMapViewModel: MainMapViewModel?
-
     
     init(navigationController: UINavigationController){
         self.navigationController = navigationController
@@ -30,15 +29,14 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     func start(){
         guard let mainMapViewModel = mainMapViewModel, let tabBarController = tabBarController else {return}
         
-        let mainMapViewController = MainMapViewController(viewModel: mainMapViewModel,
-                                                          tabbarController: tabBarController)
+        let mainMapViewController = MainMapViewController(viewModel: mainMapViewModel,tabbarController: tabBarController)
         
         mainMapViewModel.cameraCoordinateObservable = cameraCoordinateSubject.asObservable()
-
+        
         //MainMapVC
         self.navigationController.pushViewController(mainMapViewController, animated: true)
     }
-
+    
     ///SearchPlacesMapCoordinator 시작하는 메소드
     func showSearchPlacesMap(){
         let searchPlacesMapCoordinator = DefaultSearchPlacesMapCoordinator(navigationController: navigationController, delegate: self)
@@ -51,6 +49,9 @@ extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate{
     //SearchPlacesCoordinator에서 좌표 받는 함수
     func didSelectCoordinate(coordinate: CLLocationCoordinate2D) {
         cameraCoordinateSubject.onNext(coordinate)
+        
+        //ViewController의 주변장소 설정 show/hide
+        mainMapViewModel?.showNearPlacesUI.accept(true)
     }
 }
 

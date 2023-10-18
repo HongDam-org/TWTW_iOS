@@ -10,25 +10,24 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
+struct TabItem {
+    let title: String
+    let imageName: String
+}
+
 ///TabBarViewModel
 final class TabBarViewModel {
     // bottomSheetView 높이를 나타내는 BehaviorRelay
     var heightConstraintRelay: BehaviorRelay<Constraint?> = BehaviorRelay(value: nil)
-    /// mark - 가장 낮은 높이
+
     var noneHeight: CGFloat = 0.0
-    
-    /// mark - 최소 높이
     var minHeight: CGFloat = 0.0
-    
-    /// mark - 중간 높이
     var midHeight: CGFloat = 0.0
-    
-    /// mark - 최대 높이
     var maxHeight: CGFloat = 0.0
     let acceptableRange = 0.1  // 자연스러운 변화
+    
     // handlePan 동작에서 처음 터치된 위치
     var initialTouchY: CGFloat = 0.0
-    var gapTouchY: CGFloat = 0.0
     
     // 높이 설정 로직
     func setupHeight(viewHeight: CGFloat) {

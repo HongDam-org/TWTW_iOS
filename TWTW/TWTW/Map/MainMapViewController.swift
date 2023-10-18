@@ -69,7 +69,8 @@ final class MainMapViewController: KakaoMapViewController {
         super.viewDidLoad()
         setTabbarController()
         moveCameraToSearchPlacesCoordinate()
-        hideSearchUIElements()
+        ShowNearPlacesBind()
+        
         viewModel.initBottomheight.accept(view.bounds.height*(0.3))
         configureLocationManager()
         setupMapViewUI() //지도
@@ -79,8 +80,6 @@ final class MainMapViewController: KakaoMapViewController {
         //새로운 UI
         setupCollectionViewUI()
         
-        //키보드
-        //        keyboardDisappear()
         addSubviewsTabbarController()
         
         // 더미 데이터 삽입
@@ -88,7 +87,6 @@ final class MainMapViewController: KakaoMapViewController {
         setupSearchBar()
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
-    
     /// MARK:
     private func setTabbarController(){
         tabbarController.tabBar.layoutIfNeeded()
@@ -96,7 +94,7 @@ final class MainMapViewController: KakaoMapViewController {
         tabbarController.delegates = self
         tabbarController.tabBar.layer.cornerRadius = 10
     }
-
+    
     // MARK: - Add UI
     
     /// MARK: 지도 그리기
@@ -127,18 +125,8 @@ final class MainMapViewController: KakaoMapViewController {
     /// MARK:선택한 좌표로 카메라 옮기기
     private func moveCameraToCoordinate(_ coordinate: CLLocationCoordinate2D) {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
-  
+        
         mapView.animateCamera(cameraUpdate: CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude, latitude: coordinate.latitude), zoomLevel: 15, rotation: 1.7, tilt: 0.0, mapView: mapView), options: CameraAnimationOptions(autoElevation: true, consecutive: true, durationInMillis: 2000))
-    }
-    
-    // 키보드를 내리는 제스처 추가
-    private func keyboardDisappear(){
-        self.view.rx.tapGesture()
-            .when(.recognized)
-            .subscribe(onNext: { [weak self] _ in
-                self?.searchBar.resignFirstResponder()
-            })
-            .disposed(by: disposeBag)
     }
     
     /// MARK: configureLocationManager
@@ -231,56 +219,79 @@ final class MainMapViewController: KakaoMapViewController {
         }
         createPolygonStyleSet()
     }
-    
+    private func ShowNearPlacesBind(){
+        viewModel.showNearPlacesUI
+            .subscribe(onNext: {[weak self] showNears in
+                guard let self = self else { return }
+                if showNears{
+                    self.showSearchUIElements()
+                }
+                else{
+                    self.hideSearchUIElements()
+                }
+            }).disposed(by: disposeBag)
+    }
     /// MARK: viewModel binding
     private func bottomSheetBind(){
         viewModel.checkTouchEventRelay
-            .filter { [weak self] _ in
-                return self?.viewModel.searchBarSearchable.value == true
-            }
+        
             .bind { [weak self] check in
                 if check {
-                    // 화면 터치시 주변 UI 숨기기
-                    let tapLocation = self?.viewModel.tapGesture.value.location(in: self?.view)
-                    // 탭 위치가 myloctaionImageView의 프레임 내에 있는지 확인
-                    if let myloctaionImageViewFrame = self?.tabbarController.myloctaionImageView.frame, 
-                        let tapLocation = tapLocation, myloctaionImageViewFrame.contains(CGPoint(x: tapLocation.x, y: -6)){ //바텀시트와 5 포인트 떨어진 위치에 배치해둬서 수치로 넣어둠
-                        self?.mylocationTappedAction()
+                    if self?.viewModel.showNearPlacesUI.value == false{
+                        // 화면 터치시 주변 UI 숨기기
+                        let tapLocation = self?.viewModel.tapGesture.value.location(in: self?.view)
+                        // 탭 위치가 myloctaionImageView의 프레임 내에 있는지 확인
+                        if let myloctaionImageViewFrame = self?.tabbarController.myloctaionImageView.frame,
+                           let tapLocation = tapLocation, myloctaionImageViewFrame.contains(CGPoint(x: tapLocation.x, y: -6)){ //바텀시트와 5 포인트 떨어진 위치에 배치해둬서 수치로 넣어둠
+                            self?.mylocationTappedAction()
+                            
+                        }
                     }
                     else {
-                        UIView.animate(withDuration: 0.5, animations: {
-                            self?.tabbarController.view.alpha = 0
-                        }) { (completed) in
-                            if completed {
-                                self?.tabbarController.view.isHidden = true
+                        if self?.viewModel.showNearPlacesUI.value == true{
+                            UIView.animate(withDuration: 0.5, animations: {
+                                self?.nearbyPlacesCollectionView.alpha = 0
+                            }) { (completed) in
+                                if completed {
+                                    self?.nearbyPlacesCollectionView.isHidden = true
+                                }
+                            }
+                        }else{
+                            UIView.animate(withDuration: 0.5, animations: {
+                                self?.tabbarController.view.alpha = 0
+                            }) { (completed) in
+                                if completed {
+                                    self?.tabbarController.view.isHidden = true
+                                }
                             }
                         }
                     }
                 }
                 else {
-                    self?.tabbarController.view.alpha = 1
-                    self?.tabbarController.view.isHidden = false
+                    if self?.viewModel.showNearPlacesUI.value == true{
+                        
+                        self?.nearbyPlacesCollectionView.alpha = 1
+                        self?.nearbyPlacesCollectionView.isHidden = false
+                    }
+                    else{
+                        self?.tabbarController.view.alpha = 1
+                        self?.tabbarController.view.isHidden = false
+                    }
+                    
                 }
             } .disposed(by: disposeBag)
     }
     
     ///MARK: -  새로운 UI 요소들을 표시하고 기존 요소들을 숨기는 함수
     private func showSearchUIElements() {
-        // 기존 UI 요소 숨기기
         tabbarController.view.isHidden = true
-        
-        //새로운 UI요소 보이기
         nearbyPlacesCollectionView.isHidden = false
     }
     
-    ///MARK: -  새로운 UI 요소들을 숨기고 기존 요소들을 보이게 하는 함수
+    ///MARK: -  Searchplaces에서 목적지 만든 이후 새로운 UI 요소들을 숨기고 기존 요소들을 보이기
     private func hideSearchUIElements() {
-        // 새로운 UI 요소들 숨기기
         nearbyPlacesCollectionView.isHidden = true
-        
-        // 기존 UI 요소 보이기
         tabbarController.view.isHidden = false
-        
     }
     
     /// MARK: 터치 이벤트 실행
@@ -424,7 +435,6 @@ final class MainMapViewController: KakaoMapViewController {
             manager.removeShapeLayer(layerID: "shapeLayer")
         }
     }
-    
 }
 
 // MARK: - extension
@@ -473,13 +483,6 @@ extension MainMapViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         viewModel.showSearchPlacesMap()
         return false
-        
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        if let word = searchBar.text {
-            viewModel.searchToGetPlace(word: word)
-        }
     }
 }
 
@@ -521,11 +524,3 @@ extension MainMapViewController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
     }
 }
-
-extension MainMapViewController {
-    /// MARK:  Height Update Method
-    func updateBottomSheetHeight(_ height: CGFloat) {
-        tabbarController.updateBottomSheetHeight(height)
-    }
-}
-

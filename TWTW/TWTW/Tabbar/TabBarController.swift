@@ -122,7 +122,7 @@ class TabBarController: UITabBarController {
         viewControllers?.forEach { viewController in
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
             viewController.view.addGestureRecognizer(panGesture)
-            tabBarViewModel.setupHeight(viewHeight: viewHeight.value)
+          //  tabBarViewModel.setupHeight(viewHeight: viewHeight.value)
         }
         view.addSubview(myloctaionImageView)
         configureConstraints()
@@ -186,7 +186,7 @@ class TabBarController: UITabBarController {
         if newHeight > tabBarViewModel.midHeight {
             view.sendSubviewToBack(myloctaionImageView)
             myloctaionImageView.snp.updateConstraints { make in
-                make.bottom.equalTo(self.view.snp.top).offset(myloctaionImageView.frame.height+5)
+                make.bottom.equalTo(self.view.snp.top).offset(myloctaionImageView.frame.height + 5)
             }
         }
         
@@ -195,7 +195,4 @@ class TabBarController: UITabBarController {
         delegates?.didUpdateBottomSheetHeight(newHeight)
     }
 }
-struct TabItem {
-    let title: String
-    let imageName: String
-}
+
