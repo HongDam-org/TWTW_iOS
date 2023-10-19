@@ -12,13 +12,14 @@ import RxRelay
 final class SignUpViewModel {
     weak var coordinator: SignUpCoordinatorProtocol?
     private let disposeBag = DisposeBag()
-    private let signUpServices = SignUpService()
-    final let maxLength = 8
-    final let minLength = 2
-
+    private let signUpServices: SignUpProtocol?
+    final private let maxLength = 8
+    final private let minLength = 2
+    
     // MARK: - Init
-    init(coordinator: SignUpCoordinatorProtocol) {
+    init(coordinator: SignUpCoordinatorProtocol?, signUpServices: SignUpProtocol?) {
         self.coordinator = coordinator
+        self.signUpServices = signUpServices
     }
 
     /// Input
@@ -33,7 +34,7 @@ final class SignUpViewModel {
     struct Output {
         let nickNameFilteringRelay: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
         let overlapNickNameSubject: PublishSubject<Void> = PublishSubject<Void>()
-        let failureSignUpSubject: PublishSubject<Void> = PublishSubject<Void>()
+        let checkSignUpSubject: PublishSubject<Bool> = PublishSubject<Bool>()
     }
     
     // MARK: - Functions
@@ -66,8 +67,9 @@ final class SignUpViewModel {
             .bind { [weak self] _ in
                 guard let self = self  else { return }
                 if output.nickNameFilteringRelay.value != "" && output.nickNameFilteringRelay.value.count >= minLength{
-                    checkOverlapId(nickName: output.nickNameFilteringRelay.value, output: output)
+                    return checkOverlapId(nickName: output.nickNameFilteringRelay.value, output: output)
                 }
+                output.checkSignUpSubject.onNext(false)
             }
             .disposed(by: disposeBag)
         
@@ -75,14 +77,18 @@ final class SignUpViewModel {
             .bind { [weak self] text in
                 guard let self = self else {return}
                 if text.count <= maxLength{
-                    output.nickNameFilteringRelay.accept(text)
+                    return output.nickNameFilteringRelay.accept(text)
                 }
-                else{
-                    output.nickNameFilteringRelay.accept(output.nickNameFilteringRelay.value)
-                }
+                output.nickNameFilteringRelay.accept(String(text.dropLast(text.count-maxLength)))
+                
             }
             .disposed(by: disposeBag)
         
+        output.overlapNickNameSubject
+            .bind {
+                output.checkSignUpSubject.onNext(false)
+            }
+            .disposed(by: disposeBag)
         return output
     }
 
@@ -93,15 +99,13 @@ final class SignUpViewModel {
     ///   - nickName: user NickName
     ///   - output: Output 구조체
     func checkOverlapId(nickName: String, output: Output) {
-        signUpServices.checkOverlapId(id: nickName)
+        signUpServices?.checkOverlapId(id: nickName)
             .subscribe(onNext: { [weak self] check in
                 guard let self = self  else {return}
                 if !check {
-                    signUp(nickName: nickName, output: output)
+                    return signUp(nickName: nickName, output: output)
                 }
-                else{
-                    output.overlapNickNameSubject.onNext(())
-                }
+                output.overlapNickNameSubject.onNext(())
             },onError: { error in
                 output.failureSignUpSubject.onNext(())
             })
@@ -113,8 +117,9 @@ final class SignUpViewModel {
     ///   - nickName: user NickName
     ///   - output: Output 구조체
     func signUp(nickName: String, output: Output){
-        guard let identifier = KeychainWrapper.loadString(forKey: SignInSaveKeyChain.identifier.rawValue),
-              let authType = KeychainWrapper.loadString(forKey: SignInSaveKeyChain.authType.rawValue) else { fatalError() }
+        
+        let identifier = KeychainWrapper.loadString(forKey: SignInSaveKeyChain.identifier.rawValue) ?? ""
+        let authType = KeychainWrapper.loadString(forKey: SignInSaveKeyChain.authType.rawValue) ?? ""
         
         let loginRequest = LoginRequest(nickname: nickName,
                                         profileImage: "!!!!!",
@@ -122,14 +127,15 @@ final class SignUpViewModel {
                                                                    authType: authType))
         print(#function)
         print(loginRequest)
-        signUpServices.signUpService(request: loginRequest)
+        signUpServices?.signUpService(request: loginRequest)
             .subscribe(onNext:{ [weak self] data in
                 guard let self = self else {return}
+                output.checkSignUpSubject.onNext(true)
                 coordinator?.moveMain()
             },onError: { error in   // 에러 처리 해야함
                 print(#function)
                 print(error)
-                output.failureSignUpSubject.onNext(())
+                output.checkSignUpSubject.onNext(false)
             })
             .disposed(by: disposeBag)
     }

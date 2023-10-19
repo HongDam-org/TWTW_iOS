@@ -37,6 +37,7 @@ final class SignInViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     var viewModel: SignInViewModel?
+    var output: SignInViewModel.Output?
     
     // MARK: - View Did Load
     
@@ -94,8 +95,8 @@ final class SignInViewController: UIViewController {
     /// binding ViewModel
     private func bind(){
         let input = SignInViewModel.Input(kakaoLoginButtonTapped: kakaoLoginImageView.rx.tapGesture().when(.recognized).asObservable())
-        
-        viewModel?.bind(input: input)
+        guard let output = output else { return }
+        viewModel?.bind(input: input, output: output)
     }
     
  
@@ -109,8 +110,8 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
         // 사용자의 고유 Apple ID와 이름 가져오기, 첫 로그인 이후에 로그인 시 정보를 제공하지 않음
         let userIdentifier = appleIDCredential.user
-        
-        viewModel?.signInService(authType: AuthType.apple.rawValue, identifier: userIdentifier)
+        guard let output = output else { return }
+        viewModel?.signInService(authType: AuthType.apple.rawValue, identifier: userIdentifier, output: output)
     }
 
     /// 로그인 오류 처리

@@ -21,7 +21,8 @@ final class DefaultSignUpCoordinator: SignUpCoordinatorProtocol {
     init( navigationController: UINavigationController) {
         self.navigationController = navigationController
         self.signUpViewController = SignUpViewController()
-        signUpViewModel = SignUpViewModel(coordinator: self)
+        signUpViewModel = SignUpViewModel(coordinator: self,
+                                          signUpServices: SignUpService())
     }
     
     func start() {
