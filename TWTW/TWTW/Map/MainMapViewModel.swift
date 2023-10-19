@@ -119,6 +119,7 @@ final class MainMapViewModel: NSObject {
     //위치 정보를 넘길때 Mainmap 주변장소 보이는 UI로 변경
     var showNearPlacesUI: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
+  
     func showSearchPlacesMap() {
         coordinator.showSearchPlacesMap()
     }

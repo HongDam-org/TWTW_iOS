@@ -47,7 +47,6 @@ final class MainMapViewController: KakaoMapViewController {
         searchBar.layer.shadowOffset = CGSize(width: 0, height: 1.5)
         searchBar.layer.shadowRadius = 1.5
         searchBar.layer.masksToBounds = false
-        
         return searchBar
     }()
     
@@ -69,10 +68,9 @@ final class MainMapViewController: KakaoMapViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        fetch()
         setupBind()
-        
     }
+    
     private func setupUI(){
         setTabbarController()
         viewModel.initBottomheight.accept(view.bounds.height*(0.3))
@@ -85,8 +83,8 @@ final class MainMapViewController: KakaoMapViewController {
         viewModel.searchInputData_Dummy()
         addSubViewsSearchBar()
         navigationController?.setNavigationBarHidden(true, animated: false)
-        
     }
+    
     private func setupBind(){
         moveCameraToSearchPlacesCoordinate()
         ShowNearPlacesBind()
@@ -94,22 +92,12 @@ final class MainMapViewController: KakaoMapViewController {
         addTapGestureMap()
         bottomSheetBind()
     }
-    /// MARK:
+    
     private func setTabbarController(){
         tabbarController.tabBar.layoutIfNeeded()
-        tabbarController.viewHeight.accept(self.view.frame.height)
         tabbarController.tabBar.layer.cornerRadius = 10
     }
-    private func fetch(){
-        tabbarController.delegates = self
-        
-        searchBar.delegate = self
-        
-        viewModel.locationManager.value.delegate = self
-        
-        nearbyPlacesCollectionView.dataSource = self
-        nearbyPlacesCollectionView.delegate = self
-    }
+    
     // MARK: - Add UI
     
     /// MARK: 지도 그리기
@@ -146,6 +134,7 @@ final class MainMapViewController: KakaoMapViewController {
     
     /// MARK: configureLocationManager
     private func configureLocationManager() {
+        viewModel.locationManager.value.delegate = self
         viewModel.locationManager.value.requestWhenInUseAuthorization()
     }
     // MARK: - addSubViews
@@ -153,6 +142,7 @@ final class MainMapViewController: KakaoMapViewController {
     /// MARK: Add  UI - SearchBar
     private func addSubViewsSearchBar(){
         view.addSubview(searchBar)
+        searchBar.delegate = self
         configureConstraintsSearchBar()
         view.bringSubviewToFront(searchBar)
     }
@@ -160,6 +150,7 @@ final class MainMapViewController: KakaoMapViewController {
     /// MARK:
     private func addSubviewsTabbarController(){
         view.addSubview(tabbarController.view)
+        tabbarController.delegates = self
         tabbarController.didMove(toParent: self)
         configureConstraintsTabbarController()
     }
@@ -167,8 +158,9 @@ final class MainMapViewController: KakaoMapViewController {
     /// MARK: Add  UI -  CollectionView
     private func addSubViewsNearbyPlacesCollectionView(){
         view.addSubview(nearbyPlacesCollectionView)
+        nearbyPlacesCollectionView.dataSource = self
+        nearbyPlacesCollectionView.delegate = self
         configureConstraintsNearbyPlacesCollectionView()
-        
     }
     
     
@@ -200,7 +192,6 @@ final class MainMapViewController: KakaoMapViewController {
         }
     }
     
-    
     /// MARK: Add  Gesture - Map
     private func addTapGestureMap(){
         viewModel.tapGesture.accept(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
@@ -214,6 +205,7 @@ final class MainMapViewController: KakaoMapViewController {
         }
         createPolygonStyleSet()
     }
+    
     private func ShowNearPlacesBind(){
         viewModel.showNearPlacesUI
             .subscribe(onNext: {[weak self] showNears in
@@ -226,14 +218,13 @@ final class MainMapViewController: KakaoMapViewController {
                 }
             }).disposed(by: disposeBag)
     }
+    
     /// MARK: viewModel binding
     private func bottomSheetBind(){
         viewModel.checkTouchEventRelay
             .bind { [weak self] check in
                 guard let self = self else { return }
-                
                 let isShowNearPlacesUI = self.viewModel.showNearPlacesUI.value
-                
                 if check {
                     if !isShowNearPlacesUI {
                         let tapLocation = self.viewModel.tapGesture.value.location(in: self.view)
@@ -257,7 +248,7 @@ final class MainMapViewController: KakaoMapViewController {
             }
             .disposed(by: disposeBag)
     }
-
+    
     ///MARK: 화면터치 시 show/hide UI
     private func handleTabbarVisibility(hide: Bool){
         UIView.animate(withDuration: 0.2, animations: {
@@ -268,6 +259,7 @@ final class MainMapViewController: KakaoMapViewController {
             }
         }
     }
+    
     private func handleNearbyPlacesVisibility(hide: Bool){
         UIView.animate(withDuration: 0.2, animations: {
             self.nearbyPlacesCollectionView.alpha = hide ? 0 : 1
@@ -295,7 +287,6 @@ final class MainMapViewController: KakaoMapViewController {
     private func handleTap(_ gesture: UITapGestureRecognizer) {
         viewModel.checkingTouchEvents()
     }
-    
     
     // MARK: - Route Functions
     
@@ -372,7 +363,6 @@ final class MainMapViewController: KakaoMapViewController {
         poi2?.show()
     }
     
-    
     // MARK: - PolyGon
     
     /// MARK: Draw Polygon Style Set
@@ -435,14 +425,12 @@ final class MainMapViewController: KakaoMapViewController {
 
 // MARK: - extension
 
-
 // BottomSheetDelegate 프로토콜
 extension MainMapViewController: BottomSheetDelegate {
     func didUpdateBottomSheetHeight(_ height: CGFloat) {
         tabbarController.view.snp.updateConstraints { make in
             make.height.equalTo(height)
         }
-        
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
@@ -482,7 +470,6 @@ extension MainMapViewController: UISearchBarDelegate {
     }
 }
 
-
 // MARK: -  UICollectionViewDataSource, UICollectionViewDelegate
 extension MainMapViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -491,9 +478,7 @@ extension MainMapViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NearbyPlacesCollectionViewCell.cellIdentifier, for: indexPath) as? NearbyPlacesCollectionViewCell else { return UICollectionViewCell() }
-        
         let data = viewModel.placeData.value[indexPath.item]
-        
         cell.imageView.image = UIImage(named: data.imageName ?? "")
         cell.titleLabel.text = data.title ?? ""
         cell.subTitleLabel.text = data.subTitle ?? ""
@@ -520,4 +505,3 @@ extension MainMapViewController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 0, left: cellInset, bottom: 0, right: cellInset)
     }
 }
-

@@ -26,7 +26,6 @@ class TabBarController: UITabBarController {
     private let disposeBag = DisposeBag()
     let acceptableRange = 0.1
     
-    
     //내위치로 이동하기 이미지버튼
     lazy var myloctaionImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "myLocation"))
@@ -34,13 +33,10 @@ class TabBarController: UITabBarController {
         return imageView
     }()
     
-    
     // 초기화 메서드
     init(delegates: BottomSheetDelegate? = nil) {
         super.init(nibName: nil, bundle: nil)
-        
         self.delegates = delegates
-        
         setTabbar()
     }
     
@@ -51,20 +47,11 @@ class TabBarController: UITabBarController {
     // 뷰가 로드된 후 호출되는 메서드
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // 뷰의 높이를 설정하고
         let viewHeight = self.view.bounds.height
-        print(viewHeight)
-        // BottomSheetViewModel에 높이를 설정
-        self.viewHeight.accept(viewHeight)
         tabBarViewModel.setupHeight(viewHeight: viewHeight)
         tabBar.backgroundColor = UIColor(white: 1, alpha: 1)
         view.backgroundColor = .clear
-    }
-    
-    // 뷰의 높이를 설정하는 메서드
-    func setViewHeight(_ height: CGFloat) {
-        viewHeight.accept(height)
     }
     
     // 탭바와 뷰컨트롤러 연결
@@ -122,11 +109,12 @@ class TabBarController: UITabBarController {
         viewControllers?.forEach { viewController in
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
             viewController.view.addGestureRecognizer(panGesture)
-          //  tabBarViewModel.setupHeight(viewHeight: viewHeight.value)
+            //  tabBarViewModel.setupHeight(viewHeight: viewHeight.value)
         }
         view.addSubview(myloctaionImageView)
         configureConstraints()
     }
+    
     private func configureConstraints(){
         myloctaionImageView.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(5)
@@ -134,13 +122,15 @@ class TabBarController: UITabBarController {
             make.width.height.equalTo(view.snp.width).dividedBy(10) // 이미지 크기 설정
         }
     }
-        // 팬 제스처 핸들링 메서드
     
+    // 팬 제스처 핸들링 메서드
     @objc private func handlePan(_ panGesture: UIPanGestureRecognizer) {
         switch panGesture.state {
+            
         case .began:
             // 초기 터치 위치
             tabBarViewModel.initialTouchY = panGesture.location(in: view).y
+            
         case .changed:
             let lastTouchY = panGesture.location(in: view).y
             let gapTouchY = tabBarViewModel.initialTouchY - lastTouchY // Y 좌표 간격을 계산
@@ -150,8 +140,8 @@ class TabBarController: UITabBarController {
             
             // 최소 높이와 최대 높이를 벗어나지 않도록 보정
             heightByTouch = min(max(heightByTouch, tabBarViewModel.noneHeight * (1)), tabBarViewModel.maxHeight * (1 + acceptableRange))
-            
             updateBottomSheetHeight(heightByTouch)
+            
         case .ended, .cancelled:
             let targetHeight = tabBarViewModel.calculateFinalHeight(changedHeight: viewHeight.value)
             
@@ -163,6 +153,7 @@ class TabBarController: UITabBarController {
                 self.view.layoutIfNeeded()
             }
             delegates?.didUpdateBottomSheetHeight(finalHeight)
+            
         default:
             break
         }
@@ -177,19 +168,16 @@ class TabBarController: UITabBarController {
                 isFirstLoad = false
             }
         }
-        
         // 바텀시트와 5 포인트 떨어진 위치로 유지
         myloctaionImageView.snp.updateConstraints { make in
             make.bottom.equalTo(self.view.snp.top).offset(-5)
         }
-        
         if newHeight > tabBarViewModel.midHeight {
             view.sendSubviewToBack(myloctaionImageView)
             myloctaionImageView.snp.updateConstraints { make in
                 make.bottom.equalTo(self.view.snp.top).offset(myloctaionImageView.frame.height + 5)
             }
         }
-        
         viewHeight.accept(newHeight)
         tabBarViewModel.heightConstraintRelay.accept(tabBarViewModel.heightConstraintRelay.value?.update(offset: newHeight))
         delegates?.didUpdateBottomSheetHeight(newHeight)

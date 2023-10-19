@@ -19,7 +19,6 @@ struct TabItem {
 final class TabBarViewModel {
     // bottomSheetView 높이를 나타내는 BehaviorRelay
     var heightConstraintRelay: BehaviorRelay<Constraint?> = BehaviorRelay(value: nil)
-
     var noneHeight: CGFloat = 0.0
     var minHeight: CGFloat = 0.0
     var midHeight: CGFloat = 0.0
@@ -36,9 +35,7 @@ final class TabBarViewModel {
         self.midHeight = viewHeight * 0.6
         self.maxHeight = viewHeight * 0.8
     }
-    
 
-//    
     // 최종 높이 계산
     func calculateFinalHeight(changedHeight: CGFloat) -> CGFloat {
         if changedHeight > midHeight {
@@ -51,8 +48,6 @@ final class TabBarViewModel {
             return noneHeight
         }
     }
-    
-
 }
 
 
