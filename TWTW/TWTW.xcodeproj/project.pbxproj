@@ -72,26 +72,25 @@
 		3B274D822AD4D40700D79698 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D812AD4D40700D79698 /* AppCoordinator.swift */; };
 		3B274D842AD5207100D79698 /* SignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D832AD5207100D79698 /* SignUpService.swift */; };
 		3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */; };
-		3B6CF3C02ADAC1CA00325D05 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3BF2ADAC1CA00325D05 /* RxBlocking */; };
-		3B6CF3C22ADAC1CA00325D05 /* RxBlocking-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3C12ADAC1CA00325D05 /* RxBlocking-Dynamic */; };
-		3B6CF3C42ADAC1CA00325D05 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3C32ADAC1CA00325D05 /* RxCocoa */; };
-		3B6CF3C62ADAC1CA00325D05 /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3C52ADAC1CA00325D05 /* RxCocoa-Dynamic */; };
-		3B6CF3C82ADAC1CA00325D05 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3C72ADAC1CA00325D05 /* RxRelay */; };
-		3B6CF3CA2ADAC1CA00325D05 /* RxRelay-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3C92ADAC1CA00325D05 /* RxRelay-Dynamic */; };
-		3B6CF3CC2ADAC1CA00325D05 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3CB2ADAC1CA00325D05 /* RxSwift */; };
-		3B6CF3CE2ADAC1CA00325D05 /* RxSwift-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3CD2ADAC1CA00325D05 /* RxSwift-Dynamic */; };
-		3B6CF3D02ADAC1CA00325D05 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3CF2ADAC1CA00325D05 /* RxTest */; };
-		3B6CF3D22ADAC1CA00325D05 /* RxTest-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3D12ADAC1CA00325D05 /* RxTest-Dynamic */; };
+		3B6C7F8C2ADE1F610060091C /* DefaultTabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6C7F8B2ADE1F610060091C /* DefaultTabbarCoordinator.swift */; };
+		3B6C7F922ADE24C20060091C /* TabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6C7F912ADE24C20060091C /* TabbarCoordinator.swift */; };
+		3B6C7F952ADE25080060091C /* TabbarCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6C7F942ADE25080060091C /* TabbarCoordinatorDelegate.swift */; };
 		3B6CF3D72ADAC80200325D05 /* SignInProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3D62ADAC80200325D05 /* SignInProtocol.swift */; };
 		3B6CF3D92ADACA7500325D05 /* MockSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3D82ADACA7500325D05 /* MockSignInService.swift */; };
 		3B6CF3DB2ADAD14A00325D05 /* MockSignInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3DA2ADAD14A00325D05 /* MockSignInCoordinator.swift */; };
 		3BAA4A192ADC1DEA009D14E7 /* SignUpProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA4A182ADC1DEA009D14E7 /* SignUpProtocol.swift */; };
 		3BAA4A1F2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA4A1E2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift */; };
 		3BAA4A222ADCD0C8009D14E7 /* MockSignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA4A212ADCD0C8009D14E7 /* MockSignUpService.swift */; };
+		3BC1D26E2AE0D15D00A7D0CC /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D26D2AE0D15D00A7D0CC /* RxBlocking */; };
+		3BC1D2702AE0D15D00A7D0CC /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D26F2AE0D15D00A7D0CC /* RxCocoa */; };
+		3BC1D2722AE0D15D00A7D0CC /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D2712AE0D15D00A7D0CC /* RxRelay */; };
+		3BC1D2742AE0D15D00A7D0CC /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D2732AE0D15D00A7D0CC /* RxSwift */; };
+		3BC1D2762AE0D15D00A7D0CC /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D2752AE0D15D00A7D0CC /* RxTest */; };
+		3BC1D2782AE0D26B00A7D0CC /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D2772AE0D26B00A7D0CC /* Alamofire */; };
+		3BC1D27A2AE0D27200A7D0CC /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D2792AE0D27200A7D0CC /* RxSwift */; };
+		3BC1D27C2AE0D27600A7D0CC /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D27B2AE0D27600A7D0CC /* RxTest */; };
+		3BC1D27E2AE0D27F00A7D0CC /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D27D2AE0D27F00A7D0CC /* RxCocoa */; };
 		3BE034982AD83AC800953498 /* SignInViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */; };
-		3B6C7F8C2ADE1F610060091C /* DefaultTabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6C7F8B2ADE1F610060091C /* DefaultTabbarCoordinator.swift */; };
-		3B6C7F922ADE24C20060091C /* TabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6C7F912ADE24C20060091C /* TabbarCoordinator.swift */; };
-		3B6C7F952ADE25080060091C /* TabbarCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6C7F942ADE25080060091C /* TabbarCoordinatorDelegate.swift */; };
 		3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */; };
 		3BF9EFA42AB1AE790014855E /* KakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */; };
 		3BF9EFB12AB1DEDB0014855E /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF9EFB02AB1DEDB0014855E /* UIImage+Ext.swift */; };
@@ -174,7 +173,7 @@
 		3B6C7F8B2ADE1F610060091C /* DefaultTabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTabbarCoordinator.swift; sourceTree = "<group>"; };
 		3B6C7F912ADE24C20060091C /* TabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarCoordinator.swift; sourceTree = "<group>"; };
 		3B6C7F942ADE25080060091C /* TabbarCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarCoordinatorDelegate.swift; sourceTree = "<group>"; };
-		3B6C7F982ADE7C2E0060091C /* TWTWUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TWTWUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B6C7F982ADE7C2E0060091C /* TWTWUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = TWTWUnitTests.xctest; path = "/Users/jeonghojin/Desktop/Project/TWTW/TWTW_iOS/TWTW/build/Debug-iphoneos/TWTWUnitTests.xctest"; sourceTree = "<absolute>"; };
 		3B6CF3D62ADAC80200325D05 /* SignInProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInProtocol.swift; sourceTree = "<group>"; };
 		3B6CF3D82ADACA7500325D05 /* MockSignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignInService.swift; sourceTree = "<group>"; };
 		3B6CF3DA2ADAD14A00325D05 /* MockSignInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignInCoordinator.swift; sourceTree = "<group>"; };
@@ -192,21 +191,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B6CF3D02ADAC1CA00325D05 /* RxTest in Frameworks */,
-				3B6CF3C82ADAC1CA00325D05 /* RxRelay in Frameworks */,
+				3BC1D2762AE0D15D00A7D0CC /* RxTest in Frameworks */,
+				3BC1D2742AE0D15D00A7D0CC /* RxSwift in Frameworks */,
 				3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */,
-				3B6CF3D22ADAC1CA00325D05 /* RxTest-Dynamic in Frameworks */,
-				3B6CF3C22ADAC1CA00325D05 /* RxBlocking-Dynamic in Frameworks */,
-				3B6CF3CA2ADAC1CA00325D05 /* RxRelay-Dynamic in Frameworks */,
-				3B6CF3C02ADAC1CA00325D05 /* RxBlocking in Frameworks */,
+				3BC1D26E2AE0D15D00A7D0CC /* RxBlocking in Frameworks */,
 				375E8B052A96187800F8DE42 /* RxGesture in Frameworks */,
-				3B6CF3CC2ADAC1CA00325D05 /* RxSwift in Frameworks */,
-				3B6CF3C62ADAC1CA00325D05 /* RxCocoa-Dynamic in Frameworks */,
+				3BC1D2702AE0D15D00A7D0CC /* RxCocoa in Frameworks */,
 				3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */,
 				3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */,
-				3B6CF3C42ADAC1CA00325D05 /* RxCocoa in Frameworks */,
+				3BC1D2722AE0D15D00A7D0CC /* RxRelay in Frameworks */,
 				3751E8472A8D246A00D63A16 /* RxKakaoSDK in Frameworks */,
-				3B6CF3CE2ADAC1CA00325D05 /* RxSwift-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +208,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BC1D27A2AE0D27200A7D0CC /* RxSwift in Frameworks */,
+				3BC1D27C2AE0D27600A7D0CC /* RxTest in Frameworks */,
+				3BC1D27E2AE0D27F00A7D0CC /* RxCocoa in Frameworks */,
+				3BC1D2782AE0D26B00A7D0CC /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,7 +237,6 @@
 				3BF9EF9F2AB1AE220014855E /* TWTW.app */,
 				3BE034962AD83AC800953498 /* TWTWServiceUnitTests */,
 				3B6CF3BB2ADAC1A400325D05 /* Frameworks */,
-				3B6C7F982ADE7C2E0060091C /* TWTWUnitTests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -611,6 +608,47 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		3B6C7F8F2ADE24340060091C /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				377CB0602AD8699C003453D6 /* MainMapCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		3B6C7F902ADE24AD0060091C /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				3B6C7F912ADE24C20060091C /* TabbarCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		3B6C7F932ADE25010060091C /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				3B6C7F942ADE25080060091C /* TabbarCoordinatorDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		3B6C7F962ADE25FC0060091C /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				3B6C7F902ADE24AD0060091C /* Coordinator */,
+				3B6C7F932ADE25010060091C /* Delegate */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		3B6C7F972ADE264B0060091C /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				3B6C7F8F2ADE24340060091C /* Coordinator */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		3B6CF3BB2ADAC1A400325D05 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -679,47 +717,6 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		3B6C7F8F2ADE24340060091C /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-				377CB0602AD8699C003453D6 /* MainMapCoordinator.swift */,
-			);
-			path = Coordinator;
-			sourceTree = "<group>";
-		};
-		3B6C7F902ADE24AD0060091C /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-				3B6C7F912ADE24C20060091C /* TabbarCoordinator.swift */,
-			);
-			path = Coordinator;
-			sourceTree = "<group>";
-		};
-		3B6C7F932ADE25010060091C /* Delegate */ = {
-			isa = PBXGroup;
-			children = (
-				3B6C7F942ADE25080060091C /* TabbarCoordinatorDelegate.swift */,
-			);
-			path = Delegate;
-			sourceTree = "<group>";
-		};
-		3B6C7F962ADE25FC0060091C /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				3B6C7F902ADE24AD0060091C /* Coordinator */,
-				3B6C7F932ADE25010060091C /* Delegate */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
-		3B6C7F972ADE264B0060091C /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				3B6C7F8F2ADE24340060091C /* Coordinator */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -742,16 +739,11 @@
 				3751E8462A8D246A00D63A16 /* RxKakaoSDK */,
 				375E8B042A96187800F8DE42 /* RxGesture */,
 				3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */,
-				3B6CF3BF2ADAC1CA00325D05 /* RxBlocking */,
-				3B6CF3C12ADAC1CA00325D05 /* RxBlocking-Dynamic */,
-				3B6CF3C32ADAC1CA00325D05 /* RxCocoa */,
-				3B6CF3C52ADAC1CA00325D05 /* RxCocoa-Dynamic */,
-				3B6CF3C72ADAC1CA00325D05 /* RxRelay */,
-				3B6CF3C92ADAC1CA00325D05 /* RxRelay-Dynamic */,
-				3B6CF3CB2ADAC1CA00325D05 /* RxSwift */,
-				3B6CF3CD2ADAC1CA00325D05 /* RxSwift-Dynamic */,
-				3B6CF3CF2ADAC1CA00325D05 /* RxTest */,
-				3B6CF3D12ADAC1CA00325D05 /* RxTest-Dynamic */,
+				3BC1D26D2AE0D15D00A7D0CC /* RxBlocking */,
+				3BC1D26F2AE0D15D00A7D0CC /* RxCocoa */,
+				3BC1D2712AE0D15D00A7D0CC /* RxRelay */,
+				3BC1D2732AE0D15D00A7D0CC /* RxSwift */,
+				3BC1D2752AE0D15D00A7D0CC /* RxTest */,
 			);
 			productName = TWTW;
 			productReference = 3BF9EF9F2AB1AE220014855E /* TWTW.app */;
@@ -772,6 +764,10 @@
 			);
 			name = TWTWUnitTests;
 			packageProductDependencies = (
+				3BC1D2772AE0D26B00A7D0CC /* Alamofire */,
+				3BC1D2792AE0D27200A7D0CC /* RxSwift */,
+				3BC1D27B2AE0D27600A7D0CC /* RxTest */,
+				3BC1D27D2AE0D27F00A7D0CC /* RxCocoa */,
 			);
 			productName = TWTWUnitTests;
 			productReference = 3B6C7F982ADE7C2E0060091C /* TWTWUnitTests.xctest */;
@@ -811,7 +807,7 @@
 				3751E8452A8D246A00D63A16 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
 				375E8B032A96187800F8DE42 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				3BF9EFA02AB1AE4A0014855E /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
-				3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 3758F17F2A7D007100E2933C;
 			projectDirPath = "";
@@ -1275,7 +1271,7 @@
 				minimumVersion = 4.0.0;
 			};
 		};
-		3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+		3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
 			requirement = {
@@ -1314,55 +1310,50 @@
 			package = 375E8B032A96187800F8DE42 /* XCRemoteSwiftPackageReference "RxGesture" */;
 			productName = RxGesture;
 		};
-		3B6CF3BF2ADAC1CA00325D05 /* RxBlocking */ = {
+		3BC1D26D2AE0D15D00A7D0CC /* RxBlocking */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxBlocking;
 		};
-		3B6CF3C12ADAC1CA00325D05 /* RxBlocking-Dynamic */ = {
+		3BC1D26F2AE0D15D00A7D0CC /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = "RxBlocking-Dynamic";
-		};
-		3B6CF3C32ADAC1CA00325D05 /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxCocoa;
 		};
-		3B6CF3C52ADAC1CA00325D05 /* RxCocoa-Dynamic */ = {
+		3BC1D2712AE0D15D00A7D0CC /* RxRelay */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = "RxCocoa-Dynamic";
-		};
-		3B6CF3C72ADAC1CA00325D05 /* RxRelay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxRelay;
 		};
-		3B6CF3C92ADAC1CA00325D05 /* RxRelay-Dynamic */ = {
+		3BC1D2732AE0D15D00A7D0CC /* RxSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = "RxRelay-Dynamic";
-		};
-		3B6CF3CB2ADAC1CA00325D05 /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
 		};
-		3B6CF3CD2ADAC1CA00325D05 /* RxSwift-Dynamic */ = {
+		3BC1D2752AE0D15D00A7D0CC /* RxTest */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = "RxSwift-Dynamic";
-		};
-		3B6CF3CF2ADAC1CA00325D05 /* RxTest */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxTest;
 		};
-		3B6CF3D12ADAC1CA00325D05 /* RxTest-Dynamic */ = {
+		3BC1D2772AE0D26B00A7D0CC /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = "RxTest-Dynamic";
+			package = 3751E8422A8D242C00D63A16 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		3BC1D2792AE0D27200A7D0CC /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		3BC1D27B2AE0D27600A7D0CC /* RxTest */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxTest;
+		};
+		3BC1D27D2AE0D27F00A7D0CC /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
 		};
 		3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */ = {
 			isa = XCSwiftPackageProductDependency;

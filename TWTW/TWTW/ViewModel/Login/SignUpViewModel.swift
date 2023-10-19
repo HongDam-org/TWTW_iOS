@@ -107,7 +107,7 @@ final class SignUpViewModel {
                 }
                 output.overlapNickNameSubject.onNext(())
             },onError: { error in
-                output.failureSignUpSubject.onNext(())
+                output.checkSignUpSubject.onNext(false)
             })
             .disposed(by: disposeBag)
     }
