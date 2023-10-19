@@ -12,15 +12,23 @@ import CoreLocation
 import UIKit
 import KakaoMapsSDK
 
-final class MainMapViewModel: NSObject {
+final class MainMapViewModel {
     let coordinator: DefaultMainMapCoordinator
     
     init(coordinator: DefaultMainMapCoordinator) {
         self.coordinator = coordinator
     }
     
-    /// 검색 Service
-    private let searchService = SearchService()
+    struct Input {
+        /// 지도 화면 터치 감지
+        var screenTouchEvents: Observable<Void>
+        
+        
+    }
+    
+    struct Output {
+        
+    }
     
     /// 지도 화면 터치 감지 Relay
     ///  true: UI 제거하기, false: UI 표시
@@ -28,12 +36,6 @@ final class MainMapViewModel: NSObject {
     
     /// MARK: 검색지 주변 장소 데이터
     var placeData: BehaviorRelay<[SearchNearByPlaces]> = BehaviorRelay(value: [])
-    
-    /// 서치바 동작기능 변형 버튼기능 -> 검색기능
-    var searchBarSearchable: BehaviorRelay<Bool> = BehaviorRelay(value: true)
-    
-    /// MARK: tabbar bottm height
-    var initBottomheight: BehaviorRelay<Double> = BehaviorRelay(value: 0.0)
     
     /// MARK: 현재 자신의 위치
     let locationManager: BehaviorRelay<CLLocationManager> = BehaviorRelay(value: CLLocationManager())
@@ -64,6 +66,9 @@ final class MainMapViewModel: NSObject {
         list.append(SearchNearByPlaces(imageName: "image", title: "Place 8", subTitle: "detail aboudPlace 8"))
         placeData.accept(list)
     }
+    
+    
+    
     
     
     // MARK: - Route
@@ -115,23 +120,13 @@ final class MainMapViewModel: NSObject {
         return segments
     }
     
-    var cameraCoordinateObservable: Observable<CLLocationCoordinate2D>?
+    var cameraCoordinateObservable: CLLocationCoordinate2D?
     //위치 정보를 넘길때 Mainmap 주변장소 보이는 UI로 변경
     var showNearPlacesUI: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
   
     func showSearchPlacesMap() {
         coordinator.showSearchPlacesMap()
-    }
-    
-    
-    // MARK: - API Connect
-    
-    /// MARK: 장소 검색 함수
-    /// - Parameter word: 검색한 단어
-    /// - Returns: 검색한 장소 리스트
-    func searchToGetPlace(word: String) -> Observable<SearchPlaces>{
-        searchService.searchPlaces(place: word, x: 0, y: 0, page: 0, categoryGroupCode: "")
     }
 }
 

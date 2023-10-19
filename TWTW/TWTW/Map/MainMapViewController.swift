@@ -16,9 +16,8 @@ import KakaoMapsSDK
 
 ///MainMapViewController - 지도화면
 final class MainMapViewController: KakaoMapViewController {
-    //MARK -  서치바 클릭 시 보여질 새로운 UI 요소 (circularView, nearbyPlacesCollectionView, collectionView위 버튼 (중간위치 찾을 VC이동,내위치))
-    private let cellSpacing: CGFloat = 2
-    private let cellInset: CGFloat = 5
+    
+    // MARK: - UI Property
     
     /// MARK: 목적지 근처 장소들을 보여줄 컬렉션 뷰
     private lazy var nearbyPlacesCollectionView: UICollectionView = {
@@ -54,6 +53,9 @@ final class MainMapViewController: KakaoMapViewController {
     private let viewModel: MainMapViewModel
     var tabbarController: TabBarController
     
+    
+    // MARK: - init
+    
     init(viewModel: MainMapViewModel, tabbarController: TabBarController){
         self.viewModel = viewModel
         self.tabbarController = tabbarController
@@ -65,44 +67,16 @@ final class MainMapViewController: KakaoMapViewController {
     }
     
     // MARK: - View Did Load
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupBind()
+        bind()
     }
-    
-    private func setupUI(){
-        setTabbarController()
-        viewModel.initBottomheight.accept(view.bounds.height*(0.3))
-        
-        //새로운 UI
-        addSubViewsNearbyPlacesCollectionView()
-        addSubviewsTabbarController()
-        
-        // 더미 데이터 삽입
-        viewModel.searchInputData_Dummy()
-        addSubViewsSearchBar()
-        navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-    
-    private func setupBind(){
-        moveCameraToSearchPlacesCoordinate()
-        ShowNearPlacesBind()
-        configureLocationManager()
-        addTapGestureMap()
-        bottomSheetBind()
-    }
-    
-    private func setTabbarController(){
-        tabbarController.tabBar.layoutIfNeeded()
-        tabbarController.tabBar.layer.cornerRadius = 10
-    }
-    
-    // MARK: - Add UI
     
     /// MARK: 지도 그리기
     override func addViews() {
-        view.backgroundColor = .white
         let mapviewInfo: MapviewInfo = MapviewInfo(viewName: "mapview", viewInfoName: "map", defaultPosition: Map.DEFAULT_POSITION)
         
         if mapController?.addView(mapviewInfo) == Result.OK {   // 지도가 다 그려진 다음 실행
@@ -113,30 +87,54 @@ final class MainMapViewController: KakaoMapViewController {
         }
     }
     
-    /// MARK:SearchPlaces에서 받은  좌표로 카메라 옮기기
-    private func moveCameraToSearchPlacesCoordinate(){
-        // cameraCoordinateObservable을 구독해서 좌표 변경 이벤트 처리
-        viewModel.cameraCoordinateObservable?
-            .subscribe(onNext: { [weak self] coordinate in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    self?.moveCameraToCoordinate(coordinate)
-                }
-            })
-            .disposed(by: disposeBag)
-    }
+    // MARK: - Set Up
     
-    /// MARK:선택한 좌표로 카메라 옮기기
-    private func moveCameraToCoordinate(_ coordinate: CLLocationCoordinate2D) {
-        guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
+    /// MARK: Setting UI
+    private func setupUI(){
+        addSubViewsNearbyPlacesCollectionView()
+        addSubviewsTabbarController()
+        addSubViewsSearchBar()
+        addTapGestureMap()
         
-        mapView.animateCamera(cameraUpdate: CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude, latitude: coordinate.latitude), zoomLevel: 15, rotation: 1.7, tilt: 0.0, mapView: mapView), options: CameraAnimationOptions(autoElevation: true, consecutive: true, durationInMillis: 2000))
+        // 더미 데이터 삽입
+        viewModel.searchInputData_Dummy()
+        
+        view.backgroundColor = .white
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
+    private func setupBind(){
+        moveCameraToCoordinate(viewModel.cameraCoordinateObservable ?? CLLocationCoordinate2D())
+        showNearPlacesBind()
+        configureLocationManager()
+        bottomSheetBind()
+    }
+    
+    private func setTabbarController(){
+        
+        tabbarController.tabBar.layoutIfNeeded()
+        tabbarController.tabBar.layer.cornerRadius = 10
+    }
+ 
     /// MARK: configureLocationManager
     private func configureLocationManager() {
         viewModel.locationManager.value.delegate = self
         viewModel.locationManager.value.requestWhenInUseAuthorization()
     }
+    
+    private func showNearPlacesBind(){
+        viewModel.showNearPlacesUI
+            .subscribe(onNext: {[weak self] showNears in
+                guard let self = self else { return }
+                if showNears{
+                    self.showSearchUIElements()
+                    return
+                }
+                self.hideSearchUIElements()
+            }).disposed(by: disposeBag)
+    }
+    
+    
     // MARK: - addSubViews
     
     /// MARK: Add  UI - SearchBar
@@ -147,22 +145,28 @@ final class MainMapViewController: KakaoMapViewController {
         view.bringSubviewToFront(searchBar)
     }
     
-    /// MARK:
+    /// MARK: Add  UI -  TabbarController
     private func addSubviewsTabbarController(){
         view.addSubview(tabbarController.view)
         tabbarController.delegates = self
         tabbarController.didMove(toParent: self)
         configureConstraintsTabbarController()
+        setTabbarController()
     }
     
     /// MARK: Add  UI -  CollectionView
     private func addSubViewsNearbyPlacesCollectionView(){
         view.addSubview(nearbyPlacesCollectionView)
-        nearbyPlacesCollectionView.dataSource = self
-        nearbyPlacesCollectionView.delegate = self
+//        nearbyPlacesCollectionView.dataSource = self
+//        nearbyPlacesCollectionView.delegate = self
         configureConstraintsNearbyPlacesCollectionView()
     }
     
+    /// MARK: Add  Gesture - Map
+    private func addTapGestureMap(){
+        viewModel.tapGesture.accept(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
+        mapView.addGestureRecognizer(viewModel.tapGesture.value)
+    }
     
     // MARK: - Constraints
     
@@ -178,8 +182,8 @@ final class MainMapViewController: KakaoMapViewController {
     private func configureConstraintsTabbarController(){
         tabbarController.view.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(viewModel.initBottomheight.value)
-            make.bottom.equalToSuperview()//(view.safeAreaLayoutGuide)
+            make.height.equalTo(view.bounds.height*(0.3))
+            make.bottom.equalToSuperview()
         }
     }
     
@@ -192,10 +196,41 @@ final class MainMapViewController: KakaoMapViewController {
         }
     }
     
-    /// MARK: Add  Gesture - Map
-    private func addTapGestureMap(){
-        viewModel.tapGesture.accept(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
-        mapView.addGestureRecognizer(viewModel.tapGesture.value)
+    
+    // MARK: - ViewModel bind
+    
+    /// MARK: ViewModel Binding
+    private func bind(){
+//        let input = MainMapViewModel.Input(screenTouchEvents: )
+        
+        
+        bindingNearByCollectionView()
+    }
+    
+    /// MARK: NearbyPlacesCollectionView binding
+    private func bindingNearByCollectionView(){
+        viewModel.placeData
+            .bind(to: nearbyPlacesCollectionView.rx
+                .items(cellIdentifier: NearbyPlacesCollectionViewCell.cellIdentifier,
+                       cellType: NearbyPlacesCollectionViewCell.self))
+        { [weak self] row, element, cell in
+            guard let self = self else {return}
+            cell.imageView.image = UIImage(named: element.imageName ?? "")
+            cell.titleLabel.text = element.title ?? ""
+            cell.subTitleLabel.text = element.subTitle ?? ""
+        }
+        .disposed(by: disposeBag)
+        
+        nearbyPlacesCollectionView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let self = self else {return}
+                print(indexPath)
+                nearbyPlacesCollectionView.deselectItem(at: indexPath, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        nearbyPlacesCollectionView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
     }
     
     /// MARK: 내위치 탭 했을 때
@@ -206,20 +241,7 @@ final class MainMapViewController: KakaoMapViewController {
         createPolygonStyleSet()
     }
     
-    private func ShowNearPlacesBind(){
-        viewModel.showNearPlacesUI
-            .subscribe(onNext: {[weak self] showNears in
-                guard let self = self else { return }
-                if showNears{
-                    self.showSearchUIElements()
-                }
-                else{
-                    self.hideSearchUIElements()
-                }
-            }).disposed(by: disposeBag)
-    }
-    
-    /// MARK: viewModel binding
+    /// MARK: Bottom Sheet viewModel binding
     private func bottomSheetBind(){
         viewModel.checkTouchEventRelay
             .bind { [weak self] check in
@@ -233,15 +255,21 @@ final class MainMapViewController: KakaoMapViewController {
                         // 탭 위치가 myloctaionImageView의 프레임 내에 있는지 확인
                         if myloctaionImageViewFrame.contains(CGPoint(x: tapLocation.x, y: -6)) {
                             self.mylocationTappedAction()
-                        }else{
-                            self.handleTabbarVisibility(hide: true)}
-                    } else {
+                            
+                            return
+                        }
+                        self.handleTabbarVisibility(hide: true)
+                        
+                    }
+                    else {
                         self.handleNearbyPlacesVisibility(hide: true)
                     }
-                } else {
+                } 
+                else {
                     if isShowNearPlacesUI {
                         self.handleNearbyPlacesVisibility(hide: false)
-                    } else {
+                    } 
+                    else {
                         self.handleTabbarVisibility(hide: false)
                     }
                 }
@@ -270,6 +298,8 @@ final class MainMapViewController: KakaoMapViewController {
         }
     }
     
+    
+    
     ///MARK: -  새로운 UI 요소들을 표시하고 기존 요소들을 숨기는 함수
     private func showSearchUIElements() {
         tabbarController.view.isHidden = true
@@ -286,6 +316,21 @@ final class MainMapViewController: KakaoMapViewController {
     @objc
     private func handleTap(_ gesture: UITapGestureRecognizer) {
         viewModel.checkingTouchEvents()
+    }
+    
+  
+}
+
+// MARK: - extension
+
+// MARK: - 지도 관련 함수
+extension MainMapViewController {
+    
+    /// MARK:선택한 좌표로 카메라 옮기기
+    private func moveCameraToCoordinate(_ coordinate: CLLocationCoordinate2D) {
+        guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
+        
+        mapView.animateCamera(cameraUpdate: CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude, latitude: coordinate.latitude), zoomLevel: 15, rotation: 1.7, tilt: 0.0, mapView: mapView), options: CameraAnimationOptions(autoElevation: true, consecutive: true, durationInMillis: 2000))
     }
     
     // MARK: - Route Functions
@@ -421,11 +466,11 @@ final class MainMapViewController: KakaoMapViewController {
             manager.removeShapeLayer(layerID: "shapeLayer")
         }
     }
+    
 }
 
-// MARK: - extension
 
-// BottomSheetDelegate 프로토콜
+// MARK: - BottomSheetDelegate
 extension MainMapViewController: BottomSheetDelegate {
     func didUpdateBottomSheetHeight(_ height: CGFloat) {
         tabbarController.view.snp.updateConstraints { make in
@@ -470,23 +515,6 @@ extension MainMapViewController: UISearchBarDelegate {
     }
 }
 
-// MARK: -  UICollectionViewDataSource, UICollectionViewDelegate
-extension MainMapViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.placeData.value.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NearbyPlacesCollectionViewCell.cellIdentifier, for: indexPath) as? NearbyPlacesCollectionViewCell else { return UICollectionViewCell() }
-        let data = viewModel.placeData.value[indexPath.item]
-        cell.imageView.image = UIImage(named: data.imageName ?? "")
-        cell.titleLabel.text = data.title ?? ""
-        cell.subTitleLabel.text = data.subTitle ?? ""
-        return cell
-    }
-}
-
-
 // MARK: - UICollectionViewDelegateFlowLayout
 extension MainMapViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -497,11 +525,11 @@ extension MainMapViewController: UICollectionViewDelegateFlowLayout {
     
     //셀사이 간격: 2
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return cellSpacing
+        return 2
     }
     
     //초기 셀 UIEdgeInsets 설정
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: cellInset, bottom: 0, right: cellInset)
+        return UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 2)
     }
 }

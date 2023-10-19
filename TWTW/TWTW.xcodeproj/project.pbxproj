@@ -584,6 +584,7 @@
 		3B274D7E2AD4D1A200D79698 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */,
 				3B274D7C2AD4D19B00D79698 /* SignUpViewModel.swift */,
 			);
 			path = Login;
@@ -603,7 +604,6 @@
 			isa = PBXGroup;
 			children = (
 				3B267B992A87B80C00F3949A /* Map */,
-				3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */,
 				3B274D7E2AD4D1A200D79698 /* Login */,
 			);
 			path = ViewModel;
