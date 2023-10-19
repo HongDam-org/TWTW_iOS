@@ -10,11 +10,6 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-struct TabItem {
-    let title: String
-    let imageName: String
-}
-
 ///TabBarViewModel
 final class TabBarViewModel {
     // bottomSheetView 높이를 나타내는 BehaviorRelay

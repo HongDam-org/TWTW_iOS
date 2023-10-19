@@ -43,6 +43,8 @@ final class MainMapViewModel {
     /// MARK: 지도 화면 터치 했을 때
     var tapGesture: BehaviorRelay<UITapGestureRecognizer> = BehaviorRelay(value: UITapGestureRecognizer())
     
+    var tabbarItems: BehaviorRelay<[TabItem]> = BehaviorRelay(value: [])
+    
     // MARK: - Logic
     
     /// MARK: checking Touch Events
@@ -67,7 +69,14 @@ final class MainMapViewModel {
         placeData.accept(list)
     }
     
-    
+    func inputTabbarItem(){
+        let list: [TabItem] = [TabItem(title: "홈", imageName: "house"),
+                               TabItem(title: "일정", imageName: "calendar"),
+                               TabItem(title: "친구 목록", imageName: "person.2"),
+                               TabItem(title: "알림", imageName: "bell"),
+                               TabItem(title: "전화", imageName: "phone")]
+        tabbarItems.accept(list)
+    }
     
     
     

@@ -90,6 +90,8 @@
 		3BC1D27A2AE0D27200A7D0CC /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D2792AE0D27200A7D0CC /* RxSwift */; };
 		3BC1D27C2AE0D27600A7D0CC /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D27B2AE0D27600A7D0CC /* RxTest */; };
 		3BC1D27E2AE0D27F00A7D0CC /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D27D2AE0D27F00A7D0CC /* RxCocoa */; };
+		3BC1D2842AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1D2832AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift */; };
+		3BC1D2872AE1A6E700A7D0CC /* TabbarItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1D2862AE1A6E700A7D0CC /* TabbarItems.swift */; };
 		3BE034982AD83AC800953498 /* SignInViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */; };
 		3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */; };
 		3BF9EFA42AB1AE790014855E /* KakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */; };
@@ -180,6 +182,8 @@
 		3BAA4A1E2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelUnitTests.swift; sourceTree = "<group>"; };
 		3BAA4A212ADCD0C8009D14E7 /* MockSignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignUpService.swift; sourceTree = "<group>"; };
 		3BC1D27F2AE0D58600A7D0CC /* TWTWUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TWTWUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BC1D2832AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemsCollectionViewCell.swift; sourceTree = "<group>"; };
+		3BC1D2862AE1A6E700A7D0CC /* TabbarItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarItems.swift; sourceTree = "<group>"; };
 		3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelUnitTests.swift; sourceTree = "<group>"; };
 		3BF9EF9F2AB1AE220014855E /* TWTW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWTW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapViewController.swift; sourceTree = "<group>"; };
@@ -307,6 +311,9 @@
 		377CB05F2AD86968003453D6 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				3BC1D2852AE1A6DD00A7D0CC /* Model */,
+				3BC1D2822AE1A56300A7D0CC /* ViewController */,
+				3BC1D2812AE1A55700A7D0CC /* View */,
 				3B6C7F972ADE264B0060091C /* Protocol */,
 				370AB4592ADD12E000951562 /* DefaultMainMapCoordinator.swift */,
 				37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */,
@@ -341,8 +348,6 @@
 		377D3A6B2A86339B00377899 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */,
-				375E8B012A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -701,6 +706,31 @@
 			path = Mock;
 			sourceTree = "<group>";
 		};
+		3BC1D2812AE1A55700A7D0CC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				375E8B012A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift */,
+				3BC1D2832AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3BC1D2822AE1A56300A7D0CC /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		3BC1D2852AE1A6DD00A7D0CC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3BC1D2862AE1A6E700A7D0CC /* TabbarItems.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3BE034962AD83AC800953498 /* TWTWServiceUnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -851,6 +881,7 @@
 				3BAA4A222ADCD0C8009D14E7 /* MockSignUpService.swift in Sources */,
 				3B274D712AD3F77600D79698 /* DefaultSignInCoordinator.swift in Sources */,
 				373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */,
+				3BC1D2872AE1A6E700A7D0CC /* TabbarItems.swift in Sources */,
 				3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */,
 				371C1D282ADABB3800B30DC5 /* TabBarController.swift in Sources */,
 				3B6C7F922ADE24C20060091C /* TabbarCoordinator.swift in Sources */,
@@ -885,6 +916,7 @@
 				3B0D6AA92ABBD1A900B08CAB /* LoginConstants.swift in Sources */,
 				3703095B2AAF1C8400F9CD80 /* FriendsListCollectionView.swift in Sources */,
 				371C1D312ADBAFF300B30DC5 /* PreviousAppointmentsCoordinator.swift in Sources */,
+				3BC1D2842AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift in Sources */,
 				3B1850B22AB5CCA6001945EE /* SearchPlaces.swift in Sources */,
 				3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */,
 				3799E5052A99D6DC00E06218 /* PreviousAppointmentsViewController.swift in Sources */,

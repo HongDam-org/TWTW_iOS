@@ -26,10 +26,8 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     }
     
     func start(){
-        guard let mainMapViewModel = mainMapViewModel, let tabBarController = tabBarController else {return}
-        let mainMapViewController = MainMapViewController(viewModel: mainMapViewModel,tabbarController: tabBarController)
-        
-        //MainMapVC
+        guard let mainMapViewModel = mainMapViewModel else {return}
+        let mainMapViewController = MainMapViewController(viewModel: mainMapViewModel)
         self.navigationController.pushViewController(mainMapViewController, animated: true)
     }
     
