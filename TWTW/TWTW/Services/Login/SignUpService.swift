@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 import RxSwift
 
-final class SignUpService {
+final class SignUpService: SignUpProtocol {
     private let disposeBag = DisposeBag()
     
     /// 회원가입할 떄 호출
@@ -42,6 +42,7 @@ final class SignUpService {
     
     /// ID 중복 검사
     /// - Parameter id: nickName
+    /// - Returns: true 중복, false: 사용가능
     func checkOverlapId(id: String) -> Observable<Bool> {
         var url = Domain.REST_API + LoginPath.checkOverlapId
         url = url.replacingOccurrences(of: "Id", with: id)
