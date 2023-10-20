@@ -18,7 +18,6 @@
 		371C1D2F2ADBAFCC00B30DC5 /* FriendsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D2E2ADBAFCC00B30DC5 /* FriendsListCoordinator.swift */; };
 		371C1D312ADBAFF300B30DC5 /* PreviousAppointmentsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D302ADBAFF300B30DC5 /* PreviousAppointmentsCoordinator.swift */; };
 		371C1D332ADBB00300B30DC5 /* CallCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D322ADBB00300B30DC5 /* CallCoordinator.swift */; };
-		373C85462AADA91E00325155 /* BottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C85452AADA91E00325155 /* BottomSheetViewModel.swift */; };
 		373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C85492AADBCAF00325155 /* TabBarViewModel.swift */; };
 		3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8402A8D23EE00D63A16 /* SnapKit */; };
 		3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8432A8D242C00D63A16 /* Alamofire */; };
@@ -118,7 +117,6 @@
 		371C1D2E2ADBAFCC00B30DC5 /* FriendsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCoordinator.swift; sourceTree = "<group>"; };
 		371C1D302ADBAFF300B30DC5 /* PreviousAppointmentsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousAppointmentsCoordinator.swift; sourceTree = "<group>"; };
 		371C1D322ADBB00300B30DC5 /* CallCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallCoordinator.swift; sourceTree = "<group>"; };
-		373C85452AADA91E00325155 /* BottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewModel.swift; sourceTree = "<group>"; };
 		373C85492AADBCAF00325155 /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
 		3754BB6F2A9B455100522420 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewController.swift; sourceTree = "<group>"; };
@@ -279,7 +277,6 @@
 				377D3A6B2A86339B00377899 /* Map */,
 				3B26F32D2AC11D9400EFEE12 /* Login */,
 				3758F1962A7D007300E2933C /* LaunchScreen.storyboard */,
-				373C85452AADA91E00325155 /* BottomSheetViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -888,7 +885,6 @@
 				370AB45A2ADD12E000951562 /* DefaultMainMapCoordinator.swift in Sources */,
 				3B274D732AD445B400D79698 /* DefaultSignUpCoordinator.swift in Sources */,
 				3B1C36EF2A8FD30200838682 /* BottomSheetDelegate.swift in Sources */,
-				373C85462AADA91E00325155 /* BottomSheetViewModel.swift in Sources */,
 				3B0691552ABBD73900C98D6D /* Login.swift in Sources */,
 				3758F1A02A7D122100E2933C /* SignInViewController.swift in Sources */,
 				370AB45E2ADD134800951562 /* DefaultMeetingListCoordinator.swift in Sources */,

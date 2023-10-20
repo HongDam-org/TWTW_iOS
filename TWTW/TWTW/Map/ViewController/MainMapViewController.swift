@@ -50,7 +50,7 @@ final class MainMapViewController: KakaoMapViewController {
         return searchBar
     }()
     
-    //내위치로 이동하기 이미지버튼
+    /// MARK: 내위치로 이동하기 이미지버튼
     private lazy var myloctaionImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "myLocation"))
         imageView.isUserInteractionEnabled = true
@@ -132,7 +132,7 @@ final class MainMapViewController: KakaoMapViewController {
         configureConstraintsNearbyPlacesCollectionView()
     }
     
-    /// MARK:
+    /// MARK:  Add  UI -  MyloctaionImageView
     private func addSubViewsMyloctaionImageView(){
         view.addSubview(myloctaionImageView)
         configureConstraintsMyloctaionImageView()
@@ -166,15 +166,7 @@ final class MainMapViewController: KakaoMapViewController {
         }
     }
     
-    /// MARK: configureLocationManager
-    private func configureLocationManager() -> CLLocationManager {
-        let cLLocationManager = CLLocationManager()
-        cLLocationManager.delegate = self
-        cLLocationManager.requestWhenInUseAuthorization()
-        return cLLocationManager
-    }
-    
-    /// MARK:
+    /// MARK: Configure   Constraints UI - MyloctaionImageView
     private func configureConstraintsMyloctaionImageView(){
         myloctaionImageView.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(5)
@@ -183,41 +175,41 @@ final class MainMapViewController: KakaoMapViewController {
         }
     }
     
+    /// MARK: configureLocationManager
+    private func configureLocationManager() -> CLLocationManager {
+        let cLLocationManager = CLLocationManager()
+        cLLocationManager.delegate = self
+        cLLocationManager.requestWhenInUseAuthorization()
+        return cLLocationManager
+    }
+    
+    
+    
     // MARK: - ViewModel bind
     
     /// MARK: ViewModel Binding
     private func bind(){
-        let input = MainMapViewModel.Input(screenTouchEvents: kMViewContainer?.rx.anyGesture(.tap()).when(.recognized).asObservable()
-                                           ,searchBarTouchEvents: searchBar.rx.anyGesture(.tap()).when(.recognized).asObservable()
-                                           ,cLLocationCoordinate2DEvents: Observable.just(configureLocationManager())
-                                           ,myLocationTappedEvents: myloctaionImageView.rx.anyGesture(.tap()).when(.recognized).asObservable())
+        let input = MainMapViewModel.Input(screenTouchEvents: kMViewContainer?.rx.anyGesture(.tap()).when(.recognized).asObservable(),
+                                           searchBarTouchEvents: searchBar.rx.anyGesture(.tap()).when(.recognized).asObservable(),
+                                           cLLocationCoordinate2DEvents: Observable.just(configureLocationManager()),
+                                           myLocationTappedEvents: myloctaionImageView.rx.anyGesture(.tap()).when(.recognized).asObservable(),
+                                           viewMiddleYPoint: Observable.just(view.frame.height/2),
+                                           tabbarControllerViewPanEvents: tabbarController.view.rx.anyGesture(.pan()).asObservable(),
+                                           myloctaionImageViewYPoint: Observable.just(myloctaionImageView.bounds.height))
         let output = viewModel.bind(input: input)
         
         createRoute(output: output)
         bindHideTabbarControllerRelay(output: output)
         bindHideNearPlaces(output: output)
         bindMyLocation(output: output)
-        bindMylocationTappedAction(output: output)
         bindHideMyLocationImageViewRelay(output: output)
     }
     
     /// MARK: 경로 그리기
     private func createRoute(output: MainMapViewModel.Output){
         createRouteStyleSet()
-        createRouteline()
+        createRouteline(output: output)
         createLabelLayer(output: output)
-    }
-    
-    /// MARK: 내위치 탭 했을 때
-    private func bindMylocationTappedAction(output: MainMapViewModel.Output) {
-        myloctaionImageView.rx
-            .anyGesture(.tap())
-            .when(.recognized)
-            .bind { [weak self] _ in
-                guard let self = self else {return}
-                createPolygonStyleSet(output: output)
-            }
-            .disposed(by: disposeBag)
     }
     
     /// MARK: 내 위치 binding
@@ -225,7 +217,7 @@ final class MainMapViewController: KakaoMapViewController {
         output.myLocatiaonRelay
             .bind { [weak self] location in
                 guard let self = self else {return}
-                moveCameraToCoordinate(location)
+                moveCameraToCoordinate(location, output)
             }
             .disposed(by: disposeBag)
     }
@@ -327,10 +319,18 @@ final class MainMapViewController: KakaoMapViewController {
 extension MainMapViewController {
     
     /// MARK:선택한 좌표로 카메라 옮기기
-    private func moveCameraToCoordinate(_ coordinate: CLLocationCoordinate2D) {
+    private func moveCameraToCoordinate(_ coordinate: CLLocationCoordinate2D, _ output: MainMapViewModel.Output) {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
-        print("calledfasdfscvcxzv")
-        mapView.animateCamera(cameraUpdate: CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude, latitude: coordinate.latitude), zoomLevel: 15, rotation: 1.7, tilt: 0.0, mapView: mapView), options: CameraAnimationOptions(autoElevation: true, consecutive: true, durationInMillis: 2000))
+        mapView.animateCamera(cameraUpdate: CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude, 
+                                                                               latitude: coordinate.latitude),
+                                                              zoomLevel: 15,
+                                                              rotation: 1.7,
+                                                              tilt: 0.0,
+                                                              mapView: mapView),
+                              options: CameraAnimationOptions(autoElevation: true,
+                                                              consecutive: true,
+                                                              durationInMillis: 2000),
+                              callback: {self.createPolygonStyleSet(output: output)})
     }
     
     // MARK: - Route Functions
@@ -360,12 +360,12 @@ extension MainMapViewController {
     }
     
     /// MARK:  지도에 선 그리기
-    private func createRouteline() {
+    private func createRouteline(output: MainMapViewModel.Output) {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
         let manager = mapView.getRouteManager()
         let layer = manager.addRouteLayer(layerID: "RouteLayer", zOrder: 0)
         
-        viewModel.createRouteline(mapView: mapView, layer: layer)
+        viewModel.createRouteline(mapView: mapView, layer: layer, output: output)
     }
     
     
@@ -405,14 +405,13 @@ extension MainMapViewController {
         let poi1 = layer?.addPoi(option: poiOption, at: MapPoint(longitude: longitude, latitude: latitude), callback: nil)
         let poi2 = layer?.addPoi(option: poiOption, at: MapPoint(longitude: 126.7323429, latitude: 37.3416939), callback: nil)
         poi1?.show()
-        poi2?.show()
+//        poi2?.show()
     }
     
     // MARK: - PolyGon
     
     /// MARK: Draw Polygon Style Set
     private func createPolygonStyleSet(output: MainMapViewModel.Output) {
-        print(#function)
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
         let manager = mapView.getShapeManager()
         

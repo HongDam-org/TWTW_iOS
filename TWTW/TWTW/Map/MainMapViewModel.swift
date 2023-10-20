@@ -35,6 +35,14 @@ final class MainMapViewModel {
         /// 내위치 버튼 눌렀을 때
         let myLocationTappedEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
         
+        /// 뷰의 중간 Y좌표
+        let viewMiddleYPoint: Observable<CGFloat>
+        
+        /// 내위치 버튼 Y 좌표
+        let tabbarControllerViewPanEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>
+        
+        let myloctaionImageViewYPoint: Observable<CGFloat>
+        
     }
     
     struct Output {
@@ -113,6 +121,24 @@ final class MainMapViewModel {
         .disposed(by: disposeBag)
         
         
+        Observable.combineLatest(input.tabbarControllerViewPanEvents,
+                                 input.myloctaionImageViewYPoint,
+                                 input.viewMiddleYPoint)
+        .bind { gesture, imageYOffset, viewYOffset in
+            switch gesture.state {
+            case .began, .changed, .ended, .cancelled:
+                if let height = gesture.view?.bounds.height, height > viewYOffset {
+                    output.hideMyLocationImageViewRelay.accept(true)
+                    return
+                }
+                output.hideMyLocationImageViewRelay.accept(false)
+            default:
+                return
+            }
+            
+        }
+        .disposed(by: disposeBag)
+        
         return output
     }
     
@@ -148,8 +174,9 @@ final class MainMapViewModel {
     // MARK: - Route
     
     /// MARK:  지도에 선 그리기
-    func createRouteline(mapView: KakaoMap, layer: RouteLayer?) {
-        let segmentPoints = routeSegmentPoints(longitude: 0, latitude: 9)
+    func createRouteline(mapView: KakaoMap, layer: RouteLayer?, output: Output) {
+        let segmentPoints = routeSegmentPoints(longitude: output.myLocatiaonRelay.value.longitude,
+                                               latitude: output.myLocatiaonRelay.value.latitude)
         
         var segments: [RouteSegment] = [RouteSegment]()
         var styleIndex: UInt = 0
@@ -169,14 +196,11 @@ final class MainMapViewModel {
         mapView.moveCamera(CameraUpdate.make(target: pnt, zoomLevel: 15, mapView: mapView))
     }
     
-    /// 위도 경도를 이용하여 point를 찍음
+    /// MARK:  위도 경도를 이용하여 point를 찍음
     func routeSegmentPoints(longitude: Double, latitude: Double) -> [[MapPoint]] {
         var segments = [[MapPoint]]()
         
         var points = [MapPoint]()
-        
-//        let longitude: Double = locationManager.value.location?.coordinate.longitude.magnitude ?? 0.0
-//        let latitude: Double = locationManager.value.location?.coordinate.latitude.magnitude ?? 0.0
         
         points.append(MapPoint(longitude: longitude, latitude: latitude))
         points.append(MapPoint(longitude: 126.7323429, latitude: 37.3416939))
