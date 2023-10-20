@@ -18,7 +18,7 @@ final class SearchPlacesMapViewController: UIViewController {
     let disposeBag = DisposeBag()
     ///지역 더미데이터
     let localPlaces = ["이디야커피 안성죽산점","인천","부산", "서울", "천안", "정왕"]
-    let searchService = SearchService()
+    
     ///필터링지역들
     var filteredPlaces = [String]()
     let viewModel: SearchPlacesMapViewModel

@@ -19,15 +19,16 @@ final class MainMapViewModel: NSObject {
         self.coordinator = coordinator
     }
     
-    /// 검색 Service
-    private let searchService = SearchService()
+    /// 주변 장소 검색 Service
+    private let surroundSearchService = SurroundSearchService()
+    
     
     /// 지도 화면 터치 감지 Relay
     ///  true: UI 제거하기, false: UI 표시
     var checkTouchEventRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
     /// MARK: 검색지 주변 장소 데이터
-    var placeData: BehaviorRelay<[SearchNearByPlaces]> = BehaviorRelay(value: [])
+    var surroundPlaceData: BehaviorRelay<[SearchNearByPlaces]> = BehaviorRelay(value: [])
     
     /// 서치바 동작기능 변형 버튼기능 -> 검색기능
     var searchBarSearchable: BehaviorRelay<Bool> = BehaviorRelay(value: true)
@@ -52,7 +53,7 @@ final class MainMapViewModel: NSObject {
     
     /// MARK: 검색지 주변 장소 더미 데이터
     func searchInputData_Dummy(){
-        var list = placeData.value
+        var list = surroundPlaceData.value
         
         list.append(SearchNearByPlaces(imageName: "image", title: "Place 1", subTitle: "detail aboudPlace 1"))
         list.append(SearchNearByPlaces(imageName: "image", title: "Place 2", subTitle: "detail aboudPlace 2"))
@@ -62,7 +63,7 @@ final class MainMapViewModel: NSObject {
         list.append(SearchNearByPlaces(imageName: "image", title: "Place 6", subTitle: "detail aboudPlace 6"))
         list.append(SearchNearByPlaces(imageName: "image", title: "Place 7", subTitle: "detail aboudPlace 7"))
         list.append(SearchNearByPlaces(imageName: "image", title: "Place 8", subTitle: "detail aboudPlace 8"))
-        placeData.accept(list)
+        surroundPlaceData.accept(list)
     }
     
     
@@ -130,8 +131,8 @@ final class MainMapViewModel: NSObject {
     /// MARK: 장소 검색 함수
     /// - Parameter word: 검색한 단어
     /// - Returns: 검색한 장소 리스트
-    func searchToGetPlace(word: String) -> Observable<SearchPlaces>{
-        searchService.searchPlaces(place: word, x: 0, y: 0, page: 0, categoryGroupCode: "")
+    func searchToGetPlace(word: String) -> Observable<SurroundSearchPlaces>{
+        surroundSearchService.surroundSearchPlaces(place: word, x: 0, y: 0, page: 0, categoryGroupCode: "")
     }
 }
 

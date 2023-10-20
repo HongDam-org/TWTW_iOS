@@ -473,12 +473,12 @@ extension MainMapViewController: UISearchBarDelegate {
 // MARK: -  UICollectionViewDataSource, UICollectionViewDelegate
 extension MainMapViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.placeData.value.count
+        return viewModel.surroundPlaceData.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NearbyPlacesCollectionViewCell.cellIdentifier, for: indexPath) as? NearbyPlacesCollectionViewCell else { return UICollectionViewCell() }
-        let data = viewModel.placeData.value[indexPath.item]
+        let data = viewModel.surroundPlaceData.value[indexPath.item]
         cell.imageView.image = UIImage(named: data.imageName ?? "")
         cell.titleLabel.text = data.title ?? ""
         cell.subTitleLabel.text = data.subTitle ?? ""

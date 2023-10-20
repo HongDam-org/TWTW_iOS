@@ -1,14 +1,14 @@
 //
-//  SearchPlaces.swift
+//  SurroundSearchPlaces.swift
 //  TWTW
 //
-//  Created by 정호진 on 2023/09/16.
+//  Created by 박다미 on 2023/10/20.
 //
 
 import Foundation
 
-/// MARK: 검색 결과 리스트
-struct SearchPlaces: Codable {
+/// MARK: 주변 검색 결과 리스트
+struct SurroundSearchPlaces: Codable {
     var results: [PlaceInformation]?
     var isLast: Bool?
 }
