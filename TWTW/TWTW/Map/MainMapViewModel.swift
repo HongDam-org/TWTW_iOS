@@ -28,6 +28,13 @@ final class MainMapViewModel {
         
         /// 검색 버튼 터치 감지
         let searchBarTouchEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
+        
+        /// Location Manager
+        let cLLocationCoordinate2DEvents: Observable<CLLocationManager>
+        
+        /// 내위치 버튼 눌렀을 때
+        let myLocationTappedEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
+        
     }
     
     struct Output {
@@ -43,17 +50,24 @@ final class MainMapViewModel {
         /// true: hide, false: show
         var hideNearPlacesRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         
+        /// 내위치 나타내는 버튼
+        /// /// true: hide, false: show
+        var hideMyLocationImageViewRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        
+        /// 자신의 위치 반환
+        var myLocatiaonRelay: BehaviorRelay<CLLocationCoordinate2D> = BehaviorRelay(value: CLLocationCoordinate2D())
+        
         /// 검색한 위치 좌표
         var cameraCoordinateObservable: BehaviorRelay<CLLocationCoordinate2D> = BehaviorRelay(value: CLLocationCoordinate2D())
         
-        //위치 정보를 넘길때 Mainmap 주변장소 보이는 UI로 변경
+        /// 위치 정보를 넘길때 Mainmap 주변장소 보이는 UI로 변경
         var showNearPlacesUI: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         
     }
     
     /// MARK: bind
     func bind(input: Input) -> Output {
-       
+        
         return createOutput(input: input)
     }
     
@@ -63,8 +77,8 @@ final class MainMapViewModel {
         
         input.screenTouchEvents?
             .bind(onNext: { _ in
-                let check = output.hideTabbarControllerRelay.value
-                output.hideTabbarControllerRelay.accept(!check)
+                output.hideTabbarControllerRelay.accept(!output.hideTabbarControllerRelay.value)
+                output.hideMyLocationImageViewRelay.accept(!output.hideMyLocationImageViewRelay.value)
                 output.hideNearPlacesRelay.accept(true)
             })
             .disposed(by: disposeBag)
@@ -72,16 +86,32 @@ final class MainMapViewModel {
         input.searchBarTouchEvents?
             .bind { [weak self] _ in
                 guard let self = self else {return}
-                showSearchPlacesMap(output: output)
+                moveSearch(output: output)
+            }
+            .disposed(by: disposeBag)
+        
+        input.cLLocationCoordinate2DEvents
+            .bind { manager in
+                output.myLocatiaonRelay.accept(manager.location?.coordinate ?? CLLocationCoordinate2D())
             }
             .disposed(by: disposeBag)
         
         output.showNearPlacesUI
             .bind { check in
                 output.hideTabbarControllerRelay.accept(check)
+                output.hideMyLocationImageViewRelay.accept(check)
                 output.hideNearPlacesRelay.accept(!check)
             }
             .disposed(by: disposeBag)
+        
+        guard let myLocationTappedEvents = input.myLocationTappedEvents else {fatalError("none")}
+        Observable.combineLatest(myLocationTappedEvents, 
+                                 input.cLLocationCoordinate2DEvents)
+        .bind { gesture, manager in
+            output.myLocatiaonRelay.accept(manager.location?.coordinate ?? CLLocationCoordinate2D())
+        }
+        .disposed(by: disposeBag)
+        
         
         return output
     }
@@ -89,15 +119,13 @@ final class MainMapViewModel {
     /// MARK: 검색지 주변 장소 데이터
     var placeData: BehaviorRelay<[SearchNearByPlaces]> = BehaviorRelay(value: [])
     
-    /// MARK: 현재 자신의 위치
-    let locationManager: BehaviorRelay<CLLocationManager> = BehaviorRelay(value: CLLocationManager())
-    
     var tabbarItems: BehaviorRelay<[TabItem]> = BehaviorRelay(value: [])
     
     // MARK: - Logic
     
-    func showSearchPlacesMap(output: Output) {
-        coordinator.showSearchPlacesMap(output: output)
+    /// MARK: 검색 화면 보여줌
+    func moveSearch(output: Output) {
+        coordinator.moveSearch(output: output)
     }
     
     /// MARK: 검색지 주변 장소 더미 데이터
@@ -121,7 +149,7 @@ final class MainMapViewModel {
     
     /// MARK:  지도에 선 그리기
     func createRouteline(mapView: KakaoMap, layer: RouteLayer?) {
-        let segmentPoints = routeSegmentPoints()
+        let segmentPoints = routeSegmentPoints(longitude: 0, latitude: 9)
         
         var segments: [RouteSegment] = [RouteSegment]()
         var styleIndex: UInt = 0
@@ -142,13 +170,13 @@ final class MainMapViewModel {
     }
     
     /// 위도 경도를 이용하여 point를 찍음
-    func routeSegmentPoints() -> [[MapPoint]] {
+    func routeSegmentPoints(longitude: Double, latitude: Double) -> [[MapPoint]] {
         var segments = [[MapPoint]]()
         
         var points = [MapPoint]()
         
-        let longitude: Double = locationManager.value.location?.coordinate.longitude.magnitude ?? 0.0
-        let latitude: Double = locationManager.value.location?.coordinate.latitude.magnitude ?? 0.0
+//        let longitude: Double = locationManager.value.location?.coordinate.longitude.magnitude ?? 0.0
+//        let latitude: Double = locationManager.value.location?.coordinate.latitude.magnitude ?? 0.0
         
         points.append(MapPoint(longitude: longitude, latitude: latitude))
         points.append(MapPoint(longitude: 126.7323429, latitude: 37.3416939))

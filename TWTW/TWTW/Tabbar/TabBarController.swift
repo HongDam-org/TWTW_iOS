@@ -26,13 +26,6 @@ class TabBarController: UITabBarController {
     private let disposeBag = DisposeBag()
     let acceptableRange = 0.1
     
-    //내위치로 이동하기 이미지버튼
-    lazy var myloctaionImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "myLocation"))
-        imageView.isUserInteractionEnabled = true
-        return imageView
-    }()
-    
     // 초기화 메서드
     init(delegates: BottomSheetDelegate? = nil) {
         super.init(nibName: nil, bundle: nil)
@@ -119,16 +112,6 @@ class TabBarController: UITabBarController {
             viewController.view.addGestureRecognizer(panGesture)
             //  tabBarViewModel.setupHeight(viewHeight: viewHeight.value)
         }
-        view.addSubview(myloctaionImageView)
-        configureConstraints()
-    }
-    
-    private func configureConstraints(){
-        myloctaionImageView.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(5)
-            make.bottom.equalTo(self.view.snp.top).offset(-5) // 바텀시트와 5 포인트 떨어진 위치에 배치
-            make.width.height.equalTo(view.snp.width).dividedBy(10) // 이미지 크기 설정
-        }
     }
     
     // 팬 제스처 핸들링 메서드
@@ -176,15 +159,15 @@ class TabBarController: UITabBarController {
                 isFirstLoad = false
             }
         }
-        // 바텀시트와 5 포인트 떨어진 위치로 유지
-        myloctaionImageView.snp.updateConstraints { make in
-            make.bottom.equalTo(self.view.snp.top).offset(-5)
-        }
+//        // 바텀시트와 5 포인트 떨어진 위치로 유지
+//        myloctaionImageView.snp.updateConstraints { make in
+//            make.bottom.equalTo(self.view.snp.top).offset(-5)
+//        }
         if newHeight > tabBarViewModel.midHeight {
-            view.sendSubviewToBack(myloctaionImageView)
-            myloctaionImageView.snp.updateConstraints { make in
-                make.bottom.equalTo(self.view.snp.top).offset(myloctaionImageView.frame.height + 5)
-            }
+//            view.sendSubviewToBack(myloctaionImageView)
+//            myloctaionImageView.snp.updateConstraints { make in
+//                make.bottom.equalTo(self.view.snp.top).offset(myloctaionImageView.frame.height + 5)
+//            }
         }
         viewHeight.accept(newHeight)
         tabBarViewModel.heightConstraintRelay.accept(tabBarViewModel.heightConstraintRelay.value?.update(offset: newHeight))

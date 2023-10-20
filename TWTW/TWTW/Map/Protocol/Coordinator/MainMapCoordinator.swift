@@ -6,5 +6,6 @@
 //
 
 protocol MainMapCoordinator : Coordinator {
-    func showSearchPlacesMap(output: MainMapViewModel.Output)
+    /// 검색화면으로 이동
+    func moveSearch(output: MainMapViewModel.Output)
 }

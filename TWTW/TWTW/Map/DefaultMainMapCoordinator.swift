@@ -28,8 +28,8 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
         self.navigationController.pushViewController(mainMapViewController, animated: true)
     }
     
-    ///SearchPlacesMapCoordinator 시작하는 메소드
-    func showSearchPlacesMap(output: MainMapViewModel.Output){
+    /// MARK: SearchPlacesMapCoordinator 시작하는 메소드
+    func moveSearch(output: MainMapViewModel.Output){
         mainMapViewModelOutput = output
         let searchPlacesMapCoordinator = DefaultSearchPlacesMapCoordinator(navigationController: navigationController, delegate: self)
         searchPlacesMapCoordinator.start()
