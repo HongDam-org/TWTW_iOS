@@ -11,12 +11,13 @@ import KakaoMapsSDK
 class KakaoMapViewController: UIViewController, MapControllerDelegate {
     
     var mapController: KMController?
+    var kMViewContainer: KMViewContainer?
     var _observerAdded: Bool?
     var _auth: Bool?
     var _appear: Bool?
     
     /// MARK:
-    lazy var mapView: KMViewContainer = {
+    private lazy var mapView: KMViewContainer = {
         let view = KMViewContainer()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -47,6 +48,7 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
         
         //KMController 생성.
         mapController = KMController(viewContainer: mapView)!
+        kMViewContainer = mapView
         mapController!.delegate = self
         
         mapController?.initEngine() //엔진 초기화. 엔진 내부 객체 생성 및 초기화가 진행된다.

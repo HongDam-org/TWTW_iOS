@@ -11,9 +11,12 @@ import RxRelay
 import CoreLocation
 import UIKit
 import KakaoMapsSDK
+import RxGesture
+import RxCocoa
 
 final class MainMapViewModel {
     let coordinator: DefaultMainMapCoordinator
+    private let disposeBag = DisposeBag()
     
     init(coordinator: DefaultMainMapCoordinator) {
         self.coordinator = coordinator
@@ -21,18 +24,67 @@ final class MainMapViewModel {
     
     struct Input {
         /// 지도 화면 터치 감지
-        var screenTouchEvents: Observable<Void>
+        let screenTouchEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
         
-        
+        /// 검색 버튼 터치 감지
+        let searchBarTouchEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
     }
     
     struct Output {
+        /// 탭바 가리기
+        /// true: hide, false: show
+        var hideTabbarControllerRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        
+        /// 검색바 가리기
+        /// true: hide, false: show
+        var hideSearchBarRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        
+        /// 주변 검색 결과 UI 가리기
+        /// true: hide, false: show
+        var hideNearPlacesRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        
+        /// 검색한 위치 좌표
+        var cameraCoordinateObservable: BehaviorRelay<CLLocationCoordinate2D> = BehaviorRelay(value: CLLocationCoordinate2D())
+        
+        //위치 정보를 넘길때 Mainmap 주변장소 보이는 UI로 변경
+        var showNearPlacesUI: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         
     }
     
-    /// 지도 화면 터치 감지 Relay
-    ///  true: UI 제거하기, false: UI 표시
-    var checkTouchEventRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    /// MARK: bind
+    func bind(input: Input) -> Output {
+       
+        return createOutput(input: input)
+    }
+    
+    /// MARK: create output
+    private func createOutput(input: Input) -> Output{
+        let output = Output()
+        
+        input.screenTouchEvents?
+            .bind(onNext: { _ in
+                let check = output.hideTabbarControllerRelay.value
+                output.hideTabbarControllerRelay.accept(!check)
+                output.hideNearPlacesRelay.accept(true)
+            })
+            .disposed(by: disposeBag)
+        
+        input.searchBarTouchEvents?
+            .bind { [weak self] _ in
+                guard let self = self else {return}
+                showSearchPlacesMap(output: output)
+            }
+            .disposed(by: disposeBag)
+        
+        output.showNearPlacesUI
+            .bind { check in
+                output.hideTabbarControllerRelay.accept(check)
+                output.hideNearPlacesRelay.accept(!check)
+            }
+            .disposed(by: disposeBag)
+        
+        return output
+    }
     
     /// MARK: 검색지 주변 장소 데이터
     var placeData: BehaviorRelay<[SearchNearByPlaces]> = BehaviorRelay(value: [])
@@ -40,19 +92,13 @@ final class MainMapViewModel {
     /// MARK: 현재 자신의 위치
     let locationManager: BehaviorRelay<CLLocationManager> = BehaviorRelay(value: CLLocationManager())
     
-    /// MARK: 지도 화면 터치 했을 때
-    var tapGesture: BehaviorRelay<UITapGestureRecognizer> = BehaviorRelay(value: UITapGestureRecognizer())
-    
     var tabbarItems: BehaviorRelay<[TabItem]> = BehaviorRelay(value: [])
     
     // MARK: - Logic
     
-    /// MARK: checking Touch Events
-    func checkingTouchEvents() {
-        let check = checkTouchEventRelay.value
-        checkTouchEventRelay.accept(!check)
+    func showSearchPlacesMap(output: Output) {
+        coordinator.showSearchPlacesMap(output: output)
     }
-    
     
     /// MARK: 검색지 주변 장소 더미 데이터
     func searchInputData_Dummy(){
@@ -67,15 +113,6 @@ final class MainMapViewModel {
         list.append(SearchNearByPlaces(imageName: "image", title: "Place 7", subTitle: "detail aboudPlace 7"))
         list.append(SearchNearByPlaces(imageName: "image", title: "Place 8", subTitle: "detail aboudPlace 8"))
         placeData.accept(list)
-    }
-    
-    func inputTabbarItem(){
-        let list: [TabItem] = [TabItem(title: "홈", imageName: "house"),
-                               TabItem(title: "일정", imageName: "calendar"),
-                               TabItem(title: "친구 목록", imageName: "person.2"),
-                               TabItem(title: "알림", imageName: "bell"),
-                               TabItem(title: "전화", imageName: "phone")]
-        tabbarItems.accept(list)
     }
     
     
@@ -127,15 +164,6 @@ final class MainMapViewModel {
                                latitude: 35.1793188))
         segments.append(points)
         return segments
-    }
-    
-    var cameraCoordinateObservable: CLLocationCoordinate2D?
-    //위치 정보를 넘길때 Mainmap 주변장소 보이는 UI로 변경
-    var showNearPlacesUI: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    
-  
-    func showSearchPlacesMap() {
-        coordinator.showSearchPlacesMap()
     }
 }
 

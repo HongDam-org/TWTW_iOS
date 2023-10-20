@@ -6,5 +6,5 @@
 //
 
 protocol MainMapCoordinator : Coordinator {
-    func showSearchPlacesMap()
+    func showSearchPlacesMap(output: MainMapViewModel.Output)
 }

@@ -57,12 +57,20 @@ class TabBarController: UITabBarController {
     // 탭바와 뷰컨트롤러 연결
     private func setTabbar() {
         let tabItems: [TabItem] = [
-            TabItem(title: "홈", imageName: "house"),
-            TabItem(title: "일정", imageName: "calendar"),
-            TabItem(title: "친구 목록", imageName: "person.2"),
-            TabItem(title: "알림", imageName: "bell"),
-            TabItem(title: "전화", imageName: "phone")
+            TabItem(title: "홈", imageName: TabbarItemTitle.house.rawValue),
+            TabItem(title: "일정", imageName: TabbarItemTitle.calendar.rawValue),
+            TabItem(title: "친구 목록", imageName: TabbarItemTitle.person.rawValue),
+            TabItem(title: "알림", imageName: TabbarItemTitle.bell.rawValue),
+            TabItem(title: "전화", imageName: TabbarItemTitle.phone.rawValue)
         ]
+        
+        let observableTabItem: Observable<[TabItem]> = Observable.of([
+            TabItem(title: "홈", imageName: TabbarItemTitle.house.rawValue),
+            TabItem(title: "일정", imageName: TabbarItemTitle.calendar.rawValue),
+            TabItem(title: "친구 목록", imageName: TabbarItemTitle.person.rawValue),
+            TabItem(title: "알림", imageName: TabbarItemTitle.bell.rawValue),
+            TabItem(title: "전화", imageName: TabbarItemTitle.phone.rawValue)
+        ])
         
         let homeCoordinator = PreviousAppointmentsCoordinator(navigationController: UINavigationController())
         let scheduleCoordinator = PreviousAppointmentsCoordinator(navigationController: UINavigationController())
