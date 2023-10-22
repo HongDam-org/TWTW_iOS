@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class PreviousAppointmentsCoordinator: Coordinator {
+class DefaultPreviousAppointmentsCoordinator: PreviousAppointmentsCoordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
@@ -16,7 +16,15 @@ class PreviousAppointmentsCoordinator: Coordinator {
         self.navigationController = navigationController
     }
     func start() {
+        
+    }
+    
+    /// Create Controller
+    /// - Returns: NavigationController
+    func startPush() -> UINavigationController {
         let previousAppointsViewController = PreviousAppointmentsViewController()
         navigationController.pushViewController(previousAppointsViewController, animated: true)
+        return navigationController
     }
+    
 }

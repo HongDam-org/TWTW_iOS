@@ -194,8 +194,7 @@ final class MainMapViewController: KakaoMapViewController {
                                            cLLocationCoordinate2DEvents: Observable.just(configureLocationManager()),
                                            myLocationTappedEvents: myloctaionImageView.rx.anyGesture(.tap()).when(.recognized).asObservable(),
                                            viewMiddleYPoint: Observable.just(view.frame.height/2),
-                                           tabbarControllerViewPanEvents: tabbarController.view.rx.anyGesture(.pan()).asObservable(),
-                                           myloctaionImageViewYPoint: Observable.just(myloctaionImageView.bounds.height))
+                                           tabbarControllerViewPanEvents: tabbarController.view.rx.anyGesture(.pan()).asObservable())
         let output = viewModel.bind(input: input)
         
         createRoute(output: output)
@@ -386,7 +385,8 @@ extension MainMapViewController {
         guard let view = mapController?.getView("mapview") as? KakaoMap else { return }
         let manager = view.getLabelManager()
         
-        let iconStyle = PoiIconStyle(symbol: UIImage(named: "route_pattern_long_dot.png")?.resize(newWidth: 15, newHeight: 15), anchorPoint: CGPoint(x: 0.0, y: 0.0))
+        let iconStyle = PoiIconStyle(symbol: UIImage(named: "route_pattern_arrow.png")?.resize(newWidth: 15, newHeight: 15), 
+                                     anchorPoint: CGPoint(x: 0.0, y: 0.0))
         let perLevelStyle = PerLevelPoiStyle(iconStyle: iconStyle, level: 0)  // 이 스타일이 적용되기 시작할 레벨.
         let poiStyle = PoiStyle(styleID: "customStyle1", styles: [perLevelStyle])
         manager.addPoiStyle(poiStyle)
@@ -405,7 +405,7 @@ extension MainMapViewController {
         let poi1 = layer?.addPoi(option: poiOption, at: MapPoint(longitude: longitude, latitude: latitude), callback: nil)
         let poi2 = layer?.addPoi(option: poiOption, at: MapPoint(longitude: 126.7323429, latitude: 37.3416939), callback: nil)
         poi1?.show()
-//        poi2?.show()
+        poi2?.show()
     }
     
     // MARK: - PolyGon

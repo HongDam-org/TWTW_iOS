@@ -23,9 +23,11 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     
     func start(){
         guard let mainMapViewModel = mainMapViewModel else {return}
-        let mainMapViewController = MainMapViewController(viewModel: mainMapViewModel, 
-                                                          tabbarController: TabBarController())
+        let tabbarController = TabBarController(viewModel: TabBarViewModel())
+        let mainMapViewController = MainMapViewController(viewModel: mainMapViewModel,
+                                                          tabbarController: tabbarController)
         self.navigationController.pushViewController(mainMapViewController, animated: true)
+        createTabbarItemCoordinators(tabbarController)
     }
     
     /// MARK: SearchPlacesMapCoordinator 시작하는 메소드
@@ -35,6 +37,48 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
         searchPlacesMapCoordinator.start()
         childCoordinators.append(searchPlacesMapCoordinator)
     }
+    
+    /// Create Tabbar Item Coordinator
+    func createTabbarItemCoordinators(_ tabbarController: TabBarController) {
+        let homeCoordinator = DefaultPreviousAppointmentsCoordinator(navigationController: UINavigationController())
+        let scheduleCoordinator = DefaultPreviousAppointmentsCoordinator(navigationController: UINavigationController())
+        let friendsListCoordinator = DefaultFriendsListCoordinator(navigationController: UINavigationController())
+        let notificationCoordinator = DefaultNotificationCoordinator(navigationController: UINavigationController())
+        let callCoordinator = DefaultCallCoordinator(navigationController: UINavigationController())
+        
+        tabbarController.viewControllers = [ homeCoordinator.startPush(),
+                                             scheduleCoordinator.startPush(),
+                                             friendsListCoordinator.startPush(),
+                                             notificationCoordinator.startPush(),
+                                             callCoordinator.startPush() ]
+        createTabbarItem(tabbarController)
+    }
+    
+    /// Create Tabbar Item
+    func createTabbarItem(_ tabbarController: TabBarController) {
+        let tabItems: [TabItem] = [
+            TabItem(title: TabbarItemTitle.house.rawValue,
+                    imageName: TabbarItemImageName.house.rawValue),
+            TabItem(title: TabbarItemTitle.calendar.rawValue,
+                    imageName: TabbarItemImageName.calendar.rawValue),
+            TabItem(title: TabbarItemTitle.person.rawValue,
+                    imageName: TabbarItemImageName.person.rawValue),
+            TabItem(title: TabbarItemTitle.bell.rawValue,
+                    imageName: TabbarItemImageName.bell.rawValue),
+            TabItem(title: TabbarItemTitle.phone.rawValue,
+                    imageName: TabbarItemImageName.phone.rawValue)
+        ]
+        
+        tabbarController.viewControllers?
+            .enumerated()
+            .forEach { index, viewController in
+                viewController.tabBarItem = UITabBarItem(title: tabItems[index].title,
+                                                         image: UIImage(systemName: tabItems[index].imageName),
+                                                         selectedImage: nil)
+            }
+        tabbarController.start()
+    }
+    
 }
 
 // MARK: - SearchPlacesCoordinator에서 좌표 받는 함수

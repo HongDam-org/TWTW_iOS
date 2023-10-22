@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class NotificationCoordinator: Coordinator  {
+class DefaultNotificationCoordinator: NotificationCoordinator  {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
@@ -21,5 +21,11 @@ class NotificationCoordinator: Coordinator  {
         navigationController.pushViewController(notificationViewController, animated: true)
     }
     
-    
+    /// Create Controller
+    /// - Returns: NavigationController
+    func startPush() -> UINavigationController {
+        let notificationViewController = NotificationViewController()
+        navigationController.pushViewController(notificationViewController, animated: true)
+        return navigationController
+    }
 }

@@ -40,9 +40,6 @@ final class MainMapViewModel {
         
         /// 내위치 버튼 Y 좌표
         let tabbarControllerViewPanEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>
-        
-        let myloctaionImageViewYPoint: Observable<CGFloat>
-        
     }
     
     struct Output {
@@ -122,9 +119,8 @@ final class MainMapViewModel {
         
         
         Observable.combineLatest(input.tabbarControllerViewPanEvents,
-                                 input.myloctaionImageViewYPoint,
                                  input.viewMiddleYPoint)
-        .bind { gesture, imageYOffset, viewYOffset in
+        .bind { gesture, viewYOffset in
             switch gesture.state {
             case .began, .changed, .ended, .cancelled:
                 if let height = gesture.view?.bounds.height, height > viewYOffset {
@@ -142,36 +138,12 @@ final class MainMapViewModel {
         return output
     }
     
-    /// MARK: 검색지 주변 장소 데이터
-    var placeData: BehaviorRelay<[SearchNearByPlaces]> = BehaviorRelay(value: [])
-    
-    var tabbarItems: BehaviorRelay<[TabItem]> = BehaviorRelay(value: [])
-    
     // MARK: - Logic
     
-    /// MARK: 검색 화면 보여줌
-    func moveSearch(output: Output) {
+    /// MARK: 검색 화면으로 이동
+    private func moveSearch(output: Output) {
         coordinator.moveSearch(output: output)
     }
-    
-    /// MARK: 검색지 주변 장소 더미 데이터
-    func searchInputData_Dummy(){
-        var list = placeData.value
-        
-        list.append(SearchNearByPlaces(imageName: "image", title: "Place 1", subTitle: "detail aboudPlace 1"))
-        list.append(SearchNearByPlaces(imageName: "image", title: "Place 2", subTitle: "detail aboudPlace 2"))
-        list.append(SearchNearByPlaces(imageName: "image", title: "Place 3", subTitle: "detail aboudPlace 3"))
-        list.append(SearchNearByPlaces(imageName: "image", title: "Place 4", subTitle: "detail aboudPlace 4"))
-        list.append(SearchNearByPlaces(imageName: "image", title: "Place 5", subTitle: "detail aboudPlace 5"))
-        list.append(SearchNearByPlaces(imageName: "image", title: "Place 6", subTitle: "detail aboudPlace 6"))
-        list.append(SearchNearByPlaces(imageName: "image", title: "Place 7", subTitle: "detail aboudPlace 7"))
-        list.append(SearchNearByPlaces(imageName: "image", title: "Place 8", subTitle: "detail aboudPlace 8"))
-        placeData.accept(list)
-    }
-    
-    
-    
-    // MARK: - Route
     
     /// MARK:  지도에 선 그리기
     func createRouteline(mapView: KakaoMap, layer: RouteLayer?, output: Output) {
@@ -217,5 +189,31 @@ final class MainMapViewModel {
         segments.append(points)
         return segments
     }
+    
+    
+    
+    
+    
+    
+    // MARK: - 검색 기능
+    
+    /// MARK: 검색지 주변 장소 데이터
+    var placeData: BehaviorRelay<[SearchNearByPlaces]> = BehaviorRelay(value: [])
+    
+    var tabbarItems: BehaviorRelay<[TabItem]> = BehaviorRelay(value: [])
+    
+    /// MARK: 검색지 주변 장소 더미 데이터
+    func searchInputData_Dummy(){
+        var list = placeData.value
+        
+        list.append(SearchNearByPlaces(imageName: "image", title: "Place 1", subTitle: "detail aboudPlace 1"))
+        list.append(SearchNearByPlaces(imageName: "image", title: "Place 2", subTitle: "detail aboudPlace 2"))
+        list.append(SearchNearByPlaces(imageName: "image", title: "Place 3", subTitle: "detail aboudPlace 3"))
+        list.append(SearchNearByPlaces(imageName: "image", title: "Place 4", subTitle: "detail aboudPlace 4"))
+        list.append(SearchNearByPlaces(imageName: "image", title: "Place 5", subTitle: "detail aboudPlace 5"))
+        list.append(SearchNearByPlaces(imageName: "image", title: "Place 6", subTitle: "detail aboudPlace 6"))
+        list.append(SearchNearByPlaces(imageName: "image", title: "Place 7", subTitle: "detail aboudPlace 7"))
+        list.append(SearchNearByPlaces(imageName: "image", title: "Place 8", subTitle: "detail aboudPlace 8"))
+        placeData.accept(list)
+    }
 }
-
