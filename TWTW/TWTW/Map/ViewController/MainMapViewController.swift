@@ -152,7 +152,7 @@ final class MainMapViewController: KakaoMapViewController {
     private func configureConstraintsTabbarController(){
         tabbarController.view.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(view.bounds.height*(0.3))
+            make.height.equalTo(view.bounds.height*(0.4))
             make.bottom.equalToSuperview()
         }
     }

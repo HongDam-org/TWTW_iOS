@@ -52,10 +52,9 @@ final class TabBarController: UITabBarController {
                                           friendsListPanEvents: viewControllers?[2].view.rx.panGesture().when(.began, .changed, .ended),
                                           notificationPanEvents: viewControllers?[3].view.rx.panGesture().when(.began, .changed, .ended),
                                           callPanEvents: viewControllers?[4].view.rx.panGesture().when(.began, .changed, .ended),
-                                          nowViewHeight: view.rx.observe(CGRect.self,"bounds").compactMap { $0?.height },
-                                          viewHeight: view.frame.height)
+                                          nowViewHeight: view.rx.observe(CGRect.self,"bounds").compactMap { $0?.height })
         
-        let output = viewModel.transform(input: input)
+        let output = viewModel.transform(input: input, baseViewHeight: view.frame.height)
         
         output.heightRelay
             .bind { [weak self] height in
