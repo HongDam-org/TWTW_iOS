@@ -17,9 +17,6 @@ final class TabBarController: UITabBarController {
     weak var delegates: BottomSheetDelegate?
     private let disposeBag = DisposeBag()
     
-    ///mark: - 처음 로딩되었을때 바텀시트 높이지정하기 위한 플래그
-    var isFirstLoad: Bool = true
-    
     // MARK: - init
     
     // 초기화 메서드
@@ -39,7 +36,9 @@ final class TabBarController: UITabBarController {
         super.viewDidLoad()
         // 뷰의 높이를 설정하고
         tabBar.backgroundColor = UIColor(white: 1, alpha: 1)
-        view.backgroundColor = .clear   
+        view.backgroundColor = .clear
+        
+//        selectedIndex = 5
     }
     
     func start() {
@@ -53,7 +52,7 @@ final class TabBarController: UITabBarController {
                                           friendsListPanEvents: viewControllers?[2].view.rx.panGesture().when(.began, .changed, .ended),
                                           notificationPanEvents: viewControllers?[3].view.rx.panGesture().when(.began, .changed, .ended),
                                           callPanEvents: viewControllers?[4].view.rx.panGesture().when(.began, .changed, .ended),
-                                          nowViewHeight: BehaviorSubject(value: view.frame.height * 0.3),
+                                          nowViewHeight: view.rx.observe(CGRect.self,"bounds").compactMap { $0?.height },
                                           viewHeight: view.frame.height)
         
         let output = viewModel.transform(input: input)

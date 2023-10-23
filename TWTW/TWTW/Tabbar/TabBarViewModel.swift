@@ -22,7 +22,7 @@ final class TabBarViewModel {
         let friendsListPanEvents: Observable<ControlEvent<UIPanGestureRecognizer>.Element>?
         let notificationPanEvents: Observable<ControlEvent<UIPanGestureRecognizer>.Element>?
         let callPanEvents: Observable<ControlEvent<UIPanGestureRecognizer>.Element>?
-        let nowViewHeight: BehaviorSubject<CGFloat>
+        let nowViewHeight: Observable<CGFloat>
         let viewHeight: CGFloat
     }
     
@@ -44,11 +44,7 @@ final class TabBarViewModel {
     /// - Returns: Output
     private func createOutput(input: Input) -> Output {
         let output = Output()
-        
-        input.nowViewHeight.bind{ height in
-            output.heightRelay.accept(height*0.3)
-        }.disposed(by: disposeBag)
-        
+    
         if let homePanEvents = input.homePanEvents,
            let schedulePanEvents = input.schedulePanEvents,
            let friendsListPanEvents = input.friendsListPanEvents,
@@ -64,27 +60,26 @@ final class TabBarViewModel {
             .observe(on: MainScheduler.asyncInstance)
             .bind { [weak self] gesture, viewHeight in
                 guard let self = self else {return}
-                
                 switch gesture.state {
                 case .changed:
                     print("changed")
-                    let gapTouchY = gesture.translation(in: gesture.view).y
                     // 뷰의 현재 높이와 이동된 간격을 기반으로 새로운 높이를 계산
-                    var heightByTouch = viewHeight - gapTouchY
-//                    print("viewHeight: \(viewHeight), gap: \(gapTouchY), before heightByTouch: \(heightByTouch)")
+                    let transition = gesture.translation(in: gesture.view)
                     // 최소 높이와 최대 높이를 벗어나지 않도록 보정
-                    heightByTouch = min(max(heightByTouch, input.viewHeight * 0.15), input.viewHeight * 0.8 * (1 + 0.1))
-//                    print("gap: \(gapTouchY), after heightByTouch: \(heightByTouch)")
-                    input.nowViewHeight.onNext(heightByTouch)
-                    output.heightRelay.accept(heightByTouch)
+                    let heightByTouch = min(max((gesture.view?.frame.height ?? 0) - transition.y, input.viewHeight * 0.15), input.viewHeight * 0.8 * (1 + 0.1))
+                    
+                    print("after heightByTouch: \(heightByTouch)")
+                    gesture.view?.frame = CGRect(x: 0, y: 0, width: (gesture.view?.frame.width ?? 0), height: heightByTouch)
+                    output.heightRelay.accept(gesture.view?.frame.height ?? 0)
+                    gesture.setTranslation(.zero, in: gesture.view)
                     
                 case .ended:
                     print("ended")
-                    let targetHeight = calculateFinalHeight(changedHeight: viewHeight, input: input, viewHeight: input.viewHeight)
+                   let targetHeight = calculateFinalHeight(changedHeight: viewHeight, viewHeight: input.viewHeight)
                     //  ViewModel을 사용하여 최종 높이를 계산
-                    let finalHeight = calculateFinalHeight(changedHeight: targetHeight, input: input, viewHeight: input.viewHeight)
-                    input.nowViewHeight.onNext(finalHeight)
+                    let finalHeight = calculateFinalHeight(changedHeight: targetHeight, viewHeight: input.viewHeight)
                     output.heightRelay.accept(finalHeight)
+                    
                 default:
                     return
                 }
@@ -96,7 +91,7 @@ final class TabBarViewModel {
     }
     
     // 최종 높이 계산
-    func calculateFinalHeight(changedHeight: CGFloat, input: Input, viewHeight: CGFloat) -> CGFloat {
+    func calculateFinalHeight(changedHeight: CGFloat, viewHeight: CGFloat) -> CGFloat {
         if changedHeight > viewHeight * 0.5 {
             return viewHeight * 0.8
         }

@@ -50,7 +50,7 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
                                              scheduleCoordinator.startPush(),
                                              friendsListCoordinator.startPush(),
                                              notificationCoordinator.startPush(),
-                                             callCoordinator.startPush() ]
+                                             callCoordinator.startPush()]
         createTabbarItem(tabbarController)
     }
     
