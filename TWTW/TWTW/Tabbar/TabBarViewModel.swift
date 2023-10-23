@@ -60,36 +60,29 @@ final class TabBarViewModel {
             .bind { [weak self] gesture, viewHeight in
                 guard let self = self else {return}
                 switch gesture.state {
-                
-                case .began:
-                    print("began")
-                    
                 case .changed:
-                    print("changed")
-                    // 뷰의 현재 높이와 이동된 간격을 기반으로 새로운 높이를 계산
                     let transition = gesture.translation(in: gesture.view)
-                    print("transition\(transition)")
-                    // 최소 높이와 최대 높이를 벗어나지 않도록 보정
                     
-                    let heightByTouch = min(max((gesture.view?.frame.height ?? 0) - transition.y, baseViewHeight * 0.15), baseViewHeight * 0.8 * (1 + 0.1))
-                    
-                    gesture.view?.frame.origin.y += transition.y
                     gesture.view?.frame.size.height -= transition.y
-//                    gesture.view?.frame.size.height = heightByTouch
-                    output.heightRelay.accept(gesture.view?.frame.height ?? 0)
+                    gesture.view?.frame.origin.y += transition.y
+                    
+                    if gesture.velocity(in: gesture.view).y < 0{
+                        let targetHeight = calculateHeightWhenScrollUp(changedHeight: gesture.view?.frame.size.height ?? 0, viewHeight: baseViewHeight)
+                        let finalHeight = calculateHeightWhenScrollUp(changedHeight: targetHeight, viewHeight: baseViewHeight)
+                        
+                        gesture.view?.frame.origin.y -= transition.y
+                        output.heightRelay.accept(finalHeight)
+                    }
+                    else if gesture.velocity(in: gesture.view).y > 0 {
+                        let targetHeight = calculateHeightWhenScrollDown(changedHeight: gesture.view?.frame.size.height ?? 0, viewHeight: baseViewHeight)
+                        let finalHeight = calculateHeightWhenScrollDown(changedHeight: targetHeight, viewHeight: baseViewHeight)
+                        
+                        if finalHeight > baseViewHeight * 0.2 {
+                            gesture.view?.frame.origin.y -= transition.y
+                        }
+                        output.heightRelay.accept(finalHeight)
+                    }
                     gesture.setTranslation(.zero, in: gesture.view)
-                    
-                    gesture.velocity(in: gesture.view).y < 0 ? print("상 \(gesture.velocity(in: gesture.view))") : print("하 \(gesture.velocity(in: gesture.view))")
-                    
-                case .ended, .possible:
-                    print("ended")
-                    print(gesture.translation(in: gesture.view).y)
-                    
-                    let targetHeight = calculateHeightWhenScrollUp(changedHeight: viewHeight, viewHeight: baseViewHeight)
-                    //  ViewModel을 사용하여 최종 높이를 계산
-                    let finalHeight = calculateHeightWhenScrollUp(changedHeight: targetHeight, viewHeight: baseViewHeight)
-                    output.heightRelay.accept(finalHeight)
-                    return
                 default:
                     break
                 }
@@ -100,24 +93,24 @@ final class TabBarViewModel {
         return output
     }
     
-    // 최종 높이 계산
+    // calculate height when up gesture
     private func calculateHeightWhenScrollUp(changedHeight: CGFloat, viewHeight: CGFloat) -> CGFloat {
-        if changedHeight > viewHeight * 0.4 {
+        if changedHeight > viewHeight * 0.5 {
             return viewHeight * 0.8
         }
         else if changedHeight > viewHeight * 0.15 {
             return viewHeight * 0.4
         }
-        return viewHeight * 0.15
+        return viewHeight * 0.2
     }
     
-    // 최종 높이 계산
+    // calculate height when down gesture
     private func calculateHeightWhenScrollDown(changedHeight: CGFloat, viewHeight: CGFloat) -> CGFloat {
         if changedHeight > viewHeight * 0.35{
             return viewHeight * 0.4
         }
-        if changedHeight > viewHeight * 0.1 {
-            return viewHeight * 0.15
+        if changedHeight > viewHeight * 0.15 {
+            return viewHeight * 0.2
         }
         return viewHeight * 0.8
     }

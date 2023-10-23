@@ -37,8 +37,7 @@ final class TabBarController: UITabBarController {
         // 뷰의 높이를 설정하고
         tabBar.backgroundColor = UIColor(white: 1, alpha: 1)
         view.backgroundColor = .clear
-        
-//        selectedIndex = 5
+        view.layer.cornerRadius = 20
     }
     
     func start() {
