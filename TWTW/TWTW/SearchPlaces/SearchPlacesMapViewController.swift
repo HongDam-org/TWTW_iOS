@@ -12,15 +12,34 @@ import RxCocoa
 import Alamofire
 import CoreLocation
 
+struct ResponseModel: Codable {
+    let results: [Place]
+}
+/*
+ "placeName" : "이디야커피 안성죽산점",
+ "distance" : "435",
+ "placeUrl" : "http://place.map.kakao.com/1562566188",
+ "categoryName" : "음식점 > 카페 > 커피전문점 > 이디야커피",
+ "addressName" : "경기 안성시 죽산면 죽산리 118-3",
+ "roadAddressName" : "경기 안성시 죽산면 죽주로 287-1",
+ "categoryGroupCode" : "CE7",
+ "x" : "127.426865189637",
+ "y" : "37.0764635355795"
+ */
+struct Place: Codable {
+    let placeName: String
+    let categoryName: String
+    let addressName: String
+    let roadAddressName: String
+}
 
 ///mark: - 검색 결과를 표시하는 새로운 View Controller
 final class SearchPlacesMapViewController: UIViewController {
     let disposeBag = DisposeBag()
-    ///지역 더미데이터
-    let localPlaces = ["이디야커피 안성죽산점","인천","부산", "서울", "천안", "정왕"]
+    let cellIdentifier = "SearchPlacesTableViewCell"
     
     ///필터링지역들
-    var filteredPlaces = [String]()
+    var filteredPlaces = [Place]()
     let viewModel: SearchPlacesMapViewModel
     
     /// MARK: 서치바UI
@@ -30,7 +49,6 @@ final class SearchPlacesMapViewController: UIViewController {
         searchBar.showsCancelButton = false
         searchBar.backgroundImage = UIImage()
         searchBar.searchTextField.backgroundColor = .white
-        //delegate
         searchBar.delegate = self
         return searchBar
     }()
@@ -63,38 +81,62 @@ final class SearchPlacesMapViewController: UIViewController {
         view.backgroundColor = .white
         setNavi()
         addSubViews_SearchBar()
-        setLocal()
         backButtonAction()
-
+        
     }
+    
+    func checkAccess(searchText: String) {
+        print(#function)
+        // 검색어를 URL 인코딩
+        let encodedQuery = searchText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue) ?? ""
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(accessToken)"]
+        
+        let url = "\(Domain.REST_API)\(SearchPath.placeAndCategory)?query=\(encodedQuery)&page=1&categoryGroupCode=NONE"
+        
+        AF.request(url, method: .get, headers: headers)
+            .validate(statusCode: 200..<201)
+            .responseDecodable(of: ResponseModel.self) { response in
+                switch response.result {
+                case .success(let data):
+                    // 검색어를 포함하는 placeName을 가진 장소만 필터링으로 filteredPlaces에 추가
+                    self.filteredPlaces = data.results.map { $0 }
+                    
+                case .failure(let error):
+                    print(error)
+                }
+                self.tableView.reloadData()
+            }
+    }
+    
     var naviBarHeight :CGFloat =  0.0
     var NaviBarWidth : CGFloat = 0.0
     
- 
     ///mark: - 네비게이션 item보이기
     private func setNavi(){
         navigationController?.setNavigationBarHidden(true, animated: false)
-       naviBarHeight = navigationController?.navigationBar.frame.height ?? 10
-       
+        naviBarHeight = navigationController?.navigationBar.frame.height ?? 10
+        
     }
-  
+    
     /// MARK: Add  UI - SearchBar
     private func addSubViews_SearchBar(){
         view.addSubview(searchBar)
         view.addSubview(backButton)
         view.addSubview(tableView)
-
-        configureConstraints()
         
+        tableView.register(SearchPlacesTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        
+        configureConstraints()
     }
+    
     /// MARK: Configure   Constraints
     private func configureConstraints() {
-       
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.equalToSuperview().inset(naviBarHeight)
             make.trailing.equalToSuperview().inset(5)
-
+            
         }
         backButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
@@ -109,50 +151,40 @@ final class SearchPlacesMapViewController: UIViewController {
     ///mark: 커스텀 네비게이션 뒤로가기 버튼
     private func backButtonAction(){
         backButton.rx.tap
-                 .subscribe(onNext: { [weak self] in
-                     self?.navigationController?.popViewController(animated: true)
-                 })
-                 .disposed(by: disposeBag)
-         
-    }
-    ///mark: 초기에 모든 지역
-    private func setLocal(){
-        filteredPlaces = localPlaces
-        tableView.reloadData()
+            .subscribe(onNext: { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 }
 /// MARK: Extension
 extension SearchPlacesMapViewController : UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
-            filteredPlaces = localPlaces
+            filteredPlaces = []
         }
-        else {
-            filteredPlaces = localPlaces.filter { place  in
-                return place.lowercased().contains(searchText.lowercased())
-            }
-        }
-        tableView.reloadData()
+        checkAccess(searchText: searchText)
     }
 }
+
 extension SearchPlacesMapViewController : UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredPlaces.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = filteredPlaces[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! SearchPlacesTableViewCell
+        let place = filteredPlaces[indexPath.row]
+        cell.configure(placeName: place.placeName, addressName: place.addressName, categoryName: place.categoryName)
         return cell
     }
 }
+
 extension SearchPlacesMapViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let xCoordinate = 10.0
         let yCoordinate = 10.0
-
         ///선택한 좌표이동
         viewModel.selectLocation(xCoordinate: xCoordinate,yCoordinate: yCoordinate)
-
     }
 }

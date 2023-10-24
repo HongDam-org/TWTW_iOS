@@ -8,7 +8,7 @@
 import Foundation
 
 struct SearchPath {
-    static let placeAndCategory = "/plans/search/destination/"
+    static let placeAndCategory = "/plans/search/destination"
     
 }
 
