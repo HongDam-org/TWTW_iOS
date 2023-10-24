@@ -15,10 +15,10 @@ import RxGesture
 import RxCocoa
 
 final class MainMapViewModel {
-    let coordinator: DefaultMainMapCoordinator
+    private let coordinator: DefaultMainMapCoordinator?
     private let disposeBag = DisposeBag()
     
-    init(coordinator: DefaultMainMapCoordinator) {
+    init(coordinator: DefaultMainMapCoordinator?) {
         self.coordinator = coordinator
     }
     
@@ -30,16 +30,16 @@ final class MainMapViewModel {
         let searchBarTouchEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
         
         /// Location Manager
-        let cLLocationCoordinate2DEvents: Observable<CLLocationManager>
+        let cLLocationCoordinate2DEvents: Observable<CLLocationManager>?
         
         /// 내위치 버튼 눌렀을 때
         let myLocationTappedEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
         
         /// 뷰의 중간 Y좌표
-        let viewMiddleYPoint: Observable<CGFloat>
+        let viewMiddleYPoint: Observable<CGFloat>?
         
         /// 내위치 버튼 Y 좌표
-        let tabbarControllerViewPanEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>
+        let tabbarControllerViewPanEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
     }
     
     struct Output {
@@ -79,7 +79,6 @@ final class MainMapViewModel {
     /// MARK: create output
     private func createOutput(input: Input) -> Output{
         let output = Output()
-        
         input.screenTouchEvents?
             .bind(onNext: { _ in
                 output.hideTabbarControllerRelay.accept(!output.hideTabbarControllerRelay.value)
@@ -95,7 +94,7 @@ final class MainMapViewModel {
             }
             .disposed(by: disposeBag)
         
-        input.cLLocationCoordinate2DEvents
+        input.cLLocationCoordinate2DEvents?
             .bind { manager in
                 output.myLocatiaonRelay.accept(manager.location?.coordinate ?? CLLocationCoordinate2D())
             }
@@ -109,17 +108,29 @@ final class MainMapViewModel {
             }
             .disposed(by: disposeBag)
         
-        guard let myLocationTappedEvents = input.myLocationTappedEvents else {fatalError("none")}
-        Observable.combineLatest(myLocationTappedEvents, 
-                                 input.cLLocationCoordinate2DEvents)
+      
+        touchMyLocation(input: input, output: output)
+        hideImageView(input: input, output: output)
+        
+        return output
+    }
+    
+    /// MARK: when touch my location
+    private func touchMyLocation(input: Input, output: Output){
+        guard let myLocationTappedEvents = input.myLocationTappedEvents, let cLLocationCoordinate2DEvents = input.cLLocationCoordinate2DEvents else {return}
+        Observable.combineLatest(myLocationTappedEvents,
+                                 cLLocationCoordinate2DEvents)
         .bind { gesture, manager in
             output.myLocatiaonRelay.accept(manager.location?.coordinate ?? CLLocationCoordinate2D())
         }
         .disposed(by: disposeBag)
-        
-        
-        Observable.combineLatest(input.tabbarControllerViewPanEvents,
-                                 input.viewMiddleYPoint)
+    }
+    
+    /// MARK: hide image View
+    private func hideImageView(input: Input, output: Output){
+        guard let tabbarControllerViewPanEvents = input.tabbarControllerViewPanEvents, let viewMiddleYPoint = input.viewMiddleYPoint else { return }
+        Observable.combineLatest(tabbarControllerViewPanEvents,
+                                 viewMiddleYPoint)
         .bind { gesture, viewYOffset in
             switch gesture.state {
             case .began, .changed, .ended, .cancelled:
@@ -134,15 +145,13 @@ final class MainMapViewModel {
             
         }
         .disposed(by: disposeBag)
-        
-        return output
     }
     
     // MARK: - Logic
     
     /// MARK: 검색 화면으로 이동
     private func moveSearch(output: Output) {
-        coordinator.moveSearch(output: output)
+        coordinator?.moveSearch(output: output)
     }
     
     /// MARK:  지도에 선 그리기
