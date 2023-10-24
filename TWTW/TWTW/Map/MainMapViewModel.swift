@@ -68,6 +68,7 @@ final class MainMapViewModel {
         /// 위치 정보를 넘길때 Mainmap 주변장소 보이는 UI로 변경
         var showNearPlacesUI: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         
+        var moveSearchCoordinator: PublishSubject<Bool> = PublishSubject()
     }
     
     /// MARK: bind
@@ -90,6 +91,7 @@ final class MainMapViewModel {
         input.searchBarTouchEvents?
             .bind { [weak self] _ in
                 guard let self = self else {return}
+                output.moveSearchCoordinator.onNext(true)
                 moveSearch(output: output)
             }
             .disposed(by: disposeBag)

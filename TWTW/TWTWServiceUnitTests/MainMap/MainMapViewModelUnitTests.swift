@@ -77,4 +77,34 @@ final class MainMapViewModelUnitTests: XCTestCase {
         
     }
     
+    
+    /// 지도 화면 터치할 때 테스트
+    func testTouchSearchBar(){
+        let searchBarTouchSubject = PublishSubject<ControlEvent<RxGestureRecognizer>.Element>()
+    
+        let input = MainMapViewModel.Input(screenTouchEvents: nil,
+                                           searchBarTouchEvents: searchBarTouchSubject.asObservable(),
+                                           cLLocationCoordinate2DEvents: nil,
+                                           myLocationTappedEvents: nil,
+                                           viewMiddleYPoint: nil,
+                                           tabbarControllerViewPanEvents: nil)
+        
+        let output = viewModel.bind(input: input)
+        
+        let observerMoveSearchBarSubject = scheduler.createObserver(Bool.self)
+        
+        output.moveSearchCoordinator.bind(to:observerMoveSearchBarSubject).disposed(by: disposeBag)
+        
+        scheduler.scheduleAt(10) { searchBarTouchSubject.onNext(UITapGestureRecognizer(target: nil, action: nil)) }
+        scheduler.scheduleAt(100) { searchBarTouchSubject.onNext(UITapGestureRecognizer(target: nil, action: nil)) }
+        scheduler.scheduleAt(110) { searchBarTouchSubject.dispose() }
+        scheduler.start()
+        
+        XCTAssertEqual(observerMoveSearchBarSubject.events, [
+            .next(10,true),
+            .next(100,true)])
+
+    }
+    
+    
 }
