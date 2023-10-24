@@ -13,7 +13,6 @@ import CoreLocation
 import RxGesture
 import KakaoMapsSDK
 
-
 ///MainMapViewController - 지도화면
 final class MainMapViewController: KakaoMapViewController {
     //MARK -  서치바 클릭 시 보여질 새로운 UI 요소 (circularView, nearbyPlacesCollectionView, collectionView위 버튼 (중간위치 찾을 VC이동,내위치))

@@ -12,9 +12,7 @@ import RxCocoa
 import Alamofire
 import CoreLocation
 
-struct ResponseModel: Codable {
-    let results: [Place]
-}
+
 /*
  "placeName" : "이디야커피 안성죽산점",
  "distance" : "435",
@@ -26,12 +24,6 @@ struct ResponseModel: Codable {
  "x" : "127.426865189637",
  "y" : "37.0764635355795"
  */
-struct Place: Codable {
-    let placeName: String
-    let categoryName: String
-    let addressName: String
-    let roadAddressName: String
-}
 
 ///mark: - 검색 결과를 표시하는 새로운 View Controller
 final class SearchPlacesMapViewController: UIViewController {
@@ -86,7 +78,6 @@ final class SearchPlacesMapViewController: UIViewController {
     }
     
     func checkAccess(searchText: String) {
-        print(#function)
         // 검색어를 URL 인코딩
         let encodedQuery = searchText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue) ?? ""
@@ -116,7 +107,6 @@ final class SearchPlacesMapViewController: UIViewController {
     private func setNavi(){
         navigationController?.setNavigationBarHidden(true, animated: false)
         naviBarHeight = navigationController?.navigationBar.frame.height ?? 10
-        
     }
     
     /// MARK: Add  UI - SearchBar
@@ -136,13 +126,14 @@ final class SearchPlacesMapViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.equalToSuperview().inset(naviBarHeight)
             make.trailing.equalToSuperview().inset(5)
-            
         }
+        
         backButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.equalToSuperview().inset(5)
             make.width.height.equalTo(searchBar.snp.height)
         }
+        
         tableView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom)
             make.left.right.bottom.equalToSuperview()
@@ -182,9 +173,11 @@ extension SearchPlacesMapViewController : UITableViewDataSource{
 
 extension SearchPlacesMapViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let xCoordinate = 10.0
-        let yCoordinate = 10.0
+        let place = filteredPlaces[indexPath.row]
+        guard let placeX = Double(place.x) else { return }
+        guard let placeY = Double(place.y) else { return }
+        print(placeY)
         ///선택한 좌표이동
-        viewModel.selectLocation(xCoordinate: xCoordinate,yCoordinate: yCoordinate)
+        viewModel.selectLocation(xCoordinate: placeX ,yCoordinate: placeY)
     }
 }

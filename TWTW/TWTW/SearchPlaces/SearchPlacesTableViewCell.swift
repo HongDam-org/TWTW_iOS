@@ -14,14 +14,14 @@ final class SearchPlacesTableViewCell: UITableViewCell {
     private let placeNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         return label
     }()
     
     private let addressNameLabel : UILabel = {
         let label = UILabel()
         label.textColor = .lightGray
-        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         return label
     }()
     
