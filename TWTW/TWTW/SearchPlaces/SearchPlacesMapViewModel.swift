@@ -15,6 +15,6 @@ final class SearchPlacesMapViewModel: NSObject {
     
     ///선택한 좌표로 coordinator로 전달
     func selectLocation(xCoordinate: Double, yCoordinate: Double) {
-        selectedCoordinateSubject.accept(CLLocationCoordinate2D(latitude: xCoordinate, longitude: yCoordinate))
+        selectedCoordinateSubject.accept(CLLocationCoordinate2D(latitude: yCoordinate, longitude: xCoordinate))
     }
 }
