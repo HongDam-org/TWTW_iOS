@@ -9,7 +9,7 @@ import UIKit
 
 ///mark: - 서치테이블 정보talbeViewCell
 final class SearchPlacesTableViewCell: UITableViewCell {
-
+    
     ///mark: - 장소이름과 주소
     private let placeNameLabel: UILabel = {
         let label = UILabel()
@@ -36,7 +36,7 @@ final class SearchPlacesTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubViews()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -46,7 +46,7 @@ final class SearchPlacesTableViewCell: UITableViewCell {
         contentView.addSubview(placeNameLabel)
         contentView.addSubview(addressNameLabel)
         contentView.addSubview(categoryNameLabel)
-
+        
         configureConstraints()
     }
     

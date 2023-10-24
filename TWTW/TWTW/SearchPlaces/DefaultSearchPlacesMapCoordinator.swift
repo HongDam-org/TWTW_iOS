@@ -26,13 +26,13 @@ class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtocol {
         
         //좌표를 delegate를 통해서 전달
         searchPlacesMapViewModel.selectedCoordinateSubject
-                  .subscribe(onNext: { [weak self] coordinate in
-                      // 좌표를 MainMapCoordinator로 전달
-                      self?.delegate?.didSelectCoordinate(coordinate: coordinate)
-                      // 좌표 전달 후 화면 닫기
-                      self?.finishSearchPlaces()
-                  })
-                  .disposed(by: searchPlaceMapViewController.disposeBag)
+            .subscribe(onNext: { [weak self] coordinate in
+                // 좌표를 MainMapCoordinator로 전달
+                self?.delegate?.didSelectCoordinate(coordinate: coordinate)
+                // 좌표 전달 후 화면 닫기
+                self?.finishSearchPlaces()
+            })
+            .disposed(by: searchPlaceMapViewController.disposeBag)
         
         navigationController.pushViewController(searchPlaceMapViewController, animated: true)
     }
@@ -40,6 +40,6 @@ class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtocol {
     func finishSearchPlaces(){
         navigationController.popViewController(animated: true)
     }
-
+    
     
 }

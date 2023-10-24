@@ -52,8 +52,8 @@
 		3799E5092A99D72D00E06218 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5082A99D72D00E06218 /* NotificationViewController.swift */; };
 		37BAF8932A948EF700BD85DC /* SearchPlacesMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BAF8922A948EF700BD85DC /* SearchPlacesMapViewController.swift */; };
 		37BAF8962A949C4900BD85DC /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 37BAF8952A949C4900BD85DC /* Config.xcconfig */; };
+		37CE1EAF2AE75813009CDA21 /* SearchPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CE1EAE2AE75813009CDA21 /* SearchPlaces.swift */; };
 		37D114E12AE6CC3700D840C5 /* SearchPlacesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D114E02AE6CC3700D840C5 /* SearchPlacesTableViewCell.swift */; };
-		37D114E32AE6CD2D00D840C5 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D114E22AE6CD2D00D840C5 /* test.swift */; };
 		37EF0CFB2AB85C2400D77B0A /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */; };
 		3B0691552ABBD73900C98D6D /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0691542ABBD73900C98D6D /* Login.swift */; };
 		3B0D6AA92ABBD1A900B08CAB /* LoginConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D6AA82ABBD1A900B08CAB /* LoginConstants.swift */; };
@@ -150,8 +150,8 @@
 		3799E5082A99D72D00E06218 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		37BAF8922A948EF700BD85DC /* SearchPlacesMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapViewController.swift; sourceTree = "<group>"; };
 		37BAF8952A949C4900BD85DC /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		37CE1EAE2AE75813009CDA21 /* SearchPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaces.swift; sourceTree = "<group>"; };
 		37D114E02AE6CC3700D840C5 /* SearchPlacesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesTableViewCell.swift; sourceTree = "<group>"; };
-		37D114E22AE6CD2D00D840C5 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		3B0691542ABBD73900C98D6D /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		3B0D6AA82ABBD1A900B08CAB /* LoginConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConstants.swift; sourceTree = "<group>"; };
@@ -306,6 +306,7 @@
 		3760CC902AE2CC1700CFC2D5 /* SearchPlaces */ = {
 			isa = PBXGroup;
 			children = (
+				37CE1EAE2AE75813009CDA21 /* SearchPlaces.swift */,
 			);
 			path = SearchPlaces;
 			sourceTree = "<group>";
@@ -346,6 +347,7 @@
 		377CB0682AD8C8E4003453D6 /* SearchPlaces */ = {
 			isa = PBXGroup;
 			children = (
+				37C305122AE80D2C00D132CF /* Protocol */,
 				3760CC902AE2CC1700CFC2D5 /* SearchPlaces */,
 				3760CC8D2AE2CB3E00CFC2D5 /* SurroundSearchPlaces */,
 				37BAF8922A948EF700BD85DC /* SearchPlacesMapViewController.swift */,
@@ -438,7 +440,6 @@
 			isa = PBXGroup;
 			children = (
 				371C1D302ADBAFF300B30DC5 /* PreviousAppointmentsCoordinator.swift */,
-				37D114E22AE6CD2D00D840C5 /* test.swift */,
 			);
 			path = PreviousAppointments;
 			sourceTree = "<group>";
@@ -464,6 +465,29 @@
 				3799E5012A99D68500E06218 /* CallViewController.swift */,
 			);
 			path = Call;
+			sourceTree = "<group>";
+		};
+		37C305122AE80D2C00D132CF /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				37C305142AE80D4700D132CF /* Delegate */,
+				37C305132AE80D3900D132CF /* Coordinator */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		37C305132AE80D3900D132CF /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		37C305142AE80D4700D132CF /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Delegate;
 			sourceTree = "<group>";
 		};
 		3B0691532ABBD73200C98D6D /* Login */ = {
@@ -876,7 +900,6 @@
 				3B274D762AD4541E00D79698 /* SignInCoordinatorFinishDelegate.swift in Sources */,
 				375E8B022A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift in Sources */,
 				3799E5092A99D72D00E06218 /* NotificationViewController.swift in Sources */,
-				37D114E32AE6CD2D00D840C5 /* test.swift in Sources */,
 				377CB0612AD8699C003453D6 /* MainMapCoordinator.swift in Sources */,
 				3B1850AE2AB5C781001945EE /* EndPoint.swift in Sources */,
 				3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */,
@@ -929,6 +952,7 @@
 				3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */,
 				3B274D802AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift in Sources */,
 				371C1D2F2ADBAFCC00B30DC5 /* FriendsListCoordinator.swift in Sources */,
+				37CE1EAF2AE75813009CDA21 /* SearchPlaces.swift in Sources */,
 				3B6CF3D72ADAC80200325D05 /* SignInProtocol.swift in Sources */,
 				375916372A7EB36000C21E1F /* SignInService.swift in Sources */,
 				377CB06A2AD8C9AD003453D6 /* SearchPlacesMapCoordinator.swift in Sources */,

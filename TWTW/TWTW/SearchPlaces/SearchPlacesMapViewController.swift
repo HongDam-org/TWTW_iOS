@@ -13,18 +13,6 @@ import Alamofire
 import CoreLocation
 
 
-/*
- "placeName" : "이디야커피 안성죽산점",
- "distance" : "435",
- "placeUrl" : "http://place.map.kakao.com/1562566188",
- "categoryName" : "음식점 > 카페 > 커피전문점 > 이디야커피",
- "addressName" : "경기 안성시 죽산면 죽산리 118-3",
- "roadAddressName" : "경기 안성시 죽산면 죽주로 287-1",
- "categoryGroupCode" : "CE7",
- "x" : "127.426865189637",
- "y" : "37.0764635355795"
- */
-
 ///mark: - 검색 결과를 표시하는 새로운 View Controller
 final class SearchPlacesMapViewController: UIViewController {
     let disposeBag = DisposeBag()
@@ -33,6 +21,9 @@ final class SearchPlacesMapViewController: UIViewController {
     ///필터링지역들
     var filteredPlaces = [Place]()
     let viewModel: SearchPlacesMapViewModel
+    //model로 뺄것mf
+    var naviBarHeight :CGFloat =  0.0
+    var NaviBarWidth : CGFloat = 0.0
     
     /// MARK: 서치바UI
     private lazy var searchBar: UISearchBar = {
@@ -72,36 +63,11 @@ final class SearchPlacesMapViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setNavi()
-        addSubViews_SearchBar()
+        addSubViews()
         backButtonAction()
-        
+        subscribeFilteredPlaces()
+        hideKeyboard()
     }
-    
-    func checkAccess(searchText: String) {
-        // 검색어를 URL 인코딩
-        let encodedQuery = searchText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue) ?? ""
-        let headers: HTTPHeaders = ["Authorization": "Bearer \(accessToken)"]
-        
-        let url = "\(Domain.REST_API)\(SearchPath.placeAndCategory)?query=\(encodedQuery)&page=1&categoryGroupCode=NONE"
-        
-        AF.request(url, method: .get, headers: headers)
-            .validate(statusCode: 200..<201)
-            .responseDecodable(of: ResponseModel.self) { response in
-                switch response.result {
-                case .success(let data):
-                    // 검색어를 포함하는 placeName을 가진 장소만 필터링으로 filteredPlaces에 추가
-                    self.filteredPlaces = data.results.map { $0 }
-                    
-                case .failure(let error):
-                    print(error)
-                }
-                self.tableView.reloadData()
-            }
-    }
-    
-    var naviBarHeight :CGFloat =  0.0
-    var NaviBarWidth : CGFloat = 0.0
     
     ///mark: - 네비게이션 item보이기
     private func setNavi(){
@@ -110,14 +76,22 @@ final class SearchPlacesMapViewController: UIViewController {
     }
     
     /// MARK: Add  UI - SearchBar
-    private func addSubViews_SearchBar(){
+    private func addSubViews(){
         view.addSubview(searchBar)
         view.addSubview(backButton)
         view.addSubview(tableView)
-        
         tableView.register(SearchPlacesTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         configureConstraints()
+    }
+    
+    ///MARK: - keyboard내림
+    private func hideKeyboard() {
+        tableView.rx.didScroll
+            .subscribe(onNext: { [weak self] _ in
+                self?.view.endEditing(true)
+            })
+            .disposed(by: disposeBag)
     }
     
     /// MARK: Configure   Constraints
@@ -147,14 +121,26 @@ final class SearchPlacesMapViewController: UIViewController {
             })
             .disposed(by: disposeBag)
     }
+    
+    // 필터링 장소 가저오기
+    private func subscribeFilteredPlaces(){
+        viewModel.filteredPlaces
+            .subscribe(onNext: {[weak self] places in
+                guard let self = self else {return}
+                self.filteredPlaces = places
+                self.tableView.reloadData()
+            })
+            .disposed(by: disposeBag)
+    }
 }
-/// MARK: Extension
+
+// MARK: - Extension
 extension SearchPlacesMapViewController : UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
-            filteredPlaces = []
+            viewModel.filteredPlaces.accept([])
         }
-        checkAccess(searchText: searchText)
+        viewModel.checkSearchPlaceAccess(searchText: searchText)
     }
 }
 
@@ -174,10 +160,10 @@ extension SearchPlacesMapViewController : UITableViewDataSource{
 extension SearchPlacesMapViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let place = filteredPlaces[indexPath.row]
-        guard let placeX = Double(place.x) else { return }
-        guard let placeY = Double(place.y) else { return }
-        print(placeY)
-        ///선택한 좌표이동
-        viewModel.selectLocation(xCoordinate: placeX ,yCoordinate: placeY)
+        if let placeX = Double(place.x) , let placeY = Double(place.y){
+            ///선택한 좌표이동
+            viewModel.selectLocation(xCoordinate: placeX ,yCoordinate: placeY)
+        }
     }
 }
+
