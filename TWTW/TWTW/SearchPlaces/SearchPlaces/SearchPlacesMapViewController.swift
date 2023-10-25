@@ -44,9 +44,6 @@ final class SearchPlacesMapViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        //delegate, dataSource
-        tableView.delegate = self
-        tableView.dataSource = self
         return tableView
     }()
     
@@ -81,7 +78,7 @@ final class SearchPlacesMapViewController: UIViewController {
         view.addSubview(backButton)
         view.addSubview(tableView)
         tableView.register(SearchPlacesTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
-        
+        bindTableView()
         configureConstraints()
     }
     
@@ -132,6 +129,25 @@ final class SearchPlacesMapViewController: UIViewController {
             })
             .disposed(by: disposeBag)
     }
+    //테이블뷰 bind
+    private func bindTableView(){
+        viewModel.filteredPlaces
+            .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier, cellType: SearchPlacesTableViewCell.self)){
+                (row, place, cell) in
+                cell.configure(placeName: place.placeName, addressName: place.addressName, categoryName: place.categoryName)
+            }
+            .disposed(by: disposeBag)
+        //tableViewCell선택 이벤트
+        tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                let place = self?.filteredPlaces[indexPath.row]
+                if let placeX = Double(place?.x ?? ""),
+                   let placeY = Double(place?.y ?? ""){
+                    self?.viewModel.selectLocation(xCoordinate: placeX, yCoordinate: placeY)
+                }
+            }).disposed(by: disposeBag)
+    }
+  
 }
 
 // MARK: - Extension
@@ -144,26 +160,4 @@ extension SearchPlacesMapViewController : UISearchBarDelegate{
     }
 }
 
-extension SearchPlacesMapViewController : UITableViewDataSource{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredPlaces.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! SearchPlacesTableViewCell
-        let place = filteredPlaces[indexPath.row]
-        cell.configure(placeName: place.placeName, addressName: place.addressName, categoryName: place.categoryName)
-        return cell
-    }
-}
-
-extension SearchPlacesMapViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let place = filteredPlaces[indexPath.row]
-        if let placeX = Double(place.x) , let placeY = Double(place.y){
-            ///선택한 좌표이동
-            viewModel.selectLocation(xCoordinate: placeX ,yCoordinate: placeY)
-        }
-    }
-}
 
