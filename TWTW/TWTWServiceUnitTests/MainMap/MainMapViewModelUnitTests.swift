@@ -10,11 +10,11 @@ import RxSwift
 import RxTest
 import RxCocoa
 import RxGesture
+import CoreLocation
 
 @testable import TWTW
 
 final class MainMapViewModelUnitTests: XCTestCase {
-
     private var disposeBag: DisposeBag!
     private var scheduler: TestScheduler!
     private var viewModel: MainMapViewModel!
@@ -74,11 +74,9 @@ final class MainMapViewModelUnitTests: XCTestCase {
             .next(0,false),
             .next(10,true),
             .next(100,false)])
-        
     }
     
-    
-    /// 지도 화면 터치할 때 테스트
+    /// 검색 버튼 터치할 때 테스트
     func testTouchSearchBar(){
         let searchBarTouchSubject = PublishSubject<ControlEvent<RxGestureRecognizer>.Element>()
     
@@ -106,5 +104,36 @@ final class MainMapViewModelUnitTests: XCTestCase {
 
     }
     
+    /// 내 위치  테스트
+    func testMyLocation(){
+        let cLLocationManagerMock = CLLocationManager()
+        
+        let observableLocation = scheduler.createHotObservable([
+            .next(0, cLLocationManagerMock),
+            .next(20, cLLocationManagerMock),
+        ])
+    
+        let input = MainMapViewModel.Input(screenTouchEvents: nil,
+                                           searchBarTouchEvents: nil,
+                                           cLLocationCoordinate2DEvents: observableLocation.asObservable(),
+                                           myLocationTappedEvents: nil,
+                                           viewMiddleYPoint: nil,
+                                           tabbarControllerViewPanEvents: nil)
+        
+        let output = viewModel.bind(input: input)
+        
+        let observerMyLocatiaonRelay = scheduler.createObserver(CLLocationCoordinate2D.self)
+        
+        output.myLocatiaonRelay.bind(to:observerMyLocatiaonRelay).disposed(by: disposeBag)
+        
+        output.myLocatiaonRelay.bind(onNext: { cl in
+            print(cl)
+        }).disposed(by: disposeBag)
+        
+        scheduler.start()
+        
+//        XCTAssertEqual(observerMyLocatiaonRelay.events, [.next(0,CLLocationCoordinate2D(latitude: 0, longitude: 0)) ])
+
+    }
     
 }

@@ -56,7 +56,7 @@ final class MainMapViewModel {
         var hideNearPlacesRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         
         /// 내위치 나타내는 버튼
-        /// /// true: hide, false: show
+        /// true: hide, false: show
         var hideMyLocationImageViewRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         
         /// 자신의 위치 반환
@@ -78,7 +78,7 @@ final class MainMapViewModel {
     }
     
     /// MARK: create output
-    private func createOutput(input: Input) -> Output{
+    private func createOutput(input: Input) -> Output {
         let output = Output()
         input.screenTouchEvents?
             .bind(onNext: { _ in
