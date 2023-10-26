@@ -35,9 +35,6 @@ final class MainMapViewModel {
         /// 내위치 버튼 눌렀을 때
         let myLocationTappedEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
         
-        /// 뷰의 중간 Y좌표
-        let viewMiddleYPoint: Observable<CGFloat>?
-        
         /// 내위치 버튼 Y 좌표
         let tabbarControllerViewPanEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
     }
@@ -72,13 +69,13 @@ final class MainMapViewModel {
     }
     
     /// MARK: bind
-    func bind(input: Input) -> Output {
+    func bind(input: Input, viewMiddleYPoint: CGFloat?) -> Output {
         
-        return createOutput(input: input)
+        return createOutput(input: input, viewMiddleYPoint: viewMiddleYPoint)
     }
     
     /// MARK: create output
-    private func createOutput(input: Input) -> Output {
+    private func createOutput(input: Input, viewMiddleYPoint: CGFloat?) -> Output {
         let output = Output()
         input.screenTouchEvents?
             .bind(onNext: { _ in
@@ -112,7 +109,7 @@ final class MainMapViewModel {
         
       
         touchMyLocation(input: input, output: output)
-        hideImageView(input: input, output: output)
+        hideImageView(input: input, output: output, viewMiddleYPoint: viewMiddleYPoint)
         
         return output
     }
@@ -129,14 +126,12 @@ final class MainMapViewModel {
     }
     
     /// MARK: hide image View
-    private func hideImageView(input: Input, output: Output){
-        guard let tabbarControllerViewPanEvents = input.tabbarControllerViewPanEvents, let viewMiddleYPoint = input.viewMiddleYPoint else { return }
-        Observable.combineLatest(tabbarControllerViewPanEvents,
-                                 viewMiddleYPoint)
-        .bind { gesture, viewYOffset in
+    private func hideImageView(input: Input, output: Output, viewMiddleYPoint: CGFloat?){
+        input.tabbarControllerViewPanEvents?
+            .bind { gesture in
             switch gesture.state {
             case .began, .changed, .ended, .cancelled:
-                if let height = gesture.view?.bounds.height, height > viewYOffset {
+                if let height = gesture.view?.bounds.height, height > viewMiddleYPoint ?? 0 {
                     output.hideMyLocationImageViewRelay.accept(true)
                     return
                 }

@@ -42,10 +42,9 @@ final class MainMapViewModelUnitTests: XCTestCase {
                                            searchBarTouchEvents: nil,
                                            cLLocationCoordinate2DEvents: nil,
                                            myLocationTappedEvents: nil,
-                                           viewMiddleYPoint: nil,
                                            tabbarControllerViewPanEvents: nil)
         
-        let output = viewModel.bind(input: input)
+        let output = viewModel.bind(input: input,viewMiddleYPoint: nil)
         
         let observerHideTabbarControllerRelay = scheduler.createObserver(Bool.self)
         let observerHideMyLocationImageViewRelay = scheduler.createObserver(Bool.self)
@@ -84,17 +83,16 @@ final class MainMapViewModelUnitTests: XCTestCase {
                                            searchBarTouchEvents: searchBarTouchSubject.asObservable(),
                                            cLLocationCoordinate2DEvents: nil,
                                            myLocationTappedEvents: nil,
-                                           viewMiddleYPoint: nil,
                                            tabbarControllerViewPanEvents: nil)
         
-        let output = viewModel.bind(input: input)
+        let output = viewModel.bind(input: input,viewMiddleYPoint: nil)
         
         let observerMoveSearchBarSubject = scheduler.createObserver(Bool.self)
         
         output.moveSearchCoordinator.bind(to:observerMoveSearchBarSubject).disposed(by: disposeBag)
         
-        scheduler.scheduleAt(10) { searchBarTouchSubject.onNext(UITapGestureRecognizer(target: nil, action: nil)) }
-        scheduler.scheduleAt(100) { searchBarTouchSubject.onNext(UITapGestureRecognizer(target: nil, action: nil)) }
+        scheduler.scheduleAt(10) { searchBarTouchSubject.onNext(UITapGestureRecognizer(target: self, action: nil)) }
+        scheduler.scheduleAt(100) { searchBarTouchSubject.onNext(UITapGestureRecognizer(target: self, action: nil)) }
         scheduler.scheduleAt(110) { searchBarTouchSubject.dispose() }
         scheduler.start()
         
@@ -117,10 +115,9 @@ final class MainMapViewModelUnitTests: XCTestCase {
                                            searchBarTouchEvents: nil,
                                            cLLocationCoordinate2DEvents: observableLocation.asObservable(),
                                            myLocationTappedEvents: nil,
-                                           viewMiddleYPoint: nil,
                                            tabbarControllerViewPanEvents: nil)
         
-        let output = viewModel.bind(input: input)
+        let output = viewModel.bind(input: input,viewMiddleYPoint: nil)
         
         let observerMyLocatiaonRelay = scheduler.createObserver(CLLocationCoordinate2D.self)
         
@@ -133,7 +130,57 @@ final class MainMapViewModelUnitTests: XCTestCase {
         scheduler.start()
         
 //        XCTAssertEqual(observerMyLocatiaonRelay.events, [.next(0,CLLocationCoordinate2D(latitude: 0, longitude: 0)) ])
-
     }
     
+    /// 내위치 탭 했을때 테스트
+    func testMyLocationTappedEvents() {
+        let myLocationTouchSubject = PublishSubject<ControlEvent<RxGestureRecognizer>.Element>()
+        let cLLocationManagerMock = CLLocationManager()
+        
+        let observableLocation = scheduler.createHotObservable([
+            .next(10, cLLocationManagerMock),
+            .next(100, cLLocationManagerMock),
+            .next(110, cLLocationManagerMock),
+        ])
+        
+        let input = MainMapViewModel.Input(screenTouchEvents: nil,
+                                           searchBarTouchEvents: nil,
+                                           cLLocationCoordinate2DEvents: observableLocation.asObservable(),
+                                           myLocationTappedEvents: myLocationTouchSubject.asObservable(),
+                                           tabbarControllerViewPanEvents: nil)
+        let output = viewModel.bind(input: input, viewMiddleYPoint: nil)
+        
+        let observerMyLocation = scheduler.createObserver(CLLocationCoordinate2D.self).asObserver()
+        
+        scheduler.scheduleAt(10) { myLocationTouchSubject.onNext(UITapGestureRecognizer(target: nil, action: nil)) }
+        scheduler.scheduleAt(100) { myLocationTouchSubject.onNext(UITapGestureRecognizer(target: nil, action: nil)) }
+        scheduler.scheduleAt(110) { myLocationTouchSubject.dispose() }
+        scheduler.start()
+        
+        output.myLocatiaonRelay.bind(to: observerMyLocation).disposed(by: disposeBag)
+        
+        output.myLocatiaonRelay
+            .bind { cl in
+                print(cl)
+            }
+            .disposed(by: disposeBag)
+        
+        
+    }
+    
+    func testTabbarControllerViewPanEvents() {
+        let panGestureSubject = PublishSubject<ControlEvent<RxGestureRecognizer>.Element>()
+        
+        let input = MainMapViewModel.Input(screenTouchEvents: nil,
+                                           searchBarTouchEvents: nil,
+                                           cLLocationCoordinate2DEvents: nil,
+                                           myLocationTappedEvents: nil,
+                                           tabbarControllerViewPanEvents: panGestureSubject.asObservable())
+        let output = viewModel.bind(input: input, viewMiddleYPoint: nil)
+        
+        scheduler.scheduleAt(10) { panGestureSubject.onNext(UIPanGestureRecognizer(target: nil, action: nil)) }
+        scheduler.scheduleAt(100) { panGestureSubject.onNext(UIPanGestureRecognizer(target: nil, action: nil)) }
+        scheduler.scheduleAt(110) { panGestureSubject.dispose() }
+        
+    }
 }

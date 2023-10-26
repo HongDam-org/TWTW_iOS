@@ -193,9 +193,8 @@ final class MainMapViewController: KakaoMapViewController {
                                            searchBarTouchEvents: searchBar.rx.anyGesture(.tap()).when(.recognized).asObservable(),
                                            cLLocationCoordinate2DEvents: Observable.just(configureLocationManager()),
                                            myLocationTappedEvents: myloctaionImageView.rx.anyGesture(.tap()).when(.recognized).asObservable(),
-                                           viewMiddleYPoint: Observable.just(view.frame.height/2),
                                            tabbarControllerViewPanEvents: tabbarController.view.rx.anyGesture(.pan()).asObservable())
-        let output = viewModel.bind(input: input)
+        let output = viewModel.bind(input: input, viewMiddleYPoint: view.frame.height/2)
         
         createRoute(output: output)
         bindHideTabbarControllerRelay(output: output)
