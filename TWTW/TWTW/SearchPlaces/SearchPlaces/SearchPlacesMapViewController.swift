@@ -14,11 +14,11 @@ import CoreLocation
 
 ///mark: - 검색 결과를 표시하는 새로운 View Controller
 final class SearchPlacesMapViewController: UIViewController {
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     let cellIdentifier = "SearchPlacesTableViewCell"
     
     ///필터링지역들
-    let viewModel: SearchPlacesMapViewModel
+    var viewModel: SearchPlacesMapViewModel?
     var naviBarHeight :CGFloat =  0.0
     var NaviBarWidth : CGFloat = 0.0
     
@@ -28,8 +28,8 @@ final class SearchPlacesMapViewController: UIViewController {
         searchBar.placeholder = "장소, 주소 검색"
         searchBar.showsCancelButton = false
         searchBar.backgroundImage = UIImage()
-        searchBar.searchTextField.backgroundColor = .white
         searchBar.delegate = self
+        searchBar.searchTextField.backgroundColor = .white
         return searchBar
     }()
     private lazy var backButton: UIButton = {
@@ -43,15 +43,6 @@ final class SearchPlacesMapViewController: UIViewController {
         let tableView = UITableView()
         return tableView
     }()
-    
-    init(viewModel: SearchPlacesMapViewModel){
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,38 +106,52 @@ final class SearchPlacesMapViewController: UIViewController {
             })
             .disposed(by: disposeBag)
     }
-    private func bindViewModel(){
-        searchBar.rx.text.orEmpty
-            .bind(to: viewModel.input.searchText)
+    
+    private func bindViewModel() {
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        // searchText를 위한 BehaviorRelay 생성
+        let searchTextRelay = BehaviorRelay<String>(value: searchBar.text ?? "")
+        
+        // searchTextRelay를 사용하여 입력을 설정
+        let input = SearchPlacesMapViewModel.Input(searchText: searchTextRelay)
+        let output = viewModel.bind(input: input)
+        
+        // searchBar 텍스트를 searchTextRelay에 바인딩
+        searchBar.rx.text
+            .orEmpty
+            .debounce(.milliseconds(300), scheduler: MainScheduler.instance) // 디바운스를 추가하여 입력 지연 처리
+            .distinctUntilChanged() // 이전 값과 동일한 값은 무시
+            .subscribe(onNext: { searchText in
+                searchTextRelay.accept(searchText) // searchTextRelay에 텍스트를 업데이트
+            })
             .disposed(by: disposeBag)
         
-        viewModel.output.filteredPlaces
-            .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier, cellType: SearchPlacesTableViewCell.self)) { (row, place, cell) in
+        bindSearchPlaceFiltering(output: output)
+    }
+    
+    private func bindSearchPlaceFiltering(output: SearchPlacesMapViewModel.Output?) {
+        output?.filteredPlaces
+            .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier, cellType: SearchPlacesTableViewCell.self)) { row, place, cell in
                 cell.configure(placeName: place.placeName, addressName: place.addressName, categoryName: place.categoryName)
             }
             .disposed(by: disposeBag)
-        configureTableView()
     }
-    
-    private func configureTableView() {
-        tableView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                if let place = self?.viewModel.output.filteredPlaces.value[indexPath.row] { 
-                    if let placeX = Double(place.x), let placeY = Double(place.y) {
-                        self?.viewModel.selectLocation(xCoordinate: placeX, yCoordinate: placeY)
-                    }
-                }
-            })
-            .disposed(by: disposeBag)
-    }
-    
 }
-
-// MARK: - Extension
-extension SearchPlacesMapViewController : UISearchBarDelegate{
+/*
+ private func configureTableView() {
+ tableView.rx.itemSelected
+ .subscribe(onNext: { [weak self] indexPath in
+ if let place = self?.viewModel.output.filteredPlaces.value[indexPath.row] {
+ if let placeX = Double(place.x), let placeY = Double(place.y) {
+ self?.viewModel.selectLocation(xCoordinate: placeX, yCoordinate: placeY)
+ }
+ 
+ */
+extension SearchPlacesMapViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
     }
 }
-
-
-

@@ -12,9 +12,8 @@ struct PlacesRequest: Codable {
     let query: String?//...보내는 url더 쓰기
 }
 //
-
 struct PlaceResponse: Codable {
-    let placeInfo: Place
+    let placeInfo: [Place]
 }
 /// MARK: 검색 결과 리스트
 struct ResponseModel: Codable {

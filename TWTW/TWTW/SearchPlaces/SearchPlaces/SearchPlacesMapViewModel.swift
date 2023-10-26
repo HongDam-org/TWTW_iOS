@@ -13,49 +13,51 @@ import Alamofire
 import RxSwift
 
 final class SearchPlacesMapViewModel {
+    weak var coordinator: SearchPlacesMapCoordinatorProtocol?
     var selectedCoordinateSubject = PublishRelay<CLLocationCoordinate2D>()
     var filteredPlaces: PublishRelay<[Place]> = PublishRelay()
     private let disposeBag = DisposeBag()
+    private let searchPlacesServices: SearchPlaceProtocol?
     
     struct Input{
         let searchText: BehaviorRelay<String>
     }
     struct Output{
-        let filteredPlaces: BehaviorRelay<[Place]>
+        let filteredPlaces: BehaviorRelay<[Place]> = BehaviorRelay<[Place]>(value: [])
     }
-    var input: Input
-    var output: Output
+  
+    init(coordinator: SearchPlacesMapCoordinatorProtocol?, searchPlacesServices : SearchPlaceProtocol?) {
+        self.coordinator = coordinator
+        self.searchPlacesServices = searchPlacesServices
+    }
     
-    //    func bind(input: Input) ->Output {
-    //        return createOutput(input: input)
-    //    }
-    //
-    
-    init() {
-        // (Input)과 (Output)을 초기화
-        let searchText = BehaviorRelay<String>(value: "")
-        let filteredPlaces = BehaviorRelay<[Place]>(value: [])
+    func bind(input: Input) -> Output {
+        return createOutput(input: input)
+
+        }
+
+    private func createOutput(input: Input) -> Output {
+        let output = Output()
         
-        input = Input(searchText: searchText)
-        output = Output(filteredPlaces: filteredPlaces)
-        
-        // searchText의 변화를 구독하고 filteredPlaces를 업데이트
-        searchText
+        input.searchText
             .distinctUntilChanged()
-            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] text in
-                // Service에서 데이터를 비동기로 가져와서 업데이트
-                SearchPlacesMapService.checkSearchPlaceAccess(searchText: text) { places, error in
-                    if let places = places {
-                        // Service에서 가져온 데이터로 filteredPlaces 배열을 업데이트
-                        self?.output.filteredPlaces.accept(places)
-                    } else if let error = error {
-                        print(error)
-                    }
-                }
-            })
+            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+            .flatMapLatest { searchText in
+                let request = PlacesRequest(query: searchText)
+
+                return self.searchPlacesServices?.searchPlaceService(request: request) ?? .just(PlaceResponse(placeInfo: []))
+            }
+            .map { placeResponse in
+                return placeResponse.placeInfo
+            }
+            .bind(to: output.filteredPlaces)
             .disposed(by: disposeBag)
+       
+        return output
     }
+ 
+
+  
     
     ///선택한 좌표로 coordinator로 전달
     func selectLocation(xCoordinate: Double, yCoordinate: Double) {
