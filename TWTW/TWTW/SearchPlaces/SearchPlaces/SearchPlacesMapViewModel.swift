@@ -10,31 +10,53 @@ import UIKit
 import RxRelay
 import CoreLocation
 import Alamofire
+import RxSwift
 
-final class SearchPlacesMapViewModel: NSObject {
+final class SearchPlacesMapViewModel {
     var selectedCoordinateSubject = PublishRelay<CLLocationCoordinate2D>()
     var filteredPlaces: PublishRelay<[Place]> = PublishRelay()
+    private let disposeBag = DisposeBag()
     
-    ///서버에서 장소검색 api받아오기
-    func checkSearchPlaceAccess(searchText: String){
-        let encodedQuery = searchText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue) ?? ""
-        let headers: HTTPHeaders = ["Authorization": "Bearer \(accessToken)"]
-        let url = "\(Domain.REST_API)\(SearchPath.placeAndCategory)?query=\(encodedQuery)&page=1&categoryGroupCode=NONE"
-        
-        AF.request(url, method: .get, headers: headers)
-            .validate(statusCode: 200..<201)
-            .responseDecodable(of: ResponseModel.self) { response in
-                switch response.result {
-                case .success(let data):
-                    let filteredPlaces = data.results.map { $0 }
-                    self.filteredPlaces.accept(filteredPlaces)
-                    
-                case .failure(let error):
-                    print(error)
-                }
-            }
+    struct Input{
+        let searchText: BehaviorRelay<String>
     }
+    struct Output{
+        let filteredPlaces: BehaviorRelay<[Place]>
+    }
+    var input: Input
+    var output: Output
+    
+    //    func bind(input: Input) ->Output {
+    //        return createOutput(input: input)
+    //    }
+    //
+    
+    init() {
+        // (Input)과 (Output)을 초기화
+        let searchText = BehaviorRelay<String>(value: "")
+        let filteredPlaces = BehaviorRelay<[Place]>(value: [])
+        
+        input = Input(searchText: searchText)
+        output = Output(filteredPlaces: filteredPlaces)
+        
+        // searchText의 변화를 구독하고 filteredPlaces를 업데이트
+        searchText
+            .distinctUntilChanged()
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] text in
+                // Service에서 데이터를 비동기로 가져와서 업데이트
+                SearchPlacesMapService.checkSearchPlaceAccess(searchText: text) { places, error in
+                    if let places = places {
+                        // Service에서 가져온 데이터로 filteredPlaces 배열을 업데이트
+                        self?.output.filteredPlaces.accept(places)
+                    } else if let error = error {
+                        print(error)
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
     ///선택한 좌표로 coordinator로 전달
     func selectLocation(xCoordinate: Double, yCoordinate: Double) {
         selectedCoordinateSubject.accept(CLLocationCoordinate2D(latitude: yCoordinate, longitude: xCoordinate))

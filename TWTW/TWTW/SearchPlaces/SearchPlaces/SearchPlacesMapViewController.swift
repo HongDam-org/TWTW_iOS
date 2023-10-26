@@ -12,16 +12,13 @@ import RxCocoa
 import Alamofire
 import CoreLocation
 
-
 ///mark: - 검색 결과를 표시하는 새로운 View Controller
 final class SearchPlacesMapViewController: UIViewController {
     let disposeBag = DisposeBag()
     let cellIdentifier = "SearchPlacesTableViewCell"
     
     ///필터링지역들
-    var filteredPlaces = [Place]()
     let viewModel: SearchPlacesMapViewModel
-    //model로 뺄것mf
     var naviBarHeight :CGFloat =  0.0
     var NaviBarWidth : CGFloat = 0.0
     
@@ -62,8 +59,8 @@ final class SearchPlacesMapViewController: UIViewController {
         setNavi()
         addSubViews()
         backButtonAction()
-        subscribeFilteredPlaces()
         hideKeyboard()
+        
     }
     
     ///mark: - 네비게이션 item보이기
@@ -78,7 +75,7 @@ final class SearchPlacesMapViewController: UIViewController {
         view.addSubview(backButton)
         view.addSubview(tableView)
         tableView.register(SearchPlacesTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
-        bindTableView()
+        bindViewModel()
         configureConstraints()
     }
     
@@ -118,46 +115,38 @@ final class SearchPlacesMapViewController: UIViewController {
             })
             .disposed(by: disposeBag)
     }
-    
-    // 필터링 장소 가저오기
-    private func subscribeFilteredPlaces(){
-        viewModel.filteredPlaces
-            .subscribe(onNext: {[weak self] places in
-                guard let self = self else {return}
-                self.filteredPlaces = places
-                self.tableView.reloadData()
-            })
+    private func bindViewModel(){
+        searchBar.rx.text.orEmpty
+            .bind(to: viewModel.input.searchText)
             .disposed(by: disposeBag)
-    }
-    //테이블뷰 bind
-    private func bindTableView(){
-        viewModel.filteredPlaces
-            .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier, cellType: SearchPlacesTableViewCell.self)){
-                (row, place, cell) in
+        
+        viewModel.output.filteredPlaces
+            .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier, cellType: SearchPlacesTableViewCell.self)) { (row, place, cell) in
                 cell.configure(placeName: place.placeName, addressName: place.addressName, categoryName: place.categoryName)
             }
             .disposed(by: disposeBag)
-        //tableViewCell선택 이벤트
+        configureTableView()
+    }
+    
+    private func configureTableView() {
         tableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
-                let place = self?.filteredPlaces[indexPath.row]
-                if let placeX = Double(place?.x ?? ""),
-                   let placeY = Double(place?.y ?? ""){
-                    self?.viewModel.selectLocation(xCoordinate: placeX, yCoordinate: placeY)
+                if let place = self?.viewModel.output.filteredPlaces.value[indexPath.row] { 
+                    if let placeX = Double(place.x), let placeY = Double(place.y) {
+                        self?.viewModel.selectLocation(xCoordinate: placeX, yCoordinate: placeY)
+                    }
                 }
-            }).disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
     }
-  
+    
 }
 
 // MARK: - Extension
 extension SearchPlacesMapViewController : UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            viewModel.filteredPlaces.accept([])
-        }
-        viewModel.checkSearchPlaceAccess(searchText: searchText)
     }
 }
+
 
 
