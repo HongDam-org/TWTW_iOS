@@ -182,5 +182,14 @@ final class MainMapViewModelUnitTests: XCTestCase {
         scheduler.scheduleAt(100) { panGestureSubject.onNext(UIPanGestureRecognizer(target: nil, action: nil)) }
         scheduler.scheduleAt(110) { panGestureSubject.dispose() }
         
+        let observerHideTabbarControllerRelay = scheduler.createObserver(Bool.self)
+        output.hideTabbarControllerRelay.bind(to: observerHideTabbarControllerRelay).disposed(by: disposeBag)
+        
+        XCTAssertEqual(observerHideTabbarControllerRelay.events, [
+            .next(10, false),
+            .next(100, true),
+            .next(110, true),
+        ])
+        
     }
 }
