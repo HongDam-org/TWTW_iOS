@@ -17,9 +17,9 @@ final class SearchPlacesMapViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     let cellIdentifier = "SearchPlacesTableViewCell"
-        ///필터링지역들
+    ///필터링지역들
     var viewModel: SearchPlacesMapViewModel?
-        
+    
     /// MARK: 서치바UI
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -28,13 +28,6 @@ final class SearchPlacesMapViewController: UIViewController {
         searchBar.backgroundImage = UIImage()
         searchBar.searchTextField.backgroundColor = .white
         return searchBar
-    }()
-  
-    private lazy var backButton: UIButton = {
-        let button = UIButton()
-        button.tintColor = .black
-        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        return button
     }()
     
     private lazy var tableView: UITableView = {
@@ -59,7 +52,6 @@ final class SearchPlacesMapViewController: UIViewController {
     private func addSubViews(){
         //view.addSubview(searchBar)
         navigationItem.titleView = searchBar
-        view.addSubview(backButton)
         view.addSubview(tableView)
         tableView.register(SearchPlacesTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         bindViewModel()
@@ -89,7 +81,7 @@ final class SearchPlacesMapViewController: UIViewController {
         }
         // searchText를 위한 BehaviorRelay 생성
         let searchTextRelay = BehaviorRelay<String>(value: searchBar.text ?? "")
-                
+        
         // searchTextRelay를 사용하여 입력을 설정
         let input = SearchPlacesMapViewModel.Input(searchText: searchTextRelay)
         let output = viewModel.bind(input: input)
