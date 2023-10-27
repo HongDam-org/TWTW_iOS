@@ -31,9 +31,7 @@ final class SearchPlacesMapService: SearchPlaceProtocol{
                         // print("성공 - 데이터: \(filteredPlaces)")
                     case .failure(let error):
                         //    print("에러 - \(error)")
-                        
                         if let statusCode = response.response?.statusCode, statusCode == 401 {
-                            
                             print("아직 검색과 일치하는 장소가 없음.")
                         } else {
                             observer.onError(error)

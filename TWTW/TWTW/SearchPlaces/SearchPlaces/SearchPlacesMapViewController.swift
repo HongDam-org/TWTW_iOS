@@ -62,7 +62,7 @@ final class SearchPlacesMapViewController: UIViewController {
     private func hideKeyboard() {
         tableView.rx.didScroll
             .subscribe(onNext: { [weak self] _ in
-                self?.view.endEditing(true)
+                self?.searchBar.endEditing(true)
             })
             .disposed(by: disposeBag)
     }
@@ -70,7 +70,7 @@ final class SearchPlacesMapViewController: UIViewController {
     /// MARK: Configure   Constraints
     private func configureConstraints() {
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalTo(additionalSafeAreaInsets)
         }
     }
     
