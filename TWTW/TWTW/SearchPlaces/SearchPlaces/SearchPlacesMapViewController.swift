@@ -115,6 +115,7 @@ final class SearchPlacesMapViewController: UIViewController {
         // searchText를 위한 BehaviorRelay 생성
         let searchTextRelay = BehaviorRelay<String>(value: searchBar.text ?? "")
         
+        
         // searchTextRelay를 사용하여 입력을 설정
         let input = SearchPlacesMapViewModel.Input(searchText: searchTextRelay)
         let output = viewModel.bind(input: input)
@@ -138,18 +139,22 @@ final class SearchPlacesMapViewController: UIViewController {
                 cell.configure(placeName: place.placeName, addressName: place.addressName, categoryName: place.categoryName)
             }
             .disposed(by: disposeBag)
+        
+        
+        tableView.rx.itemSelected
+            .subscribe(onNext: {[weak self] indexPath in
+                if let place = output?.filteredPlaces.value[indexPath.row] {
+                    if let placeX = Double(place.x), let placeY = Double(place.y){
+                        let coordinate = CLLocationCoordinate2D(latitude: placeY, longitude: placeX)
+                        print(coordinate)
+                        self?.viewModel?.selectedCoordinate.accept(coordinate)
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
-/*
- private func configureTableView() {
- tableView.rx.itemSelected
- .subscribe(onNext: { [weak self] indexPath in
- if let place = self?.viewModel.output.filteredPlaces.value[indexPath.row] {
- if let placeX = Double(place.x), let placeY = Double(place.y) {
- self?.viewModel.selectLocation(xCoordinate: placeX, yCoordinate: placeY)
- }
- 
- */
+
 extension SearchPlacesMapViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         

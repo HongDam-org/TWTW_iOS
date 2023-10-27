@@ -29,7 +29,7 @@ class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtocol {
         searchPlacesMapViewController?.viewModel = searchPlacesMapViewModel
         
         // 좌표를 delegate를 통해서 전달
-        searchPlacesMapViewModel?.selectedCoordinateSubject
+        searchPlacesMapViewModel?.selectedCoordinate
             .subscribe(onNext: { [weak self] coordinate in
                 // 좌표를 MainMapCoordinator로 전달
                 self?.delegate?.didSelectCoordinate(coordinate: coordinate)
