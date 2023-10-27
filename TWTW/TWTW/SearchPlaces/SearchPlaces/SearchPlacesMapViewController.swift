@@ -14,24 +14,22 @@ import CoreLocation
 
 ///mark: - 검색 결과를 표시하는 새로운 View Controller
 final class SearchPlacesMapViewController: UIViewController {
+    
     private let disposeBag = DisposeBag()
     let cellIdentifier = "SearchPlacesTableViewCell"
-    
-    ///필터링지역들
+        ///필터링지역들
     var viewModel: SearchPlacesMapViewModel?
-    var naviBarHeight :CGFloat =  0.0
-    var NaviBarWidth : CGFloat = 0.0
-    
+        
     /// MARK: 서치바UI
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "장소, 주소 검색"
         searchBar.showsCancelButton = false
         searchBar.backgroundImage = UIImage()
-        searchBar.delegate = self
         searchBar.searchTextField.backgroundColor = .white
         return searchBar
     }()
+  
     private lazy var backButton: UIButton = {
         let button = UIButton()
         button.tintColor = .black
@@ -49,20 +47,18 @@ final class SearchPlacesMapViewController: UIViewController {
         view.backgroundColor = .white
         setNavi()
         addSubViews()
-        backButtonAction()
         hideKeyboard()
         
     }
-    
     ///mark: - 네비게이션 item보이기
     private func setNavi(){
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        naviBarHeight = navigationController?.navigationBar.frame.height ?? 10
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     /// MARK: Add  UI - SearchBar
     private func addSubViews(){
-        view.addSubview(searchBar)
+        //view.addSubview(searchBar)
+        navigationItem.titleView = searchBar
         view.addSubview(backButton)
         view.addSubview(tableView)
         tableView.register(SearchPlacesTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
@@ -81,41 +77,19 @@ final class SearchPlacesMapViewController: UIViewController {
     
     /// MARK: Configure   Constraints
     private func configureConstraints() {
-        searchBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.equalToSuperview().inset(naviBarHeight)
-            make.trailing.equalToSuperview().inset(5)
-        }
-        
-        backButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.equalToSuperview().inset(5)
-            make.width.height.equalTo(searchBar.snp.height)
-        }
-        
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom)
-            make.left.right.bottom.equalToSuperview()
+            make.edges.equalToSuperview()
         }
     }
-    ///mark: 커스텀 네비게이션 뒤로가기 버튼
-    private func backButtonAction(){
-        backButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                self?.navigationController?.popViewController(animated: true)
-            })
-            .disposed(by: disposeBag)
-    }
+    
     
     private func bindViewModel() {
         guard let viewModel = viewModel else {
             return
         }
-        
         // searchText를 위한 BehaviorRelay 생성
         let searchTextRelay = BehaviorRelay<String>(value: searchBar.text ?? "")
-        
-        
+                
         // searchTextRelay를 사용하여 입력을 설정
         let input = SearchPlacesMapViewModel.Input(searchText: searchTextRelay)
         let output = viewModel.bind(input: input)
@@ -140,7 +114,6 @@ final class SearchPlacesMapViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        
         tableView.rx.itemSelected
             .subscribe(onNext: {[weak self] indexPath in
                 if let place = output?.filteredPlaces.value[indexPath.row] {
@@ -152,11 +125,5 @@ final class SearchPlacesMapViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
-    }
-}
-
-extension SearchPlacesMapViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
     }
 }
