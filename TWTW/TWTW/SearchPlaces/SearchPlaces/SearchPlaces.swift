@@ -7,16 +7,12 @@
 
 import Foundation
 
-//
+/// MARK: 보내는 장소명 text
 struct PlacesRequest: Codable {
-    let query: String?//...보내는 url더 쓰기
-}
-//
-struct PlaceResponse: Codable {
-    let placeInfo: [Place]
+    let searchText: String?
 }
 /// MARK: 검색 결과 리스트
-struct ResponseModel: Codable {
+struct PlaceResponseModel: Codable {
     let results: [Place]
     let isLast: Bool
 }

@@ -10,6 +10,7 @@ import UIKit
 ///mark: - 서치테이블 정보talbeViewCell
 final class SearchPlacesTableViewCell: UITableViewCell {
     
+    let cellIdentifier = "SearchPlacesTableViewCell"
     ///mark: - 장소이름과 주소
     private let placeNameLabel: UILabel = {
         let label = UILabel()
@@ -17,7 +18,7 @@ final class SearchPlacesTableViewCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         return label
     }()
-    
+    ///mark: -주소명
     private let addressNameLabel : UILabel = {
         let label = UILabel()
         label.textColor = .lightGray
@@ -25,6 +26,7 @@ final class SearchPlacesTableViewCell: UITableViewCell {
         return label
     }()
     
+    ///mark: -카테고리명
     private let categoryNameLabel : UILabel = {
         let label = UILabel()
         label.textColor = .gray

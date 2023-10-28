@@ -16,9 +16,10 @@ import CoreLocation
 final class SearchPlacesMapViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
-    let cellIdentifier = "SearchPlacesTableViewCell"
+    
     ///필터링지역들
     var viewModel: SearchPlacesMapViewModel?
+    let searchPlacesTableViewCell = SearchPlacesTableViewCell()
     
     /// MARK: 서치바UI
     private lazy var searchBar: UISearchBar = {
@@ -29,8 +30,8 @@ final class SearchPlacesMapViewController: UIViewController {
         searchBar.searchTextField.backgroundColor = .white
         return searchBar
     }()
-    
-    private lazy var tableView: UITableView = {
+    ///Mark: - 검색된 지역테이블
+    private lazy var placesTableView: UITableView = {
         let tableView = UITableView()
         return tableView
     }()
@@ -52,15 +53,15 @@ final class SearchPlacesMapViewController: UIViewController {
     private func addSubViews(){
         //view.addSubview(searchBar)
         navigationItem.titleView = searchBar
-        view.addSubview(tableView)
-        tableView.register(SearchPlacesTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        view.addSubview(placesTableView)
+        placesTableView.register(SearchPlacesTableViewCell.self, forCellReuseIdentifier: searchPlacesTableViewCell.cellIdentifier)
         bindViewModel()
         configureConstraints()
     }
     
     ///MARK: - keyboard내림
     private func hideKeyboard() {
-        tableView.rx.didScroll
+        placesTableView.rx.didScroll
             .subscribe(onNext: { [weak self] _ in
                 self?.searchBar.endEditing(true)
             })
@@ -69,7 +70,7 @@ final class SearchPlacesMapViewController: UIViewController {
     
     /// MARK: Configure   Constraints
     private func configureConstraints() {
-        tableView.snp.makeConstraints { make in
+        placesTableView.snp.makeConstraints { make in
             make.edges.equalTo(additionalSafeAreaInsets)
         }
     }
@@ -100,18 +101,28 @@ final class SearchPlacesMapViewController: UIViewController {
     }
     
     private func bindSearchPlaceFiltering(output: SearchPlacesMapViewModel.Output?) {
+        //PlaceResponseModel에서 results 추출하고 다시 Observable감싸기
         output?.filteredPlaces
-            .bind(to: tableView.rx.items(cellIdentifier: cellIdentifier, cellType: SearchPlacesTableViewCell.self)) { row, place, cell in
+            .flatMap { PlaceResponseModel ->
+                Observable<[Place]> in
+                let places = PlaceResponseModel.flatMap { $0.results }
+                return Observable.just(places)
+            }
+            .bind(to: placesTableView.rx.items(cellIdentifier: searchPlacesTableViewCell.cellIdentifier, cellType: SearchPlacesTableViewCell.self)) { row, place, cell in
                 cell.configure(placeName: place.placeName, addressName: place.addressName, categoryName: place.categoryName)
+                
             }
             .disposed(by: disposeBag)
         
-        tableView.rx.itemSelected
-            .subscribe(onNext: {[weak self] indexPath in
-                if let place = output?.filteredPlaces.value[indexPath.row] {
-                    if let placeX = Double(place.x), let placeY = Double(place.y){
+        placesTableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                if let placeResponseModel = try? output?.filteredPlaces.value(), // filteredPlaces가 옵셔널이라 try? 사용
+                   !placeResponseModel.isEmpty,
+                   indexPath.row < placeResponseModel.first!.results.count,
+                   let selectedPlace = placeResponseModel.first!.results[indexPath.row] as? Place {
+                    if let placeX = Double(selectedPlace.x), let placeY = Double(selectedPlace.y) {
                         let coordinate = CLLocationCoordinate2D(latitude: placeY, longitude: placeX)
-                        print(coordinate)
+                        // print(placeResponseModel.first!)
                         self?.viewModel?.selectedCoordinate.accept(coordinate)
                     }
                 }

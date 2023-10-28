@@ -13,5 +13,5 @@ protocol SearchPlaceProtocol{
     /// - Parameter request: 서버에 보내는 지역이름정보
     /// - Returns: 지역정보: placeName, 좌표, 주소,...
     func searchPlaceService(request: PlacesRequest) ->
-    Observable<PlaceResponse>
+    Observable<PlaceResponseModel>
 }

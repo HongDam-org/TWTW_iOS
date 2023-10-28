@@ -24,7 +24,8 @@ final class SearchPlacesMapViewModel {
     }
     
     struct Output{
-        let filteredPlaces: BehaviorRelay<[Place]> = BehaviorRelay<[Place]>(value: [])
+        let filteredPlaces: BehaviorSubject<[PlaceResponseModel]> = BehaviorSubject<[PlaceResponseModel]>(value: [])
+        
         let selectedCoordinate: PublishRelay<CLLocationCoordinate2D> = PublishRelay<CLLocationCoordinate2D>()
     }
     
@@ -40,18 +41,26 @@ final class SearchPlacesMapViewModel {
     private func createOutput(input: Input) -> Output {
         let output = Output()
         
+        
         input.searchText
             .distinctUntilChanged()
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .flatMapLatest { searchText in
-                let request = PlacesRequest(query: searchText)
+                let request = PlacesRequest(searchText: searchText)
                 
-                return self.searchPlacesServices?.searchPlaceService(request: request) ?? .just(PlaceResponse(placeInfo: []))
+                return
+                self.searchPlacesServices?
+                    .searchPlaceService(request: request) ??
+                    .just(PlaceResponseModel(results: [], isLast: false))
             }
             .map { placeResponse in
-                return placeResponse.placeInfo
+                let isLast = placeResponse.isLast
+                let filteredPlaces = placeResponse.results
+                return [PlaceResponseModel(results: filteredPlaces, isLast: isLast)]
             }
-            .bind(to: output.filteredPlaces)
+            .subscribe(onNext: { placeResponseModel in
+                output.filteredPlaces.onNext(placeResponseModel)
+            })
             .disposed(by: disposeBag)
         return output
     }
