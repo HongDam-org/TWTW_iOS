@@ -27,7 +27,7 @@ final class MainMapViewModel {
         let screenTouchEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
         
         /// 검색 버튼 터치 감지
-        let searchBarTouchEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
+        let searchBarTouchEvents: Observable<ControlEvent<UITapGestureRecognizer>.Element>?
         
         /// Location Manager
         let cLLocationCoordinate2DEvents: Observable<CLLocationManager>?

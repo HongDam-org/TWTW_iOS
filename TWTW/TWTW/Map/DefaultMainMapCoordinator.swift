@@ -87,5 +87,9 @@ extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate{
     func didSelectCoordinate(coordinate: CLLocationCoordinate2D) {
         mainMapViewModelOutput?.showNearPlacesUI.accept(true)
         mainMapViewModelOutput?.cameraCoordinateObservable.accept(coordinate)
+        
+        let _ = childCoordinators.popLast()
+        print(#function)
+        print(childCoordinators)
     }
 }

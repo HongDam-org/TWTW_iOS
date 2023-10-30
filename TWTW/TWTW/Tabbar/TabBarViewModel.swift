@@ -50,39 +50,26 @@ final class TabBarViewModel {
            let notificationPanEvents = input.notificationPanEvents,
            let callPanEvents = input.callPanEvents {
             
-            Observable.combineLatest(Observable.merge(homePanEvents,
-                                                      schedulePanEvents,
-                                                      friendsListPanEvents,
-                                                      notificationPanEvents,
-                                                      callPanEvents),
-                                     input.nowViewHeight)
+            Observable.merge(homePanEvents,
+                             schedulePanEvents,
+                             friendsListPanEvents,
+                             notificationPanEvents,
+                             callPanEvents)
             .observe(on: MainScheduler.asyncInstance)
-            .bind { [weak self] gesture, viewHeight in
+            .bind { [weak self] gesture in
                 guard let self = self else {return}
                 switch gesture.state {
                 case .changed:
                     let transition = gesture.translation(in: gesture.view)
-                    
                     gesture.view?.frame.size.height -= transition.y
                     gesture.view?.frame.origin.y += transition.y
                     
                     if gesture.velocity(in: gesture.view).y < 0{
-                        let targetHeight = calculateHeightWhenScrollUp(changedHeight: gesture.view?.frame.size.height ?? 0, viewHeight: baseViewHeight)
-                        let finalHeight = calculateHeightWhenScrollUp(changedHeight: targetHeight, viewHeight: baseViewHeight)
-                        
-                        gesture.view?.frame.origin.y -= transition.y
-                        output.heightRelay.accept(finalHeight)
+                       scrollUp(gesture: gesture, baseViewHeight: baseViewHeight, output: output)
                     }
                     else if gesture.velocity(in: gesture.view).y > 0 {
-                        let targetHeight = calculateHeightWhenScrollDown(changedHeight: gesture.view?.frame.size.height ?? 0, viewHeight: baseViewHeight)
-                        let finalHeight = calculateHeightWhenScrollDown(changedHeight: targetHeight, viewHeight: baseViewHeight)
-                        
-                        if finalHeight > baseViewHeight * 0.2 {
-                            gesture.view?.frame.origin.y -= transition.y
-                        }
-                        output.heightRelay.accept(finalHeight)
+                        scrollDown(gesture: gesture, baseViewHeight: baseViewHeight, output: output)
                     }
-                    gesture.setTranslation(.zero, in: gesture.view)
                 default:
                     break
                 }
@@ -91,6 +78,28 @@ final class TabBarViewModel {
         }
         
         return output
+    }
+    
+    /// MARK: 스크롤 위로 올릴 때
+    private func scrollUp(gesture: ControlEvent<UIPanGestureRecognizer>.Element, baseViewHeight: CGFloat, output: Output){
+        let targetHeight = calculateHeightWhenScrollUp(changedHeight: gesture.view?.frame.size.height ?? 0, viewHeight: baseViewHeight)
+        let finalHeight = calculateHeightWhenScrollUp(changedHeight: targetHeight, viewHeight: baseViewHeight)
+        
+        gesture.view?.frame.origin.y -= gesture.translation(in: gesture.view).y
+        output.heightRelay.accept(finalHeight)
+        gesture.setTranslation(.zero, in: gesture.view)
+    }
+    
+    /// MARK: 스크롤 위로 내릴 때
+    private func scrollDown(gesture: ControlEvent<UIPanGestureRecognizer>.Element, baseViewHeight: CGFloat, output: Output){
+        let targetHeight = calculateHeightWhenScrollDown(changedHeight: gesture.view?.frame.size.height ?? 0, viewHeight: baseViewHeight)
+        let finalHeight = calculateHeightWhenScrollDown(changedHeight: targetHeight, viewHeight: baseViewHeight)
+        
+        if finalHeight > baseViewHeight * 0.2 {
+            gesture.view?.frame.origin.y -= gesture.translation(in: gesture.view).y
+        }
+        output.heightRelay.accept(finalHeight)
+        gesture.setTranslation(.zero, in: gesture.view)
     }
     
     // calculate height when up gesture

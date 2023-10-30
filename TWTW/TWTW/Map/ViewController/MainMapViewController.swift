@@ -40,6 +40,7 @@ final class MainMapViewController: KakaoMapViewController {
         searchBar.searchTextField.backgroundColor = .white
         searchBar.layer.cornerRadius = 15
         searchBar.clipsToBounds = true
+        searchBar.searchTextField.isUserInteractionEnabled = false
         
         ///MARK: searchBar shadow
         searchBar.layer.shadowColor = UIColor.gray.cgColor
@@ -190,7 +191,7 @@ final class MainMapViewController: KakaoMapViewController {
     /// MARK: ViewModel Binding
     private func bind(){
         let input = MainMapViewModel.Input(screenTouchEvents: kMViewContainer?.rx.anyGesture(.tap()).when(.recognized).asObservable(),
-                                           searchBarTouchEvents: searchBar.rx.anyGesture(.tap()).when(.recognized).asObservable(),
+                                           searchBarTouchEvents: searchBar.rx.tapGesture().when(.recognized).asObservable(),
                                            cLLocationCoordinate2DEvents: Observable.just(configureLocationManager()),
                                            myLocationTappedEvents: myloctaionImageView.rx.anyGesture(.tap()).when(.recognized).asObservable(),
                                            tabbarControllerViewPanEvents: tabbarController.view.rx.anyGesture(.pan()).asObservable())
