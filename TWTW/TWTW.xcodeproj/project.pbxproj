@@ -40,6 +40,7 @@
 		3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F1B62A7DFB6200E2933C /* Bundle+Ext.swift */; };
 		375916372A7EB36000C21E1F /* SignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375916362A7EB36000C21E1F /* SignInService.swift */; };
 		3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */; };
+		375CB2C12AF88D8C00119DF1 /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375CB2C02AF88D8C00119DF1 /* Cells.swift */; };
 		375E8B022A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375E8B012A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift */; };
 		375E8B052A96187800F8DE42 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 375E8B042A96187800F8DE42 /* RxGesture */; };
 		3760CC8C2AE2C0E800CFC2D5 /* SurroundSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3760CC8B2AE2C0E800CFC2D5 /* SurroundSearchService.swift */; };
@@ -142,6 +143,7 @@
 		3758F1C12A7E741C00E2933C /* TWTW.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TWTW.entitlements; sourceTree = "<group>"; };
 		375916362A7EB36000C21E1F /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
 		3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		375CB2C02AF88D8C00119DF1 /* Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
 		375E8B012A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlacesCollectionViewCell.swift; sourceTree = "<group>"; };
 		3760CC8B2AE2C0E800CFC2D5 /* SurroundSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurroundSearchService.swift; sourceTree = "<group>"; };
 		3760CC8E2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurroundSearchPlaces.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				377CB05F2AD86968003453D6 /* Map */,
 				377CB0572AD86628003453D6 /* MeetingList */,
 				3B1C36EA2A8FD0A900838682 /* Constants */,
+				375CB2C02AF88D8C00119DF1 /* Cells.swift */,
 				3B1C36ED2A8FD2ED00838682 /* Protocol */,
 				3B0E2EC02A81488A00797782 /* KeyChain */,
 				3B0E2EBF2A81483D00797782 /* Extension */,
@@ -917,6 +920,7 @@
 				3737AE902AE93EE600FE7453 /* SearchPlaceProtocol.swift in Sources */,
 				3B6CF3D92ADACA7500325D05 /* MockSignInService.swift in Sources */,
 				370AB45A2ADD12E000951562 /* DefaultMainMapCoordinator.swift in Sources */,
+				375CB2C12AF88D8C00119DF1 /* Cells.swift in Sources */,
 				3B6C7F8C2ADE1F610060091C /* DefaultTabbarCoordinator.swift in Sources */,
 				3B274D732AD445B400D79698 /* DefaultSignUpCoordinator.swift in Sources */,
 				3B1C36EF2A8FD30200838682 /* BottomSheetDelegate.swift in Sources */,

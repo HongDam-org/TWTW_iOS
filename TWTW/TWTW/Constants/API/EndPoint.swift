@@ -19,3 +19,4 @@ struct LoginPath {
     static let checkValidation = "/auth/validate"
     static let checkOverlapId = "/member/duplicate/Id"
 }
+

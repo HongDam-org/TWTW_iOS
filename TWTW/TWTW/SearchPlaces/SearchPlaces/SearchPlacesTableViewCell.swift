@@ -10,7 +10,6 @@ import UIKit
 ///mark: - 서치테이블 정보talbeViewCell
 final class SearchPlacesTableViewCell: UITableViewCell {
     
-    let cellIdentifier = "SearchPlacesTableViewCell"
     ///mark: - 장소이름과 주소
     private let placeNameLabel: UILabel = {
         let label = UILabel()

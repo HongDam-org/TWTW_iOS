@@ -19,7 +19,6 @@ final class SearchPlacesMapViewController: UIViewController {
     
     ///필터링지역들
     var viewModel: SearchPlacesMapViewModel?
-    let searchPlacesTableViewCell = SearchPlacesTableViewCell()
     
     /// MARK: 서치바UI
     private lazy var searchBar: UISearchBar = {
@@ -54,7 +53,7 @@ final class SearchPlacesMapViewController: UIViewController {
         //view.addSubview(searchBar)
         navigationItem.titleView = searchBar
         view.addSubview(placesTableView)
-        placesTableView.register(SearchPlacesTableViewCell.self, forCellReuseIdentifier: searchPlacesTableViewCell.cellIdentifier)
+        placesTableView.register(SearchPlacesTableViewCell.self, forCellReuseIdentifier: CellIdentifier.searchPlacesTableViewCell)
         bindViewModel()
         configureConstraints()
     }
@@ -108,9 +107,8 @@ final class SearchPlacesMapViewController: UIViewController {
                 let places = PlaceResponseModel.flatMap { $0.results }
                 return Observable.just(places)
             }
-            .bind(to: placesTableView.rx.items(cellIdentifier: searchPlacesTableViewCell.cellIdentifier, cellType: SearchPlacesTableViewCell.self)) { row, place, cell in
+            .bind(to: placesTableView.rx.items(cellIdentifier: CellIdentifier.searchPlacesTableViewCell, cellType: SearchPlacesTableViewCell.self)) { row, place, cell in
                 cell.configure(placeName: place.placeName, addressName: place.addressName, categoryName: place.categoryName)
-                
             }
             .disposed(by: disposeBag)
         
@@ -130,3 +128,4 @@ final class SearchPlacesMapViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 }
+

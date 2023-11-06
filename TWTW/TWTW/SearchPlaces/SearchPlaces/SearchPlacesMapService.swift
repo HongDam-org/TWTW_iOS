@@ -15,11 +15,9 @@ final class SearchPlacesMapService: SearchPlaceProtocol{
     func searchPlaceService(request: PlacesRequest) -> Observable<PlaceResponseModel> {
         return Observable.create { observer in
             
-            let encodedQuery = request.searchText?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-            let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue) ?? ""
-            let headers: HTTPHeaders = ["Authorization": "Bearer \(accessToken)"]
+            let encodedQuery = SearchRequestConfig.encodedQuery(request.searchText)
+            let headers = SearchRequestConfig.headers()
             let url = "\(Domain.REST_API)\(SearchPath.placeAndCategory)?query=\(encodedQuery)&page=1&categoryGroupCode=NONE"
-            
             AF.request(url, method: .get, parameters: request, headers: headers)
                 .validate(statusCode: 200..<205)
                 .responseDecodable(of:PlaceResponseModel.self) {
@@ -29,9 +27,7 @@ final class SearchPlacesMapService: SearchPlaceProtocol{
                         let filteredPlaces = data.results
                         observer.onNext(data)
                         observer.onCompleted()
-                        //   print("성공 - 데이터: \(filteredPlaces)")
                     case .failure(let error):
-                        //     print("에러 - \(error)")
                         if let statusCode = response.response?.statusCode, statusCode == 401 {
                             print("아직 검색과 일치하는 장소가 없음.")
                         } else {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 /// MARK: 보내는 장소명 text
 struct PlacesRequest: Codable {
@@ -28,5 +29,16 @@ struct Place: Codable {
         case placeName, distance
         case placeURL = "placeUrl"
         case categoryName, addressName, roadAddressName, categoryGroupCode, x, y
+    }
+}
+
+enum SearchRequestConfig {
+    static func encodedQuery(_ searchText: String?) -> String {
+        return searchText?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+    }
+
+    static func headers() -> HTTPHeaders {
+        let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue) ?? ""
+        return ["Authorization": "Bearer \(accessToken)"]
     }
 }
