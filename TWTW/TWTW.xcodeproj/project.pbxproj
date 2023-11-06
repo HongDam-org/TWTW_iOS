@@ -7,10 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3701108B2AB2E49D005B0B24 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3701108A2AB2E49D005B0B24 /* Test.swift */; };
 		3703095B2AAF1C8400F9CD80 /* FriendsListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3703095A2AAF1C8400F9CD80 /* FriendsListCollectionView.swift */; };
 		3703095F2AAF20D900F9CD80 /* FriendsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3703095E2AAF20D900F9CD80 /* FriendsListModel.swift */; };
-		373C85462AADA91E00325155 /* BottomSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C85452AADA91E00325155 /* BottomSheetViewModel.swift */; };
+		370AB4582ADD082000951562 /* SearchPlacesMapCoordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB4572ADD082000951562 /* SearchPlacesMapCoordDelegate.swift */; };
+		370AB45A2ADD12E000951562 /* DefaultMainMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB4592ADD12E000951562 /* DefaultMainMapCoordinator.swift */; };
+		370AB45E2ADD134800951562 /* DefaultMeetingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB45D2ADD134800951562 /* DefaultMeetingListCoordinator.swift */; };
+		370AB4602ADD161300951562 /* DefaultSearchPlacesMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB45F2ADD161300951562 /* DefaultSearchPlacesMapCoordinator.swift */; };
+		371C1D282ADABB3800B30DC5 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D272ADABB3800B30DC5 /* TabBarController.swift */; };
+		371C1D2D2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D2C2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift */; };
+		371C1D2F2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D2E2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift */; };
+		371C1D312ADBAFF300B30DC5 /* DefaultPreviousAppointmentsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D302ADBAFF300B30DC5 /* DefaultPreviousAppointmentsCoordinator.swift */; };
+		371C1D332ADBB00300B30DC5 /* DefaultCallCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D322ADBB00300B30DC5 /* DefaultCallCoordinator.swift */; };
 		373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C85492AADBCAF00325155 /* TabBarViewModel.swift */; };
 		3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8402A8D23EE00D63A16 /* SnapKit */; };
 		3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8432A8D242C00D63A16 /* Alamofire */; };
@@ -28,7 +35,11 @@
 		3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */; };
 		375E8B022A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375E8B012A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift */; };
 		375E8B052A96187800F8DE42 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 375E8B042A96187800F8DE42 /* RxGesture */; };
-		3799E4EF2A99C4C200E06218 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E4EE2A99C4C200E06218 /* TabBarCoordinator.swift */; };
+		377CB0592AD8665E003453D6 /* MeetingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0582AD8665E003453D6 /* MeetingListViewModel.swift */; };
+		377CB05B2AD8666F003453D6 /* MeetingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB05A2AD8666F003453D6 /* MeetingListCoordinator.swift */; };
+		377CB0612AD8699C003453D6 /* MainMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0602AD8699C003453D6 /* MainMapCoordinator.swift */; };
+		377CB06A2AD8C9AD003453D6 /* SearchPlacesMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0692AD8C9AD003453D6 /* SearchPlacesMapCoordinator.swift */; };
+		377CB06C2AD8C9C8003453D6 /* SearchPlacesMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB06B2AD8C9C8003453D6 /* SearchPlacesMapViewModel.swift */; };
 		3799E4F12A99C4D100E06218 /* DefaultAppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E4F02A99C4D100E06218 /* DefaultAppCoordinator.swift */; };
 		3799E4F32A99C79100E06218 /* VCScenesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E4F22A99C79100E06218 /* VCScenesCoordinator.swift */; };
 		3799E5022A99D68500E06218 /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5012A99D68500E06218 /* CallViewController.swift */; };
@@ -37,7 +48,6 @@
 		3799E5092A99D72D00E06218 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5082A99D72D00E06218 /* NotificationViewController.swift */; };
 		37BAF8932A948EF700BD85DC /* SearchPlacesMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BAF8922A948EF700BD85DC /* SearchPlacesMapViewController.swift */; };
 		37BAF8962A949C4900BD85DC /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 37BAF8952A949C4900BD85DC /* Config.xcconfig */; };
-		37E043692AA5F4CE00F9E807 /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */; };
 		37EF0CFB2AB85C2400D77B0A /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */; };
 		3B0691552ABBD73900C98D6D /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0691542ABBD73900C98D6D /* Login.swift */; };
 		3B0D6AA92ABBD1A900B08CAB /* LoginConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D6AA82ABBD1A900B08CAB /* LoginConstants.swift */; };
@@ -48,6 +58,10 @@
 		3B1850B22AB5CCA6001945EE /* SearchPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1850B12AB5CCA6001945EE /* SearchPlaces.swift */; };
 		3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C36EB2A8FD0BE00838682 /* Map.swift */; };
 		3B1C36EF2A8FD30200838682 /* BottomSheetDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C36EE2A8FD30200838682 /* BottomSheetDelegate.swift */; };
+		3B20E1DD2AE41D32009572AA /* PreviousAppointmentsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B20E1DC2AE41D32009572AA /* PreviousAppointmentsCoordinator.swift */; };
+		3B20E1E12AE41E4D009572AA /* CallCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B20E1E02AE41E4D009572AA /* CallCoordinator.swift */; };
+		3B20E1E62AE41E97009572AA /* FriendsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B20E1E52AE41E97009572AA /* FriendsListCoordinator.swift */; };
+		3B20E1EA2AE41EE9009572AA /* NotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B20E1E92AE41EE9009572AA /* NotificationCoordinator.swift */; };
 		3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */; };
 		3B26F32F2AC11DAD00EFEE12 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B26F32E2AC11DAD00EFEE12 /* SignUpViewController.swift */; };
 		3B274D6D2AD3F6F400D79698 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D6C2AD3F6F400D79698 /* Coordinator.swift */; };
@@ -61,22 +75,26 @@
 		3B274D822AD4D40700D79698 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D812AD4D40700D79698 /* AppCoordinator.swift */; };
 		3B274D842AD5207100D79698 /* SignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D832AD5207100D79698 /* SignUpService.swift */; };
 		3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */; };
-		3B6CF3C02ADAC1CA00325D05 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3BF2ADAC1CA00325D05 /* RxBlocking */; };
-		3B6CF3C22ADAC1CA00325D05 /* RxBlocking-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3C12ADAC1CA00325D05 /* RxBlocking-Dynamic */; };
-		3B6CF3C42ADAC1CA00325D05 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3C32ADAC1CA00325D05 /* RxCocoa */; };
-		3B6CF3C62ADAC1CA00325D05 /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3C52ADAC1CA00325D05 /* RxCocoa-Dynamic */; };
-		3B6CF3C82ADAC1CA00325D05 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3C72ADAC1CA00325D05 /* RxRelay */; };
-		3B6CF3CA2ADAC1CA00325D05 /* RxRelay-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3C92ADAC1CA00325D05 /* RxRelay-Dynamic */; };
-		3B6CF3CC2ADAC1CA00325D05 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3CB2ADAC1CA00325D05 /* RxSwift */; };
-		3B6CF3CE2ADAC1CA00325D05 /* RxSwift-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3CD2ADAC1CA00325D05 /* RxSwift-Dynamic */; };
-		3B6CF3D02ADAC1CA00325D05 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3CF2ADAC1CA00325D05 /* RxTest */; };
-		3B6CF3D22ADAC1CA00325D05 /* RxTest-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 3B6CF3D12ADAC1CA00325D05 /* RxTest-Dynamic */; };
+		3B6C7F952ADE25080060091C /* TabbarCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6C7F942ADE25080060091C /* TabbarCoordinatorDelegate.swift */; };
 		3B6CF3D72ADAC80200325D05 /* SignInProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3D62ADAC80200325D05 /* SignInProtocol.swift */; };
 		3B6CF3D92ADACA7500325D05 /* MockSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3D82ADACA7500325D05 /* MockSignInService.swift */; };
 		3B6CF3DB2ADAD14A00325D05 /* MockSignInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3DA2ADAD14A00325D05 /* MockSignInCoordinator.swift */; };
+		3B9FD0FF2AE7418F00D81328 /* MainMapViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FD0FE2AE7418F00D81328 /* MainMapViewModelUnitTests.swift */; };
+		3B9FD1012AE758C100D81328 /* CLLocationManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FD1002AE758C100D81328 /* CLLocationManagerMock.swift */; };
 		3BAA4A192ADC1DEA009D14E7 /* SignUpProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA4A182ADC1DEA009D14E7 /* SignUpProtocol.swift */; };
 		3BAA4A1F2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA4A1E2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift */; };
 		3BAA4A222ADCD0C8009D14E7 /* MockSignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA4A212ADCD0C8009D14E7 /* MockSignUpService.swift */; };
+		3BC1D26E2AE0D15D00A7D0CC /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D26D2AE0D15D00A7D0CC /* RxBlocking */; };
+		3BC1D2702AE0D15D00A7D0CC /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D26F2AE0D15D00A7D0CC /* RxCocoa */; };
+		3BC1D2722AE0D15D00A7D0CC /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D2712AE0D15D00A7D0CC /* RxRelay */; };
+		3BC1D2742AE0D15D00A7D0CC /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D2732AE0D15D00A7D0CC /* RxSwift */; };
+		3BC1D2762AE0D15D00A7D0CC /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D2752AE0D15D00A7D0CC /* RxTest */; };
+		3BC1D2782AE0D26B00A7D0CC /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D2772AE0D26B00A7D0CC /* Alamofire */; };
+		3BC1D27A2AE0D27200A7D0CC /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D2792AE0D27200A7D0CC /* RxSwift */; };
+		3BC1D27C2AE0D27600A7D0CC /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D27B2AE0D27600A7D0CC /* RxTest */; };
+		3BC1D27E2AE0D27F00A7D0CC /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D27D2AE0D27F00A7D0CC /* RxCocoa */; };
+		3BC1D2842AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1D2832AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift */; };
+		3BC1D2872AE1A6E700A7D0CC /* TabbarItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1D2862AE1A6E700A7D0CC /* TabbarItems.swift */; };
 		3BE034982AD83AC800953498 /* SignInViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */; };
 		3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */; };
 		3BF9EFA42AB1AE790014855E /* KakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */; };
@@ -94,10 +112,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3701108A2AB2E49D005B0B24 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		3703095A2AAF1C8400F9CD80 /* FriendsListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCollectionView.swift; sourceTree = "<group>"; };
 		3703095E2AAF20D900F9CD80 /* FriendsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListModel.swift; sourceTree = "<group>"; };
-		373C85452AADA91E00325155 /* BottomSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewModel.swift; sourceTree = "<group>"; };
+		370AB4572ADD082000951562 /* SearchPlacesMapCoordDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapCoordDelegate.swift; sourceTree = "<group>"; };
+		370AB4592ADD12E000951562 /* DefaultMainMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMainMapCoordinator.swift; sourceTree = "<group>"; };
+		370AB45D2ADD134800951562 /* DefaultMeetingListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMeetingListCoordinator.swift; sourceTree = "<group>"; };
+		370AB45F2ADD161300951562 /* DefaultSearchPlacesMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSearchPlacesMapCoordinator.swift; sourceTree = "<group>"; };
+		371C1D272ADABB3800B30DC5 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		371C1D2C2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNotificationCoordinator.swift; sourceTree = "<group>"; };
+		371C1D2E2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFriendsListCoordinator.swift; sourceTree = "<group>"; };
+		371C1D302ADBAFF300B30DC5 /* DefaultPreviousAppointmentsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPreviousAppointmentsCoordinator.swift; sourceTree = "<group>"; };
+		371C1D322ADBB00300B30DC5 /* DefaultCallCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCallCoordinator.swift; sourceTree = "<group>"; };
 		373C85492AADBCAF00325155 /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
 		3754BB6F2A9B455100522420 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewController.swift; sourceTree = "<group>"; };
@@ -113,7 +138,11 @@
 		375916362A7EB36000C21E1F /* SignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInService.swift; sourceTree = "<group>"; };
 		3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		375E8B012A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlacesCollectionViewCell.swift; sourceTree = "<group>"; };
-		3799E4EE2A99C4C200E06218 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
+		377CB0582AD8665E003453D6 /* MeetingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingListViewModel.swift; sourceTree = "<group>"; };
+		377CB05A2AD8666F003453D6 /* MeetingListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingListCoordinator.swift; sourceTree = "<group>"; };
+		377CB0602AD8699C003453D6 /* MainMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapCoordinator.swift; sourceTree = "<group>"; };
+		377CB0692AD8C9AD003453D6 /* SearchPlacesMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapCoordinator.swift; sourceTree = "<group>"; };
+		377CB06B2AD8C9C8003453D6 /* SearchPlacesMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapViewModel.swift; sourceTree = "<group>"; };
 		3799E4F02A99C4D100E06218 /* DefaultAppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppCoordinator.swift; sourceTree = "<group>"; };
 		3799E4F22A99C79100E06218 /* VCScenesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCScenesCoordinator.swift; sourceTree = "<group>"; };
 		3799E5012A99D68500E06218 /* CallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewController.swift; sourceTree = "<group>"; };
@@ -122,7 +151,6 @@
 		3799E5082A99D72D00E06218 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		37BAF8922A948EF700BD85DC /* SearchPlacesMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapViewController.swift; sourceTree = "<group>"; };
 		37BAF8952A949C4900BD85DC /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
-		37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
 		37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		3B0691542ABBD73900C98D6D /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		3B0D6AA82ABBD1A900B08CAB /* LoginConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConstants.swift; sourceTree = "<group>"; };
@@ -133,6 +161,10 @@
 		3B1850B12AB5CCA6001945EE /* SearchPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaces.swift; sourceTree = "<group>"; };
 		3B1C36EB2A8FD0BE00838682 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		3B1C36EE2A8FD30200838682 /* BottomSheetDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetDelegate.swift; sourceTree = "<group>"; };
+		3B20E1DC2AE41D32009572AA /* PreviousAppointmentsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousAppointmentsCoordinator.swift; sourceTree = "<group>"; };
+		3B20E1E02AE41E4D009572AA /* CallCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallCoordinator.swift; sourceTree = "<group>"; };
+		3B20E1E52AE41E97009572AA /* FriendsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCoordinator.swift; sourceTree = "<group>"; };
+		3B20E1E92AE41EE9009572AA /* NotificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCoordinator.swift; sourceTree = "<group>"; };
 		3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModel.swift; sourceTree = "<group>"; };
 		3B26F32E2AC11DAD00EFEE12 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		3B274D6C2AD3F6F400D79698 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -146,13 +178,18 @@
 		3B274D812AD4D40700D79698 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		3B274D832AD5207100D79698 /* SignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpService.swift; sourceTree = "<group>"; };
 		3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignInViewModel.swift; path = TWTW/ViewModel/Login/SignInViewModel.swift; sourceTree = SOURCE_ROOT; };
-		3B6C7F982ADE7C2E0060091C /* TWTWUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TWTWUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B6C7F942ADE25080060091C /* TabbarCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		3B6CF3D62ADAC80200325D05 /* SignInProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInProtocol.swift; sourceTree = "<group>"; };
 		3B6CF3D82ADACA7500325D05 /* MockSignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignInService.swift; sourceTree = "<group>"; };
 		3B6CF3DA2ADAD14A00325D05 /* MockSignInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignInCoordinator.swift; sourceTree = "<group>"; };
+		3B9FD0FE2AE7418F00D81328 /* MainMapViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModelUnitTests.swift; sourceTree = "<group>"; };
+		3B9FD1002AE758C100D81328 /* CLLocationManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationManagerMock.swift; sourceTree = "<group>"; };
 		3BAA4A182ADC1DEA009D14E7 /* SignUpProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpProtocol.swift; sourceTree = "<group>"; };
 		3BAA4A1E2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelUnitTests.swift; sourceTree = "<group>"; };
 		3BAA4A212ADCD0C8009D14E7 /* MockSignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignUpService.swift; sourceTree = "<group>"; };
+		3BC1D27F2AE0D58600A7D0CC /* TWTWUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TWTWUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BC1D2832AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemsCollectionViewCell.swift; sourceTree = "<group>"; };
+		3BC1D2862AE1A6E700A7D0CC /* TabbarItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarItems.swift; sourceTree = "<group>"; };
 		3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelUnitTests.swift; sourceTree = "<group>"; };
 		3BF9EF9F2AB1AE220014855E /* TWTW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWTW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapViewController.swift; sourceTree = "<group>"; };
@@ -164,21 +201,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B6CF3D02ADAC1CA00325D05 /* RxTest in Frameworks */,
-				3B6CF3C82ADAC1CA00325D05 /* RxRelay in Frameworks */,
+				3BC1D2762AE0D15D00A7D0CC /* RxTest in Frameworks */,
+				3BC1D2742AE0D15D00A7D0CC /* RxSwift in Frameworks */,
 				3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */,
-				3B6CF3D22ADAC1CA00325D05 /* RxTest-Dynamic in Frameworks */,
-				3B6CF3C22ADAC1CA00325D05 /* RxBlocking-Dynamic in Frameworks */,
-				3B6CF3CA2ADAC1CA00325D05 /* RxRelay-Dynamic in Frameworks */,
-				3B6CF3C02ADAC1CA00325D05 /* RxBlocking in Frameworks */,
+				3BC1D26E2AE0D15D00A7D0CC /* RxBlocking in Frameworks */,
 				375E8B052A96187800F8DE42 /* RxGesture in Frameworks */,
-				3B6CF3CC2ADAC1CA00325D05 /* RxSwift in Frameworks */,
-				3B6CF3C62ADAC1CA00325D05 /* RxCocoa-Dynamic in Frameworks */,
+				3BC1D2702AE0D15D00A7D0CC /* RxCocoa in Frameworks */,
 				3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */,
 				3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */,
-				3B6CF3C42ADAC1CA00325D05 /* RxCocoa in Frameworks */,
+				3BC1D2722AE0D15D00A7D0CC /* RxRelay in Frameworks */,
 				3751E8472A8D246A00D63A16 /* RxKakaoSDK in Frameworks */,
-				3B6CF3CE2ADAC1CA00325D05 /* RxSwift-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +218,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BC1D27A2AE0D27200A7D0CC /* RxSwift in Frameworks */,
+				3BC1D27C2AE0D27600A7D0CC /* RxTest in Frameworks */,
+				3BC1D27E2AE0D27F00A7D0CC /* RxCocoa in Frameworks */,
+				3BC1D2782AE0D26B00A7D0CC /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,7 +234,6 @@
 				3B0691532ABBD73200C98D6D /* Login */,
 				3B1850A72AB5A93B001945EE /* Map */,
 				3799E4FE2A99D65000E06218 /* Call */,
-				3799E4FD2A99D64B00E06218 /* PreviousAppointments */,
 				3799E4F82A99D61B00E06218 /* FriendsList */,
 				3799E4F72A99D5E900E06218 /* Notification */,
 			);
@@ -212,13 +247,21 @@
 				3BF9EF9F2AB1AE220014855E /* TWTW.app */,
 				3BE034962AD83AC800953498 /* TWTWServiceUnitTests */,
 				3B6CF3BB2ADAC1A400325D05 /* Frameworks */,
-				3B6C7F982ADE7C2E0060091C /* TWTWUnitTests.xctest */,
+				3BC1D27F2AE0D58600A7D0CC /* TWTWUnitTests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
 		3758F18A2A7D007200E2933C /* TWTW */ = {
 			isa = PBXGroup;
 			children = (
+				3799E4FD2A99D64B00E06218 /* PreviousAppointments */,
+				3799E4F92A99D62100E06218 /* FriendsList */,
+				3799E4FF2A99D65900E06218 /* Call */,
+				3799E4F62A99D5C200E06218 /* Notification */,
+				377CB0682AD8C8E4003453D6 /* SearchPlaces */,
+				377CB0622AD869C5003453D6 /* Tabbar */,
+				377CB05F2AD86968003453D6 /* Map */,
+				377CB0572AD86628003453D6 /* MeetingList */,
 				3B1C36EA2A8FD0A900838682 /* Constants */,
 				3B1C36ED2A8FD2ED00838682 /* Protocol */,
 				3B0E2EC02A81488A00797782 /* KeyChain */,
@@ -243,13 +286,9 @@
 				3799E4FC2A99D64800E06218 /* PreviousAppointments */,
 				3799E4FA2A99D62400E06218 /* FriendsList */,
 				3799E4F52A99D59F00E06218 /* Notification */,
-				37BAF8912A948EC600BD85DC /* SearchPlaces */,
 				377D3A6B2A86339B00377899 /* Map */,
 				3B26F32D2AC11D9400EFEE12 /* Login */,
 				3758F1962A7D007300E2933C /* LaunchScreen.storyboard */,
-				3758F18F2A7D007200E2933C /* MeetingListViewController.swift */,
-				37E043682AA5F4CE00F9E807 /* TabbarViewController.swift */,
-				373C85452AADA91E00325155 /* BottomSheetViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -263,12 +302,55 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		377CB0572AD86628003453D6 /* MeetingList */ = {
+			isa = PBXGroup;
+			children = (
+				3758F18F2A7D007200E2933C /* MeetingListViewController.swift */,
+				377CB0582AD8665E003453D6 /* MeetingListViewModel.swift */,
+				377CB05A2AD8666F003453D6 /* MeetingListCoordinator.swift */,
+				370AB45D2ADD134800951562 /* DefaultMeetingListCoordinator.swift */,
+			);
+			path = MeetingList;
+			sourceTree = "<group>";
+		};
+		377CB05F2AD86968003453D6 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				3BC1D2822AE1A56300A7D0CC /* ViewController */,
+				3BC1D2812AE1A55700A7D0CC /* View */,
+				3B6C7F972ADE264B0060091C /* Protocol */,
+				370AB4592ADD12E000951562 /* DefaultMainMapCoordinator.swift */,
+				3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		377CB0622AD869C5003453D6 /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				3BC1D2852AE1A6DD00A7D0CC /* Model */,
+				3B6C7F962ADE25FC0060091C /* Protocol */,
+				371C1D272ADABB3800B30DC5 /* TabBarController.swift */,
+				373C85492AADBCAF00325155 /* TabBarViewModel.swift */,
+			);
+			path = Tabbar;
+			sourceTree = "<group>";
+		};
+		377CB0682AD8C8E4003453D6 /* SearchPlaces */ = {
+			isa = PBXGroup;
+			children = (
+				37BAF8922A948EF700BD85DC /* SearchPlacesMapViewController.swift */,
+				377CB0692AD8C9AD003453D6 /* SearchPlacesMapCoordinator.swift */,
+				377CB06B2AD8C9C8003453D6 /* SearchPlacesMapViewModel.swift */,
+				370AB4572ADD082000951562 /* SearchPlacesMapCoordDelegate.swift */,
+				370AB45F2ADD161300951562 /* DefaultSearchPlacesMapCoordinator.swift */,
+			);
+			path = SearchPlaces;
+			sourceTree = "<group>";
+		};
 		377D3A6B2A86339B00377899 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */,
-				3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */,
-				375E8B012A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -277,7 +359,6 @@
 			isa = PBXGroup;
 			children = (
 				3B274D6E2AD3F6F800D79698 /* Protocol */,
-				3799E4EE2A99C4C200E06218 /* TabBarCoordinator.swift */,
 				3799E4F02A99C4D100E06218 /* DefaultAppCoordinator.swift */,
 				3799E4F22A99C79100E06218 /* VCScenesCoordinator.swift */,
 			);
@@ -295,8 +376,11 @@
 		3799E4F62A99D5C200E06218 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
+				3B20E1E72AE41ED7009572AA /* Protocol */,
+				371C1D2C2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift */,
 			);
-			path = Notification;
+			name = Notification;
+			path = ViewModel/Notification;
 			sourceTree = "<group>";
 		};
 		3799E4F72A99D5E900E06218 /* Notification */ = {
@@ -316,6 +400,8 @@
 		3799E4F92A99D62100E06218 /* FriendsList */ = {
 			isa = PBXGroup;
 			children = (
+				3B20E1E22AE41E81009572AA /* Protocol */,
+				371C1D2E2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift */,
 			);
 			path = FriendsList;
 			sourceTree = "<group>";
@@ -330,13 +416,6 @@
 			path = FriendsList;
 			sourceTree = "<group>";
 		};
-		3799E4FB2A99D64200E06218 /* PreviousAppointments */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PreviousAppointments;
-			sourceTree = "<group>";
-		};
 		3799E4FC2A99D64800E06218 /* PreviousAppointments */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,6 +427,8 @@
 		3799E4FD2A99D64B00E06218 /* PreviousAppointments */ = {
 			isa = PBXGroup;
 			children = (
+				3B20E1DA2AE41C83009572AA /* Protocol */,
+				371C1D302ADBAFF300B30DC5 /* DefaultPreviousAppointmentsCoordinator.swift */,
 			);
 			path = PreviousAppointments;
 			sourceTree = "<group>";
@@ -362,6 +443,8 @@
 		3799E4FF2A99D65900E06218 /* Call */ = {
 			isa = PBXGroup;
 			children = (
+				3B20E1DE2AE41E40009572AA /* Protocol */,
+				371C1D322ADBB00300B30DC5 /* DefaultCallCoordinator.swift */,
 			);
 			path = Call;
 			sourceTree = "<group>";
@@ -370,17 +453,8 @@
 			isa = PBXGroup;
 			children = (
 				3799E5012A99D68500E06218 /* CallViewController.swift */,
-				3701108A2AB2E49D005B0B24 /* Test.swift */,
 			);
 			path = Call;
-			sourceTree = "<group>";
-		};
-		37BAF8912A948EC600BD85DC /* SearchPlaces */ = {
-			isa = PBXGroup;
-			children = (
-				37BAF8922A948EF700BD85DC /* SearchPlacesMapViewController.swift */,
-			);
-			path = SearchPlaces;
 			sourceTree = "<group>";
 		};
 		3B0691532ABBD73200C98D6D /* Login */ = {
@@ -456,10 +530,73 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		3B20E1DA2AE41C83009572AA /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				3B20E1DB2AE41C8D009572AA /* Coordinator */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		3B20E1DB2AE41C8D009572AA /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				3B20E1DC2AE41D32009572AA /* PreviousAppointmentsCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		3B20E1DE2AE41E40009572AA /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				3B20E1DF2AE41E45009572AA /* Coordinator */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		3B20E1DF2AE41E45009572AA /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				3B20E1E02AE41E4D009572AA /* CallCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		3B20E1E22AE41E81009572AA /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				3B20E1E32AE41E84009572AA /* Coordinator */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		3B20E1E32AE41E84009572AA /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				3B20E1E52AE41E97009572AA /* FriendsListCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		3B20E1E72AE41ED7009572AA /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				3B20E1E82AE41EDA009572AA /* Coodinator */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		3B20E1E82AE41EDA009572AA /* Coodinator */ = {
+			isa = PBXGroup;
+			children = (
+				3B20E1E92AE41EE9009572AA /* NotificationCoordinator.swift */,
+			);
+			path = Coodinator;
+			sourceTree = "<group>";
+		};
 		3B267B992A87B80C00F3949A /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				3B267B9A2A87B81A00F3949A /* MainMapViewModel.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -542,15 +679,42 @@
 		3B6BA98A2A7F7D1600A11FE4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				373C85492AADBCAF00325155 /* TabBarViewModel.swift */,
-				3799E4FF2A99D65900E06218 /* Call */,
-				3799E4FB2A99D64200E06218 /* PreviousAppointments */,
-				3799E4F92A99D62100E06218 /* FriendsList */,
-				3799E4F62A99D5C200E06218 /* Notification */,
 				3B267B992A87B80C00F3949A /* Map */,
 				3B274D7E2AD4D1A200D79698 /* Login */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3B6C7F8F2ADE24340060091C /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				377CB0602AD8699C003453D6 /* MainMapCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		3B6C7F932ADE25010060091C /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				3B6C7F942ADE25080060091C /* TabbarCoordinatorDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		3B6C7F962ADE25FC0060091C /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				3B6C7F932ADE25010060091C /* Delegate */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		3B6C7F972ADE264B0060091C /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				3B6C7F8F2ADE24340060091C /* Coordinator */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		3B6CF3BB2ADAC1A400325D05 /* Frameworks */ = {
@@ -576,6 +740,23 @@
 				3BAA4A182ADC1DEA009D14E7 /* SignUpProtocol.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		3B9FD0FA2AE7412000D81328 /* MainMap */ = {
+			isa = PBXGroup;
+			children = (
+				3B9FD0FB2AE7412C00D81328 /* Mock */,
+				3B9FD0FE2AE7418F00D81328 /* MainMapViewModelUnitTests.swift */,
+			);
+			path = MainMap;
+			sourceTree = "<group>";
+		};
+		3B9FD0FB2AE7412C00D81328 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				3B9FD1002AE758C100D81328 /* CLLocationManagerMock.swift */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 		3BAA4A1A2ADCCFEB009D14E7 /* SignIn */ = {
@@ -604,9 +785,36 @@
 			path = Mock;
 			sourceTree = "<group>";
 		};
+		3BC1D2812AE1A55700A7D0CC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				375E8B012A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift */,
+				3BC1D2832AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3BC1D2822AE1A56300A7D0CC /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */,
+				37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		3BC1D2852AE1A6DD00A7D0CC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3BC1D2862AE1A6E700A7D0CC /* TabbarItems.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3BE034962AD83AC800953498 /* TWTWServiceUnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				3B9FD0FA2AE7412000D81328 /* MainMap */,
 				3BE0349E2AD83B3D00953498 /* Login */,
 			);
 			path = TWTWServiceUnitTests;
@@ -643,16 +851,11 @@
 				3751E8462A8D246A00D63A16 /* RxKakaoSDK */,
 				375E8B042A96187800F8DE42 /* RxGesture */,
 				3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */,
-				3B6CF3BF2ADAC1CA00325D05 /* RxBlocking */,
-				3B6CF3C12ADAC1CA00325D05 /* RxBlocking-Dynamic */,
-				3B6CF3C32ADAC1CA00325D05 /* RxCocoa */,
-				3B6CF3C52ADAC1CA00325D05 /* RxCocoa-Dynamic */,
-				3B6CF3C72ADAC1CA00325D05 /* RxRelay */,
-				3B6CF3C92ADAC1CA00325D05 /* RxRelay-Dynamic */,
-				3B6CF3CB2ADAC1CA00325D05 /* RxSwift */,
-				3B6CF3CD2ADAC1CA00325D05 /* RxSwift-Dynamic */,
-				3B6CF3CF2ADAC1CA00325D05 /* RxTest */,
-				3B6CF3D12ADAC1CA00325D05 /* RxTest-Dynamic */,
+				3BC1D26D2AE0D15D00A7D0CC /* RxBlocking */,
+				3BC1D26F2AE0D15D00A7D0CC /* RxCocoa */,
+				3BC1D2712AE0D15D00A7D0CC /* RxRelay */,
+				3BC1D2732AE0D15D00A7D0CC /* RxSwift */,
+				3BC1D2752AE0D15D00A7D0CC /* RxTest */,
 			);
 			productName = TWTW;
 			productReference = 3BF9EF9F2AB1AE220014855E /* TWTW.app */;
@@ -673,9 +876,13 @@
 			);
 			name = TWTWUnitTests;
 			packageProductDependencies = (
+				3BC1D2772AE0D26B00A7D0CC /* Alamofire */,
+				3BC1D2792AE0D27200A7D0CC /* RxSwift */,
+				3BC1D27B2AE0D27600A7D0CC /* RxTest */,
+				3BC1D27D2AE0D27F00A7D0CC /* RxCocoa */,
 			);
 			productName = TWTWUnitTests;
-			productReference = 3B6C7F982ADE7C2E0060091C /* TWTWUnitTests.xctest */;
+			productReference = 3BC1D27F2AE0D58600A7D0CC /* TWTWUnitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -712,7 +919,7 @@
 				3751E8452A8D246A00D63A16 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
 				375E8B032A96187800F8DE42 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				3BF9EFA02AB1AE4A0014855E /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
-				3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 3758F17F2A7D007100E2933C;
 			projectDirPath = "";
@@ -749,45 +956,59 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				371C1D332ADBB00300B30DC5 /* DefaultCallCoordinator.swift in Sources */,
+				370AB4582ADD082000951562 /* SearchPlacesMapCoordDelegate.swift in Sources */,
 				3B6CF3DB2ADAD14A00325D05 /* MockSignInCoordinator.swift in Sources */,
 				3BAA4A222ADCD0C8009D14E7 /* MockSignUpService.swift in Sources */,
 				3B274D712AD3F77600D79698 /* DefaultSignInCoordinator.swift in Sources */,
 				373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */,
+				3BC1D2872AE1A6E700A7D0CC /* TabbarItems.swift in Sources */,
 				3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */,
+				371C1D282ADABB3800B30DC5 /* TabBarController.swift in Sources */,
 				3B1850A92AB5A955001945EE /* SearchNearByPlaces.swift in Sources */,
 				3B274D762AD4541E00D79698 /* SignInCoordinatorFinishDelegate.swift in Sources */,
 				375E8B022A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift in Sources */,
 				3799E5092A99D72D00E06218 /* NotificationViewController.swift in Sources */,
+				377CB0612AD8699C003453D6 /* MainMapCoordinator.swift in Sources */,
 				3B1850AE2AB5C781001945EE /* EndPoint.swift in Sources */,
 				3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */,
 				3703095F2AAF20D900F9CD80 /* FriendsListModel.swift in Sources */,
+				377CB06C2AD8C9C8003453D6 /* SearchPlacesMapViewModel.swift in Sources */,
 				3799E4F32A99C79100E06218 /* VCScenesCoordinator.swift in Sources */,
 				3B1850B02AB5C939001945EE /* Domain.swift in Sources */,
 				3BAA4A192ADC1DEA009D14E7 /* SignUpProtocol.swift in Sources */,
 				37BAF8932A948EF700BD85DC /* SearchPlacesMapViewController.swift in Sources */,
 				3B6CF3D92ADACA7500325D05 /* MockSignInService.swift in Sources */,
+				370AB4602ADD161300951562 /* DefaultSearchPlacesMapCoordinator.swift in Sources */,
+				3B20E1EA2AE41EE9009572AA /* NotificationCoordinator.swift in Sources */,
+				370AB45A2ADD12E000951562 /* DefaultMainMapCoordinator.swift in Sources */,
 				3B274D732AD445B400D79698 /* DefaultSignUpCoordinator.swift in Sources */,
+				3B9FD1012AE758C100D81328 /* CLLocationManagerMock.swift in Sources */,
 				3B1C36EF2A8FD30200838682 /* BottomSheetDelegate.swift in Sources */,
-				373C85462AADA91E00325155 /* BottomSheetViewModel.swift in Sources */,
 				3B0691552ABBD73900C98D6D /* Login.swift in Sources */,
 				3758F1A02A7D122100E2933C /* SignInViewController.swift in Sources */,
+				3B20E1E12AE41E4D009572AA /* CallCoordinator.swift in Sources */,
+				370AB45E2ADD134800951562 /* DefaultMeetingListCoordinator.swift in Sources */,
+				377CB0592AD8665E003453D6 /* MeetingListViewModel.swift in Sources */,
 				3B274D7B2AD4CFDA00D79698 /* SignUpCoordinatorFinishDelegate.swift in Sources */,
 				3799E5022A99D68500E06218 /* CallViewController.swift in Sources */,
 				3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */,
 				3B274D792AD4584600D79698 /* SignInCoordinatorProtocol.swift in Sources */,
 				3B0D6AA92ABBD1A900B08CAB /* LoginConstants.swift in Sources */,
 				3703095B2AAF1C8400F9CD80 /* FriendsListCollectionView.swift in Sources */,
+				371C1D312ADBAFF300B30DC5 /* DefaultPreviousAppointmentsCoordinator.swift in Sources */,
+				3BC1D2842AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift in Sources */,
+				3B20E1E62AE41E97009572AA /* FriendsListCoordinator.swift in Sources */,
 				3B1850B22AB5CCA6001945EE /* SearchPlaces.swift in Sources */,
 				3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */,
 				3799E5052A99D6DC00E06218 /* PreviousAppointmentsViewController.swift in Sources */,
 				3BF9EFB12AB1DEDB0014855E /* UIImage+Ext.swift in Sources */,
-				3701108B2AB2E49D005B0B24 /* Test.swift in Sources */,
 				3758F1902A7D007200E2933C /* MeetingListViewController.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
+				3B6C7F952ADE25080060091C /* TabbarCoordinatorDelegate.swift in Sources */,
 				3B1850AB2AB5C620001945EE /* SearchService.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
 				37EF0CFB2AB85C2400D77B0A /* UIViewController+Ext.swift in Sources */,
-				37E043692AA5F4CE00F9E807 /* TabbarViewController.swift in Sources */,
 				3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */,
 				3B274D822AD4D40700D79698 /* AppCoordinator.swift in Sources */,
 				3B274D7D2AD4D19B00D79698 /* SignUpViewModel.swift in Sources */,
@@ -795,13 +1016,17 @@
 				3B274D6D2AD3F6F400D79698 /* Coordinator.swift in Sources */,
 				3754BB702A9B455100522420 /* Color+Ext.swift in Sources */,
 				37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */,
-				3799E4EF2A99C4C200E06218 /* TabBarCoordinator.swift in Sources */,
+				371C1D2D2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift in Sources */,
 				3799E4F12A99C4D100E06218 /* DefaultAppCoordinator.swift in Sources */,
 				3B274D842AD5207100D79698 /* SignUpService.swift in Sources */,
+				3B20E1DD2AE41D32009572AA /* PreviousAppointmentsCoordinator.swift in Sources */,
+				377CB05B2AD8666F003453D6 /* MeetingListCoordinator.swift in Sources */,
 				3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */,
 				3B274D802AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift in Sources */,
+				371C1D2F2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift in Sources */,
 				3B6CF3D72ADAC80200325D05 /* SignInProtocol.swift in Sources */,
 				375916372A7EB36000C21E1F /* SignInService.swift in Sources */,
+				377CB06A2AD8C9AD003453D6 /* SearchPlacesMapCoordinator.swift in Sources */,
 				3BF9EFA42AB1AE790014855E /* KakaoMapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -812,6 +1037,7 @@
 			files = (
 				3BAA4A1F2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift in Sources */,
 				3BE034982AD83AC800953498 /* SignInViewModelUnitTests.swift in Sources */,
+				3B9FD0FF2AE7418F00D81328 /* MainMapViewModelUnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1055,7 +1281,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = JJ.TWTWUnitTests;
@@ -1082,7 +1308,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = JJ.TWTWUnitTests;
@@ -1162,7 +1388,7 @@
 				minimumVersion = 4.0.0;
 			};
 		};
-		3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+		3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
 			requirement = {
@@ -1201,55 +1427,50 @@
 			package = 375E8B032A96187800F8DE42 /* XCRemoteSwiftPackageReference "RxGesture" */;
 			productName = RxGesture;
 		};
-		3B6CF3BF2ADAC1CA00325D05 /* RxBlocking */ = {
+		3BC1D26D2AE0D15D00A7D0CC /* RxBlocking */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxBlocking;
 		};
-		3B6CF3C12ADAC1CA00325D05 /* RxBlocking-Dynamic */ = {
+		3BC1D26F2AE0D15D00A7D0CC /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = "RxBlocking-Dynamic";
-		};
-		3B6CF3C32ADAC1CA00325D05 /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxCocoa;
 		};
-		3B6CF3C52ADAC1CA00325D05 /* RxCocoa-Dynamic */ = {
+		3BC1D2712AE0D15D00A7D0CC /* RxRelay */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = "RxCocoa-Dynamic";
-		};
-		3B6CF3C72ADAC1CA00325D05 /* RxRelay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxRelay;
 		};
-		3B6CF3C92ADAC1CA00325D05 /* RxRelay-Dynamic */ = {
+		3BC1D2732AE0D15D00A7D0CC /* RxSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = "RxRelay-Dynamic";
-		};
-		3B6CF3CB2ADAC1CA00325D05 /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
 		};
-		3B6CF3CD2ADAC1CA00325D05 /* RxSwift-Dynamic */ = {
+		3BC1D2752AE0D15D00A7D0CC /* RxTest */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = "RxSwift-Dynamic";
-		};
-		3B6CF3CF2ADAC1CA00325D05 /* RxTest */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxTest;
 		};
-		3B6CF3D12ADAC1CA00325D05 /* RxTest-Dynamic */ = {
+		3BC1D2772AE0D26B00A7D0CC /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3B6CF3BE2ADAC1CA00325D05 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = "RxTest-Dynamic";
+			package = 3751E8422A8D242C00D63A16 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		3BC1D2792AE0D27200A7D0CC /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		3BC1D27B2AE0D27600A7D0CC /* RxTest */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxTest;
+		};
+		3BC1D27D2AE0D27F00A7D0CC /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
 		};
 		3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */ = {
 			isa = XCSwiftPackageProductDependency;

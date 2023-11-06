@@ -34,7 +34,7 @@ final class DefaultSignInCoordinator: SignInCoordinatorProtocol {
     }
     
     /// 로그인 페이지로 이동
-    func moveLogin() {
+    func moveSignIn() {
         print(#function)
         signInViewController.viewModel = signInViewModel
         signInViewController.output = output
@@ -53,9 +53,6 @@ final class DefaultSignInCoordinator: SignInCoordinatorProtocol {
     func moveMain() {
         delegate?.finishLogin(self)
     }
-    
-  
-    
 }
 
 extension DefaultSignInCoordinator: SignUpCoordinatorFinishDelegate {

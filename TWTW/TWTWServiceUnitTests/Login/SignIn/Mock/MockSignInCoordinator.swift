@@ -22,7 +22,7 @@ final class MockSignInCoordinator: SignInCoordinatorProtocol {
         print("Mock \(#function)")
     }
     
-    func moveLogin() {
+    func moveSignIn() {
         print("Mock \(#function)")
     }
     

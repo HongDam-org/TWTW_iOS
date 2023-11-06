@@ -8,15 +8,5 @@
 import Foundation
 import UIKit
 
-class NotificationCoordinator {
-    
-}
-class FriendsnCoordinator {
-    
-}
-class PreviousAppointmentsCoordinator {
-    
-}
-class CallCoordinator {
-    
-}
+
+

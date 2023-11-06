@@ -9,7 +9,7 @@ import Foundation
 
 /// 로그인 Protocol
 protocol SignInCoordinatorProtocol: Coordinator {
-    func moveLogin()
+    func moveSignIn()
     func moveSignUp()
     func moveMain()
 }

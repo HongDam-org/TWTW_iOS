@@ -47,7 +47,7 @@ final class SignInViewModel {
             return checkAccessTokenValidation(output: output)
         }
         //SignInViewController 이동
-        coordinator?.moveLogin()    
+        coordinator?.moveSignIn()    
     }
     
     /// MARK: binding Input
@@ -116,7 +116,7 @@ final class SignInViewModel {
                 guard let self = self else {return}
                 print("\(#function) error!\n\(error)")
                 output.checkGetNewAccessToken.accept(nil)
-                coordinator?.moveLogin()
+                coordinator?.moveSignIn()
             })
             .disposed(by: disposeBag)
     }
