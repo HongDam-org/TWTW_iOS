@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-import Alamofire
+import Alamofire 
 import RxSwift
 
 final class SearchPlacesMapService: SearchPlaceProtocol{
@@ -15,9 +15,11 @@ final class SearchPlacesMapService: SearchPlaceProtocol{
     func searchPlaceService(request: PlacesRequest) -> Observable<PlaceResponseModel> {
         return Observable.create { observer in
             
-            let encodedQuery = SearchRequestConfig.encodedQuery(request.searchText)
-            let headers = SearchRequestConfig.headers()
-            let url = "\(Domain.REST_API)\(SearchPath.placeAndCategory)?query=\(encodedQuery)&page=1&categoryGroupCode=NONE"
+            let searchRequestConfig = SearchRequestConfig()
+            let encodedQuery = searchRequestConfig.encodedQuery(request.searchText)
+            let headers = searchRequestConfig.headers()
+            var url = Domain.REST_API + SearchPath.placeAndCategory
+            url = url.replacingOccurrences(of: "encodedQuery", with: encodedQuery)
             AF.request(url, method: .get, parameters: request, headers: headers)
                 .validate(statusCode: 200..<205)
                 .responseDecodable(of:PlaceResponseModel.self) {

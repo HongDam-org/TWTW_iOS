@@ -53,7 +53,7 @@ final class SearchPlacesMapViewController: UIViewController {
         //view.addSubview(searchBar)
         navigationItem.titleView = searchBar
         view.addSubview(placesTableView)
-        placesTableView.register(SearchPlacesTableViewCell.self, forCellReuseIdentifier: CellIdentifier.searchPlacesTableViewCell)
+        placesTableView.register(SearchPlacesTableViewCell.self, forCellReuseIdentifier: CellIdentifier.searchPlacesTableViewCell.rawValue)
         bindViewModel()
         configureConstraints()
     }
@@ -107,7 +107,7 @@ final class SearchPlacesMapViewController: UIViewController {
                 let places = PlaceResponseModel.flatMap { $0.results }
                 return Observable.just(places)
             }
-            .bind(to: placesTableView.rx.items(cellIdentifier: CellIdentifier.searchPlacesTableViewCell, cellType: SearchPlacesTableViewCell.self)) { row, place, cell in
+            .bind(to: placesTableView.rx.items(cellIdentifier: CellIdentifier.searchPlacesTableViewCell.rawValue, cellType: SearchPlacesTableViewCell.self)) { row, place, cell in
                 cell.configure(placeName: place.placeName, addressName: place.addressName, categoryName: place.categoryName)
             }
             .disposed(by: disposeBag)

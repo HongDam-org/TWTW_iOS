@@ -8,7 +8,7 @@
 import Foundation
 
 struct SearchPath {
-    static let placeAndCategory = "/plans/search/destination"
+    static let placeAndCategory = "/plans/search/destination?query=encodedQuery&page=1&categoryGroupCode=NONE"
     
 }
 

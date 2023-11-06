@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum CellIdentifier {
-    static let searchPlacesTableViewCell = "SearchPlacesTableViewCell"
+enum CellIdentifier: String {
+    case searchPlacesTableViewCell = "SearchPlacesTableViewCell"
 }
