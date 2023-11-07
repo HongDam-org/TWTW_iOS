@@ -24,7 +24,7 @@ final class SearchPlacesMapViewModel {
     }
     
     struct Output{
-        let filteredPlaces: BehaviorSubject<[PlaceResponseModel]> = BehaviorSubject<[PlaceResponseModel]>(value: [])
+        let filteredPlaces: BehaviorRelay<[SearchPlace]> = BehaviorRelay<[SearchPlace]>(value: [])
         
         let selectedCoordinate: PublishRelay<CLLocationCoordinate2D> = PublishRelay<CLLocationCoordinate2D>()
     }
@@ -41,26 +41,18 @@ final class SearchPlacesMapViewModel {
     private func createOutput(input: Input) -> Output {
         let output = Output()
         
-        
         input.searchText
             .distinctUntilChanged()
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-            .flatMapLatest { searchText in
-                let request = PlacesRequest(searchText: searchText)
-                
-                return
-                self.searchPlacesServices?
-                    .searchPlaceService(request: request) ??
-                    .just(PlaceResponseModel(results: [], isLast: false))
+            .flatMapLatest { [weak self] searchText in
+                self?.searchPlacesServices?
+                    .searchPlaceService(request: PlacesRequest(searchText: searchText)) ?? .just(PlaceResponse(results: [], isLast: false))
             }
-            .map { placeResponse in
-                let isLast = placeResponse.isLast
-                let filteredPlaces = placeResponse.results
-                return [PlaceResponseModel(results: filteredPlaces, isLast: isLast)]
+            .bind { placeResponse in
+                var list = output.filteredPlaces.value
+                list.append(contentsOf: placeResponse.results)
+                output.filteredPlaces.accept(list)
             }
-            .subscribe(onNext: { placeResponseModel in
-                output.filteredPlaces.onNext(placeResponseModel)
-            })
             .disposed(by: disposeBag)
         return output
     }

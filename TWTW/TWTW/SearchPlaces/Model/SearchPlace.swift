@@ -13,13 +13,13 @@ struct PlacesRequest: Codable {
     let searchText: String?
 }
 /// MARK: 검색 결과 리스트
-struct PlaceResponseModel: Codable {
-    let results: [Place]
+struct PlaceResponse: Codable {
+    let results: [SearchPlace]
     let isLast: Bool
 }
 
 /// MARK: - 장소 정보
-struct Place: Codable {
+struct SearchPlace: Codable {
     let placeName, distance: String
     let placeURL: String
     let categoryName, addressName, roadAddressName, categoryGroupCode: String

@@ -102,7 +102,7 @@ final class MainMapViewController: KakaoMapViewController {
         addSubViewsMyloctaionImageView()
         
         // 더미 데이터 삽입
-        viewModel.searchInputData_Dummy()
+//        viewModel.searchInputData_Dummy()
         
         view.backgroundColor = .white
         navigationController?.setNavigationBarHidden(true, animated: false)

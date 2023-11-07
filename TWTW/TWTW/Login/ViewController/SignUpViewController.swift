@@ -26,7 +26,7 @@ final class SignUpViewController: UIViewController {
     /// MARK: 이미지 버튼
     private lazy var imageButton: UIButton = {
         let btn = UIButton()
-        btn.setImage(UIImage(named: Login.profile)?.resize(newWidth: 200, newHeight: 200), for: .normal)
+        btn.setImage(UIImage(named: LoginImageTitle.profile.rawValue)?.resize(newWidth: 200, newHeight: 200), for: .normal)
         return btn
     }()
     
@@ -41,7 +41,7 @@ final class SignUpViewController: UIViewController {
     
     /// MARK: 카메라 버튼
     private lazy var cameraImage: UIImageView = {
-        let view = UIImageView(image: UIImage(named: Login.add_a_photo))
+        let view = UIImageView(image: UIImage(named: LoginImageTitle.add_a_photo.rawValue))
         return view
     }()
     

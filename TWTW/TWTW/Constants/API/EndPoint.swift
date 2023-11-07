@@ -7,16 +7,15 @@
 
 import Foundation
 
-struct SearchPath {
-    static let placeAndCategory = "/plans/search/destination?query=encodedQuery&page=1&categoryGroupCode=NONE"
-    
+enum SearchPath: String {
+    case placeAndCategory = "/plans/search/destination?query=encodedQuery&page=1&categoryGroupCode=NONE"
 }
 
-struct LoginPath {
-    static let signUp = "/auth/save"
-    static let signIn = "/auth/login"
-    static let updateToken = "/auth/refresh"
-    static let checkValidation = "/auth/validate"
-    static let checkOverlapId = "/member/duplicate/Id"
+enum LoginPath: String {
+    case signUp = "/auth/save"
+    case signIn = "/auth/login"
+    case updateToken = "/auth/refresh"
+    case checkValidation = "/auth/validate"
+    case checkOverlapId = "/member/duplicate/Id"
 }
 

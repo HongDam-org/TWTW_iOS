@@ -221,10 +221,12 @@ final class MainMapViewModel {
         list.append(SearchNearByPlaces(imageName: "image", title: "Place 7", subTitle: "detail aboudPlace 7"))
         list.append(SearchNearByPlaces(imageName: "image", title: "Place 8", subTitle: "detail aboudPlace 8"))
         placeData.accept(list)
+        
+    }
     /// MARK: 장소 검색 함수
     /// - Parameter word: 검색한 단어
     /// - Returns: 검색한 장소 리스트
-    func searchToGetPlace(word: String) -> Observable<SurroundSearchPlaces>{
-        surroundSearchService.surroundSearchPlaces(place: word, x: 0, y: 0, page: 0, categoryGroupCode: "")
-    }
+//    func searchToGetPlace(word: String) -> Observable<SurroundSearchPlaces>{
+//        surroundSearchService.surroundSearchPlaces(place: word, x: 0, y: 0, page: 0, categoryGroupCode: "")
+//    }
 }

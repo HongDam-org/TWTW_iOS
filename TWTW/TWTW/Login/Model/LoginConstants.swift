@@ -31,8 +31,8 @@ enum SignInSaveKeyChain: String {
 }
 
 /// 로그인할 때 사용할 변수
-struct Login {
-    static let add_a_photo: String = "add_a_photo"
-    static let profile: String = "profile"
+enum LoginImageTitle: String {
+    case add_a_photo
+    case profile
 }
 

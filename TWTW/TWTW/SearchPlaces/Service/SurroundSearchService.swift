@@ -15,7 +15,7 @@ final class SurroundSearchService {
     
     /// MARK: 검색어와 카테고리를 통한 장소 검색
     func surroundSearchPlaces(place: String, x: Double, y: Double, page: Int, categoryGroupCode: String) -> Observable<SurroundSearchPlaces>{
-        let url = Domain.REST_API + SearchPath.placeAndCategory
+        let url = Domain.REST_API + SearchPath.placeAndCategory.rawValue
         
         return Observable.create { observer in
             AF.request(url,

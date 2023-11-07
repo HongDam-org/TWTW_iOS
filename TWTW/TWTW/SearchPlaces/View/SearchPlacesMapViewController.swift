@@ -102,10 +102,8 @@ final class SearchPlacesMapViewController: UIViewController {
     private func bindSearchPlaceFiltering(output: SearchPlacesMapViewModel.Output?) {
         //PlaceResponseModel에서 results 추출하고 다시 Observable감싸기
         output?.filteredPlaces
-            .flatMap { PlaceResponseModel ->
-                Observable<[Place]> in
-                let places = PlaceResponseModel.flatMap { $0.results }
-                return Observable.just(places)
+            .map{
+                $0?.results ?? []
             }
             .bind(to: placesTableView.rx.items(cellIdentifier: CellIdentifier.searchPlacesTableViewCell.rawValue, cellType: SearchPlacesTableViewCell.self)) { row, place, cell in
                 cell.configure(placeName: place.placeName, addressName: place.addressName, categoryName: place.categoryName)
@@ -117,7 +115,7 @@ final class SearchPlacesMapViewController: UIViewController {
                 if let placeResponseModel = try? output?.filteredPlaces.value(), // filteredPlaces가 옵셔널이라 try? 사용
                    !placeResponseModel.isEmpty,
                    indexPath.row < placeResponseModel.first!.results.count,
-                   let selectedPlace = placeResponseModel.first!.results[indexPath.row] as? Place {
+                   let selectedPlace = placeResponseModel.first!.results[indexPath.row] as? SearchPlace {
                     if let placeX = Double(selectedPlace.x), let placeY = Double(selectedPlace.y) {
                         let coordinate = CLLocationCoordinate2D(latitude: placeY, longitude: placeX)
                         // print(placeResponseModel.first!)
