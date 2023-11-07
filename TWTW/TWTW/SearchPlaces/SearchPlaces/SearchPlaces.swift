@@ -32,13 +32,4 @@ struct Place: Codable {
     }
 }
 
-struct SearchRequestConfig {
-    func encodedQuery(_ searchText: String?) -> String {
-        return searchText?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-    }
 
-    func headers() -> HTTPHeaders {
-        let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue) ?? ""
-        return ["Authorization": "Bearer \(accessToken)"]
-    }
-}
