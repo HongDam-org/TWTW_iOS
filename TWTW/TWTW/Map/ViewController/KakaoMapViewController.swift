@@ -11,12 +11,13 @@ import KakaoMapsSDK
 class KakaoMapViewController: UIViewController, MapControllerDelegate {
     
     var mapController: KMController?
+    var kMViewContainer: KMViewContainer?
     var _observerAdded: Bool?
     var _auth: Bool?
     var _appear: Bool?
     
     /// MARK:
-    lazy var mapView: KMViewContainer = {
+    private lazy var mapView: KMViewContainer = {
         let view = KMViewContainer()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -47,6 +48,7 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
         
         //KMController 생성.
         mapController = KMController(viewContainer: mapView)!
+        kMViewContainer = mapView
         mapController!.delegate = self
         
         mapController?.initEngine() //엔진 초기화. 엔진 내부 객체 생성 및 초기화가 진행된다.
@@ -141,7 +143,7 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
         //여기에서 그릴 View(KakaoMap, Roadview)들을 추가한다.
         let defaultPosition: MapPoint = MapPoint(longitude: 127.108678, latitude: 37.402001)
         //지도(KakaoMap)를 그리기 위한 viewInfo를 생성
-        let mapviewInfo: MapviewInfo = MapviewInfo(viewName: "mapview", viewInfoName: "map", defaultPosition: defaultPosition, defaultLevel: 7)
+        let mapviewInfo: MapviewInfo = MapviewInfo(viewName: "mapview", viewInfoName: "map", defaultPosition: defaultPosition, defaultLevel: 15)
         
         //KakaoMap 추가.
         if mapController?.addView(mapviewInfo) == Result.OK {

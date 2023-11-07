@@ -6,5 +6,12 @@
 //
 
 protocol MainMapCoordinator : Coordinator {
-    func showSearchPlacesMap()
+    /// 검색화면으로 이동
+    func moveSearch(output: MainMapViewModel.Output)
+    
+    /// Create Tabbar Item 
+    func createTabbarItem(_ tabbarController: TabBarController)
+    
+    /// Create Tabbar Item Coordinator
+    func createTabbarItemCoordinators(_ tabbarController: TabBarController)
 }

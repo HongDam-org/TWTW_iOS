@@ -8,17 +8,24 @@
 import Foundation
 import UIKit
 
-class FriendsListCoordinator: Coordinator  {
+final class DefaultFriendsListCoordinator: FriendsListCoordinator  {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
     init(navigationController: UINavigationController){
         self.navigationController = navigationController
     }
+    
     func start() {
-        let friendsViewController = FriendsListViewController()
-        navigationController.pushViewController(friendsViewController, animated: true)
+        
     }
     
+    /// Create Controller
+    /// - Returns: NavigationController
+    func startPush() -> UINavigationController {
+        let friendsViewController = FriendsListViewController()
+        navigationController.pushViewController(friendsViewController, animated: true)
+        return navigationController
+    }
     
 }

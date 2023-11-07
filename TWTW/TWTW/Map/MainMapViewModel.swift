@@ -11,67 +11,150 @@ import RxRelay
 import CoreLocation
 import UIKit
 import KakaoMapsSDK
+import RxGesture
+import RxCocoa
 
-final class MainMapViewModel: NSObject {
-    let coordinator: DefaultMainMapCoordinator
+final class MainMapViewModel {
+    private let coordinator: DefaultMainMapCoordinator?
+    private let disposeBag = DisposeBag()
     
-    init(coordinator: DefaultMainMapCoordinator) {
+    init(coordinator: DefaultMainMapCoordinator?) {
         self.coordinator = coordinator
     }
     
-    /// 주변 장소 검색 Service
-    private let surroundSearchService = SurroundSearchService()
+    struct Input {
+        /// 지도 화면 터치 감지
+        let screenTouchEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
+        
+        /// 검색 버튼 터치 감지
+        let searchBarTouchEvents: Observable<ControlEvent<UITapGestureRecognizer>.Element>?
+        
+        /// Location Manager
+        let cLLocationCoordinate2DEvents: Observable<CLLocationManager>?
+        
+        /// 내위치 버튼 눌렀을 때
+        let myLocationTappedEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
+        
+        /// 내위치 버튼 Y 좌표
+        let tabbarControllerViewPanEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
+    }
     
+    struct Output {
+        /// 탭바 가리기
+        /// true: hide, false: show
+        var hideTabbarControllerRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        
+        /// 검색바 가리기
+        /// true: hide, false: show
+        var hideSearchBarRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        
+        /// 주변 검색 결과 UI 가리기
+        /// true: hide, false: show
+        var hideNearPlacesRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        
+        /// 내위치 나타내는 버튼
+        /// true: hide, false: show
+        var hideMyLocationImageViewRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        
+        /// 자신의 위치 반환
+        var myLocatiaonRelay: BehaviorRelay<CLLocationCoordinate2D> = BehaviorRelay(value: CLLocationCoordinate2D())
+        
+        /// 검색한 위치 좌표
+        var cameraCoordinateObservable: BehaviorRelay<CLLocationCoordinate2D> = BehaviorRelay(value: CLLocationCoordinate2D())
+        
+        /// 위치 정보를 넘길때 Mainmap 주변장소 보이는 UI로 변경
+        var showNearPlacesUI: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        
+        var moveSearchCoordinator: PublishSubject<Bool> = PublishSubject()
+    }
     
-    /// 지도 화면 터치 감지 Relay
-    ///  true: UI 제거하기, false: UI 표시
-    var checkTouchEventRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    /// MARK: bind
+    func bind(input: Input, viewMiddleYPoint: CGFloat?) -> Output {
+        
+        return createOutput(input: input, viewMiddleYPoint: viewMiddleYPoint)
+    }
     
-    /// MARK: 검색지 주변 장소 데이터
-    var surroundPlaceData: BehaviorRelay<[SearchNearByPlaces]> = BehaviorRelay(value: [])
+    /// MARK: create output
+    private func createOutput(input: Input, viewMiddleYPoint: CGFloat?) -> Output {
+        let output = Output()
+        input.screenTouchEvents?
+            .bind(onNext: { _ in
+                output.hideTabbarControllerRelay.accept(!output.hideTabbarControllerRelay.value)
+                output.hideMyLocationImageViewRelay.accept(!output.hideMyLocationImageViewRelay.value)
+                output.hideNearPlacesRelay.accept(true)
+            })
+            .disposed(by: disposeBag)
+        
+        input.searchBarTouchEvents?
+            .bind { [weak self] _ in
+                guard let self = self else {return}
+                output.moveSearchCoordinator.onNext(true)
+                moveSearch(output: output)
+            }
+            .disposed(by: disposeBag)
+        
+        input.cLLocationCoordinate2DEvents?
+            .bind { manager in
+                output.myLocatiaonRelay.accept(manager.location?.coordinate ?? CLLocationCoordinate2D())
+            }
+            .disposed(by: disposeBag)
+        
+        output.showNearPlacesUI
+            .bind { check in
+                output.hideTabbarControllerRelay.accept(check)
+                output.hideMyLocationImageViewRelay.accept(check)
+                output.hideNearPlacesRelay.accept(!check)
+            }
+            .disposed(by: disposeBag)
+        
+      
+        touchMyLocation(input: input, output: output)
+        hideImageView(input: input, output: output, viewMiddleYPoint: viewMiddleYPoint)
+        
+        return output
+    }
     
-    /// 서치바 동작기능 변형 버튼기능 -> 검색기능
-    var searchBarSearchable: BehaviorRelay<Bool> = BehaviorRelay(value: true)
+    /// MARK: when touch my location
+    private func touchMyLocation(input: Input, output: Output){
+        guard let myLocationTappedEvents = input.myLocationTappedEvents, let cLLocationCoordinate2DEvents = input.cLLocationCoordinate2DEvents else {return}
+        Observable.combineLatest(myLocationTappedEvents,
+                                 cLLocationCoordinate2DEvents)
+        .bind { gesture, manager in
+            output.myLocatiaonRelay.accept(manager.location?.coordinate ?? CLLocationCoordinate2D())
+        }
+        .disposed(by: disposeBag)
+    }
     
-    /// MARK: tabbar bottm height
-    var initBottomheight: BehaviorRelay<Double> = BehaviorRelay(value: 0.0)
-    
-    /// MARK: 현재 자신의 위치
-    let locationManager: BehaviorRelay<CLLocationManager> = BehaviorRelay(value: CLLocationManager())
-    
-    /// MARK: 지도 화면 터치 했을 때
-    var tapGesture: BehaviorRelay<UITapGestureRecognizer> = BehaviorRelay(value: UITapGestureRecognizer())
+    /// MARK: hide image View
+    private func hideImageView(input: Input, output: Output, viewMiddleYPoint: CGFloat?){
+        input.tabbarControllerViewPanEvents?
+            .bind { gesture in
+            switch gesture.state {
+            case .began, .changed, .ended, .cancelled:
+                if let height = gesture.view?.bounds.height, height > viewMiddleYPoint ?? 0 {
+                    output.hideMyLocationImageViewRelay.accept(true)
+                    return
+                }
+                output.hideMyLocationImageViewRelay.accept(false)
+            default:
+                return
+            }
+            
+        }
+        .disposed(by: disposeBag)
+    }
     
     // MARK: - Logic
     
-    /// MARK: checking Touch Events
-    func checkingTouchEvents() {
-        let check = checkTouchEventRelay.value
-        checkTouchEventRelay.accept(!check)
+    /// MARK: 검색 화면으로 이동
+    private func moveSearch(output: Output) {
+        coordinator?.moveSearch(output: output)
     }
-    
-    
-    /// MARK: 검색지 주변 장소 더미 데이터
-    func searchInputData_Dummy(){
-        var list = surroundPlaceData.value
-        
-        list.append(SearchNearByPlaces(imageName: "image", title: "Place 1", subTitle: "detail aboudPlace 1"))
-        list.append(SearchNearByPlaces(imageName: "image", title: "Place 2", subTitle: "detail aboudPlace 2"))
-        list.append(SearchNearByPlaces(imageName: "image", title: "Place 3", subTitle: "detail aboudPlace 3"))
-        list.append(SearchNearByPlaces(imageName: "image", title: "Place 4", subTitle: "detail aboudPlace 4"))
-        list.append(SearchNearByPlaces(imageName: "image", title: "Place 5", subTitle: "detail aboudPlace 5"))
-        list.append(SearchNearByPlaces(imageName: "image", title: "Place 6", subTitle: "detail aboudPlace 6"))
-        list.append(SearchNearByPlaces(imageName: "image", title: "Place 7", subTitle: "detail aboudPlace 7"))
-        list.append(SearchNearByPlaces(imageName: "image", title: "Place 8", subTitle: "detail aboudPlace 8"))
-        surroundPlaceData.accept(list)
-    }
-    
-    
-    // MARK: - Route
     
     /// MARK:  지도에 선 그리기
-    func createRouteline(mapView: KakaoMap, layer: RouteLayer?) {
-        let segmentPoints = routeSegmentPoints()
+    func createRouteline(mapView: KakaoMap, layer: RouteLayer?, output: Output) {
+        let segmentPoints = routeSegmentPoints(longitude: output.myLocatiaonRelay.value.longitude,
+                                               latitude: output.myLocatiaonRelay.value.latitude)
         
         var segments: [RouteSegment] = [RouteSegment]()
         var styleIndex: UInt = 0
@@ -91,14 +174,11 @@ final class MainMapViewModel: NSObject {
         mapView.moveCamera(CameraUpdate.make(target: pnt, zoomLevel: 15, mapView: mapView))
     }
     
-    /// 위도 경도를 이용하여 point를 찍음
-    func routeSegmentPoints() -> [[MapPoint]] {
+    /// MARK:  위도 경도를 이용하여 point를 찍음
+    func routeSegmentPoints(longitude: Double, latitude: Double) -> [[MapPoint]] {
         var segments = [[MapPoint]]()
         
         var points = [MapPoint]()
-        
-        let longitude: Double = locationManager.value.location?.coordinate.longitude.magnitude ?? 0.0
-        let latitude: Double = locationManager.value.location?.coordinate.latitude.magnitude ?? 0.0
         
         points.append(MapPoint(longitude: longitude, latitude: latitude))
         points.append(MapPoint(longitude: 126.7323429, latitude: 37.3416939))
@@ -116,18 +196,31 @@ final class MainMapViewModel: NSObject {
         return segments
     }
     
-    var cameraCoordinateObservable: Observable<CLLocationCoordinate2D>?
-    //위치 정보를 넘길때 Mainmap 주변장소 보이는 UI로 변경
-    var showNearPlacesUI: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-    
-  
-    func showSearchPlacesMap() {
-        coordinator.showSearchPlacesMap()
-    }
     
     
-    // MARK: - API Connect
     
+    
+    
+    // MARK: - 검색 기능
+    
+    /// MARK: 검색지 주변 장소 데이터
+    var placeData: BehaviorRelay<[SearchNearByPlaces]> = BehaviorRelay(value: [])
+    
+    var tabbarItems: BehaviorRelay<[TabItem]> = BehaviorRelay(value: [])
+    
+    /// MARK: 검색지 주변 장소 더미 데이터
+    func searchInputData_Dummy(){
+        var list = placeData.value
+        
+        list.append(SearchNearByPlaces(imageName: "image", title: "Place 1", subTitle: "detail aboudPlace 1"))
+        list.append(SearchNearByPlaces(imageName: "image", title: "Place 2", subTitle: "detail aboudPlace 2"))
+        list.append(SearchNearByPlaces(imageName: "image", title: "Place 3", subTitle: "detail aboudPlace 3"))
+        list.append(SearchNearByPlaces(imageName: "image", title: "Place 4", subTitle: "detail aboudPlace 4"))
+        list.append(SearchNearByPlaces(imageName: "image", title: "Place 5", subTitle: "detail aboudPlace 5"))
+        list.append(SearchNearByPlaces(imageName: "image", title: "Place 6", subTitle: "detail aboudPlace 6"))
+        list.append(SearchNearByPlaces(imageName: "image", title: "Place 7", subTitle: "detail aboudPlace 7"))
+        list.append(SearchNearByPlaces(imageName: "image", title: "Place 8", subTitle: "detail aboudPlace 8"))
+        placeData.accept(list)
     /// MARK: 장소 검색 함수
     /// - Parameter word: 검색한 단어
     /// - Returns: 검색한 장소 리스트
@@ -135,4 +228,3 @@ final class MainMapViewModel: NSObject {
         surroundSearchService.surroundSearchPlaces(place: word, x: 0, y: 0, page: 0, categoryGroupCode: "")
     }
 }
-

@@ -9,5 +9,5 @@ import Foundation
 
 /// Tabbar Instance 전달
 protocol TabbarCoordinatorDelegate {
-    func tabbarControllerInstance(tabBarController: TabBarController)
+    
 }
