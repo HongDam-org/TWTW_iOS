@@ -16,7 +16,7 @@ final class SignUpService: SignUpProtocol {
     /// - Parameter request: 서버에 보내는 회원가입 정보
     /// - Returns: 회원 상태, AccesToken, RefreshToken
     func signUpService(request: LoginRequest) -> Observable<LoginResponse> {
-        let url = Domain.REST_API + LoginPath.signUp.rawValue
+        let url = Domain.RESTAPI + LoginPath.signUp.rawValue
         print(#function)
         print(url)
         print(request)
@@ -44,7 +44,7 @@ final class SignUpService: SignUpProtocol {
     /// - Parameter id: nickName
     /// - Returns: true 중복, false: 사용가능
     func checkOverlapId(id: String) -> Observable<Bool> {
-        var url = Domain.REST_API + LoginPath.checkOverlapId.rawValue
+        var url = Domain.RESTAPI + LoginPath.checkOverlapId.rawValue
         url = url.replacingOccurrences(of: "Id", with: id)
         print(url)
         

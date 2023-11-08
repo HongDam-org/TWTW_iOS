@@ -66,7 +66,7 @@ final class SignInService: SignInProtocol{
     /// - Parameter token: AccessToken, RefreshToken
     /// - Returns: New AccesToken, New RefreshToken
     func getNewAccessToken(token: TokenResponse) -> Observable<TokenResponse> {
-        let url = Domain.REST_API + LoginPath.updateToken.rawValue
+        let url = Domain.RESTAPI + LoginPath.updateToken.rawValue
         print(#function)
         print(url)
         return Observable.create { observer in
@@ -92,7 +92,7 @@ final class SignInService: SignInProtocol{
     /// - Parameter request: Kakao, Apple에서 발급받는 Token, AuthType
     /// - Returns: status, Tokens
     func signInService(request: OAuthRequest) -> Observable<LoginResponse> {
-        let url = Domain.REST_API + LoginPath.signIn.rawValue
+        let url = Domain.RESTAPI + LoginPath.signIn.rawValue
         print(#function)
         print(url)
         print(request)
@@ -118,7 +118,7 @@ final class SignInService: SignInProtocol{
     /// Access Token 유효성 검사
     /// - Returns: true: AccessToken 유효, false: 만료
     func checkAccessTokenValidation() -> Observable<Void> {
-        let url = Domain.REST_API + LoginPath.checkValidation.rawValue
+        let url = Domain.RESTAPI + LoginPath.checkValidation.rawValue
         let header = Header.header.getHeader()
         
         print(#function)

@@ -1,0 +1,93 @@
+disabled_rules: # Default Rules에서 비활성화할 규칙
+  
+
+opt_in_rules:
+    # 라인 뒤에 공백이 없어야 합니다. https://realm.github.io/SwiftLint/trailing_whitespace.html
+    - trailing_whitespace
+    
+    - vertical_whitespace
+    
+    - sorted_imports                         # import 시 알파벳 순 정렬
+    
+    - used_import                            # 사용되지 않는 모듈 import 알림
+    
+    # .count==0 보다는 .isEmpty를 사용하는 것이 좋습니다. https://realm.github.io/SwiftLint/empty_count.html
+    - empty_count
+    
+    # 빈 String 문자열과 비교하는 것 보다는 .isEmpty를 사용하는 것이 좋습니다. https://realm.github.io/SwiftLint/empty_string.html
+    - empty_string
+    
+    # 강제 캐스팅은 피해야합니다. https://realm.github.io/SwiftLint/force_cast.html
+    - force_cast
+    
+    # 강제 언래핑은 피해야합니다. https://realm.github.io/SwiftLint/force_unwrapping.html
+    - force_unwrapping
+    
+    # {}사용시 앞에 공백이 있어야 합니다. https://realm.github.io/SwiftLint/opening_brace.html
+    - opening_brace
+    
+    # Array<String>대신 [String] 형태를 사용합니다. https://realm.github.io/SwiftLint/syntactic_sugar.html
+    - syntactic_sugar
+    
+    # 구현되지 않은 기능은 사용할 수없는 것으로 표시해야합니다. https://realm.github.io/SwiftLint/unavailable_function.html
+    - unavailable_function
+    
+    # comma 앞에는 여백이 없고 뒤에는 공백이 있어야합니다. https://realm.github.io/SwiftLint/comma.html
+    - comma
+
+    # fatal error는 메세지가 있어야합니다 https://realm.github.io/SwiftLint/fatal_error_message.html
+    - fatal_error_message
+
+
+
+excluded: # SwiftLint 검사에서 제외할 파일 경로
+    - TWTW/Apps/AppDelegate.swift
+    - TWTW/Apps/SceneDelegate.swift
+
+
+# --- Details ---
+
+trailing_whitespace:
+    ignores_empty_lines: true
+
+vertical_whitespace:
+    max_empty_lines: 2
+
+### 배열을 사용해 warning과 error의 수준을 모두 설정할 수 있습니다.
+type_body_length:
+    - 300 # warning, implicitly
+    - 400 # error, implicitly
+
+### 한 줄로는 warning의 수준만 설정할 수 있습니다.
+line_length: 140    # implicitly
+
+# 함수 길이
+function_body_length: 50
+
+file_length:
+    warning: 500    # explicitly
+    error: 1200    # explicitly
+
+function_parameter_count:
+    warning: 5
+    error: 10
+
+### min_length 및 max_length에 대한 warning/error를 설정할 수 있습니다.
+### 규칙에 제외되는 특수한 이름도 지정할 수 있습니다.
+type_name:
+    min_length: 4 # only warning
+    max_length: # warning and error
+    warning: 40
+    error: 50
+    excluded: iPhone # excluded via string
+    allowed_symbols: ["_"] # these are allowed in type names
+
+identifier_name:
+    min_length: # only min_length
+    error: 4 # only error
+    excluded: # excluded via string array
+    - id
+    - URL
+    - GlobalAPIKey
+
+

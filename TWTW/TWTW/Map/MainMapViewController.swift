@@ -87,7 +87,7 @@ final class MainMapViewController: KakaoMapViewController {
     
     private func setupBind(){
         moveCameraToSearchPlacesCoordinate()
-        ShowNearPlacesBind()
+        showNearPlacesBind()
         configureLocationManager()
         addTapGestureMap()
         bottomSheetBind()
@@ -206,7 +206,7 @@ final class MainMapViewController: KakaoMapViewController {
         createPolygonStyleSet()
     }
     
-    private func ShowNearPlacesBind(){
+    private func showNearPlacesBind(){
         viewModel.showNearPlacesUI
             .subscribe(onNext: {[weak self] showNears in
                 guard let self = self else { return }

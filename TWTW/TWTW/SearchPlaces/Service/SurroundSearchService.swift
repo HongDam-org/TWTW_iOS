@@ -6,16 +6,16 @@
 //
 
 
-import Foundation
 import Alamofire
+import Foundation
 import RxSwift
 
 ///  주변  장소 검색 Service
 final class SurroundSearchService {
     
     /// MARK: 검색어와 카테고리를 통한 장소 검색
-    func surroundSearchPlaces(place: String, x: Double, y: Double, page: Int, categoryGroupCode: String) -> Observable<SurroundSearchPlaces>{
-        let url = Domain.REST_API + SearchPath.placeAndCategory.rawValue
+    func surroundSearchPlaces(place: String, xPosition: Double, yPosition: Double, page: Int, categoryGroupCode: String) -> Observable<SurroundSearchPlaces>{
+        let url = Domain.RESTAPI + SearchPath.placeAndCategory.rawValue
         
         return Observable.create { observer in
             AF.request(url,

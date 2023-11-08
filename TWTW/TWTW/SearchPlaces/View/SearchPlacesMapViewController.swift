@@ -43,7 +43,7 @@ final class SearchPlacesMapViewController: UIViewController {
         hideKeyboard()
         
     }
-    ///mark: - 네비게이션 item보이기
+    /// mark: - 네비게이션 item보이기
     private func setNavi(){
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
@@ -101,29 +101,29 @@ final class SearchPlacesMapViewController: UIViewController {
     
     private func bindSearchPlaceFiltering(output: SearchPlacesMapViewModel.Output?) {
         //PlaceResponseModel에서 results 추출하고 다시 Observable감싸기
-        output?.filteredPlaces
-            .map{
-                $0?.results ?? []
-            }
-            .bind(to: placesTableView.rx.items(cellIdentifier: CellIdentifier.searchPlacesTableViewCell.rawValue, cellType: SearchPlacesTableViewCell.self)) { row, place, cell in
-                cell.configure(placeName: place.placeName, addressName: place.addressName, categoryName: place.categoryName)
-            }
-            .disposed(by: disposeBag)
-        
-        placesTableView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                if let placeResponseModel = try? output?.filteredPlaces.value(), // filteredPlaces가 옵셔널이라 try? 사용
-                   !placeResponseModel.isEmpty,
-                   indexPath.row < placeResponseModel.first!.results.count,
-                   let selectedPlace = placeResponseModel.first!.results[indexPath.row] as? SearchPlace {
-                    if let placeX = Double(selectedPlace.x), let placeY = Double(selectedPlace.y) {
-                        let coordinate = CLLocationCoordinate2D(latitude: placeY, longitude: placeX)
-                        // print(placeResponseModel.first!)
-                        self?.viewModel?.selectedCoordinate.accept(coordinate)
-                    }
-                }
-            })
-            .disposed(by: disposeBag)
+//        output?.filteredPlaces
+//            .map{
+//                $0?.results ?? []
+//            }
+//            .bind(to: placesTableView.rx.items(cellIdentifier: CellIdentifier.searchPlacesTableViewCell.rawValue, cellType: SearchPlacesTableViewCell.self)) { row, place, cell in
+//                cell.configure(placeName: place.placeName, addressName: place.addressName, categoryName: place.categoryName)
+//            }
+//            .disposed(by: disposeBag)
+//        
+//        placesTableView.rx.itemSelected
+//            .subscribe(onNext: { [weak self] indexPath in
+//                if let placeResponseModel = try? output?.filteredPlaces.value(), // filteredPlaces가 옵셔널이라 try? 사용
+//                   !placeResponseModel.isEmpty,
+//                   indexPath.row < placeResponseModel.first!.results.count,
+//                   let selectedPlace = placeResponseModel.first!.results[indexPath.row] as? SearchPlace {
+//                    if let placeX = Double(selectedPlace.x), let placeY = Double(selectedPlace.y) {
+//                        let coordinate = CLLocationCoordinate2D(latitude: placeY, longitude: placeX)
+//                        // print(placeResponseModel.first!)
+//                        self?.viewModel?.selectedCoordinate.accept(coordinate)
+//                    }
+//                }
+//            })
+//            .disposed(by: disposeBag)
     }
 }
 

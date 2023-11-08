@@ -59,8 +59,9 @@ extension FriendsListViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return friendsList.count
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellWithReuseIdentifier, for: indexPath) as! FriendsListColletionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellWithReuseIdentifier, for: indexPath) as? FriendsListColletionViewCell else { return UICollectionViewCell() }
         
         if let imageName = friendsList[indexPath.row].imageName {
             cell.imageView.image = UIImage(named: imageName)
@@ -71,8 +72,4 @@ extension FriendsListViewController: UICollectionViewDataSource, UICollectionVie
         cell.nameLabel.text = friendsList[indexPath.row].nameLabel
         return cell
     }
-    
-    
-    
-    
 }

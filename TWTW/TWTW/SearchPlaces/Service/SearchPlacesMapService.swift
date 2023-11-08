@@ -19,7 +19,7 @@ final class SearchPlacesMapService: SearchPlaceProtocol{
         
             let headers = Header.header.getHeader()
             
-            var url = Domain.REST_API + SearchPath.placeAndCategory.rawValue
+            var url = Domain.RESTAPI + SearchPath.placeAndCategory.rawValue
             
             url = url.replacingOccurrences(of: "encodedQuery", with: encodedQuery)
             

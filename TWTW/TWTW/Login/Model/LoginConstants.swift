@@ -15,8 +15,8 @@ enum SignIn: String{
 
 /// 로그인 상태 (회원유무)
 enum LoginStatus: String {
-    case SignUp = "SIGNUP"
-    case SignIn = "SIGNIN"
+    case signUp = "SIGNUP"
+    case signIn = "SIGNIN"
 }
 
 /// 사용자 로그인한 종류
@@ -32,7 +32,7 @@ enum SignInSaveKeyChain: String {
 
 /// 로그인할 때 사용할 변수
 enum LoginImageTitle: String {
-    case add_a_photo
+    case photo = "add_a_photo"
     case profile
 }
 

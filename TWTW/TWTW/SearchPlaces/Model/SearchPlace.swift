@@ -23,12 +23,14 @@ struct SearchPlace: Codable {
     let placeName, distance: String
     let placeURL: String
     let categoryName, addressName, roadAddressName, categoryGroupCode: String
-    let x, y: String
+    let xPosition, yPosition: String
     
     enum CodingKeys: String, CodingKey {
         case placeName, distance
         case placeURL = "placeUrl"
-        case categoryName, addressName, roadAddressName, categoryGroupCode, x, y
+        case categoryName, addressName, roadAddressName, categoryGroupCode
+        case xPosition = "x"
+        case yPosition = "y"
     }
 }
 

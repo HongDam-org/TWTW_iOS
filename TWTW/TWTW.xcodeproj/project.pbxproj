@@ -53,7 +53,6 @@
 		3799E5052A99D6DC00E06218 /* PreviousAppointmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5042A99D6DC00E06218 /* PreviousAppointmentsViewController.swift */; };
 		3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5062A99D70500E06218 /* FriendsListViewController.swift */; };
 		3799E5092A99D72D00E06218 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5082A99D72D00E06218 /* NotificationViewController.swift */; };
-		37BAF8962A949C4900BD85DC /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 37BAF8952A949C4900BD85DC /* Config.xcconfig */; };
 		37CE1EAF2AE75813009CDA21 /* SearchPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CE1EAE2AE75813009CDA21 /* SearchPlace.swift */; };
 		37EF0CFB2AB85C2400D77B0A /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */; };
 		37F903A62AF9BD2F008120B6 /* EncodedQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F903A52AF9BD2F008120B6 /* EncodedQuery.swift */; };
@@ -101,6 +100,7 @@
 		3BC1D2842AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1D2832AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift */; };
 		3BC1D2872AE1A6E700A7D0CC /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1D2862AE1A6E700A7D0CC /* TabItem.swift */; };
 		3BE034982AD83AC800953498 /* SignInViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */; };
+		3BE038C92AFB0BE70039B4FD /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3BE038C82AFB0BE70039B4FD /* .swiftlint.yml */; };
 		3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */; };
 		3BF9EFA42AB1AE790014855E /* KakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */; };
 		3BF9EFB12AB1DEDB0014855E /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF9EFB02AB1DEDB0014855E /* UIImage+Ext.swift */; };
@@ -203,6 +203,7 @@
 		3BC1D2832AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemsCollectionViewCell.swift; sourceTree = "<group>"; };
 		3BC1D2862AE1A6E700A7D0CC /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
 		3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelUnitTests.swift; sourceTree = "<group>"; };
+		3BE038C82AFB0BE70039B4FD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		3BF9EF9F2AB1AE220014855E /* TWTW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWTW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapViewController.swift; sourceTree = "<group>"; };
 		3BF9EFB02AB1DEDB0014855E /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
@@ -266,6 +267,7 @@
 				3B0E2EBF2A81483D00797782 /* Extension */,
 				3B0E2EBC2A8144BF00797782 /* Apps */,
 				3758F1942A7D007300E2933C /* Assets.xcassets */,
+				3BE038C82AFB0BE70039B4FD /* .swiftlint.yml */,
 				3758F1962A7D007300E2933C /* LaunchScreen.storyboard */,
 				37BAF8952A949C4900BD85DC /* Config.xcconfig */,
 				3758F1992A7D007300E2933C /* Info.plist */,
@@ -893,6 +895,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3758F19C2A7D007300E2933C /* Build configuration list for PBXNativeTarget "TWTW" */;
 			buildPhases = (
+				3BE038C62AFB0A0C0039B4FD /* SwiftLint Script */,
 				3758F1842A7D007100E2933C /* Sources */,
 				3758F1852A7D007100E2933C /* Frameworks */,
 				3758F1862A7D007100E2933C /* Resources */,
@@ -948,7 +951,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					3758F1872A7D007100E2933C = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -991,8 +994,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BE038C92AFB0BE70039B4FD /* .swiftlint.yml in Resources */,
 				3758F1982A7D007300E2933C /* LaunchScreen.storyboard in Resources */,
-				37BAF8962A949C4900BD85DC /* Config.xcconfig in Resources */,
 				3758F1952A7D007300E2933C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1005,6 +1008,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3BE038C62AFB0A0C0039B4FD /* SwiftLint Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3758F1842A7D007100E2933C /* Sources */ = {
@@ -1084,7 +1109,6 @@
 				377CB05B2AD8666F003453D6 /* MeetingListCoordinator.swift in Sources */,
 				3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */,
 				3B274D802AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift in Sources */,
-				371C1D2F2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift in Sources */,
 				371C1D2F2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift in Sources */,
 				37CE1EAF2AE75813009CDA21 /* SearchPlace.swift in Sources */,
 				3737AE8E2AE93EE600FE7453 /* SearchPlacesTableViewCell.swift in Sources */,
@@ -1257,11 +1281,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LVBMDY357W;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(KaKaoMapHeaderPath)",
-					"$(PROJECT_DIR)/TWTW/DaumMap.embeddedframework",
-				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TWTW/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라에 접근하기";
@@ -1303,11 +1322,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LVBMDY357W;
 				ENABLE_TESTING_SEARCH_PATHS = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(KaKaoMapHeaderPath)",
-					"$(PROJECT_DIR)/TWTW/DaumMap.embeddedframework",
-				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TWTW/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "카메라에 접근하기";

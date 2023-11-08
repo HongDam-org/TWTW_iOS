@@ -12,9 +12,9 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
     
     var mapController: KMController?
     var kMViewContainer: KMViewContainer?
-    var _observerAdded: Bool?
-    var _auth: Bool?
-    var _appear: Bool?
+    var observerAdded: Bool?
+    var auth: Bool?
+    var appear: Bool?
     
     /// MARK:
     private lazy var mapView: KMViewContainer = {
@@ -29,9 +29,9 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
     
     init(){
         super.init(nibName: nil, bundle: nil)
-        _observerAdded = false
-        _auth = false
-        _appear = false
+        observerAdded = false
+        auth = false
+        appear = false
     }
     
     deinit {
@@ -56,7 +56,7 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         addObservers()
-        _appear = true
+        appear = true
         if mapController?.engineStarted == false {
             mapController?.startEngine()
         }
@@ -71,7 +71,7 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        _appear = false
+        appear = false
         mapController?.stopRendering()  //렌더링 중지.
     }
 
@@ -96,8 +96,8 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
     func authenticationSucceeded() {
         // 일반적으로 내부적으로 인증과정 진행하여 성공한 경우 별도의 작업은 필요하지 않으나,
         // 네트워크 실패와 같은 이슈로 인증실패하여 인증을 재시도한 경우, 성공한 후 정지된 엔진을 다시 시작할 수 있다.
-        if _auth == false {
-            _auth = true
+        if auth == false {
+            auth = true
         }
         
         if mapController?.engineStarted == false {
@@ -110,7 +110,7 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
     func authenticationFailed(_ errorCode: Int, desc: String) {
         print("error code: \(errorCode)")
         print("desc: \(desc)")
-        _auth = false
+        auth = false
         switch errorCode {
         case 400:
             showToast(self.view, message: "지도 종료(API인증 파라미터 오류)")
@@ -165,14 +165,14 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     
-        _observerAdded = true
+        observerAdded = true
     }
      
     func removeObservers(){
         NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
 
-        _observerAdded = false
+        observerAdded = false
     }
 
     @objc func willResignActive(){

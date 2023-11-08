@@ -11,7 +11,7 @@ import RxSwift
 final class MockSignUpService: SignUpProtocol {
     func signUpService(request: LoginRequest) -> Observable<LoginResponse> {
         return Observable.create { observer in
-            observer.onNext(LoginResponse(status: LoginStatus.SignIn.rawValue,
+            observer.onNext(LoginResponse(status: LoginStatus.signIn.rawValue,
                                           tokenDto: TokenResponse(accessToken: "a", refreshToken: "a")))
             return Disposables.create()
         }

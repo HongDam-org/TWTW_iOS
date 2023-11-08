@@ -41,7 +41,7 @@ final class SignUpViewController: UIViewController {
     
     /// MARK: 카메라 버튼
     private lazy var cameraImage: UIImageView = {
-        let view = UIImageView(image: UIImage(named: LoginImageTitle.add_a_photo.rawValue))
+        let view = UIImageView(image: UIImage(named: LoginImageTitle.photo.rawValue))
         return view
     }()
     

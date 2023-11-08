@@ -5,10 +5,10 @@
 //  Created by 박다미 on 2023/08/04.
 //
 
-import UIKit
-import RxKakaoSDKCommon
-import RxKakaoSDKAuth
 import KakaoSDKAuth
+import RxKakaoSDKAuth
+import RxKakaoSDKCommon
+import UIKit
 
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {

@@ -138,9 +138,9 @@ final class SignInViewModel {
                     
                     output.checkSignInService.accept(data.status)
                     switch (data.status ?? "") {
-                    case LoginStatus.SignIn.rawValue:
+                    case LoginStatus.signIn.rawValue:
                         coordinator?.moveMain()
-                    case LoginStatus.SignUp.rawValue:
+                    case LoginStatus.signUp.rawValue:
                         coordinator?.moveSignUp()
                     default:
                         print("잘못된 접근")

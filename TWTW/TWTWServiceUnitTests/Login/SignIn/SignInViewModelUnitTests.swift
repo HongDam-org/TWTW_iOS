@@ -66,7 +66,7 @@ final class SignInViewModelUnitTests: XCTestCase {
         
         scheduler.start()
         
-        XCTAssertEqual(checkSignInServiceObserver.events, [ .next(0, LoginStatus.SignIn.rawValue) ])
+        XCTAssertEqual(checkSignInServiceObserver.events, [ .next(0, LoginStatus.signIn.rawValue) ])
         
     }
 
