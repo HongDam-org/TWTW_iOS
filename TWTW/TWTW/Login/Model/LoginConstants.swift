@@ -8,7 +8,7 @@
 import Foundation
 
 /// 로그인 정보
-enum SignIn: String{
+enum SignIn: String {
     case accessToken = "AccessToken"
     case refreshToken = "RefreshToken"
 }
@@ -35,4 +35,3 @@ enum LoginImageTitle: String {
     case photo = "add_a_photo"
     case profile
 }
-

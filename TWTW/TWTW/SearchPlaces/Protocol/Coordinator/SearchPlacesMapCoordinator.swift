@@ -7,9 +7,8 @@
 
 import Foundation
 import UIKit
-import RxSwift
 
-protocol SearchPlacesMapCoordinatorProtocol:Coordinator {
-    //장소검색 이후
+protocol SearchPlacesMapCoordinatorProtocol: Coordinator {
+    // 장소검색 이후
     func finishSearchPlaces()
 }

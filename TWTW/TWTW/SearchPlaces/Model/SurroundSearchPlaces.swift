@@ -7,13 +7,13 @@
 
 import Foundation
 
-/// MARK: 주변 검색 결과 리스트
+/// 주변 검색 결과 리스트
 struct SurroundSearchPlaces: Codable {
     let results: [PlaceInformation]
     let isLast: Bool
 }
 
-/// MARK: - 주변지 정보
+/// 주변지 정보
 struct PlaceInformation: Codable {
     let placeName, distance: String
     let placeURL: String

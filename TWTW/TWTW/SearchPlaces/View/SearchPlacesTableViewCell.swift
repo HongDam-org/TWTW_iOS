@@ -7,26 +7,26 @@
 
 import UIKit
 
-///mark: - 서치테이블 정보talbeViewCell
+/// 서치테이블 정보talbeViewCell
 final class SearchPlacesTableViewCell: UITableViewCell {
     
-    ///mark: - 장소이름과 주소
+    /// 장소이름과 주소
     private let placeNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         return label
     }()
-    ///mark: -주소명
-    private let addressNameLabel : UILabel = {
+    /// 주소명
+    private let addressNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         return label
     }()
     
-    ///mark: -카테고리명
-    private let categoryNameLabel : UILabel = {
+    /// 카테고리명
+    private let categoryNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
@@ -38,12 +38,13 @@ final class SearchPlacesTableViewCell: UITableViewCell {
         addSubViews()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    ///Mark: - addSubViews()
-    private func addSubViews(){
+    /// addSubViews()
+    private func addSubViews() {
         contentView.addSubview(placeNameLabel)
         contentView.addSubview(addressNameLabel)
         contentView.addSubview(categoryNameLabel)
@@ -51,8 +52,8 @@ final class SearchPlacesTableViewCell: UITableViewCell {
         configureConstraints()
     }
     
-    ///Mark: - addSubViews()
-    private func configureConstraints(){
+    /// addSubViews()
+    private func configureConstraints() {
         placeNameLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(15)
             make.top.equalToSuperview().inset(8)

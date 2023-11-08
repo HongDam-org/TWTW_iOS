@@ -11,21 +11,19 @@ import KakaoSDKAuth
 import KakaoSDKUser
 
 final class MockSignInService: SignInProtocol {
-    
+
     func kakaoLogin() -> Observable<KakaoSDKUser.User> {
-        return Observable.create { observer in
-            
+        return Observable.create { _ in
             return Disposables.create()
         }
     }
-    
+
     func fetchKakaoUserInfo() -> Observable<KakaoSDKUser.User> {
-        return Observable.create { observer in
-            
+        return Observable.create { _ in
             return Disposables.create()
         }
     }
-    
+
     func getNewAccessToken(token: TokenResponse) -> Observable<TokenResponse> {
         return Observable.create { observer in
             observer.onNext(TokenResponse(accessToken: "abc", refreshToken: "def"))
@@ -34,17 +32,21 @@ final class MockSignInService: SignInProtocol {
             return Disposables.create()
         }
     }
-    
+
     func signInService(request: OAuthRequest) -> Observable<LoginResponse> {
         return Observable.create { observer in
-//            observer.onNext(LoginResponse(status: "SIGNUP", tokenDto: TokenResponse(accessToken: "abc", refreshToken: "def")))
-            observer.onNext(LoginResponse(status: "SIGNIN", tokenDto: TokenResponse(accessToken: "abc11", refreshToken: "def22")))
-            
+//            observer.onNext(LoginResponse(status: "SIGNUP", 
+//                                          tokenDto: TokenResponse(accessToken: "abc",
+//                                                                  refreshToken: "def")))
+            observer.onNext(LoginResponse(status: "SIGNIN",
+                                          tokenDto: TokenResponse(accessToken: "abc11",
+                                                                  refreshToken: "def22")))
+
 //            observer.onError(NSError(domain: "not connect", code: 500, userInfo: nil))
             return Disposables.create()
         }
     }
-    
+
     func checkAccessTokenValidation() -> Observable<Void> {
         return Observable.create { observer in
 //            observer.onNext(())
@@ -52,6 +54,4 @@ final class MockSignInService: SignInProtocol {
             return Disposables.create()
         }
     }
-    
-    
 }

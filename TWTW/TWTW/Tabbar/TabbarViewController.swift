@@ -6,28 +6,28 @@
 //
 
 import Foundation
-import UIKit
-import RxSwift
 import RxCocoa
+import RxSwift
 import SnapKit
+import UIKit
 
 class TabBarController: UITabBarController {
-    ///mark: -  탭 아이템을 저장하는 BehaviorRelay
+    /// 탭 아이템을 저장하는 BehaviorRelay
     private let tabItemsRelay = BehaviorRelay<[TabItem]>(value: [])
     weak var delegates: BottomSheetDelegate?
     
-    ///mark: -  MainMapViewController 뷰의 높이를 나타내는 BehaviorRelay
+    ///  MainMapViewController 뷰의 높이를 나타내는 BehaviorRelay
     var viewHeight: BehaviorRelay<CGFloat> = BehaviorRelay(value: CGFloat())
     
     private var tabBarViewModel = TabBarViewModel()
     
-    ///mark: - 처음 로딩되었을때 바텀시트 높이지정하기 위한 플래그
+    /// 처음 로딩되었을때 바텀시트 높이지정하기 위한 플래그
     var isFirstLoad: Bool = true
     private let disposeBag = DisposeBag()
     let acceptableRange = 0.1
     
     
-    //내위치로 이동하기 이미지버튼
+    /// 내위치로 이동하기 이미지버튼
     lazy var myloctaionImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "myLocation"))
         imageView.isUserInteractionEnabled = true
@@ -35,7 +35,7 @@ class TabBarController: UITabBarController {
     }()
     
     
-    // 초기화 메서드
+    /// 초기화 메서드
     init(delegates: BottomSheetDelegate? = nil, viewHeight: CGFloat) {
         super.init(nibName: nil, bundle: nil)
         
@@ -45,6 +45,7 @@ class TabBarController: UITabBarController {
         setTabbar()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -53,15 +54,12 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         // 뷰의 높이를 설정하고
         let viewHeight = self.view.bounds.height
         // BottomSheetViewModel에 높이를 설정
         tabBarViewModel.setupHeight(viewHeight: viewHeight)
         tabBar.backgroundColor = UIColor(white: 1, alpha: 1)
         view.backgroundColor = .clear
-     
     }
 
     
@@ -119,7 +117,8 @@ class TabBarController: UITabBarController {
         view.addSubview(myloctaionImageView)
         configureConstraints()
     }
-    private func configureConstraints(){
+    
+    private func configureConstraints() {
         myloctaionImageView.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(5)
             make.bottom.equalTo(self.view.snp.top).offset(-5) // 바텀시트와 5 포인트 떨어진 위치에 배치
@@ -129,8 +128,8 @@ class TabBarController: UITabBarController {
     
     
     // 팬 제스처 핸들링 메서드
-    
-    @objc private func handlePan(_ panGesture: UIPanGestureRecognizer) {
+    @objc
+    private func handlePan(_ panGesture: UIPanGestureRecognizer) {
         switch panGesture.state {
         case .began:
             // 초기 터치 위치
@@ -186,7 +185,7 @@ class TabBarController: UITabBarController {
             
 
         }
-//        ///mark: 후에 사용할 조건문
+//        /// 후에 사용할 조건문
 //                if height >= tabBarViewModel.maxHeight {
 //                         print("max")
 //                     }

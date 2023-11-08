@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import UIKit
 import RxSwift
+import UIKit
 
-class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtocol {
+final class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtocol {
     private let disposeBag = DisposeBag()
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController

@@ -5,11 +5,11 @@
 //  Created by 박다미 on 2023/08/04.
 //
 
-import UIKit
-import RxSwift
 import RxCocoa
+import RxSwift
+import UIKit
 
-/// MARK: 모임 리스트
+/// 모임 리스트
 final class MeetingListViewController: UIViewController {
     var viewModel: MeetingListViewModel
     private let disposeBag = DisposeBag()
@@ -19,6 +19,7 @@ final class MeetingListViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -26,10 +27,10 @@ final class MeetingListViewController: UIViewController {
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        //테이블뷰를 넣어서 특정 약속을 통해 맵으로 이동할 예정
+        // 테이블뷰를 넣어서 특정 약속을 통해 맵으로 이동할 예정
         view.backgroundColor = .white
         
-        //임시 버튼 생성...
+        // 임시 버튼 생성
         let button = UIButton(type: .system)
         button.setTitle("Meeing생성후 맵이동버튼", for: .normal)
      
@@ -37,7 +38,7 @@ final class MeetingListViewController: UIViewController {
         view.addSubview(button)
         
         button.rx.tap
-            .bind{[weak self] in
+            .bind { [weak self] in
                 self?.viewModel.buttonTapped()
             }.disposed(by: disposeBag)
     }

@@ -5,12 +5,12 @@
 //  Created by 박다미 on 2023/08/04.
 //
 
-import UIKit
-import SnapKit
+import AuthenticationServices
+import RxGesture
 import RxKakaoSDKAuth
 import RxSwift
-import RxGesture
-import AuthenticationServices
+import SnapKit
+import UIKit
 
 /// 로그인 화면
 final class SignInViewController: UIViewController {
@@ -50,12 +50,12 @@ final class SignInViewController: UIViewController {
         bind()
     }
     
-    /// MARK: Set Up About UI
+    /// Set Up About UI
     private func setupUI() {
         view.backgroundColor = .white
     }
     
-    /// MARK: Add UI
+    /// Add UI
     private func addSubViews() {
         view.addSubview(kakaoLoginImageView)
         view.addSubview(appleLoginImageView)
@@ -63,7 +63,7 @@ final class SignInViewController: UIViewController {
         configureConstraints()
     }
     
-    /// MARK: 카카오로그인, 애플로그인 constraint설정
+    /// 카카오로그인, 애플로그인 constraint설정
     private func configureConstraints() {
         kakaoLoginImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -93,7 +93,7 @@ final class SignInViewController: UIViewController {
     }
     
     /// binding ViewModel
-    private func bind(){
+    private func bind() {
         let input = SignInViewModel.Input(kakaoLoginButtonTapped: kakaoLoginImageView.rx.tapGesture().when(.recognized).asObservable())
         guard let output = output else { return }
         viewModel?.bind(input: input, output: output)
@@ -102,7 +102,7 @@ final class SignInViewController: UIViewController {
  
 }
 
-//MARK: - extension :ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding
+// MARK: - extension :ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding
 
 extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     /// 애플 로그인 결과를 처리하는 함수

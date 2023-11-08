@@ -5,23 +5,24 @@
 //  Created by 박다미 on 2023/10/16.
 //
 
-import Foundation
-import UIKit
 import CoreLocation
+import Foundation
 import RxSwift
+import UIKit
+
 
 final class DefaultMainMapCoordinator: MainMapCoordinator {
     var childCoordinators: [Coordinator] = []
-    var navigationController: UINavigationController //for SearchPlacesCoordinator
+    var navigationController: UINavigationController
     private var mainMapViewModel: MainMapViewModel?
     private var mainMapViewModelOutput: MainMapViewModel.Output?
     
-    init(navigationController: UINavigationController){
+    init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         mainMapViewModel = MainMapViewModel(coordinator: self)
     }
     
-    func start(){
+    func start() {
         guard let mainMapViewModel = mainMapViewModel else {return}
         let tabbarController = TabBarController(viewModel: TabBarViewModel())
         let mainMapViewController = MainMapViewController(viewModel: mainMapViewModel,
@@ -30,8 +31,8 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
         createTabbarItemCoordinators(tabbarController)
     }
     
-    /// MARK: SearchPlacesMapCoordinator 시작하는 메소드
-    func moveSearch(output: MainMapViewModel.Output){
+    /// SearchPlacesMapCoordinator 시작하는 메소드
+    func moveSearch(output: MainMapViewModel.Output) {
         mainMapViewModelOutput = output
         let searchPlacesMapCoordinator = DefaultSearchPlacesMapCoordinator(navigationController: navigationController, delegate: self)
         searchPlacesMapCoordinator.start()
@@ -82,13 +83,13 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
 }
 
 // MARK: - SearchPlacesCoordinator에서 좌표 받는 함수
-extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate{
+extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate {
     
     func didSelectCoordinate(coordinate: CLLocationCoordinate2D) {
         mainMapViewModelOutput?.showNearPlacesUI.accept(true)
         mainMapViewModelOutput?.cameraCoordinateObservable.accept(coordinate)
         
-        let _ = childCoordinators.popLast()
+        _ = childCoordinators.popLast()
         print(#function)
         print(childCoordinators)
     }

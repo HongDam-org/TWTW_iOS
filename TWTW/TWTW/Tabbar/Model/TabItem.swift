@@ -20,7 +20,7 @@ enum TabbarItemImageName: String {
     case phone
 }
 
-enum TabbarItemTitle: String{
+enum TabbarItemTitle: String {
     case house = "홈"
     case calendar = "일정"
     case person = "친구 목록"

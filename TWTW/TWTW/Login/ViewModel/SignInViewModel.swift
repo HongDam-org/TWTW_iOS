@@ -6,13 +6,13 @@
 //
 
 import Foundation
-import UIKit
-import RxSwift
-import RxRelay
-import KakaoSDKUser
 import KakaoSDKAuth
 import KakaoSDKCommon
+import KakaoSDKUser
 import RxCocoa
+import RxRelay
+import RxSwift
+import UIKit
 
 /// 로그인 ViewModel
 final class SignInViewModel {
@@ -40,19 +40,19 @@ final class SignInViewModel {
     
     // MARK: - Functions
     
-    /// MARK: 저장된 토큰 확인
-    func checkSavingTokens(output: Output){
-        if let _ = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue),
-            let _ = KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue){
+    /// 저장된 토큰 확인
+    func checkSavingTokens(output: Output) {
+        if KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue) != nil,
+           KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue) != nil {
             return checkAccessTokenValidation(output: output)
         }
-        //SignInViewController 이동
-        coordinator?.moveSignIn()    
+        // SignInViewController 이동
+        coordinator?.moveSignIn()
     }
     
-    /// MARK: binding Input
+    /// binding Input
     /// - Parameter input: Input 구조체
-    func bind(input: Input, output: Output){
+    func bind(input: Input, output: Output) {
         input.kakaoLoginButtonTapped.bind { [weak self] _ in
             guard let self = self else {return}
             print("called kakaoLogin")
@@ -69,9 +69,9 @@ final class SignInViewModel {
     // MARK: - API Connect
     
     /// 카카오 로그인
-    func kakaoLogin(output: Output){
+    func kakaoLogin(output: Output) {
         signInServices?.kakaoLogin()
-            .subscribe(onNext:{ [weak self] kakaoUserInfo in
+            .subscribe(onNext: { [weak self] kakaoUserInfo in
                 guard let self = self else {return}
                 signInService(authType: AuthType.kakao.rawValue, identifier: "\(kakaoUserInfo.id ?? 0)", output: output)
             })
@@ -82,12 +82,12 @@ final class SignInViewModel {
     /// Access Token 유효성 검사
     func checkAccessTokenValidation(output: Output) {
         signInServices?.checkAccessTokenValidation()
-            .subscribe(onNext:{ [weak self] _ in
+            .subscribe(onNext: { [weak self] _ in
                 guard let self = self else {return}
                 // MeetingListViewController로 이동
                 output.checkAccessTokenValidation.accept(true)
                 coordinator?.moveMain()
-            },onError: { [weak self] error in
+            }, onError: { [weak self] error in
                 guard let self = self else {return}
                 print(#function)
                 print(error)
@@ -98,21 +98,22 @@ final class SignInViewModel {
     }
     
     /// AccessToken 재발급할 때 사용
-    func getNewAccessToken(output: Output){
+    func getNewAccessToken(output: Output) {
         let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue)
         let refreshToken = KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue)
         
         signInServices?.getNewAccessToken(token: TokenResponse(accessToken: accessToken, refreshToken: refreshToken))
-            .subscribe(onNext:{ [weak self] data in // 재발급 성공
+            .subscribe(onNext: { [weak self] data in // 재발급 성공
                 guard let self = self else {return}
                 if let access = data.accessToken, let refresh = data.refreshToken {
-                    if KeychainWrapper.saveString(value: access, forKey: SignIn.accessToken.rawValue) && KeychainWrapper.saveString(value: refresh, forKey: SignIn.refreshToken.rawValue){
+                    if KeychainWrapper.saveString(value: access, forKey: SignIn.accessToken.rawValue) &&
+                        KeychainWrapper.saveString(value: refresh, forKey: SignIn.refreshToken.rawValue) {
                         // move MeetingListViewController
                         output.checkGetNewAccessToken.accept(TokenResponse(accessToken: accessToken, refreshToken: refreshToken))
                         coordinator?.moveMain()
                     }
                 }
-            },onError: { [weak self] error in   // Refresh 토큰 까지 만료된 경우
+            }, onError: { [weak self] error in   // Refresh 토큰 까지 만료된 경우
                 guard let self = self else {return}
                 print("\(#function) error!\n\(error)")
                 output.checkGetNewAccessToken.accept(nil)
@@ -126,18 +127,19 @@ final class SignInViewModel {
     ///   - authType: 인증 방식 ex)카카오, 애플
     ///   - identifier: 유저 고유의 identifier
     func signInService(authType: String, identifier: String, output: Output) {
-        let _ = KeychainWrapper.saveString(value: authType, forKey: SignInSaveKeyChain.authType.rawValue)
-        let _ = KeychainWrapper.saveString(value: identifier, forKey: SignInSaveKeyChain.identifier.rawValue)
+        _ = KeychainWrapper.saveString(value: authType, forKey: SignInSaveKeyChain.authType.rawValue)
+        _ = KeychainWrapper.saveString(value: identifier, forKey: SignInSaveKeyChain.identifier.rawValue)
         
         signInServices?.signInService(request: OAuthRequest(token: identifier,
                                                            authType: authType))
-            .subscribe(onNext:{ [weak self] data in
+            .subscribe(onNext: { [weak self] data in
                 guard let self = self else {return}
-                if KeychainWrapper.saveString(value: data.tokenDto?.accessToken ?? "", forKey: SignIn.accessToken.rawValue) && 
+                if KeychainWrapper.saveString(value: data.tokenDto?.accessToken ?? "", forKey: SignIn.accessToken.rawValue) &&
                     KeychainWrapper.saveString(value: data.tokenDto?.refreshToken ?? "", forKey: SignIn.refreshToken.rawValue) {
                     
                     output.checkSignInService.accept(data.status)
-                    switch (data.status ?? "") {
+                    guard let status = data.status else {return}
+                    switch status {
                     case LoginStatus.signIn.rawValue:
                         coordinator?.moveMain()
                     case LoginStatus.signUp.rawValue:
@@ -155,8 +157,6 @@ final class SignInViewModel {
     }
     
 }
-
-
 
 /*
  1. AccessToken 유효성 확인

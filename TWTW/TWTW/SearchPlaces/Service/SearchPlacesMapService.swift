@@ -5,12 +5,12 @@
 //  Created by 박다미 on 2023/10/26.
 //
 
+import Alamofire
 import Foundation
-import UIKit
-import Alamofire 
 import RxSwift
+import UIKit
 
-final class SearchPlacesMapService: SearchPlaceProtocol{
+final class SearchPlacesMapService: SearchPlaceProtocol {
     
     func searchPlaceService(request: PlacesRequest) -> Observable<PlaceResponse> {
         return Observable.create { observer in
@@ -25,7 +25,7 @@ final class SearchPlacesMapService: SearchPlaceProtocol{
             
             AF.request(url, method: .get, parameters: request, headers: headers)
                 .validate(statusCode: 200..<201)
-                .responseDecodable(of:PlaceResponse.self) { response in
+                .responseDecodable(of: PlaceResponse.self) { response in
                     switch response.result {
                     case .success(let data):
                         observer.onNext(data)
@@ -41,4 +41,3 @@ final class SearchPlacesMapService: SearchPlaceProtocol{
         }
     }
 }
-

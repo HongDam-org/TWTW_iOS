@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import RxSwift
 import KakaoSDKAuth
 import KakaoSDKUser
+import RxSwift
 
 protocol SignInProtocol {
     /// 카카오 로그인

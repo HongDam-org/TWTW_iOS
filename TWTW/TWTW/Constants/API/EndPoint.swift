@@ -18,4 +18,3 @@ enum LoginPath: String {
     case checkValidation = "/auth/validate"
     case checkOverlapId = "/member/duplicate/Id"
 }
-

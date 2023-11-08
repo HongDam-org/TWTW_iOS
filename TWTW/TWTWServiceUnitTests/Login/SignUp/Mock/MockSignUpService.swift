@@ -16,18 +16,18 @@ final class MockSignUpService: SignUpProtocol {
             return Disposables.create()
         }
     }
-    
+
     func checkOverlapId(id: String) -> Observable<Bool> {
         return Observable.create { observer in
-            if id.contains("!") || id.contains("@") || id.contains("#") || id.contains("$") || id.contains("%") || id.contains(" ") {
+            if id.contains("!") || id.contains("@") ||
+                id.contains("#") || id.contains("$") ||
+                id.contains("%") || id.contains(" ") {
                 observer.onNext(false)
                 return Disposables.create()
             }
-            
+
             observer.onNext(true)
             return Disposables.create()
         }
     }
-    
-    
 }

@@ -38,13 +38,6 @@ opt_in_rules:
     # fatal error는 메세지가 있어야합니다 https://realm.github.io/SwiftLint/fatal_error_message.html
     - fatal_error_message
 
-
-
-excluded: # SwiftLint 검사에서 제외할 파일 경로
-    - TWTW/Apps/AppDelegate.swift
-    - TWTW/Apps/SceneDelegate.swift
-
-
 # --- Details ---
 
 trailing_whitespace:
@@ -91,3 +84,4 @@ identifier_name:
     - GlobalAPIKey
 
 
+excluded: # SwiftLint 검사에서 제외할 파일 경로

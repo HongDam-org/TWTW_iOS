@@ -5,22 +5,21 @@
 //  Created by 박다미 on 2023/08/22.
 //
 
-import Foundation
-import UIKit
-import RxSwift
-import RxCocoa
 import Alamofire
 import CoreLocation
+import Foundation
+import RxCocoa
+import RxSwift
+import UIKit
 
-///mark: - 검색 결과를 표시하는 새로운 View Controller
+/// 검색 결과를 표시하는 새로운 View Controller
 final class SearchPlacesMapViewController: UIViewController {
-    
     private let disposeBag = DisposeBag()
     
-    ///필터링지역들
+    /// 필터링지역들
     var viewModel: SearchPlacesMapViewModel?
     
-    /// MARK: 서치바UI
+    /// 서치바UI
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "장소, 주소 검색"
@@ -29,7 +28,8 @@ final class SearchPlacesMapViewController: UIViewController {
         searchBar.searchTextField.backgroundColor = .white
         return searchBar
     }()
-    ///Mark: - 검색된 지역테이블
+    
+    /// 검색된 지역테이블
     private lazy var placesTableView: UITableView = {
         let tableView = UITableView()
         return tableView
@@ -43,14 +43,14 @@ final class SearchPlacesMapViewController: UIViewController {
         hideKeyboard()
         
     }
-    /// mark: - 네비게이션 item보이기
-    private func setNavi(){
+    
+    /// 네비게이션 item보이기
+    private func setNavi() {
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
-    /// MARK: Add  UI - SearchBar
-    private func addSubViews(){
-        //view.addSubview(searchBar)
+    /// Add  UI - SearchBar
+    private func addSubViews() {
         navigationItem.titleView = searchBar
         view.addSubview(placesTableView)
         placesTableView.register(SearchPlacesTableViewCell.self, forCellReuseIdentifier: CellIdentifier.searchPlacesTableViewCell.rawValue)
@@ -58,7 +58,7 @@ final class SearchPlacesMapViewController: UIViewController {
         configureConstraints()
     }
     
-    ///MARK: - keyboard내림
+    /// keyboard내림
     private func hideKeyboard() {
         placesTableView.rx.didScroll
             .subscribe(onNext: { [weak self] _ in
@@ -67,7 +67,7 @@ final class SearchPlacesMapViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    /// MARK: Configure   Constraints
+    /// Configure   Constraints
     private func configureConstraints() {
         placesTableView.snp.makeConstraints { make in
             make.edges.equalTo(additionalSafeAreaInsets)
@@ -100,16 +100,18 @@ final class SearchPlacesMapViewController: UIViewController {
     }
     
     private func bindSearchPlaceFiltering(output: SearchPlacesMapViewModel.Output?) {
-        //PlaceResponseModel에서 results 추출하고 다시 Observable감싸기
+        // PlaceResponseModel에서 results 추출하고 다시 Observable감싸기
 //        output?.filteredPlaces
 //            .map{
 //                $0?.results ?? []
 //            }
-//            .bind(to: placesTableView.rx.items(cellIdentifier: CellIdentifier.searchPlacesTableViewCell.rawValue, cellType: SearchPlacesTableViewCell.self)) { row, place, cell in
+//            .bind(to: placesTableView.rx
+//                .items(cellIdentifier: CellIdentifier.searchPlacesTableViewCell.rawValue,
+//                       cellType: SearchPlacesTableViewCell.self)) { row, place, cell in
 //                cell.configure(placeName: place.placeName, addressName: place.addressName, categoryName: place.categoryName)
 //            }
 //            .disposed(by: disposeBag)
-//        
+//
 //        placesTableView.rx.itemSelected
 //            .subscribe(onNext: { [weak self] indexPath in
 //                if let placeResponseModel = try? output?.filteredPlaces.value(), // filteredPlaces가 옵셔널이라 try? 사용
@@ -126,4 +128,3 @@ final class SearchPlacesMapViewController: UIViewController {
 //            .disposed(by: disposeBag)
     }
 }
-

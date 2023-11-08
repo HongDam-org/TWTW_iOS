@@ -5,14 +5,14 @@
 //  Created by 정호진 on 2023/08/12.
 //
 
-import Foundation
-import RxSwift
-import RxRelay
 import CoreLocation
-import UIKit
+import Foundation
 import KakaoMapsSDK
-import RxGesture
 import RxCocoa
+import RxGesture
+import RxRelay
+import RxSwift
+import UIKit
 
 final class MainMapViewModel {
     private let coordinator: DefaultMainMapCoordinator?
@@ -68,13 +68,13 @@ final class MainMapViewModel {
         var moveSearchCoordinator: PublishSubject<Bool> = PublishSubject()
     }
     
-    /// MARK: bind
+    /// bind
     func bind(input: Input, viewMiddleYPoint: CGFloat?) -> Output {
         
         return createOutput(input: input, viewMiddleYPoint: viewMiddleYPoint)
     }
     
-    /// MARK: create output
+    /// create output
     private func createOutput(input: Input, viewMiddleYPoint: CGFloat?) -> Output {
         let output = Output()
         input.screenTouchEvents?
@@ -114,19 +114,20 @@ final class MainMapViewModel {
         return output
     }
     
-    /// MARK: when touch my location
-    private func touchMyLocation(input: Input, output: Output){
-        guard let myLocationTappedEvents = input.myLocationTappedEvents, let cLLocationCoordinate2DEvents = input.cLLocationCoordinate2DEvents else {return}
+    /// when touch my location
+    private func touchMyLocation(input: Input, output: Output) {
+        guard let myLocationTappedEvents = input.myLocationTappedEvents,
+                let cLLocationCoordinate2DEvents = input.cLLocationCoordinate2DEvents else {return}
         Observable.combineLatest(myLocationTappedEvents,
                                  cLLocationCoordinate2DEvents)
-        .bind { gesture, manager in
+        .bind { _, manager in
             output.myLocatiaonRelay.accept(manager.location?.coordinate ?? CLLocationCoordinate2D())
         }
         .disposed(by: disposeBag)
     }
     
-    /// MARK: hide image View
-    private func hideImageView(input: Input, output: Output, viewMiddleYPoint: CGFloat?){
+    /// hide image View
+    private func hideImageView(input: Input, output: Output, viewMiddleYPoint: CGFloat?) {
         input.tabbarControllerViewPanEvents?
             .bind { gesture in
             switch gesture.state {
@@ -146,12 +147,12 @@ final class MainMapViewModel {
     
     // MARK: - Logic
     
-    /// MARK: 검색 화면으로 이동
+    /// 검색 화면으로 이동
     private func moveSearch(output: Output) {
         coordinator?.moveSearch(output: output)
     }
     
-    /// MARK:  지도에 선 그리기
+    /// 지도에 선 그리기
     func createRouteline(mapView: KakaoMap, layer: RouteLayer?, output: Output) {
         let segmentPoints = routeSegmentPoints(longitude: output.myLocatiaonRelay.value.longitude,
                                                latitude: output.myLocatiaonRelay.value.latitude)
@@ -174,7 +175,7 @@ final class MainMapViewModel {
         mapView.moveCamera(CameraUpdate.make(target: pnt, zoomLevel: 15, mapView: mapView))
     }
     
-    /// MARK:  위도 경도를 이용하여 point를 찍음
+    /// 위도 경도를 이용하여 point를 찍음
     func routeSegmentPoints(longitude: Double, latitude: Double) -> [[MapPoint]] {
         var segments = [[MapPoint]]()
         
@@ -196,20 +197,15 @@ final class MainMapViewModel {
         return segments
     }
     
-    
-    
-    
-    
-    
     // MARK: - 검색 기능
     
-    /// MARK: 검색지 주변 장소 데이터
+    /// 검색지 주변 장소 데이터
     var placeData: BehaviorRelay<[SearchNearByPlaces]> = BehaviorRelay(value: [])
     
     var tabbarItems: BehaviorRelay<[TabItem]> = BehaviorRelay(value: [])
     
-    /// MARK: 검색지 주변 장소 더미 데이터
-    func searchInputData_Dummy(){
+    /// 검색지 주변 장소 더미 데이터
+    func searchInputData_Dummy() {
         var list = placeData.value
         
         list.append(SearchNearByPlaces(imageName: "image", title: "Place 1", subTitle: "detail aboudPlace 1"))
@@ -223,10 +219,10 @@ final class MainMapViewModel {
         placeData.accept(list)
         
     }
-    /// MARK: 장소 검색 함수
+    /// 장소 검색 함수
     /// - Parameter word: 검색한 단어
     /// - Returns: 검색한 장소 리스트
-//    func searchToGetPlace(word: String) -> Observable<SurroundSearchPlaces>{
-//        surroundSearchService.surroundSearchPlaces(place: word, x: 0, y: 0, page: 0, categoryGroupCode: "")
+//    func searchToGetPlace(word: String) -> Observable<SurroundSearchPlaces> {
+//        SurroundSearchService.surroundSearchPlaces(place: word, x: 0, y: 0, page: 0, categoryGroupCode: "")
 //    }
 }

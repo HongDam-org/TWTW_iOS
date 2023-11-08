@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import RxSwift
 import RxRelay
+import RxSwift
 
 final class SignUpViewModel {
     weak var coordinator: SignUpCoordinatorProtocol?
@@ -47,17 +47,17 @@ final class SignUpViewModel {
         return createOutput(input: input)
     }
     
-    /// MARK: create Output
+    /// create Output
     /// - Parameters:
     ///   - input: Input 구조체
     /// - Returns: Output 구조체
-    private func createOutput(input: Input) -> Output{
+    private func createOutput(input: Input) -> Output {
         let output = Output()
         
         input.doneButtonTapEvents
             .bind { [weak self] _ in
                 guard let self = self  else { return }
-                if output.nickNameFilteringRelay.value != ""  && output.nickNameFilteringRelay.value.count >= minLength{
+                if output.nickNameFilteringRelay.value.isEmpty  && output.nickNameFilteringRelay.value.count >= minLength {
                     checkOverlapId(nickName: output.nickNameFilteringRelay.value, output: output)
                 }
             }
@@ -66,7 +66,7 @@ final class SignUpViewModel {
         input.keyboardReturnTapEvents
             .bind { [weak self] _ in
                 guard let self = self  else { return }
-                if output.nickNameFilteringRelay.value != "" && output.nickNameFilteringRelay.value.count >= minLength{
+                if output.nickNameFilteringRelay.value.isEmpty && output.nickNameFilteringRelay.value.count >= minLength {
                     return checkOverlapId(nickName: output.nickNameFilteringRelay.value, output: output)
                 }
                 output.checkSignUpSubject.onNext(false)
@@ -76,7 +76,7 @@ final class SignUpViewModel {
         input.nickNameEditEvents
             .bind { [weak self] text in
                 guard let self = self else {return}
-                if text.count <= maxLength{
+                if text.count <= maxLength {
                     return output.nickNameFilteringRelay.accept(text)
                 }
                 output.nickNameFilteringRelay.accept(String(text.dropLast(text.count-maxLength)))
@@ -106,7 +106,7 @@ final class SignUpViewModel {
                     return signUp(nickName: nickName, output: output)
                 }
                 output.overlapNickNameSubject.onNext(())
-            },onError: { error in
+            }, onError: { _ in
                 output.checkSignUpSubject.onNext(false)
             })
             .disposed(by: disposeBag)
@@ -116,7 +116,7 @@ final class SignUpViewModel {
     /// - Parameters:
     ///   - nickName: user NickName
     ///   - output: Output 구조체
-    func signUp(nickName: String, output: Output){
+    func signUp(nickName: String, output: Output) {
         
         let identifier = KeychainWrapper.loadString(forKey: SignInSaveKeyChain.identifier.rawValue) ?? ""
         let authType = KeychainWrapper.loadString(forKey: SignInSaveKeyChain.authType.rawValue) ?? ""
@@ -128,11 +128,11 @@ final class SignUpViewModel {
         print(#function)
         print(loginRequest)
         signUpServices?.signUpService(request: loginRequest)
-            .subscribe(onNext:{ [weak self] data in
+            .subscribe(onNext: { [weak self] _ in
                 guard let self = self else {return}
                 output.checkSignUpSubject.onNext(true)
                 coordinator?.moveMain()
-            },onError: { error in   // 에러 처리 해야함
+            }, onError: { error in   // 에러 처리 해야함
                 print(#function)
                 print(error)
                 output.checkSignUpSubject.onNext(false)

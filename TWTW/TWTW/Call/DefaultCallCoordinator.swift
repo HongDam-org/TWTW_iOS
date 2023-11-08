@@ -8,17 +8,16 @@
 import Foundation
 import UIKit
 
-class DefaultCallCoordinator: CallCoordinator  {
+class DefaultCallCoordinator: CallCoordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
-    init(navigationController: UINavigationController){
+    init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func start() {
     }
-    
     
     /// Create Controller
     /// - Returns: NavigationController
@@ -29,4 +28,3 @@ class DefaultCallCoordinator: CallCoordinator  {
     }
     
 }
-    

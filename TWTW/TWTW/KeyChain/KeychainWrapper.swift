@@ -7,7 +7,7 @@
 
 import Foundation
 
-///키체인
+/// 키체인
 final class KeychainWrapper {
     
     /// 문자열 값을 Keychain에 저장하는 함수
@@ -17,8 +17,8 @@ final class KeychainWrapper {
         if let data = value.data(using: .utf8) {
             let query: [String: Any] = [
                 kSecClass as String: kSecClassGenericPassword, // Keychain 클래스 (일반적으로 비밀번호)
-                kSecAttrAccount as String: key, //키
-                kSecValueData as String: data,// 데이터
+                kSecAttrAccount as String: key, // 키
+                kSecValueData as String: data, // 데이터
                 kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlocked
             ]
             
@@ -31,10 +31,12 @@ final class KeychainWrapper {
     
     /// Keychain에서 문자열 값을 로드하는 함수
     static func loadString(forKey key: String) -> String? {
+        guard let kCFBooleanTrue = kCFBooleanTrue else {return nil}
+        
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: key,
-            kSecReturnData as String: kCFBooleanTrue!,// 데이터 반환 설정
+            kSecReturnData as String: kCFBooleanTrue, // 데이터 반환 설정
             kSecMatchLimit as String: kSecMatchLimitOne // 로드할 값이 하나라는 것을 설정
         ]
         var result: AnyObject?
@@ -42,7 +44,7 @@ final class KeychainWrapper {
         // Keychain에서 값 로드
         let status = SecItemCopyMatching(query as CFDictionary, &result)
         
-        //값이 로드되고 변환이 성공 시
+        // 값이 로드되고 변환이 성공 시
         if status == errSecSuccess, let data = result as? Data, let value = String(data: data, encoding: .utf8) {
             return value
         }

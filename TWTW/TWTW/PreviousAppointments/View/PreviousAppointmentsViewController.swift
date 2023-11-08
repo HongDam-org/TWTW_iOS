@@ -6,15 +6,14 @@
 //
 
 import Foundation
-import UIKit
-import SnapKit
 import RxCocoa
 import RxSwift
+import SnapKit
+import UIKit
 
-//이전 약속들 목록
+// 이전 약속들 목록
 final class PreviousAppointmentsViewController: UIViewController {
 
-    /// MARK:
     private lazy var tbtn: UIButton = {
         let btn = UIButton()
         btn.setTitle("asdfsfsf", for: .normal)
@@ -37,24 +36,20 @@ final class PreviousAppointmentsViewController: UIViewController {
     
     // MARK: - Fuctions
     
-    /// MARK: Add  UI
+    /// Add  UI
     private func addSubViews() {
         view.addSubview(tbtn)
         configureConstraints()
     }
     
-    /// MARK:
-    private func configureConstraints(){
+    private func configureConstraints() {
         tbtn.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalToSuperview().offset(30)
         }
     }
     
-    
-    
-    /// MARK:
-    private func bind(){
+    private func bind() {
         tbtn.rx.tap
             .bind {
                 print("clcikdfakls")
@@ -62,4 +57,3 @@ final class PreviousAppointmentsViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 }
-

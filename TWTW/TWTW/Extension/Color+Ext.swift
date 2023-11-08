@@ -49,6 +49,6 @@ enum MapColors: String {
     case mapLineColor
 }
 
-enum ProfileColors: String{
+enum ProfileColors: String {
     case profileTextFieldColor
 }

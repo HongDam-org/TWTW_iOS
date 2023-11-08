@@ -11,7 +11,7 @@ enum EncodedQueryConfig {
     case encodedQuery(searchText: String?)
     
     func getEncodedQuery() -> String {
-        switch self{
+        switch self {
         case .encodedQuery(let searchText):
             return searchText?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         }

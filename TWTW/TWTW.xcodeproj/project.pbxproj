@@ -48,7 +48,6 @@
 		377CB05B2AD8666F003453D6 /* MeetingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB05A2AD8666F003453D6 /* MeetingListCoordinator.swift */; };
 		377CB0612AD8699C003453D6 /* MainMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0602AD8699C003453D6 /* MainMapCoordinator.swift */; };
 		3799E4F12A99C4D100E06218 /* DefaultAppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E4F02A99C4D100E06218 /* DefaultAppCoordinator.swift */; };
-		3799E4F32A99C79100E06218 /* VCScenesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E4F22A99C79100E06218 /* VCScenesCoordinator.swift */; };
 		3799E5022A99D68500E06218 /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5012A99D68500E06218 /* CallViewController.swift */; };
 		3799E5052A99D6DC00E06218 /* PreviousAppointmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5042A99D6DC00E06218 /* PreviousAppointmentsViewController.swift */; };
 		3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5062A99D70500E06218 /* FriendsListViewController.swift */; };
@@ -156,7 +155,6 @@
 		377CB05A2AD8666F003453D6 /* MeetingListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingListCoordinator.swift; sourceTree = "<group>"; };
 		377CB0602AD8699C003453D6 /* MainMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapCoordinator.swift; sourceTree = "<group>"; };
 		3799E4F02A99C4D100E06218 /* DefaultAppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppCoordinator.swift; sourceTree = "<group>"; };
-		3799E4F22A99C79100E06218 /* VCScenesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCScenesCoordinator.swift; sourceTree = "<group>"; };
 		3799E5012A99D68500E06218 /* CallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewController.swift; sourceTree = "<group>"; };
 		3799E5042A99D6DC00E06218 /* PreviousAppointmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousAppointmentsViewController.swift; sourceTree = "<group>"; };
 		3799E5062A99D70500E06218 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
@@ -327,7 +325,6 @@
 			children = (
 				3B274D6E2AD3F6F800D79698 /* Protocol */,
 				3799E4F02A99C4D100E06218 /* DefaultAppCoordinator.swift */,
-				3799E4F22A99C79100E06218 /* VCScenesCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -404,8 +401,8 @@
 			isa = PBXGroup;
 			children = (
 				3799E4ED2A99C4A000E06218 /* Coordinator */,
-				3758F18B2A7D007200E2933C /* AppDelegate.swift */,
 				3758F18D2A7D007200E2933C /* SceneDelegate.swift */,
+				3758F18B2A7D007200E2933C /* AppDelegate.swift */,
 			);
 			path = Apps;
 			sourceTree = "<group>";
@@ -1027,7 +1024,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\" autocorrect\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1052,7 +1049,6 @@
 				3B1850AE2AB5C781001945EE /* EndPoint.swift in Sources */,
 				3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */,
 				3703095F2AAF20D900F9CD80 /* FriendsListModel.swift in Sources */,
-				3799E4F32A99C79100E06218 /* VCScenesCoordinator.swift in Sources */,
 				3B1850B02AB5C939001945EE /* Domain.swift in Sources */,
 				3BAA4A192ADC1DEA009D14E7 /* SignUpProtocol.swift in Sources */,
 				3737AE8C2AE93EE600FE7453 /* DefaultSearchPlacesMapCoordinator.swift in Sources */,

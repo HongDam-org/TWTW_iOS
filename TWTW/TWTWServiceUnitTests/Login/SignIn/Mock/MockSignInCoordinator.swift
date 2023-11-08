@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 final class MockSignInCoordinator: SignInCoordinatorProtocol {
-    
+
     var childCoordinators: [Coordinator]
     var navigationController: UINavigationController
 
@@ -17,21 +17,21 @@ final class MockSignInCoordinator: SignInCoordinatorProtocol {
         self.childCoordinators = childCoordinators
         self.navigationController = navigationController!
     }
-    
+
     func start() {
         print("Mock \(#function)")
     }
-    
+
     func moveSignIn() {
         print("Mock \(#function)")
     }
-    
+
     func moveSignUp() {
         print("Mock \(#function)")
     }
-    
+
     func moveMain() {
         print("Mock \(#function)")
     }
-    
+
 }

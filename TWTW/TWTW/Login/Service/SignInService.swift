@@ -4,17 +4,17 @@
 //
 //  Created by 박다미 on 2023/08/06.
 //
+import Alamofire
 import Foundation
-import RxSwift
+import KakaoSDKAuth
+import KakaoSDKCommon
 import KakaoSDKUser
 import RxKakaoSDKUser
 import RxRelay
-import KakaoSDKAuth
-import KakaoSDKCommon
-import Alamofire
+import RxSwift
 
 /// 로그인 Service
-final class SignInService: SignInProtocol{
+final class SignInService: SignInProtocol {
     private let disposeBag = DisposeBag()
     
     /// 카카오 로그인
@@ -129,8 +129,8 @@ final class SignInService: SignInProtocol{
                        method: .get,
                        headers: header)
             .validate(statusCode: 204..<205)
-            .response{ res in
-                switch res.result{
+            .response { res in
+                switch res.result {
                 case .success(_):
                     observer.onNext(())
                 case .failure(let error):

@@ -5,12 +5,12 @@
 //  Created by 박다미 on 2023/10/13.
 //
 
-import Foundation
-import UIKit
-import RxRelay
-import CoreLocation
 import Alamofire
+import CoreLocation
+import Foundation
+import RxRelay
 import RxSwift
+import UIKit
 
 final class SearchPlacesMapViewModel {
     
@@ -19,17 +19,17 @@ final class SearchPlacesMapViewModel {
     private let searchPlacesServices: SearchPlaceProtocol?
     let selectedCoordinate = PublishRelay<CLLocationCoordinate2D>()
     
-    struct Input{
+    struct Input {
         let searchText: BehaviorRelay<String>
     }
     
-    struct Output{
+    struct Output {
         let filteredPlaces: BehaviorRelay<[SearchPlace]> = BehaviorRelay<[SearchPlace]>(value: [])
         
         let selectedCoordinate: PublishRelay<CLLocationCoordinate2D> = PublishRelay<CLLocationCoordinate2D>()
     }
     
-    init(coordinator: SearchPlacesMapCoordinatorProtocol?, searchPlacesServices : SearchPlaceProtocol?) {
+    init(coordinator: SearchPlacesMapCoordinatorProtocol?, searchPlacesServices: SearchPlaceProtocol?) {
         self.coordinator = coordinator
         self.searchPlacesServices = searchPlacesServices
     }

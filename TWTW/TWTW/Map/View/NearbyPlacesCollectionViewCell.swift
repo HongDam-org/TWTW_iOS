@@ -6,11 +6,12 @@
 //
 
 import Foundation
-import UIKit
 import RxCocoa
 import RxSwift
-///NearbyPlacesCollectionViewCell- 목적지 근방 장소들 보여주기
-class NearbyPlacesCollectionViewCell : UICollectionViewCell{
+import UIKit
+
+/// NearbyPlacesCollectionViewCell- 목적지 근방 장소들 보여주기
+final class NearbyPlacesCollectionViewCell: UICollectionViewCell {
     
   /// NearbyPlacesCollectionViewCell.cellIdentifier
     static let cellIdentifier = "NearbyPlacesCollectionViewCell"
@@ -56,14 +57,15 @@ class NearbyPlacesCollectionViewCell : UICollectionViewCell{
         
     }
     
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Fuctions
-    
-    /// MARK: Add  UI
-    private func addSubViews(){
+
+    /// Add  UI
+    private func addSubViews() {
         contentView.addSubview(view)
         view.addSubview(imageView)
         view.addSubview(titleLabel)
@@ -72,10 +74,10 @@ class NearbyPlacesCollectionViewCell : UICollectionViewCell{
         configureConstraints()
     }
     
-    /// MARK: Configure Constraints UI
-    private func configureConstraints(){
+    /// Configure Constraints UI
+    private func configureConstraints() {
         view.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(3)    
+            make.edges.equalToSuperview().inset(3)
         }
         
         imageView.snp.makeConstraints { make in

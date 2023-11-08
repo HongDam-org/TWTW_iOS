@@ -8,7 +8,7 @@
 import Foundation
 
 struct Domain {
-    static let RESTAPI = "http://" + 
+    static let RESTAPI = "http://" +
                             (Bundle.main.object(forInfoDictionaryKey: "IP") as? String ?? "") +
                             (Bundle.main.object(forInfoDictionaryKey: "PORT") as? String ?? "") +
                             "/api/v1"

@@ -6,13 +6,13 @@
 //
 
 import Foundation
-import RxSwift
 import RxCocoa
-import SnapKit
 import RxGesture
+import RxSwift
+import SnapKit
 import UIKit
 
-///TabBarViewModel
+/// TabBarViewModel
 final class TabBarViewModel {
     private let disposeBag = DisposeBag()
     
@@ -38,7 +38,7 @@ final class TabBarViewModel {
         return createOutput(input: input, baseViewHeight: baseViewHeight)
     }
     
-    /// MARK: create output
+    /// create output
     /// - Parameter input: Input Observable
     /// - Returns: Output
     private func createOutput(input: Input, baseViewHeight: CGFloat) -> Output {
@@ -64,10 +64,9 @@ final class TabBarViewModel {
                     gesture.view?.frame.size.height -= transition.y
                     gesture.view?.frame.origin.y += transition.y
                     
-                    if gesture.velocity(in: gesture.view).y < 0{
+                    if gesture.velocity(in: gesture.view).y < 0 {
                        scrollUp(gesture: gesture, baseViewHeight: baseViewHeight, output: output)
-                    }
-                    else if gesture.velocity(in: gesture.view).y > 0 {
+                    } else if gesture.velocity(in: gesture.view).y > 0 {
                         scrollDown(gesture: gesture, baseViewHeight: baseViewHeight, output: output)
                     }
                 default:
@@ -80,8 +79,8 @@ final class TabBarViewModel {
         return output
     }
     
-    /// MARK: 스크롤 위로 올릴 때
-    private func scrollUp(gesture: ControlEvent<UIPanGestureRecognizer>.Element, baseViewHeight: CGFloat, output: Output){
+    /// 스크롤 위로 올릴 때
+    private func scrollUp(gesture: ControlEvent<UIPanGestureRecognizer>.Element, baseViewHeight: CGFloat, output: Output) {
         let targetHeight = calculateHeightWhenScrollUp(changedHeight: gesture.view?.frame.size.height ?? 0, viewHeight: baseViewHeight)
         let finalHeight = calculateHeightWhenScrollUp(changedHeight: targetHeight, viewHeight: baseViewHeight)
         
@@ -90,8 +89,10 @@ final class TabBarViewModel {
         gesture.setTranslation(.zero, in: gesture.view)
     }
     
-    /// MARK: 스크롤 위로 내릴 때
-    private func scrollDown(gesture: ControlEvent<UIPanGestureRecognizer>.Element, baseViewHeight: CGFloat, output: Output){
+    /// 스크롤 위로 내릴 때
+    private func scrollDown(gesture: ControlEvent<UIPanGestureRecognizer>.Element,
+                            baseViewHeight: CGFloat,
+                            output: Output) {
         let targetHeight = calculateHeightWhenScrollDown(changedHeight: gesture.view?.frame.size.height ?? 0, viewHeight: baseViewHeight)
         let finalHeight = calculateHeightWhenScrollDown(changedHeight: targetHeight, viewHeight: baseViewHeight)
         
@@ -106,8 +107,7 @@ final class TabBarViewModel {
     private func calculateHeightWhenScrollUp(changedHeight: CGFloat, viewHeight: CGFloat) -> CGFloat {
         if changedHeight > viewHeight * 0.5 {
             return viewHeight * 0.8
-        }
-        else if changedHeight > viewHeight * 0.15 {
+        } else if changedHeight > viewHeight * 0.15 {
             return viewHeight * 0.4
         }
         return viewHeight * 0.2
@@ -115,7 +115,7 @@ final class TabBarViewModel {
     
     // calculate height when down gesture
     private func calculateHeightWhenScrollDown(changedHeight: CGFloat, viewHeight: CGFloat) -> CGFloat {
-        if changedHeight > viewHeight * 0.35{
+        if changedHeight > viewHeight * 0.35 {
             return viewHeight * 0.4
         }
         if changedHeight > viewHeight * 0.15 {
@@ -124,5 +124,3 @@ final class TabBarViewModel {
         return viewHeight * 0.8
     }
 }
-
-

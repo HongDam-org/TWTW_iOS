@@ -5,8 +5,8 @@
 //  Created by 정호진 on 10/10/23.
 //
 
-import Foundation
 import Alamofire
+import Foundation
 import RxSwift
 
 final class SignUpService: SignUpProtocol {
@@ -52,9 +52,9 @@ final class SignUpService: SignUpProtocol {
             AF.request(url,
                        method: .get)
             .validate(statusCode: 200..<201)
-            .responseDecodable(of: OverLapIdResponse.self){ res in
+            .responseDecodable(of: OverLapIdResponse.self) { res in
                 print(res)
-                switch res.result{
+                switch res.result {
                 case .success(let data):
                     observer.onNext(data.isPresent ?? true)
                 case .failure(let error):

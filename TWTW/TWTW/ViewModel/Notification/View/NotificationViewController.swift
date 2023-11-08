@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-//알림
+// 알림
 final class NotificationViewController: UIViewController {
     
     // MARK: View Did Load
@@ -18,5 +18,3 @@ final class NotificationViewController: UIViewController {
         view.layer.cornerRadius = 20
     }
 }
-
-

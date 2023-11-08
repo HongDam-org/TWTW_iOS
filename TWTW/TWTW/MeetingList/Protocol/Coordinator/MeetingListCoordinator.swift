@@ -7,7 +7,6 @@
 
 import Foundation
 
-/// 
 protocol MeetingListCoordinatorProtocol: Coordinator {
     func moveMainMap()
 }
