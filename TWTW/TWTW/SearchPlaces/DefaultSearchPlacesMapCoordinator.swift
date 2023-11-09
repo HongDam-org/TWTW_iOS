@@ -5,6 +5,7 @@
 //  Created by 박다미 on 2023/10/16.
 //
 
+import CoreLocation
 import Foundation
 import RxSwift
 import UIKit
@@ -28,22 +29,14 @@ final class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtoco
         searchPlacesMapViewController = SearchPlacesMapViewController()
         searchPlacesMapViewController?.viewModel = searchPlacesMapViewModel
         
-        // 좌표를 delegate를 통해서 전달
-        searchPlacesMapViewModel?.selectedCoordinate
-            .subscribe(onNext: { [weak self] coordinate in
-                // 좌표를 MainMapCoordinator로 전달
-                self?.delegate?.didSelectCoordinate(coordinate: coordinate)
-                // 좌표 전달 후 화면 닫기
-                self?.finishSearchPlaces()
-            })
-            .disposed(by: disposeBag)
         
         if let searchPlacesMapViewController = searchPlacesMapViewController {
             navigationController.pushViewController(searchPlacesMapViewController, animated: true)
         }
     }
     
-    func finishSearchPlaces() {
+    func finishSearchPlaces(coordinate: CLLocationCoordinate2D) {
         navigationController.popViewController(animated: true)
+        delegate?.didSelectCoordinate(coordinate: coordinate)
     }
 }

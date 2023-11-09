@@ -83,7 +83,9 @@ final class SearchPlacesMapViewController: UIViewController {
         let loadMoreTrigger = PublishRelay<Void>() // 추가 데이터 로드 트리거
         
         // Input 생성
-        let input = SearchPlacesMapViewModel.Input(searchText: searchTextRelay, loadMoreTrigger: loadMoreTrigger)
+        let input = SearchPlacesMapViewModel.Input(searchText: searchTextRelay, 
+                                                   loadMoreTrigger: loadMoreTrigger,
+                                                   selectedCoorinate: placesTableView.rx.modelSelected(SearchPlace.self).asObservable())
         let output = viewModel.bind(input: input)
         
         // 검색 텍스트를 업데이트하면 searchTextRelay에 바인딩
@@ -121,15 +123,6 @@ final class SearchPlacesMapViewController: UIViewController {
             }
                        .disposed(by: disposeBag)
         
-        // Selected 항목 
-        placesTableView.rx.modelSelected(SearchPlace.self)
-            .subscribe(onNext: { [weak self] selectedPlace in
-                if let placeX = Double(selectedPlace.xPosition), let placeY = Double(selectedPlace.yPosition) {
-                    let coordinate = CLLocationCoordinate2D(latitude: placeY, longitude: placeX)
-                    self?.viewModel?.selectedCoordinate.accept(coordinate)
-                }
-            })
-            .disposed(by: disposeBag)
     }
 }
  //   private func bindSearchPlaceFiltering(output: SearchPlacesMapViewModel.Output?) {
