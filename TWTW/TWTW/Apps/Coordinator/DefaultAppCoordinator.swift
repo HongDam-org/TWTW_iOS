@@ -30,18 +30,21 @@ final class DefaultAppCoordinator: AppCoordinator {
     }
     
     func moveMain() {
-            childCoordinators.removeAll()
-            // MeetingListCoodrinator로 이동
-            let meetingListCoordinator = DefaultMeetingListCoordinator(navigationController: navigationController)
-            meetingListCoordinator.start()
-
-        }
+        childCoordinators.removeAll()
+        // MeetingListCoodrinator로 이동
+        let meetingListCoordinator = DefaultMeetingListCoordinator(navigationController: navigationController)
+        meetingListCoordinator.start()
+        
+    }
     
 }
 
 extension DefaultAppCoordinator: SignInCoordinatorFinishDelegate {
     func finishLogin(_ coordinator: DefaultSignInCoordinator) {
         childCoordinators = childCoordinators.filter { $0 !== coordinator }
+        navigationController.popToRootViewController(animated: true)
+        print(childCoordinators)
+        print(navigationController)
         moveMain()
     }
     

@@ -29,7 +29,8 @@ final class DefaultSignInCoordinator: SignInCoordinatorProtocol {
     
     func start() {
         print("Called DefaultSignInCoordinator \(#function)")
-
+        _ = KeychainWrapper.delete(key: SignIn.accessToken.rawValue)
+        _ = KeychainWrapper.delete(key: SignIn.refreshToken.rawValue)
         signInViewModel?.checkSavingTokens(output: output)
     }
     

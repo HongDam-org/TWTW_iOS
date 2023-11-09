@@ -57,16 +57,17 @@ final class SignUpViewModel {
         input.doneButtonTapEvents
             .bind { [weak self] _ in
                 guard let self = self  else { return }
-                if output.nickNameFilteringRelay.value.isEmpty  && output.nickNameFilteringRelay.value.count >= minLength {
-                    checkOverlapId(nickName: output.nickNameFilteringRelay.value, output: output)
+                if !output.nickNameFilteringRelay.value.isEmpty  && output.nickNameFilteringRelay.value.count >= minLength {
+                    return checkOverlapId(nickName: output.nickNameFilteringRelay.value, output: output)
                 }
+                output.checkSignUpSubject.onNext(false)
             }
             .disposed(by: disposeBag)
         
         input.keyboardReturnTapEvents
             .bind { [weak self] _ in
                 guard let self = self  else { return }
-                if output.nickNameFilteringRelay.value.isEmpty && output.nickNameFilteringRelay.value.count >= minLength {
+                if !output.nickNameFilteringRelay.value.isEmpty && output.nickNameFilteringRelay.value.count >= minLength {
                     return checkOverlapId(nickName: output.nickNameFilteringRelay.value, output: output)
                 }
                 output.checkSignUpSubject.onNext(false)
@@ -80,7 +81,6 @@ final class SignUpViewModel {
                     return output.nickNameFilteringRelay.accept(text)
                 }
                 output.nickNameFilteringRelay.accept(String(text.dropLast(text.count-maxLength)))
-                
             }
             .disposed(by: disposeBag)
         

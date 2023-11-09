@@ -69,6 +69,7 @@ final class SignInService: SignInProtocol {
         let url = Domain.RESTAPI + LoginPath.updateToken.rawValue
         print(#function)
         print(url)
+        print("token \(token)")
         return Observable.create { observer in
             AF.request(url,
                        method: .post,
