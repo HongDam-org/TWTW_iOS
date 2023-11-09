@@ -29,7 +29,6 @@ final class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtoco
         searchPlacesMapViewController = SearchPlacesMapViewController()
         searchPlacesMapViewController?.viewModel = searchPlacesMapViewModel
         
-        
         if let searchPlacesMapViewController = searchPlacesMapViewController {
             navigationController.pushViewController(searchPlacesMapViewController, animated: true)
         }

@@ -41,7 +41,7 @@ final class SearchPlacesMapViewController: UIViewController {
         setNavi()
         addSubViews()
         hideKeyboard()
-        
+        bindViewModel()
     }
     
     /// 네비게이션 item보이기
@@ -54,7 +54,6 @@ final class SearchPlacesMapViewController: UIViewController {
         navigationItem.titleView = searchBar
         view.addSubview(placesTableView)
         placesTableView.register(SearchPlacesTableViewCell.self, forCellReuseIdentifier: CellIdentifier.searchPlacesTableViewCell.rawValue)
-        bindViewModel()
         configureConstraints()
     }
     
@@ -73,7 +72,7 @@ final class SearchPlacesMapViewController: UIViewController {
             make.edges.equalTo(additionalSafeAreaInsets)
         }
     }
-    
+ 
     private func bindViewModel() {
         guard let viewModel = viewModel else {
             return
@@ -82,13 +81,18 @@ final class SearchPlacesMapViewController: UIViewController {
         let searchTextRelay = BehaviorRelay<String>(value: searchBar.text ?? "")
         let loadMoreTrigger = PublishRelay<Void>() // 추가 데이터 로드 트리거
         
-        // Input 생성
         let input = SearchPlacesMapViewModel.Input(searchText: searchTextRelay,
                                                    loadMoreTrigger: loadMoreTrigger,
                                                    selectedCoorinate: placesTableView.rx.modelSelected(SearchPlace.self).asObservable())
         let output = viewModel.bind(input: input)
         
-        // 검색 텍스트를 업데이트하면 searchTextRelay에 바인딩
+        setupSearchTextBindings(searchTextRelay)
+        setupLoadMoreBindings(loadMoreTrigger)
+        setupTableViewBindings(output)
+    }
+    
+    /// 검색
+    private func setupSearchTextBindings(_ searchTextRelay: BehaviorRelay<String>) {
         searchBar.rx.text
             .orEmpty
             .debounce(.milliseconds(300), scheduler: MainScheduler.instance)
@@ -97,8 +101,10 @@ final class SearchPlacesMapViewController: UIViewController {
                 searchTextRelay.accept(searchText)
             })
             .disposed(by: disposeBag)
-        
-        // 테이블 뷰
+    }
+    
+    /// 테이블 무한 스크롤적용
+    private func setupLoadMoreBindings(_ loadMoreTrigger: PublishRelay<Void>) {
         placesTableView.rx.contentOffset
             .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] contentOffset in
@@ -114,14 +120,17 @@ final class SearchPlacesMapViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
-        
-        // 결과 데이터를 표시
+    }
+    
+    /// 결과 데이터를 표시
+    private func setupTableViewBindings(_ output: SearchPlacesMapViewModel.Output) {
         output.filteredPlaces
             .bind(to: placesTableView.rx
-                .items(cellIdentifier: CellIdentifier.searchPlacesTableViewCell.rawValue,
-                       cellType: SearchPlacesTableViewCell.self)) { row, place, cell in
+                .items(
+                    cellIdentifier: CellIdentifier.searchPlacesTableViewCell.rawValue, cellType: SearchPlacesTableViewCell.self)
+            ) { _, place, cell in
                 cell.configure(placeName: place.placeName, addressName: place.addressName, categoryName: place.categoryName)
             }
-                       .disposed(by: disposeBag)
+            .disposed(by: disposeBag)
     }
 }
