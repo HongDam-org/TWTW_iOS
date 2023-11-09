@@ -20,9 +20,9 @@ final class SearchPlacesMapService: SearchPlaceProtocol {
             let headers = Header.header.getHeader()
             
             var url = Domain.RESTAPI + SearchPath.placeAndCategory.rawValue
-            
-            url = url.replacingOccurrences(of: "encodedQuery", with: encodedQuery)
-            
+            .replacingOccurrences(of: "encodedQuery", with: encodedQuery)
+            .replacingOccurrences(of: "pageNum", with: "\(request.pageNum)") 
+
             AF.request(url, method: .get, parameters: request, headers: headers)
                 .validate(statusCode: 200..<201)
                 .responseDecodable(of: PlaceResponse.self) { response in

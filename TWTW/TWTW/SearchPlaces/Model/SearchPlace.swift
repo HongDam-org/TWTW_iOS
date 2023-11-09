@@ -11,6 +11,7 @@ import Foundation
 /// 보내는 장소명 text
 struct PlacesRequest: Codable {
     let searchText: String?
+    let pageNum: Int
 }
 /// 검색 결과 리스트
 struct PlaceResponse: Codable {

@@ -8,7 +8,7 @@
 import Foundation
 
 enum SearchPath: String {
-    case placeAndCategory = "/plans/search/destination?query=encodedQuery&page=1&categoryGroupCode=NONE"
+    case placeAndCategory = "/plans/search/destination?query=encodedQuery&page=pageNum&categoryGroupCode=NONE"
 }
 
 enum LoginPath: String {
