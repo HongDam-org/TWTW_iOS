@@ -78,28 +78,22 @@ final class SearchPlacesMapViewController: UIViewController {
             return
         }
         
-        let searchTextRelay = BehaviorRelay<String>(value: searchBar.text ?? "")
         let loadMoreTrigger = PublishRelay<Void>() // 추가 데이터 로드 트리거
         
-        let input = SearchPlacesMapViewModel.Input(searchText: searchTextRelay,
+        let input = SearchPlacesMapViewModel.Input(searchText: searchBar.rx.text.asObservable(),
                                                    loadMoreTrigger: loadMoreTrigger,
                                                    selectedCoorinate: placesTableView.rx.modelSelected(SearchPlace.self).asObservable())
         let output = viewModel.bind(input: input)
         
-        setupSearchTextBindings(searchTextRelay)
+        setupSearchTextBindings(output: output)
         setupLoadMoreBindings(loadMoreTrigger)
         setupTableViewBindings(output)
     }
     
     /// 검색
-    private func setupSearchTextBindings(_ searchTextRelay: BehaviorRelay<String>) {
-        searchBar.rx.text
-            .orEmpty
-            .debounce(.milliseconds(300), scheduler: MainScheduler.instance)
-            .distinctUntilChanged()
-            .subscribe(onNext: { searchText in
-                searchTextRelay.accept(searchText)
-            })
+    private func setupSearchTextBindings(output: SearchPlacesMapViewModel.Output) {
+        output.searchText
+            .bind(to: searchBar.rx.text)
             .disposed(by: disposeBag)
     }
     
@@ -109,11 +103,11 @@ final class SearchPlacesMapViewController: UIViewController {
             .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] contentOffset in
                 guard let self = self else { return }
-                
+
                 let scrollViewHeight = self.placesTableView.bounds.size.height
                 let contentSizeHeight = self.placesTableView.contentSize.height
                 let bottomInset = self.placesTableView.contentInset.bottom
-                
+
                 // 테이블뷰의 스크롤이 맨 아래로 내렸을 때
                 if contentOffset.y >= contentSizeHeight - scrollViewHeight - bottomInset {
                     loadMoreTrigger.accept(()) // 추가 데이터 로드 트리거

@@ -83,7 +83,6 @@
 		3B6CF3D72ADAC80200325D05 /* SignInProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3D62ADAC80200325D05 /* SignInProtocol.swift */; };
 		3B6CF3D92ADACA7500325D05 /* MockSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3D82ADACA7500325D05 /* MockSignInService.swift */; };
 		3B6CF3DB2ADAD14A00325D05 /* MockSignInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3DA2ADAD14A00325D05 /* MockSignInCoordinator.swift */; };
-		3B76F0A42AF9D5D000B2BD1D /* SearchNearByPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F0A32AF9D5D000B2BD1D /* SearchNearByPlaces.swift */; };
 		3B9FD0FF2AE7418F00D81328 /* MainMapViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FD0FE2AE7418F00D81328 /* MainMapViewModelUnitTests.swift */; };
 		3B9FD1012AE758C100D81328 /* CLLocationManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FD1002AE758C100D81328 /* CLLocationManagerMock.swift */; };
 		3BAA4A192ADC1DEA009D14E7 /* SignUpProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA4A182ADC1DEA009D14E7 /* SignUpProtocol.swift */; };
@@ -191,7 +190,6 @@
 		3B6CF3D62ADAC80200325D05 /* SignInProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInProtocol.swift; sourceTree = "<group>"; };
 		3B6CF3D82ADACA7500325D05 /* MockSignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignInService.swift; sourceTree = "<group>"; };
 		3B6CF3DA2ADAD14A00325D05 /* MockSignInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignInCoordinator.swift; sourceTree = "<group>"; };
-		3B76F0A32AF9D5D000B2BD1D /* SearchNearByPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNearByPlaces.swift; sourceTree = "<group>"; };
 		3B9FD0FE2AE7418F00D81328 /* MainMapViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModelUnitTests.swift; sourceTree = "<group>"; };
 		3B9FD1002AE758C100D81328 /* CLLocationManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationManagerMock.swift; sourceTree = "<group>"; };
 		3BAA4A182ADC1DEA009D14E7 /* SignUpProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpProtocol.swift; sourceTree = "<group>"; };
@@ -725,7 +723,6 @@
 			children = (
 				37CE1EAE2AE75813009CDA21 /* SearchPlace.swift */,
 				3760CC8E2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift */,
-				3B76F0A32AF9D5D000B2BD1D /* SearchNearByPlaces.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1035,7 +1032,6 @@
 			files = (
 				371C1D332ADBB00300B30DC5 /* DefaultCallCoordinator.swift in Sources */,
 				3B6CF3DB2ADAD14A00325D05 /* MockSignInCoordinator.swift in Sources */,
-				3B76F0A42AF9D5D000B2BD1D /* SearchNearByPlaces.swift in Sources */,
 				3BAA4A222ADCD0C8009D14E7 /* MockSignUpService.swift in Sources */,
 				3B274D712AD3F77600D79698 /* DefaultSignInCoordinator.swift in Sources */,
 				373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */,

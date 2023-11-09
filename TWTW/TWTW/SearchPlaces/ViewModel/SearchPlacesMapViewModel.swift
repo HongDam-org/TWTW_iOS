@@ -13,22 +13,21 @@ import RxSwift
 import UIKit
 
 final class SearchPlacesMapViewModel {
-    
     weak var coordinator: SearchPlacesMapCoordinatorProtocol?
     private let disposeBag = DisposeBag()
     private let searchPlacesServices: SearchPlaceProtocol?
-    
     private var state = SearchPlacesMapState()
     
     struct Input {
-        let searchText: BehaviorRelay<String>
+        let searchText: Observable<String?>
         let loadMoreTrigger: PublishRelay<Void>
         let selectedCoorinate: Observable<SearchPlace>
     }
     
     struct Output {
         let filteredPlaces: BehaviorRelay<[SearchPlace]> = BehaviorRelay<[SearchPlace]>(value: [])
-        let selectedCoordinate: PublishRelay<CLLocationCoordinate2D> = PublishRelay<CLLocationCoordinate2D>()
+//        let selectedCoordinate: PublishRelay<CLLocationCoordinate2D> = PublishRelay<CLLocationCoordinate2D>()
+        let searchText: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
     }
     
     init(coordinator: SearchPlacesMapCoordinatorProtocol?, searchPlacesServices: SearchPlaceProtocol?) {
@@ -48,10 +47,10 @@ final class SearchPlacesMapViewModel {
             .distinctUntilChanged()
             .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] searchText in
-                guard let self = self else {
+                guard let self = self, let searchText = searchText else {
                     return
                 }
-                state.currentSearchText = searchText
+                output.searchText.accept(searchText)
                 loadData(output: output)
             })
             .disposed(by: disposeBag)
@@ -65,23 +64,38 @@ final class SearchPlacesMapViewModel {
                 loadMoreData(output: output)
             })
             .disposed(by: disposeBag)
+        
+        input.selectedCoorinate
+            .bind(onNext: { [weak self] selectedPlace in
+                guard let self = self,
+                      let placeX = Double(selectedPlace.xPosition),
+                      let placeY = Double(selectedPlace.yPosition) else { return }
+                let coordinate = CLLocationCoordinate2D(latitude: placeY, longitude: placeX)
+//                output.selectedCoordinate.accept(coordinate)
+                coordinator?.finishSearchPlaces(coordinate: coordinate)
+            })
+            .disposed(by: disposeBag)
+                
+        
         return output
     }
     
-    // 데이터 로드
+    /// 데이터 로드
     private func loadData(output: Output) {
         state.pageNum = 1
-        searchPlacesServices?.searchPlaceService(request: PlacesRequest(searchText: state.currentSearchText, pageNum: state.pageNum))
+        searchPlacesServices?.searchPlaceService(request: PlacesRequest(searchText: output.searchText.value,
+                                                                        pageNum: state.pageNum))
             .subscribe(onNext: { placeResponse in
                 output.filteredPlaces.accept(placeResponse.results)
             })
             .disposed(by: disposeBag)
     }
     
-    // 추가 데이터 로드
+    /// 추가 데이터 로드
     private func loadMoreData(output: Output) {
         state.pageNum += 1
-        searchPlacesServices?.searchPlaceService(request: PlacesRequest(searchText: state.currentSearchText, pageNum: state.pageNum))
+        searchPlacesServices?.searchPlaceService(request: PlacesRequest(searchText: output.searchText.value,
+                                                                        pageNum: state.pageNum))
             .subscribe(onNext: { placeResponse in
                 var existingData = output.filteredPlaces.value
                 existingData.append(contentsOf: placeResponse.results)
