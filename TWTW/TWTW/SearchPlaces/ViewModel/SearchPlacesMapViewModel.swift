@@ -32,8 +32,6 @@ final class SearchPlacesMapViewModel {
         let filteredPlaces: BehaviorRelay<[SearchPlace]> = BehaviorRelay<[SearchPlace]>(value: [])
         
         let selectedCoordinate: PublishRelay<CLLocationCoordinate2D> = PublishRelay<CLLocationCoordinate2D>()
-        
-        let loaindNextData: BehaviorRelay<[SearchPlace]> = BehaviorRelay<[SearchPlace]>(value: [])
     }
     
     init(coordinator: SearchPlacesMapCoordinatorProtocol?, searchPlacesServices: SearchPlaceProtocol?) {
@@ -106,7 +104,8 @@ final class SearchPlacesMapViewModel {
     
     // 데이터 로드
     private func loadData(output: Output) {
-        searchPlacesServices?.searchPlaceService(request: PlacesRequest(searchText: currentSearchText, pageNum: 1))
+        pageNum = 1
+        searchPlacesServices?.searchPlaceService(request: PlacesRequest(searchText: currentSearchText, pageNum: pageNum))
             .subscribe(onNext: { placeResponse in
                 output.filteredPlaces.accept(placeResponse.results)
             })
@@ -115,10 +114,13 @@ final class SearchPlacesMapViewModel {
     
     // 추가 데이터 로드
     private func loadMoreData(output: Output) {
-        pageNum += 1 // 페이지 번호 증가
         searchPlacesServices?.searchPlaceService(request: PlacesRequest(searchText: currentSearchText, pageNum: pageNum))
             .subscribe(onNext: { placeResponse in
-                output.loaindNextData.accept(placeResponse.results)
+                var existingData = output.filteredPlaces.value
+                existingData.append(contentsOf: placeResponse.results)
+                output.filteredPlaces.accept(existingData)
+                self.pageNum += 1 // 페이지 번호 증가
+                print(self.pageNum)
             })
             .disposed(by: disposeBag)
     }

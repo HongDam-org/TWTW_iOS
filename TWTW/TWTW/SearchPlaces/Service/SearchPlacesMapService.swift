@@ -16,7 +16,6 @@ final class SearchPlacesMapService: SearchPlaceProtocol {
         return Observable.create { observer in
             
             let encodedQuery = EncodedQueryConfig.encodedQuery(searchText: request.searchText).getEncodedQuery()
-        
             let headers = Header.header.getHeader()
             
             var url = Domain.RESTAPI + SearchPath.placeAndCategory.rawValue

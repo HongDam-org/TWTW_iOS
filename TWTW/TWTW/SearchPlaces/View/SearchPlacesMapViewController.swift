@@ -83,7 +83,7 @@ final class SearchPlacesMapViewController: UIViewController {
         let loadMoreTrigger = PublishRelay<Void>() // 추가 데이터 로드 트리거
         
         // Input 생성
-        let input = SearchPlacesMapViewModel.Input(searchText: searchTextRelay, 
+        let input = SearchPlacesMapViewModel.Input(searchText: searchTextRelay,
                                                    loadMoreTrigger: loadMoreTrigger,
                                                    selectedCoorinate: placesTableView.rx.modelSelected(SearchPlace.self).asObservable())
         let output = viewModel.bind(input: input)
@@ -100,6 +100,7 @@ final class SearchPlacesMapViewController: UIViewController {
         
         // 테이블 뷰
         placesTableView.rx.contentOffset
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] contentOffset in
                 guard let self = self else { return }
                 
@@ -122,34 +123,5 @@ final class SearchPlacesMapViewController: UIViewController {
                 cell.configure(placeName: place.placeName, addressName: place.addressName, categoryName: place.categoryName)
             }
                        .disposed(by: disposeBag)
-        
     }
 }
- //   private func bindSearchPlaceFiltering(output: SearchPlacesMapViewModel.Output?) {
-        // PlaceResponseModel에서 results 추출하고 다시 Observable감싸기
-//        output?.filteredPlaces
-//            .map{
-//                $0?.results ?? []
-//            }
-//            .bind(to: placesTableView.rx
-//                .items(cellIdentifier: CellIdentifier.searchPlacesTableViewCell.rawValue,
-//                       cellType: SearchPlacesTableViewCell.self)) { row, place, cell in
-//                cell.configure(placeName: place.placeName, addressName: place.addressName, categoryName: place.categoryName)
-//            }
-//            .disposed(by: disposeBag)
-//
-//        placesTableView.rx.itemSelected
-//            .subscribe(onNext: { [weak self] indexPath in
-//                if let placeResponseModel = try? output?.filteredPlaces.value(), // filteredPlaces가 옵셔널이라 try? 사용
-//                   !placeResponseModel.isEmpty,
-//                   indexPath.row < placeResponseModel.first!.results.count,
-//                   let selectedPlace = placeResponseModel.first!.results[indexPath.row] as? SearchPlace {
-//                    if let placeX = Double(selectedPlace.x), let placeY = Double(selectedPlace.y) {
-//                        let coordinate = CLLocationCoordinate2D(latitude: placeY, longitude: placeX)
-//                        // print(placeResponseModel.first!)
-//                        self?.viewModel?.selectedCoordinate.accept(coordinate)
-//                    }
-//                }
-//            })
-//            .disposed(by: disposeBag)}
-//}
