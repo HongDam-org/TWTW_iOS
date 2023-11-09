@@ -42,9 +42,7 @@ final class DefaultAppCoordinator: AppCoordinator {
 extension DefaultAppCoordinator: SignInCoordinatorFinishDelegate {
     func finishLogin(_ coordinator: DefaultSignInCoordinator) {
         childCoordinators = childCoordinators.filter { $0 !== coordinator }
-        navigationController.popToRootViewController(animated: true)
-        print(childCoordinators)
-        print(navigationController)
+        navigationController.viewControllers = []
         moveMain()
     }
     
