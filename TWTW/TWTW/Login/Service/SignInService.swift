@@ -61,7 +61,6 @@ final class SignInService: SignInProtocol {
             })
     }
     
-    
     /// AccessToken 재발급할 때 사용
     /// - Parameter token: AccessToken, RefreshToken
     /// - Returns: New AccesToken, New RefreshToken
@@ -87,7 +86,6 @@ final class SignInService: SignInProtocol {
             return Disposables.create()
         }
     }
-    
     
     /// 로그인 API
     /// - Parameter request: Kakao, Apple에서 발급받는 Token, AuthType
@@ -132,7 +130,7 @@ final class SignInService: SignInProtocol {
             .validate(statusCode: 204..<205)
             .response { res in
                 switch res.result {
-                case .success(_):
+                case .success:
                     observer.onNext(())
                 case .failure(let error):
                     print(#function)
@@ -144,6 +142,5 @@ final class SignInService: SignInProtocol {
         }
         
     }
-    
     
 }

@@ -8,6 +8,6 @@
 import Foundation
 
 /// 로그인 종료 신호 보내는 Delegate
-protocol SignInCoordinatorFinishDelegate {
+protocol SignInCoordinatorFinishDelegate: AnyObject {
     func finishLogin(_ coordinator: DefaultSignInCoordinator)
 }

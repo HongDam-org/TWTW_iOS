@@ -79,14 +79,13 @@ final class MainMapViewController: KakaoMapViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
     }
     
     /// 지도 그리기
     override func addViews() {
         let mapviewInfo: MapviewInfo = MapviewInfo(viewName: "mapview", viewInfoName: "map", defaultPosition: Map.DEFAULTPOSITION)
-        
         if mapController?.addView(mapviewInfo) == Result.OK {   // 지도가 다 그려진 다음 실행
             print("Success Build Map")
             bind()
@@ -103,7 +102,7 @@ final class MainMapViewController: KakaoMapViewController {
         addSubViewsMyloctaionImageView()
         
         // 더미 데이터 삽입
-//        viewModel.searchInputData_Dummy()
+        //        viewModel.searchInputData_Dummy()
         
         view.backgroundColor = .white
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -193,7 +192,7 @@ final class MainMapViewController: KakaoMapViewController {
                                            searchBarTouchEvents: searchBar.rx.tapGesture().when(.recognized).asObservable(),
                                            cLLocationCoordinate2DEvents: Observable.just(configureLocationManager()),
                                            myLocationTappedEvents: myloctaionImageView.rx.anyGesture(.tap())
-                                                                        .when(.recognized).asObservable(),
+            .when(.recognized).asObservable(),
                                            tabbarControllerViewPanEvents: tabbarController.view.rx.anyGesture(.pan()).asObservable())
         let output = viewModel.bind(input: input, viewMiddleYPoint: view.frame.height/2)
         
@@ -233,12 +232,14 @@ final class MainMapViewController: KakaoMapViewController {
     
     /// handle NearbyPlaces Visibility
     private func handleNearbyPlacesVisibility(hide: Bool) {
-        UIView.animate(withDuration: 0.2, animations: {
-            self.nearbyPlacesCollectionView.alpha = hide ? 0 : 1 }) { completed in
-                if completed {
-                    self.nearbyPlacesCollectionView.isHidden = hide
-                }
+        UIView.animate(withDuration: 0.2,
+                       animations: {
+            self.nearbyPlacesCollectionView.alpha = hide ? 0 : 1
+        }, completion: { completed in
+            if completed {
+                self.nearbyPlacesCollectionView.isHidden = hide
             }
+        })
     }
     
     /// 탭바 숨기기 유무
@@ -254,13 +255,14 @@ final class MainMapViewController: KakaoMapViewController {
     
     /// 화면터치 시 show/hide UI
     private func handleTabbarVisibility(hide: Bool) {
-        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+        UIView.animate(withDuration: 0.2,
+                       animations: { [weak self] in
             guard let self = self else {return}
             tabbarController.view.alpha = hide ? 0 : 1
-        }) { [weak self] _ in
+        }, completion: { [weak self] _ in
             guard let self = self else {return}
             tabbarController.view.isHidden = hide
-        }
+        })
     }
     
     /// 내위치 버튼 유무
@@ -278,10 +280,10 @@ final class MainMapViewController: KakaoMapViewController {
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             guard let self = self else {return}
             myloctaionImageView.alpha = hide ? 0 : 1
-        })  { [weak self] _ in
+        }, completion: { [weak self] _ in
             guard let self = self else {return}
             myloctaionImageView.isHidden = hide
-        }
+        })
     }
     
     /// NearbyPlacesCollectionView binding
@@ -290,11 +292,11 @@ final class MainMapViewController: KakaoMapViewController {
             .bind(to: nearbyPlacesCollectionView.rx
                 .items(cellIdentifier: NearbyPlacesCollectionViewCell.cellIdentifier,
                        cellType: NearbyPlacesCollectionViewCell.self)) { _, element, cell in
-            cell.imageView.image = UIImage(named: element.imageName ?? "")
-            cell.titleLabel.text = element.title ?? ""
-            cell.subTitleLabel.text = element.subTitle ?? ""
-        }
-        .disposed(by: disposeBag)
+                cell.imageView.image = UIImage(named: element.imageName ?? "")
+                cell.titleLabel.text = element.title ?? ""
+                cell.subTitleLabel.text = element.subTitle ?? ""
+            }
+                       .disposed(by: disposeBag)
         
         nearbyPlacesCollectionView.rx.itemSelected
             .bind(onNext: { [weak self] indexPath in
@@ -379,7 +381,11 @@ extension MainMapViewController {
         guard let view = mapController?.getView("mapview") as? KakaoMap else { return }
         let manager = view.getLabelManager()    // LabelManager를 가져온다. LabelLayer는 LabelManger를 통해 추가할 수 있다.
         
-        let layerOption = LabelLayerOptions(layerID: "PoiLayer", competitionType: .none, competitionUnit: .poi, orderType: .rank, zOrder: 10001)
+        let layerOption = LabelLayerOptions(layerID: "PoiLayer",
+                                            competitionType: .none,
+                                            competitionUnit: .poi,
+                                            orderType: .rank,
+                                            zOrder: 10001)
         _ = manager.addLabelLayer(option: layerOption)
         createPoiStyle(output: output)
     }

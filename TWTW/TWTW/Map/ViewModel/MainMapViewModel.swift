@@ -207,7 +207,6 @@ final class MainMapViewModel {
 //    /// 검색지 주변 장소 더미 데이터
 //    func searchInputData_Dummy() {
 //        var list = placeData.value
-//        
 //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 1", subTitle: "detail aboudPlace 1"))
 //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 2", subTitle: "detail aboudPlace 2"))
 //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 3", subTitle: "detail aboudPlace 3"))
@@ -217,11 +216,10 @@ final class MainMapViewModel {
 //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 7", subTitle: "detail aboudPlace 7"))
 //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 8", subTitle: "detail aboudPlace 8"))
 //        placeData.accept(list)
-//        
 //    }
-    /// 장소 검색 함수
-    /// - Parameter word: 검색한 단어
-    /// - Returns: 검색한 장소 리스트
+//    /// 장소 검색 함수
+//    /// - Parameter word: 검색한 단어
+//    /// - Returns: 검색한 장소 리스트
 //    func searchToGetPlace(word: String) -> Observable<SurroundSearchPlaces> {
 //        SurroundSearchService.surroundSearchPlaces(place: word, x: 0, y: 0, page: 0, categoryGroupCode: "")
 //    }
