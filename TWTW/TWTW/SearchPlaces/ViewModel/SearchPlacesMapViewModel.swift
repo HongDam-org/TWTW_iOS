@@ -70,8 +70,7 @@ final class SearchPlacesMapViewModel {
                 guard let self = self,
                       let placeX = Double(selectedPlace.xPosition),
                       let placeY = Double(selectedPlace.yPosition) else { return }
-                let coordinate = CLLocationCoordinate2D(latitude: placeY, longitude: placeX)
-//                output.selectedCoordinate.accept(coordinate)
+                let coordinate = CLLocationCoordinate2D(latitude: placeX, longitude: placeY)
                 coordinator?.finishSearchPlaces(coordinate: coordinate)
             })
             .disposed(by: disposeBag)

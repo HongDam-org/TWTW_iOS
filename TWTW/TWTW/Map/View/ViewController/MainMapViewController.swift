@@ -200,6 +200,7 @@ final class MainMapViewController: KakaoMapViewController {
         bindHideTabbarControllerRelay(output: output)
         bindHideNearPlaces(output: output)
         bindMyLocation(output: output)
+        bindSearchPlaceLocation(output: output)
         bindHideMyLocationImageViewRelay(output: output)
     }
     
@@ -218,6 +219,16 @@ final class MainMapViewController: KakaoMapViewController {
                 moveCameraToCoordinate(location, output)
             }
             .disposed(by: disposeBag)
+    }
+    
+    /// 검색된 위치 binding
+    private func bindSearchPlaceLocation(output: MainMapViewModel.Output) {
+        output.cameraCoordinateObservable
+            .subscribe(onNext: { [weak self] coordinate in
+                guard let self = self else {return}
+                moveCameraToCoordinate(coordinate, output)
+
+            }).disposed(by: disposeBag)
     }
     
     /// 주변 검색 결과  숨기기 유무

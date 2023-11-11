@@ -35,7 +35,7 @@ final class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtoco
     }
     
     func finishSearchPlaces(coordinate: CLLocationCoordinate2D) {
-        navigationController.popViewController(animated: true)
         delegate?.didSelectCoordinate(coordinate: coordinate)
+        navigationController.popViewController(animated: true)
     }
 }

@@ -20,6 +20,7 @@ final class MainMapViewModel {
     
     init(coordinator: DefaultMainMapCoordinator?) {
         self.coordinator = coordinator
+        
     }
     
     struct Input {
@@ -107,13 +108,19 @@ final class MainMapViewModel {
             }
             .disposed(by: disposeBag)
         
-      
+        output.cameraCoordinateObservable
+               .subscribe(onNext: { coordinate in
+                   print("⭐️⭐️⭐️: \(coordinate)")
+               })
+               .disposed(by: disposeBag)
+
+
         touchMyLocation(input: input, output: output)
         hideImageView(input: input, output: output, viewMiddleYPoint: viewMiddleYPoint)
         
         return output
     }
-    
+
     /// when touch my location
     private func touchMyLocation(input: Input, output: Output) {
         guard let myLocationTappedEvents = input.myLocationTappedEvents,
