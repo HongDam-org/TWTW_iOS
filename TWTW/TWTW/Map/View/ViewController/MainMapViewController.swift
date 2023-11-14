@@ -61,6 +61,7 @@ final class MainMapViewController: KakaoMapViewController {
     private let disposeBag = DisposeBag()
     private let viewModel: MainMapViewModel
     private let tabbarController: TabBarController
+    private var output: MainMapViewModel.Output?
     
     // MARK: - init
     
@@ -81,6 +82,7 @@ final class MainMapViewController: KakaoMapViewController {
         super.viewDidLoad()
         
         setupUI()
+        bind()
     }
     
     /// 지도 그리기
@@ -88,7 +90,14 @@ final class MainMapViewController: KakaoMapViewController {
         let mapviewInfo: MapviewInfo = MapviewInfo(viewName: "mapview", viewInfoName: "map", defaultPosition: Map.DEFAULTPOSITION)
         if mapController?.addView(mapviewInfo) == Result.OK {   // 지도가 다 그려진 다음 실행
             print("Success Build Map")
-            bind()
+            if let output = output {
+                createRoute(output: output)
+                bindHideTabbarControllerRelay(output: output)
+                bindHideNearPlaces(output: output)
+                bindMyLocation(output: output)
+                bindSearchPlaceLocation(output: output)
+                bindHideMyLocationImageViewRelay(output: output)
+            }
         }
     }
     
@@ -100,9 +109,6 @@ final class MainMapViewController: KakaoMapViewController {
         addSubviewsTabBarItemsCollectionView()
         addSubViewsSearchBar()
         addSubViewsMyloctaionImageView()
-        
-        // 더미 데이터 삽입
-        //        viewModel.searchInputData_Dummy()
         
         view.backgroundColor = .white
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -192,16 +198,10 @@ final class MainMapViewController: KakaoMapViewController {
                                            searchBarTouchEvents: searchBar.rx.tapGesture().when(.recognized).asObservable(),
                                            cLLocationCoordinate2DEvents: Observable.just(configureLocationManager()),
                                            myLocationTappedEvents: myloctaionImageView.rx.anyGesture(.tap())
-            .when(.recognized).asObservable(),
+                                                                                    .when(.recognized).asObservable(),
                                            tabbarControllerViewPanEvents: tabbarController.view.rx.anyGesture(.pan()).asObservable())
         let output = viewModel.bind(input: input, viewMiddleYPoint: view.frame.height/2)
-        
-        createRoute(output: output)
-        bindHideTabbarControllerRelay(output: output)
-        bindHideNearPlaces(output: output)
-        bindMyLocation(output: output)
-        bindSearchPlaceLocation(output: output)
-        bindHideMyLocationImageViewRelay(output: output)
+        self.output = output
     }
     
     /// 경로 그리기

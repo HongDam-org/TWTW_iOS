@@ -25,7 +25,7 @@ final class SearchPlacesMapViewController: UIViewController {
         searchBar.placeholder = "장소, 주소 검색"
         searchBar.showsCancelButton = false
         searchBar.backgroundImage = UIImage()
-        searchBar.searchTextField.backgroundColor = .white
+//        searchBar.searchTextField.backgroundColor = .white
         return searchBar
     }()
     
