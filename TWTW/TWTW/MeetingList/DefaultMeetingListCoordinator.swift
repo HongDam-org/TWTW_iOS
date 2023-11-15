@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class DefaultMeetingListCoordinator: MeetingListCoordinatorProtocol {
+final class DefaultMeetingListCoordinator: MeetingListCoordinatorProtocol {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
@@ -23,7 +23,7 @@ class DefaultMeetingListCoordinator: MeetingListCoordinatorProtocol {
         navigationController.pushViewController(meetingListViewController, animated: true)
     }
     
-    func moveMainMap(){
+    func moveMainMap() {
         let mainMapCoordinator = DefaultMainMapCoordinator(navigationController: navigationController)
         mainMapCoordinator.start()
     }

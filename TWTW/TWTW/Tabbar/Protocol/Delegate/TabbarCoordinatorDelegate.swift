@@ -8,6 +8,6 @@
 import Foundation
 
 /// Tabbar Instance 전달
-protocol TabbarCoordinatorDelegate {
+protocol TabbarCoordinatorDelegate: AnyObject {
     
 }

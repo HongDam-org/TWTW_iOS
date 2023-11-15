@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-final class DefaultFriendsListCoordinator: FriendsListCoordinator  {
+final class DefaultFriendsListCoordinator: FriendsListCoordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
-    init(navigationController: UINavigationController){
+    init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     

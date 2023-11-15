@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-class DefaultNotificationCoordinator: NotificationCoordinator  {
+final class DefaultNotificationCoordinator: NotificationCoordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
-    init(navigationController: UINavigationController){
+    init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     

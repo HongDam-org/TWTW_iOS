@@ -8,13 +8,10 @@
 import Foundation
 import CoreLocation
 
-
 protocol CLLocationManagerProtocol: CLLocationManager {
     var mockLocation: CLLocation? {get set}
 }
 
-
 final class CLLocationManagerMock: CLLocationManager, CLLocationManagerProtocol {
     var mockLocation: CLLocation?
-    
 }

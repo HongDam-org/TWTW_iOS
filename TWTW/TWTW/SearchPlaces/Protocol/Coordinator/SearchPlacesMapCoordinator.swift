@@ -5,11 +5,11 @@
 //  Created by 박다미 on 2023/10/13.
 //
 
+import CoreLocation
 import Foundation
 import UIKit
-import RxSwift
 
-protocol SearchPlacesMapCoordinatorProtocol:Coordinator {
-    //장소검색 이후
-    func finishSearchPlaces()
+protocol SearchPlacesMapCoordinatorProtocol: Coordinator {
+    // 장소검색 이후
+    func finishSearchPlaces(coordinate: CLLocationCoordinate2D)
 }
