@@ -10,23 +10,26 @@ import UIKit
 /// 서치테이블 정보talbeViewCell
 final class SearchPlacesTableViewCell: UITableViewCell {
     
+    // MARK: - UI Property
+
     /// 장소이름과 주소
-    private let placeNameLabel: UILabel = {
+    private lazy var placeNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         return label
     }()
+    
     /// 주소명
-    private let addressNameLabel: UILabel = {
+    private lazy var addressNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         return label
     }()
     
-    /// 카테고리명
-    private let categoryNameLabel: UILabel = {
+    /// 카테고리 명
+    private lazy var categoryNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
@@ -69,6 +72,7 @@ final class SearchPlacesTableViewCell: UITableViewCell {
         }
     }
     
+    /// configure
     func configure(placeName: String, addressName: String, categoryName: String) {
         placeNameLabel.text = placeName
         addressNameLabel.text = addressName

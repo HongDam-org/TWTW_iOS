@@ -19,14 +19,6 @@ final class SignInViewModel {
     var coordinator: SignInCoordinatorProtocol?
     private let disposeBag = DisposeBag()
     private var signInServices: SignInProtocol?
-
-    
-    // MARK: - init
-    
-    init(coordinator: SignInCoordinatorProtocol?, signInServices: SignInProtocol) {
-        self.coordinator = coordinator
-        self.signInServices = signInServices
-    }
     
     struct Input {
         let kakaoLoginButtonTapped: Observable<ControlEvent<UITapGestureRecognizer>.Element>
@@ -36,6 +28,12 @@ final class SignInViewModel {
         var checkAccessTokenValidation: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         var checkGetNewAccessToken: BehaviorRelay<TokenResponse?> = BehaviorRelay(value: nil)
         var checkSignInService: BehaviorRelay<String?> = BehaviorRelay(value: nil)
+    }
+    
+    // MARK: - init
+    init(coordinator: SignInCoordinatorProtocol?, signInServices: SignInProtocol) {
+        self.coordinator = coordinator
+        self.signInServices = signInServices
     }
     
     // MARK: - Functions

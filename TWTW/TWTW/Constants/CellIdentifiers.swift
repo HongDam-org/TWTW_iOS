@@ -7,6 +7,13 @@
 
 import Foundation
 
+///  Cell식별 Enum
 enum CellIdentifier: String {
+    
     case searchPlacesTableViewCell = "SearchPlacesTableViewCell"
+    
+    /// NearbyPlacesCollectionViewCell.cellIdentifier
+    case nearbyPlacesCollectionViewCell = "NearbyPlacesCollectionViewCell"
+
+    case tabBarItemsCollectionViewCell = "TabBarItemsCollectionViewCell"
 }

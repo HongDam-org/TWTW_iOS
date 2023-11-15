@@ -18,11 +18,6 @@ final class MainMapViewModel {
     private let coordinator: DefaultMainMapCoordinator?
     private let disposeBag = DisposeBag()
     
-    init(coordinator: DefaultMainMapCoordinator?) {
-        self.coordinator = coordinator
-        
-    }
-    
     struct Input {
         /// 지도 화면 터치 감지
         let screenTouchEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
@@ -68,10 +63,13 @@ final class MainMapViewModel {
         
         var moveSearchCoordinator: PublishSubject<Bool> = PublishSubject()
     }
-    
+    // MARK: - init
+    init(coordinator: DefaultMainMapCoordinator?) {
+        self.coordinator = coordinator
+        
+    }
     /// bind
     func bind(input: Input, viewMiddleYPoint: CGFloat?) -> Output {
-        
         return createOutput(input: input, viewMiddleYPoint: viewMiddleYPoint)
     }
     
@@ -108,23 +106,16 @@ final class MainMapViewModel {
             }
             .disposed(by: disposeBag)
         
-        output.cameraCoordinateObservable
-               .subscribe(onNext: { coordinate in
-                   print("⭐️⭐️⭐️: \(coordinate)")
-               })
-               .disposed(by: disposeBag)
-
-
         touchMyLocation(input: input, output: output)
         hideImageView(input: input, output: output, viewMiddleYPoint: viewMiddleYPoint)
         
         return output
     }
-
+    
     /// when touch my location
     private func touchMyLocation(input: Input, output: Output) {
         guard let myLocationTappedEvents = input.myLocationTappedEvents,
-                let cLLocationCoordinate2DEvents = input.cLLocationCoordinate2DEvents else {return}
+              let cLLocationCoordinate2DEvents = input.cLLocationCoordinate2DEvents else {return}
         Observable.combineLatest(myLocationTappedEvents,
                                  cLLocationCoordinate2DEvents)
         .bind { _, manager in
@@ -137,19 +128,19 @@ final class MainMapViewModel {
     private func hideImageView(input: Input, output: Output, viewMiddleYPoint: CGFloat?) {
         input.tabbarControllerViewPanEvents?
             .bind { gesture in
-            switch gesture.state {
-            case .began, .changed, .ended, .cancelled:
-                if let height = gesture.view?.bounds.height, height > viewMiddleYPoint ?? 0 {
-                    output.hideMyLocationImageViewRelay.accept(true)
+                switch gesture.state {
+                case .began, .changed, .ended, .cancelled:
+                    if let height = gesture.view?.bounds.height, height > viewMiddleYPoint ?? 0 {
+                        output.hideMyLocationImageViewRelay.accept(true)
+                        return
+                    }
+                    output.hideMyLocationImageViewRelay.accept(false)
+                default:
                     return
                 }
-                output.hideMyLocationImageViewRelay.accept(false)
-            default:
-                return
+                
             }
-            
-        }
-        .disposed(by: disposeBag)
+            .disposed(by: disposeBag)
     }
     
     // MARK: - Logic
@@ -211,23 +202,23 @@ final class MainMapViewModel {
     
     var tabbarItems: BehaviorRelay<[TabItem]> = BehaviorRelay(value: [])
     
-//    /// 검색지 주변 장소 더미 데이터
-//    func searchInputData_Dummy() {
-//        var list = placeData.value
-//        list.append(SearchNearByPlaces(imageName: "image", title: "Place 1", subTitle: "detail aboudPlace 1"))
-//        list.append(SearchNearByPlaces(imageName: "image", title: "Place 2", subTitle: "detail aboudPlace 2"))
-//        list.append(SearchNearByPlaces(imageName: "image", title: "Place 3", subTitle: "detail aboudPlace 3"))
-//        list.append(SearchNearByPlaces(imageName: "image", title: "Place 4", subTitle: "detail aboudPlace 4"))
-//        list.append(SearchNearByPlaces(imageName: "image", title: "Place 5", subTitle: "detail aboudPlace 5"))
-//        list.append(SearchNearByPlaces(imageName: "image", title: "Place 6", subTitle: "detail aboudPlace 6"))
-//        list.append(SearchNearByPlaces(imageName: "image", title: "Place 7", subTitle: "detail aboudPlace 7"))
-//        list.append(SearchNearByPlaces(imageName: "image", title: "Place 8", subTitle: "detail aboudPlace 8"))
-//        placeData.accept(list)
-//    }
-//    /// 장소 검색 함수
-//    /// - Parameter word: 검색한 단어
-//    /// - Returns: 검색한 장소 리스트
-//    func searchToGetPlace(word: String) -> Observable<SurroundSearchPlaces> {
-//        SurroundSearchService.surroundSearchPlaces(place: word, x: 0, y: 0, page: 0, categoryGroupCode: "")
-//    }
+    //    /// 검색지 주변 장소 더미 데이터
+    //    func searchInputData_Dummy() {
+    //        var list = placeData.value
+    //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 1", subTitle: "detail aboudPlace 1"))
+    //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 2", subTitle: "detail aboudPlace 2"))
+    //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 3", subTitle: "detail aboudPlace 3"))
+    //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 4", subTitle: "detail aboudPlace 4"))
+    //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 5", subTitle: "detail aboudPlace 5"))
+    //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 6", subTitle: "detail aboudPlace 6"))
+    //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 7", subTitle: "detail aboudPlace 7"))
+    //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 8", subTitle: "detail aboudPlace 8"))
+    //        placeData.accept(list)
+    //    }
+    //    /// 장소 검색 함수
+    //    /// - Parameter word: 검색한 단어
+    //    /// - Returns: 검색한 장소 리스트
+    //    func searchToGetPlace(word: String) -> Observable<SurroundSearchPlaces> {
+    //        SurroundSearchService.surroundSearchPlaces(place: word, x: 0, y: 0, page: 0, categoryGroupCode: "")
+    //    }
 }

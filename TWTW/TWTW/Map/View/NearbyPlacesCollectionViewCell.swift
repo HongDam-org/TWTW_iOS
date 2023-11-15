@@ -12,9 +12,8 @@ import UIKit
 
 /// NearbyPlacesCollectionViewCell- 목적지 근방 장소들 보여주기
 final class NearbyPlacesCollectionViewCell: UICollectionViewCell {
-    
-  /// NearbyPlacesCollectionViewCell.cellIdentifier
-    static let cellIdentifier = "NearbyPlacesCollectionViewCell"
+        
+    // MARK: - UI Property
     
     /// 셀구성을 감싸는 view
     let view: UIView = {

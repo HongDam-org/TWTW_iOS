@@ -14,10 +14,8 @@ import UIKit
 
 /// 검색 결과를 표시하는 새로운 View Controller
 final class SearchPlacesMapViewController: UIViewController {
-    private let disposeBag = DisposeBag()
-    
-    /// 필터링지역들
-    var viewModel: SearchPlacesMapViewModel?
+
+    // MARK: - UI Property
     
     /// 서치바UI
     private lazy var searchBar: UISearchBar = {
@@ -25,7 +23,6 @@ final class SearchPlacesMapViewController: UIViewController {
         searchBar.placeholder = "장소, 주소 검색"
         searchBar.showsCancelButton = false
         searchBar.backgroundImage = UIImage()
-//        searchBar.searchTextField.backgroundColor = .white
         return searchBar
     }()
     
@@ -35,6 +32,11 @@ final class SearchPlacesMapViewController: UIViewController {
         return tableView
     }()
     
+    private let disposeBag = DisposeBag()
+    /// 필터링지역들
+    var viewModel: SearchPlacesMapViewModel?
+    
+    // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -43,6 +45,8 @@ final class SearchPlacesMapViewController: UIViewController {
         hideKeyboard()
         bindViewModel()
     }
+    
+    // MARK: - Set Up
     
     /// 네비게이션 item보이기
     private func setNavi() {

@@ -10,8 +10,10 @@ import Foundation
 import RxSwift
 import UIKit
 
+/// 서치장소 Service
 final class SearchPlacesMapService: SearchPlaceProtocol {
     
+    /// Service연결 - searchPlaceService
     func searchPlaceService(request: PlacesRequest) -> Observable<PlaceResponse> {
         return Observable.create { observer in
             

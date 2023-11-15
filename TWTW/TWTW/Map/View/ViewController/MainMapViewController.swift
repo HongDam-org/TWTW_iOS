@@ -25,7 +25,7 @@ final class MainMapViewController: KakaoMapViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(NearbyPlacesCollectionViewCell.self,
-                                forCellWithReuseIdentifier: NearbyPlacesCollectionViewCell.cellIdentifier)
+                                forCellWithReuseIdentifier: CellIdentifier.nearbyPlacesCollectionViewCell.rawValue)
         collectionView.backgroundColor = .clear
         collectionView.allowsMultipleSelection = false
         return collectionView
@@ -301,7 +301,7 @@ final class MainMapViewController: KakaoMapViewController {
     private func bindingNearByCollectionView() {
         viewModel.placeData
             .bind(to: nearbyPlacesCollectionView.rx
-                .items(cellIdentifier: NearbyPlacesCollectionViewCell.cellIdentifier,
+                .items(cellIdentifier: CellIdentifier.nearbyPlacesCollectionViewCell.rawValue,
                        cellType: NearbyPlacesCollectionViewCell.self)) { _, element, cell in
                 cell.imageView.image = UIImage(named: element.imageName ?? "")
                 cell.titleLabel.text = element.title ?? ""
@@ -487,7 +487,6 @@ extension MainMapViewController {
             manager.removeShapeLayer(layerID: "shapeLayer")
         }
     }
-    
 }
 
 // MARK: - BottomSheetDelegate

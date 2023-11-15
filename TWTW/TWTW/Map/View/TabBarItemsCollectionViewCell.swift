@@ -10,7 +10,8 @@ import UIKit
 
 /// Tabbar CollectionView Cell
 final class TabBarItemsCollectionViewCell: UICollectionViewCell {
-    static let identfier = "TabBarItemsCollectionViewCell"
+    
+    // MARK: - UI Property
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -36,6 +37,8 @@ final class TabBarItemsCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
     
+    // MARK: - Fuctions
+
     /// Add  UI
     private func addSubViews() {
         addSubview(imageView)
@@ -64,9 +67,4 @@ final class TabBarItemsCollectionViewCell: UICollectionViewCell {
             .withTintColor(.lightGray, renderingMode: .alwaysOriginal)
         titleLabel.text = item.title
     }
-    
-    func selectedCell() {
-        
-    }
-    
 }

@@ -10,11 +10,15 @@ import Foundation
 import RxSwift
 import UIKit
 
+/// SearchPlacesMap 관리하는 Coordinator
 final class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtocol {
+    
     private let disposeBag = DisposeBag()
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     weak var delegate: SearchPlacesMapCoordDelegate?
+    
+    // MARK: - UI Property
     
     private var searchPlacesMapViewController: SearchPlacesMapViewController?
     private var searchPlacesMapViewModel: SearchPlacesMapViewModel?
@@ -34,6 +38,7 @@ final class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtoco
         }
     }
     
+    /// 서치 완료후 :  cLLocation전달 & pop VC
     func finishSearchPlaces(coordinate: CLLocationCoordinate2D) {
         delegate?.didSelectCoordinate(coordinate: coordinate)
         navigationController.popViewController(animated: true)

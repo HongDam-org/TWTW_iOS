@@ -10,8 +10,9 @@ import Foundation
 import RxSwift
 import UIKit
 
-
+/// MainMap 관리하는 Coordinator
 final class DefaultMainMapCoordinator: MainMapCoordinator {
+    
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     private var mainMapViewModel: MainMapViewModel?
@@ -21,6 +22,8 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
         self.navigationController = navigationController
         mainMapViewModel = MainMapViewModel(coordinator: self)
     }
+    
+    // MARK: - Fuctions
     
     func start() {
         guard let mainMapViewModel = mainMapViewModel else {return}
@@ -88,7 +91,6 @@ extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate {
     func didSelectCoordinate(coordinate: CLLocationCoordinate2D) {
         mainMapViewModelOutput?.showNearPlacesUI.accept(true)
         mainMapViewModelOutput?.cameraCoordinateObservable.accept(coordinate)
-        print("⭐️⭐️\(coordinate)")
         _ = childCoordinators.popLast()
         print(#function)
         print(childCoordinators)
