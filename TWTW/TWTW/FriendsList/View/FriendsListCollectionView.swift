@@ -11,7 +11,7 @@ import UIKit
 
 final class FriendsListColletionViewCell: UICollectionViewCell {
     /// 사진
-    lazy var imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
@@ -21,7 +21,7 @@ final class FriendsListColletionViewCell: UICollectionViewCell {
     }()
     
     /// 이름
-    lazy var nameLabel: UILabel = {
+    private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 16)

@@ -76,14 +76,6 @@ extension FriendsListViewController: UICollectionViewDataSource, UICollectionVie
                                                             for: indexPath) as? FriendsListColletionViewCell else {
             return UICollectionViewCell()
         }
-        
-        if let imageName = friendsList[indexPath.row].imageName {
-            cell.imageView.image = UIImage(named: imageName)
-        } else {
-            cell.imageView.image = nil
-        }
-        
-        cell.nameLabel.text = friendsList[indexPath.row].nameLabel
         return cell
     }
 }

@@ -16,4 +16,6 @@ enum CellIdentifier: String {
     case nearbyPlacesCollectionViewCell = "NearbyPlacesCollectionViewCell"
 
     case tabBarItemsCollectionViewCell = "TabBarItemsCollectionViewCell"
+    
+    case friendsListColletionViewCell = "FriendsListColletionViewCell"
 }
