@@ -32,6 +32,9 @@
 - 길을 찾기 어려운 경우 그룹 통화가 가능합니다.
 - 다 같이 경로에 대한 정보를 공유해 빠르게 모여보세요!
 
+## 시스템 아키텍처
+![image](https://github.com/HongDam-org/TWTW/assets/89020004/789ca2de-e360-4e63-8108-f18dfb1a1e60)
+
 ## 사용 기술
 |iOS|Backend|Infra/DevOps|Etc|
 |:---:|:---:|:---:|:---:|
