@@ -95,6 +95,7 @@ final class MainMapViewModel {
         input.cLLocationCoordinate2DEvents?
             .bind { manager in
                 output.myLocatiaonRelay.accept(manager.location?.coordinate ?? CLLocationCoordinate2D())
+                output.cameraCoordinateObservable.accept(manager.location?.coordinate ?? CLLocationCoordinate2D())
             }
             .disposed(by: disposeBag)
         
@@ -119,6 +120,7 @@ final class MainMapViewModel {
         Observable.combineLatest(myLocationTappedEvents,
                                  cLLocationCoordinate2DEvents)
         .bind { _, manager in
+            print("✂️")
             output.myLocatiaonRelay.accept(manager.location?.coordinate ?? CLLocationCoordinate2D())
         }
         .disposed(by: disposeBag)
