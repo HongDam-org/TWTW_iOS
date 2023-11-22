@@ -127,7 +127,9 @@ final class SearchPlacesMapViewController: UIViewController {
                 .items(
                     cellIdentifier: CellIdentifier.searchPlacesTableViewCell.rawValue, cellType: SearchPlacesTableViewCell.self)
             ) { _, place, cell in
-                cell.configure(placeName: place.placeName, addressName: place.addressName, categoryName: place.categoryName)
+                cell.configure(placeName: place.placeName ?? "",
+                               addressName: place.addressName ?? "",
+                               categoryName: place.categoryName ?? "")
             }
             .disposed(by: disposeBag)
     }

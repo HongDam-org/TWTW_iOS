@@ -77,8 +77,8 @@ final class SearchPlacesMapViewModel {
         input.selectedCoorinate
             .bind(onNext: { [weak self] selectedPlace in
                 guard let self = self,
-                      let placeX = Double(selectedPlace.xPosition),
-                      let placeY = Double(selectedPlace.yPosition) else { return }
+                      let placeX = selectedPlace.xPosition,
+                      let placeY = selectedPlace.yPosition else { return }
                 let coordinate = CLLocationCoordinate2D(latitude: placeY, longitude: placeX)
                 coordinator?.finishSearchPlaces(coordinate: coordinate)
             })
