@@ -16,7 +16,7 @@ final class NearbyPlacesCollectionViewCell: UICollectionViewCell {
     // MARK: - UI Property
     
     /// 셀구성을 감싸는 view
-    let view: UIView = {
+    private let view: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 10
         view.backgroundColor = .white
@@ -24,7 +24,7 @@ final class NearbyPlacesCollectionViewCell: UICollectionViewCell {
     }()
     
     /// 장소 사진
-    let imageView: UIImageView = {
+    private let placePhotoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 10
@@ -34,7 +34,7 @@ final class NearbyPlacesCollectionViewCell: UICollectionViewCell {
     }()
     
     /// 장소 이름
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
@@ -42,7 +42,7 @@ final class NearbyPlacesCollectionViewCell: UICollectionViewCell {
     }()
     
     /// 장소에 관한 간단할 설명
-    let subTitleLabel: UILabel = {
+    private let subTitleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
@@ -66,7 +66,7 @@ final class NearbyPlacesCollectionViewCell: UICollectionViewCell {
     /// Add  UI
     private func addSubViews() {
         contentView.addSubview(view)
-        view.addSubview(imageView)
+        view.addSubview(placePhotoImageView)
         view.addSubview(titleLabel)
         view.addSubview(subTitleLabel)
         
@@ -79,14 +79,14 @@ final class NearbyPlacesCollectionViewCell: UICollectionViewCell {
             make.edges.equalToSuperview().inset(3)
         }
         
-        imageView.snp.makeConstraints { make in
+        placePhotoImageView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(4)
             make.top.equalToSuperview().inset(4)
             make.height.equalToSuperview().multipliedBy(0.6)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom).offset(3)
+            make.top.equalTo(placePhotoImageView.snp.bottom).offset(3)
             make.leading.trailing.equalToSuperview().inset(4)
         }
         
@@ -94,5 +94,13 @@ final class NearbyPlacesCollectionViewCell: UICollectionViewCell {
             make.top.equalTo(titleLabel.snp.bottom).offset(3)
             make.leading.trailing.equalToSuperview().inset(4)
         }
+    }
+    
+    /// Input Data about Near by places Information
+    /// - Parameter searchPlace: Near by places Information
+    func inputData(searchPlace: PlaceInformation) {
+        titleLabel.text = searchPlace.placeName ?? ""
+        subTitleLabel.text = searchPlace.addressName ?? ""
+        // 이미지 로딩 해야함
     }
 }

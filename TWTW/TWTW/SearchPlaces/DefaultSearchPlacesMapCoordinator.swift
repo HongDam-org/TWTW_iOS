@@ -12,7 +12,6 @@ import UIKit
 
 /// SearchPlacesMap 관리하는 Coordinator
 final class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtocol {
-    
     private let disposeBag = DisposeBag()
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
@@ -29,7 +28,9 @@ final class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtoco
     }
     
     func start() {
-        searchPlacesMapViewModel = SearchPlacesMapViewModel(coordinator: self, searchPlacesServices: SearchPlacesMapService())
+        searchPlacesMapViewModel = SearchPlacesMapViewModel(coordinator: self,
+                                                            searchPlacesServices: SearchPlacesMapService(),
+                                                            surroundSearchServices: SurroundSearchService())
         searchPlacesMapViewController = SearchPlacesMapViewController()
         searchPlacesMapViewController?.viewModel = searchPlacesMapViewModel
         
@@ -39,8 +40,8 @@ final class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtoco
     }
     
     /// 서치 완료후 :  cLLocation전달 & pop VC
-    func finishSearchPlaces(coordinate: CLLocationCoordinate2D) {
-        delegate?.didSelectCoordinate(coordinate: coordinate)
+    func finishSearchPlaces(coordinate: CLLocationCoordinate2D, searchPlaceList: [PlaceInformation]) {
+        delegate?.didSelectCoordinate(coordinate: coordinate, searchPlaceList: searchPlaceList)
         navigationController.popViewController(animated: true)
     }
 }

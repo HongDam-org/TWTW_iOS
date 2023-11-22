@@ -50,6 +50,7 @@ final class DefaultSignInCoordinator: SignInCoordinatorProtocol {
     
     /// 로그인 완료된 경우
     func moveMain() {
+        print(KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue))
         delegate?.finishLogin(self)
     }
 }

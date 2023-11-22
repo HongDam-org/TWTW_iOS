@@ -97,6 +97,7 @@ final class MainMapViewController: KakaoMapViewController {
                 bindMyLocation(output: output)
                 bindSearchPlaceLocation(output: output)
                 bindHideMyLocationImageViewRelay(output: output)
+                bindingNearByCollectionView(output: output)
             }
         }
     }
@@ -135,7 +136,6 @@ final class MainMapViewController: KakaoMapViewController {
     /// Add  UI -  CollectionView
     private func addSubViewsNearbyPlacesCollectionView() {
         view.addSubview(nearbyPlacesCollectionView)
-        bindingNearByCollectionView()
         configureConstraintsNearbyPlacesCollectionView()
     }
     
@@ -236,6 +236,7 @@ final class MainMapViewController: KakaoMapViewController {
         output.hideNearPlacesRelay
             .bind { [weak self] check in
                 guard let self = self else { return }
+                print(#function, "called", check)
                 handleNearbyPlacesVisibility(hide: check)
             }
             .disposed(by: disposeBag)
@@ -298,14 +299,12 @@ final class MainMapViewController: KakaoMapViewController {
     }
     
     /// NearbyPlacesCollectionView binding
-    private func bindingNearByCollectionView() {
-        viewModel.placeData
+    private func bindingNearByCollectionView(output: MainMapViewModel.Output) {
+        output.nearByplaceRelay
             .bind(to: nearbyPlacesCollectionView.rx
                 .items(cellIdentifier: CellIdentifier.nearbyPlacesCollectionViewCell.rawValue,
                        cellType: NearbyPlacesCollectionViewCell.self)) { _, element, cell in
-                cell.imageView.image = UIImage(named: element.imageName ?? "")
-                cell.titleLabel.text = element.title ?? ""
-                cell.subTitleLabel.text = element.subTitle ?? ""
+                cell.inputData(searchPlace: element)
             }
                        .disposed(by: disposeBag)
         

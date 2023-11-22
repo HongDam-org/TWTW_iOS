@@ -10,6 +10,6 @@ import Foundation
 import UIKit
 
 protocol SearchPlacesMapCoordinatorProtocol: Coordinator {
-    // 장소검색 이후
-    func finishSearchPlaces(coordinate: CLLocationCoordinate2D)
+    /// 서치 완료후 :  cLLocation전달 & pop VC
+    func finishSearchPlaces(coordinate: CLLocationCoordinate2D, searchPlaceList: [PlaceInformation])
 }

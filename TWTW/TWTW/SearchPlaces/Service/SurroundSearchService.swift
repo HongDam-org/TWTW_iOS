@@ -11,19 +11,24 @@ import Foundation
 import RxSwift
 
 /// 주변  장소 검색 Service
-final class SurroundSearchService {
+final class SurroundSearchService: SurroundSearchProtocol {
     
     /// 검색어와 카테고리를 통한 장소 검색
-    func surroundSearchPlaces(place: String,
-                              xPosition: Double,
+    func surroundSearchPlaces(xPosition: Double,
                               yPosition: Double,
                               page: Int,
                               categoryGroupCode: String) -> Observable<SurroundSearchPlaces> {
-        let url = Domain.RESTAPI + SearchPath.placeAndCategory.rawValue
+        let url = Domain.RESTAPI + SearchPath.nearByPlace.rawValue
+            .replacingOccurrences(of: "xPosition", with: "\(xPosition)")
+            .replacingOccurrences(of: "yPosition", with: "\(yPosition)")
+            .replacingOccurrences(of: "pageNum", with: "\(page)")
         
+        let headers = Header.header.getHeader()
+        print(url)
         return Observable.create { observer in
             AF.request(url,
-                       method: .get)
+                       method: .get,
+                       headers: headers)
             .validate(statusCode: 200..<201)
             .responseDecodable(of: SurroundSearchPlaces.self) { response in
                 switch response.result {

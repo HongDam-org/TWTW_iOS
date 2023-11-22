@@ -58,16 +58,18 @@ final class MainMapViewModel {
         /// 검색한 위치 좌표
         var cameraCoordinateObservable: BehaviorRelay<CLLocationCoordinate2D> = BehaviorRelay(value: CLLocationCoordinate2D())
         
-        /// 위치 정보를 넘길때 Mainmap 주변장소 보이는 UI로 변경
-        var showNearPlacesUI: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        /// 검색지 주변 장소 데이터 리스트
+        var nearByplaceRelay: BehaviorRelay<[PlaceInformation]> = BehaviorRelay(value: [])
+        
         
         var moveSearchCoordinator: PublishSubject<Bool> = PublishSubject()
     }
+
     // MARK: - init
     init(coordinator: DefaultMainMapCoordinator?) {
         self.coordinator = coordinator
-        
     }
+
     /// bind
     func bind(input: Input, viewMiddleYPoint: CGFloat?) -> Output {
         return createOutput(input: input, viewMiddleYPoint: viewMiddleYPoint)
@@ -99,15 +101,16 @@ final class MainMapViewModel {
             }
             .disposed(by: disposeBag)
         
-        output.showNearPlacesUI
-            .bind { check in
-                output.hideTabbarControllerRelay.accept(check)
-                output.hideMyLocationImageViewRelay.accept(check)
-                output.hideNearPlacesRelay.accept(!check)
-            }
+        output.cameraCoordinateObservable
+            .subscribe(onNext: { _ in
+                output.hideTabbarControllerRelay.accept(true)
+                output.hideMyLocationImageViewRelay.accept(true)
+                output.hideNearPlacesRelay.accept(false)
+            })
             .disposed(by: disposeBag)
         
         touchMyLocation(input: input, output: output)
+        
         hideImageView(input: input, output: output, viewMiddleYPoint: viewMiddleYPoint)
         
         return output
@@ -120,7 +123,6 @@ final class MainMapViewModel {
         Observable.combineLatest(myLocationTappedEvents,
                                  cLLocationCoordinate2DEvents)
         .bind { _, manager in
-            print("✂️")
             output.myLocatiaonRelay.accept(manager.location?.coordinate ?? CLLocationCoordinate2D())
         }
         .disposed(by: disposeBag)
@@ -140,7 +142,6 @@ final class MainMapViewModel {
                 default:
                     return
                 }
-                
             }
             .disposed(by: disposeBag)
     }
@@ -196,31 +197,5 @@ final class MainMapViewModel {
         segments.append(points)
         return segments
     }
-    
-    // MARK: - 검색 기능
-    
-    /// 검색지 주변 장소 데이터
-    var placeData: BehaviorRelay<[SearchNearByPlaces]> = BehaviorRelay(value: [])
-    
-    var tabbarItems: BehaviorRelay<[TabItem]> = BehaviorRelay(value: [])
-    
-    //    /// 검색지 주변 장소 더미 데이터
-    //    func searchInputData_Dummy() {
-    //        var list = placeData.value
-    //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 1", subTitle: "detail aboudPlace 1"))
-    //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 2", subTitle: "detail aboudPlace 2"))
-    //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 3", subTitle: "detail aboudPlace 3"))
-    //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 4", subTitle: "detail aboudPlace 4"))
-    //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 5", subTitle: "detail aboudPlace 5"))
-    //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 6", subTitle: "detail aboudPlace 6"))
-    //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 7", subTitle: "detail aboudPlace 7"))
-    //        list.append(SearchNearByPlaces(imageName: "image", title: "Place 8", subTitle: "detail aboudPlace 8"))
-    //        placeData.accept(list)
-    //    }
-    //    /// 장소 검색 함수
-    //    /// - Parameter word: 검색한 단어
-    //    /// - Returns: 검색한 장소 리스트
-    //    func searchToGetPlace(word: String) -> Observable<SurroundSearchPlaces> {
-    //        SurroundSearchService.surroundSearchPlaces(place: word, x: 0, y: 0, page: 0, categoryGroupCode: "")
-    //    }
+
 }
