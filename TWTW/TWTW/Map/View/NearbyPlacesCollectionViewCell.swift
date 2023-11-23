@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Kingfisher
 import RxCocoa
 import RxSwift
 import UIKit
@@ -101,7 +102,7 @@ final class NearbyPlacesCollectionViewCell: UICollectionViewCell {
     func inputData(searchPlace: PlaceInformation) {
         titleLabel.text = searchPlace.placeName ?? ""
         subTitleLabel.text = searchPlace.addressName ?? ""
-        // 이미지 로딩 해야함
-        
+        guard let stringUrl = searchPlace.placeURL, let url = URL(string: stringUrl) else { return }
+        placePhotoImageView.kf.setImage(with: url)
     }
 }

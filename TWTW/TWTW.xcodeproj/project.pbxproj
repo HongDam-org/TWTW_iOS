@@ -101,6 +101,7 @@
 		3BC8D6A22B0F0F0A00BE22EF /* RouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8D6A12B0F0F0A00BE22EF /* RouteService.swift */; };
 		3BC8D6A42B0F0F3700BE22EF /* RouteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8D6A32B0F0F3700BE22EF /* RouteProtocol.swift */; };
 		3BC8D6A72B0F15D700BE22EF /* CarRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8D6A62B0F15D700BE22EF /* CarRoute.swift */; };
+		3BC8D6AA2B0F520C00BE22EF /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC8D6A92B0F520C00BE22EF /* Kingfisher */; };
 		3BE034982AD83AC800953498 /* SignInViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */; };
 		3BE038C92AFB0BE70039B4FD /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3BE038C82AFB0BE70039B4FD /* .swiftlint.yml */; };
 		3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */; };
@@ -221,6 +222,7 @@
 				3BC1D2742AE0D15D00A7D0CC /* RxSwift in Frameworks */,
 				3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */,
 				375E8B052A96187800F8DE42 /* RxGesture in Frameworks */,
+				3BC8D6AA2B0F520C00BE22EF /* Kingfisher in Frameworks */,
 				3BC1D2702AE0D15D00A7D0CC /* RxCocoa in Frameworks */,
 				3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */,
 				3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */,
@@ -936,6 +938,7 @@
 				3BC1D26F2AE0D15D00A7D0CC /* RxCocoa */,
 				3BC1D2712AE0D15D00A7D0CC /* RxRelay */,
 				3BC1D2732AE0D15D00A7D0CC /* RxSwift */,
+				3BC8D6A92B0F520C00BE22EF /* Kingfisher */,
 			);
 			productName = TWTW;
 			productReference = 3BF9EF9F2AB1AE220014855E /* TWTW.app */;
@@ -1000,6 +1003,7 @@
 				375E8B032A96187800F8DE42 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				3BF9EFA02AB1AE4A0014855E /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
 				3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */,
+				3BC8D6A82B0F520B00BE22EF /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 3758F17F2A7D007100E2933C;
 			projectDirPath = "";
@@ -1501,6 +1505,14 @@
 				minimumVersion = 6.6.0;
 			};
 		};
+		3BC8D6A82B0F520B00BE22EF /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.0;
+			};
+		};
 		3BF9EFA02AB1AE4A0014855E /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao-mapsSDK/KakaoMapsSDK-SPM.git";
@@ -1566,6 +1578,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxCocoa;
+		};
+		3BC8D6A92B0F520C00BE22EF /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BC8D6A82B0F520B00BE22EF /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */ = {
 			isa = XCSwiftPackageProductDependency;
