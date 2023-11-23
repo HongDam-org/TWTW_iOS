@@ -311,7 +311,7 @@ final class MainMapViewController: KakaoMapViewController {
         output.destinationPathRelay
             .subscribe(onNext: { [weak self] pathList in
                 guard let self = self, pathList != [[]] else {return}
-                createRouteStyleSet(pathList: pathList)
+                createRouteStyleSet()
                 createRouteline(pathList: pathList)
                 createLabelLayer(output: output)
             })
@@ -340,10 +340,11 @@ extension MainMapViewController {
     // MARK: - Route Functions
     
     /// 길찾기 표시
-    private func createRouteStyleSet(pathList: [[Double]]) {
+    private func createRouteStyleSet() {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
         // 라우트 매니저 초기화
         let manager = mapView.getRouteManager()
+        manager.removeRouteLayer(layerID: "RouteLayer")
         // 라우트 레이어 추가
         _ = manager.addRouteLayer(layerID: "RouteLayer", zOrder: 0)
         // 라인 패턴 이미지 배열
@@ -402,8 +403,6 @@ extension MainMapViewController {
         var segments = [[MapPoint]]()
         
         var points = [MapPoint]()
-        
-        print("😡")
         
         _ = pathList.map { point in
             points.append(MapPoint(longitude: point[0], latitude: point[1]))

@@ -102,5 +102,6 @@ final class NearbyPlacesCollectionViewCell: UICollectionViewCell {
         titleLabel.text = searchPlace.placeName ?? ""
         subTitleLabel.text = searchPlace.addressName ?? ""
         // 이미지 로딩 해야함
+        
     }
 }
