@@ -20,6 +20,7 @@ final class SearchPlacesMapViewModelUnitTests: XCTestCase {
     private var mockService: MockSearchPlacesMapService!
     private var input: SearchPlacesMapViewModel.Input!
     private var output: SearchPlacesMapViewModel.Output!
+    private var mockCoordinator: MockSearchPlacesMapCoordinator!
 
     private let mockPlace1 = SearchPlace(placeName: "Place1", distance: "100m", placeURL: "url",
                                          categoryName: "Cafe", addressName: "Address", roadAddressName: "RoadAdd",
@@ -31,8 +32,9 @@ final class SearchPlacesMapViewModelUnitTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         scheduler = TestScheduler(initialClock: 0)
+        mockCoordinator = MockSearchPlacesMapCoordinator(childCoordinators: [], navigationController: UINavigationController())
         mockService = MockSearchPlacesMapService()
-        viewModel = SearchPlacesMapViewModel(coordinator: nil, searchPlacesServices: mockService)
+        viewModel = SearchPlacesMapViewModel(coordinator: mockCoordinator, searchPlacesServices: mockService)
         disposeBag = DisposeBag()
     }
 
@@ -40,6 +42,7 @@ final class SearchPlacesMapViewModelUnitTests: XCTestCase {
         disposeBag = nil
         scheduler = nil
         viewModel = nil
+        mockCoordinator = nil
         try super.tearDownWithError()
     }
 
@@ -97,6 +100,7 @@ final class SearchPlacesMapViewModelUnitTests: XCTestCase {
             .next(20, mockPlace1),
             .next(30, mockPlace2)
         ]).asObservable()
+
         input = SearchPlacesMapViewModel.Input(
             searchText: searchTextObservable,
             loadMoreTrigger: PublishRelay<Void>(),
@@ -131,6 +135,13 @@ final class SearchPlacesMapViewModelUnitTests: XCTestCase {
         } else {
             XCTFail("두 번째 장소 좌표가 반환되지 않음")
         }
+        selectedPlaceObservable.subscribe(onNext: { [weak self] place in
+                    let coordinate = CLLocationCoordinate2D(
+                        latitude: Double(place.yPosition) ?? 0,
+                        longitude: Double(place.xPosition) ?? 0)
+                    self?.mockCoordinator.finishSearchPlaces(coordinate: coordinate)
+                }).disposed(by: disposeBag)
+        XCTAssertTrue(mockCoordinator.finishSearchPlacesCalled, "finishSearchPlaces")
     }
 
     func testLoadMoreSearchResults() {

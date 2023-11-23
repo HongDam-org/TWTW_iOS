@@ -55,6 +55,7 @@
 		3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5062A99D70500E06218 /* FriendsListViewController.swift */; };
 		3799E5092A99D72D00E06218 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5082A99D72D00E06218 /* NotificationViewController.swift */; };
 		37CE1EAF2AE75813009CDA21 /* SearchPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CE1EAE2AE75813009CDA21 /* SearchPlace.swift */; };
+		37D3AFE32B0F3E67006FB449 /* MockSearchPlacesMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D3AFE22B0F3E67006FB449 /* MockSearchPlacesMapCoordinator.swift */; };
 		37EF0CFB2AB85C2400D77B0A /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */; };
 		37F903A62AF9BD2F008120B6 /* EncodedQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F903A52AF9BD2F008120B6 /* EncodedQuery.swift */; };
 		37F903A82AF9BD88008120B6 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F903A72AF9BD88008120B6 /* Header.swift */; };
@@ -164,6 +165,7 @@
 		3799E5082A99D72D00E06218 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		37BAF8952A949C4900BD85DC /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		37CE1EAE2AE75813009CDA21 /* SearchPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlace.swift; sourceTree = "<group>"; };
+		37D3AFE22B0F3E67006FB449 /* MockSearchPlacesMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchPlacesMapCoordinator.swift; sourceTree = "<group>"; };
 		37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		37F903A52AF9BD2F008120B6 /* EncodedQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodedQuery.swift; sourceTree = "<group>"; };
 		37F903A72AF9BD88008120B6 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				372109FB2B0CE7DD00B0946C /* MockSearchPlacesMapService.swift */,
+				37D3AFE22B0F3E67006FB449 /* MockSearchPlacesMapCoordinator.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -1055,6 +1058,7 @@
 				371C1D332ADBB00300B30DC5 /* DefaultCallCoordinator.swift in Sources */,
 				3B6CF3DB2ADAD14A00325D05 /* MockSignInCoordinator.swift in Sources */,
 				3BAA4A222ADCD0C8009D14E7 /* MockSignUpService.swift in Sources */,
+				37D3AFE32B0F3E67006FB449 /* MockSearchPlacesMapCoordinator.swift in Sources */,
 				3B274D712AD3F77600D79698 /* DefaultSignInCoordinator.swift in Sources */,
 				373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */,
 				3BC1D2872AE1A6E700A7D0CC /* TabItem.swift in Sources */,
