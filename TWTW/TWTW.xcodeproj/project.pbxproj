@@ -98,6 +98,9 @@
 		3BC1D27E2AE0D27F00A7D0CC /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D27D2AE0D27F00A7D0CC /* RxCocoa */; };
 		3BC1D2842AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1D2832AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift */; };
 		3BC1D2872AE1A6E700A7D0CC /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1D2862AE1A6E700A7D0CC /* TabItem.swift */; };
+		3BC8D6A22B0F0F0A00BE22EF /* RouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8D6A12B0F0F0A00BE22EF /* RouteService.swift */; };
+		3BC8D6A42B0F0F3700BE22EF /* RouteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8D6A32B0F0F3700BE22EF /* RouteProtocol.swift */; };
+		3BC8D6A72B0F15D700BE22EF /* CarRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8D6A62B0F15D700BE22EF /* CarRoute.swift */; };
 		3BE034982AD83AC800953498 /* SignInViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */; };
 		3BE038C92AFB0BE70039B4FD /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3BE038C82AFB0BE70039B4FD /* .swiftlint.yml */; };
 		3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */; };
@@ -200,6 +203,9 @@
 		3BC1D27F2AE0D58600A7D0CC /* TWTWUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TWTWUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BC1D2832AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemsCollectionViewCell.swift; sourceTree = "<group>"; };
 		3BC1D2862AE1A6E700A7D0CC /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
+		3BC8D6A12B0F0F0A00BE22EF /* RouteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteService.swift; sourceTree = "<group>"; };
+		3BC8D6A32B0F0F3700BE22EF /* RouteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteProtocol.swift; sourceTree = "<group>"; };
+		3BC8D6A62B0F15D700BE22EF /* CarRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarRoute.swift; sourceTree = "<group>"; };
 		3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelUnitTests.swift; sourceTree = "<group>"; };
 		3BE038C82AFB0BE70039B4FD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		3BF9EF9F2AB1AE220014855E /* TWTW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWTW.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -257,7 +263,6 @@
 				3799E4F62A99D5C200E06218 /* Notification */,
 				377CB0682AD8C8E4003453D6 /* SearchPlaces */,
 				377CB0622AD869C5003453D6 /* Tabbar */,
-				3B7E25052B0E477C00526ACE /* Route */,
 				377CB05F2AD86968003453D6 /* Map */,
 				377CB0572AD86628003453D6 /* MeetingList */,
 				3B76F08B2AF9CF4200B2BD1D /* Login */,
@@ -292,6 +297,8 @@
 				3B6C7F972ADE264B0060091C /* Protocol */,
 				3BC1D2812AE1A55700A7D0CC /* View */,
 				3B76F0972AF9D17800B2BD1D /* ViewModel */,
+				3BC8D6A52B0F15B900BE22EF /* Model */,
+				3BC8D6A02B0F0EE900BE22EF /* Service */,
 				370AB4592ADD12E000951562 /* DefaultMainMapCoordinator.swift */,
 			);
 			path = Map;
@@ -589,6 +596,7 @@
 			isa = PBXGroup;
 			children = (
 				3B6C7F8F2ADE24340060091C /* Coordinator */,
+				3BC8D6A32B0F0F3700BE22EF /* RouteProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -798,13 +806,6 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
-		3B7E25052B0E477C00526ACE /* Route */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Route;
-			sourceTree = "<group>";
-		};
 		3B9FD0FA2AE7412000D81328 /* MainMap */ = {
 			isa = PBXGroup;
 			children = (
@@ -871,6 +872,22 @@
 			isa = PBXGroup;
 			children = (
 				3BC1D2862AE1A6E700A7D0CC /* TabItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3BC8D6A02B0F0EE900BE22EF /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3BC8D6A12B0F0F0A00BE22EF /* RouteService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		3BC8D6A52B0F15B900BE22EF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3BC8D6A62B0F15D700BE22EF /* CarRoute.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1044,6 +1061,7 @@
 				371C1D332ADBB00300B30DC5 /* DefaultCallCoordinator.swift in Sources */,
 				3B6CF3DB2ADAD14A00325D05 /* MockSignInCoordinator.swift in Sources */,
 				3BAA4A222ADCD0C8009D14E7 /* MockSignUpService.swift in Sources */,
+				3BC8D6A72B0F15D700BE22EF /* CarRoute.swift in Sources */,
 				3B274D712AD3F77600D79698 /* DefaultSignInCoordinator.swift in Sources */,
 				373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */,
 				3BC1D2872AE1A6E700A7D0CC /* TabItem.swift in Sources */,
@@ -1062,6 +1080,7 @@
 				3737AE8D2AE93EE600FE7453 /* SearchPlacesMapViewModel.swift in Sources */,
 				3737AE902AE93EE600FE7453 /* SearchPlaceProtocol.swift in Sources */,
 				3B6CF3D92ADACA7500325D05 /* MockSignInService.swift in Sources */,
+				3BC8D6A22B0F0F0A00BE22EF /* RouteService.swift in Sources */,
 				3B20E1EA2AE41EE9009572AA /* NotificationCoordinator.swift in Sources */,
 				370AB45A2ADD12E000951562 /* DefaultMainMapCoordinator.swift in Sources */,
 				375CB2C12AF88D8C00119DF1 /* CellIdentifiers.swift in Sources */,
@@ -1071,6 +1090,7 @@
 				3B0691552ABBD73900C98D6D /* Login.swift in Sources */,
 				3758F1A02A7D122100E2933C /* SignInViewController.swift in Sources */,
 				3B20E1E12AE41E4D009572AA /* CallCoordinator.swift in Sources */,
+				3BC8D6A42B0F0F3700BE22EF /* RouteProtocol.swift in Sources */,
 				370AB45E2ADD134800951562 /* DefaultMeetingListCoordinator.swift in Sources */,
 				377CB0592AD8665E003453D6 /* MeetingListViewModel.swift in Sources */,
 				3B274D7B2AD4CFDA00D79698 /* SignUpCoordinatorFinishDelegate.swift in Sources */,

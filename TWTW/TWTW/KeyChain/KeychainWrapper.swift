@@ -11,7 +11,7 @@ import Foundation
 final class KeychainWrapper {
     
     /// 문자열 값을 Keychain에 저장하는 함수
-    static func saveString(value: String, forKey key: String) -> Bool {
+    static func saveItem(value: String, forKey key: String) -> Bool {
         
         /// 문자열을 Data로 변환
         if let data = value.data(using: .utf8) {
@@ -30,7 +30,7 @@ final class KeychainWrapper {
     }
     
     /// Keychain에서 문자열 값을 로드하는 함수
-    static func loadString(forKey key: String) -> String? {
+    static func loadItem(forKey key: String) -> String? {
         guard let kCFBooleanTrue = kCFBooleanTrue else {return nil}
         
         let query: [String: Any] = [
@@ -40,10 +40,10 @@ final class KeychainWrapper {
             kSecMatchLimit as String: kSecMatchLimitOne // 로드할 값이 하나라는 것을 설정
         ]
         var result: AnyObject?
-        
+
         // Keychain에서 값 로드
         let status = SecItemCopyMatching(query as CFDictionary, &result)
-        
+
         // 값이 로드되고 변환이 성공 시
         if status == errSecSuccess, let data = result as? Data, let value = String(data: data, encoding: .utf8) {
             return value
@@ -56,7 +56,7 @@ final class KeychainWrapper {
                                             kSecAttrAccount: key]
         let status = SecItemDelete(deleteQuery as CFDictionary)
         if status == errSecSuccess { return true }
-        
+
         print("deleteItem Error : \(status.description)")
         return false
     }

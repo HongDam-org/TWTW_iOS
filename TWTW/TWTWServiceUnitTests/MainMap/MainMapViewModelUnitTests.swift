@@ -20,7 +20,7 @@ final class MainMapViewModelUnitTests: XCTestCase {
     private var viewModel: MainMapViewModel!
 
     override func setUpWithError() throws {
-        viewModel = MainMapViewModel(coordinator: nil)
+        viewModel = MainMapViewModel(coordinator: nil, routeService: RouteService())
         scheduler = TestScheduler(initialClock: 0)
         disposeBag = DisposeBag()
         print("Start MainMapViewModelUnitTests Unit Test")
@@ -40,7 +40,8 @@ final class MainMapViewModelUnitTests: XCTestCase {
                                            searchBarTouchEvents: nil,
                                            cLLocationCoordinate2DEvents: nil,
                                            myLocationTappedEvents: nil,
-                                           tabbarControllerViewPanEvents: nil)
+                                           tabbarControllerViewPanEvents: nil,
+                                           surroundSelectedTouchEvnets: nil)
 
         let output = viewModel.bind(input: input, viewMiddleYPoint: nil)
 
@@ -81,7 +82,8 @@ final class MainMapViewModelUnitTests: XCTestCase {
                                            searchBarTouchEvents: searchBarTouchSubject.asObservable(),
                                            cLLocationCoordinate2DEvents: nil,
                                            myLocationTappedEvents: nil,
-                                           tabbarControllerViewPanEvents: nil)
+                                           tabbarControllerViewPanEvents: nil,
+                                           surroundSelectedTouchEvnets: nil)
 
         let output = viewModel.bind(input: input, viewMiddleYPoint: nil)
 
@@ -113,7 +115,8 @@ final class MainMapViewModelUnitTests: XCTestCase {
                                            searchBarTouchEvents: nil,
                                            cLLocationCoordinate2DEvents: observableLocation.asObservable(),
                                            myLocationTappedEvents: nil,
-                                           tabbarControllerViewPanEvents: nil)
+                                           tabbarControllerViewPanEvents: nil,
+                                           surroundSelectedTouchEvnets: nil)
 
         let output = viewModel.bind(input: input, viewMiddleYPoint: nil)
 
@@ -145,7 +148,8 @@ final class MainMapViewModelUnitTests: XCTestCase {
                                            searchBarTouchEvents: nil,
                                            cLLocationCoordinate2DEvents: observableLocation.asObservable(),
                                            myLocationTappedEvents: myLocationTouchSubject.asObservable(),
-                                           tabbarControllerViewPanEvents: nil)
+                                           tabbarControllerViewPanEvents: nil,
+                                           surroundSelectedTouchEvnets: nil)
         let output = viewModel.bind(input: input, viewMiddleYPoint: nil)
 
         let observerMyLocation = scheduler.createObserver(CLLocationCoordinate2D.self).asObserver()
@@ -171,7 +175,8 @@ final class MainMapViewModelUnitTests: XCTestCase {
                                            searchBarTouchEvents: nil,
                                            cLLocationCoordinate2DEvents: nil,
                                            myLocationTappedEvents: nil,
-                                           tabbarControllerViewPanEvents: panGestureSubject.asObservable())
+                                           tabbarControllerViewPanEvents: panGestureSubject.asObservable(),
+                                           surroundSelectedTouchEvnets: nil)
         let output = viewModel.bind(input: input, viewMiddleYPoint: nil)
 
         scheduler.scheduleAt(10) { panGestureSubject.onNext(UIPanGestureRecognizer(target: nil, action: nil)) }

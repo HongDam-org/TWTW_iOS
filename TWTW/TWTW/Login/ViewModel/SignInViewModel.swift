@@ -40,8 +40,8 @@ final class SignInViewModel {
     
     /// 저장된 토큰 확인
     func checkSavingTokens(output: Output) {
-        if KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue) != nil,
-           KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue) != nil {
+        if KeychainWrapper.loadItem(forKey: SignIn.accessToken.rawValue) != nil,
+           KeychainWrapper.loadItem(forKey: SignIn.refreshToken.rawValue) != nil {
             return checkAccessTokenValidation(output: output)
         }
         // SignInViewController 이동
@@ -97,17 +97,19 @@ final class SignInViewModel {
     
     /// AccessToken 재발급할 때 사용
     func getNewAccessToken(output: Output) {
-        let accessToken = KeychainWrapper.loadString(forKey: SignIn.accessToken.rawValue)
-        let refreshToken = KeychainWrapper.loadString(forKey: SignIn.refreshToken.rawValue)
+        let accessToken = KeychainWrapper.loadItem(forKey: SignIn.accessToken.rawValue)
+        let refreshToken = KeychainWrapper.loadItem(forKey: SignIn.refreshToken.rawValue)
         
-        signInServices?.getNewAccessToken(token: TokenResponse(accessToken: accessToken, refreshToken: refreshToken))
+        signInServices?.getNewAccessToken(token: TokenResponse(accessToken: "\(String(describing: accessToken))",
+                                                               refreshToken: "\(String(describing: refreshToken))"))
             .subscribe(onNext: { [weak self] data in // 재발급 성공
                 guard let self = self else {return}
                 if let access = data.accessToken, let refresh = data.refreshToken {
-                    if KeychainWrapper.saveString(value: access, forKey: SignIn.accessToken.rawValue) &&
-                        KeychainWrapper.saveString(value: refresh, forKey: SignIn.refreshToken.rawValue) {
+                    if KeychainWrapper.saveItem(value: access, forKey: SignIn.accessToken.rawValue) &&
+                        KeychainWrapper.saveItem(value: refresh, forKey: SignIn.refreshToken.rawValue) {
                         // move MeetingListViewController
-                        output.checkGetNewAccessToken.accept(TokenResponse(accessToken: accessToken, refreshToken: refreshToken))
+                        output.checkGetNewAccessToken.accept(TokenResponse(accessToken: "\(String(describing: accessToken))",
+                                                                           refreshToken: "\(String(describing: refreshToken))"))
                         coordinator?.moveMain()
                     }
                 }
@@ -125,15 +127,15 @@ final class SignInViewModel {
     ///   - authType: 인증 방식 ex)카카오, 애플
     ///   - identifier: 유저 고유의 identifier
     func signInService(authType: String, identifier: String, output: Output) {
-        _ = KeychainWrapper.saveString(value: authType, forKey: SignInSaveKeyChain.authType.rawValue)
-        _ = KeychainWrapper.saveString(value: identifier, forKey: SignInSaveKeyChain.identifier.rawValue)
+        _ = KeychainWrapper.saveItem(value: authType, forKey: SignInSaveKeyChain.authType.rawValue)
+        _ = KeychainWrapper.saveItem(value: identifier, forKey: SignInSaveKeyChain.identifier.rawValue)
         
         signInServices?.signInService(request: OAuthRequest(token: identifier,
                                                            authType: authType))
             .subscribe(onNext: { [weak self] data in
                 guard let self = self else {return}
-                if KeychainWrapper.saveString(value: data.tokenDto?.accessToken ?? "", forKey: SignIn.accessToken.rawValue) &&
-                    KeychainWrapper.saveString(value: data.tokenDto?.refreshToken ?? "", forKey: SignIn.refreshToken.rawValue) {
+                if KeychainWrapper.saveItem(value: data.tokenDto?.accessToken ?? "", forKey: SignIn.accessToken.rawValue) &&
+                    KeychainWrapper.saveItem(value: data.tokenDto?.refreshToken ?? "", forKey: SignIn.refreshToken.rawValue) {
                     
                     output.checkSignInService.accept(data.status)
                     guard let status = data.status else {return}

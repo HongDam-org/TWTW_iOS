@@ -12,7 +12,6 @@ import UIKit
 
 /// MainMap 관리하는 Coordinator
 final class DefaultMainMapCoordinator: MainMapCoordinator {
-    
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     private var mainMapViewModel: MainMapViewModel?
@@ -20,7 +19,7 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        mainMapViewModel = MainMapViewModel(coordinator: self)
+        mainMapViewModel = MainMapViewModel(coordinator: self, routeService: RouteService())
     }
     
     // MARK: - Fuctions
@@ -37,7 +36,10 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     /// SearchPlacesMapCoordinator 시작하는 메소드
     func moveSearch(output: MainMapViewModel.Output) {
         mainMapViewModelOutput = output
-        let searchPlacesMapCoordinator = DefaultSearchPlacesMapCoordinator(navigationController: navigationController, delegate: self)
+        let searchPlacesMapCoordinator = DefaultSearchPlacesMapCoordinator(navigationController: navigationController,
+                                                                           delegate: self)
+        _ = KeychainWrapper.saveItem(value: "\(output.myLocatiaonRelay.value.latitude)", forKey: "latitude")
+        _ = KeychainWrapper.saveItem(value: "\(output.myLocatiaonRelay.value.longitude)", forKey: "longitude")
         searchPlacesMapCoordinator.start()
         childCoordinators.append(searchPlacesMapCoordinator)
     }

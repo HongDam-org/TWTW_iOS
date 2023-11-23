@@ -91,13 +91,13 @@ final class MainMapViewController: KakaoMapViewController {
         if mapController?.addView(mapviewInfo) == Result.OK {   // 지도가 다 그려진 다음 실행
             print("Success Build Map")
             if let output = output {
-                createRoute(output: output)
                 bindHideTabbarControllerRelay(output: output)
                 bindHideNearPlaces(output: output)
                 bindMyLocation(output: output)
                 bindSearchPlaceLocation(output: output)
                 bindHideMyLocationImageViewRelay(output: output)
                 bindingNearByCollectionView(output: output)
+                bindDestinationPathRelay(output: output)
             }
         }
     }
@@ -199,16 +199,10 @@ final class MainMapViewController: KakaoMapViewController {
                                            cLLocationCoordinate2DEvents: Observable.just(configureLocationManager()),
                                            myLocationTappedEvents: myloctaionImageView.rx.anyGesture(.tap())
                                                                                     .when(.recognized).asObservable(),
-                                           tabbarControllerViewPanEvents: tabbarController.view.rx.anyGesture(.pan()).asObservable())
+                                           tabbarControllerViewPanEvents: tabbarController.view.rx.anyGesture(.pan()).asObservable(),
+                                           surroundSelectedTouchEvnets: nearbyPlacesCollectionView.rx.itemSelected.asObservable())
         let output = viewModel.bind(input: input, viewMiddleYPoint: view.frame.height/2)
         self.output = output
-    }
-    
-    /// 경로 그리기
-    private func createRoute(output: MainMapViewModel.Output) {
-        createRouteStyleSet()
-        createRouteline(output: output)
-        createLabelLayer(output: output)
     }
     
     /// 내 위치 binding
@@ -308,18 +302,21 @@ final class MainMapViewController: KakaoMapViewController {
             }
                        .disposed(by: disposeBag)
         
-        nearbyPlacesCollectionView.rx.itemSelected
-            .bind(onNext: { [weak self] indexPath in
-                guard let self = self else {return}
-                print(indexPath)
-                nearbyPlacesCollectionView.deselectItem(at: indexPath, animated: true)
-            })
-            .disposed(by: disposeBag)
-        
         nearbyPlacesCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
     }
-    
+        
+    /// 목적지까지 경로
+    private func bindDestinationPathRelay(output: MainMapViewModel.Output) {
+        output.destinationPathRelay
+            .subscribe(onNext: { [weak self] pathList in
+                guard let self = self, pathList != [[]] else {return}
+                createRouteStyleSet(pathList: pathList)
+                createRouteline(pathList: pathList)
+                createLabelLayer(output: output)
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 // MARK: - 지도 관련 함수
@@ -343,7 +340,7 @@ extension MainMapViewController {
     // MARK: - Route Functions
     
     /// 길찾기 표시
-    private func createRouteStyleSet() {
+    private func createRouteStyleSet(pathList: [[Double]]) {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
         // 라우트 매니저 초기화
         let manager = mapView.getRouteManager()
@@ -370,20 +367,62 @@ extension MainMapViewController {
         ])
         
         styleSet.addStyle(routeStyle)
-        
         manager.addRouteStyleSet(styleSet)
     }
     
     /// 지도에 선 그리기
-    private func createRouteline(output: MainMapViewModel.Output) {
+    private func createRouteline(pathList: [[Double]]) {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
         let manager = mapView.getRouteManager()
         let layer = manager.addRouteLayer(layerID: "RouteLayer", zOrder: 0)
         
-        viewModel.createRouteline(mapView: mapView, layer: layer, output: output)
+        let segmentPoints = routeSegmentPoints(pathList: pathList)
+        
+        var segments: [RouteSegment] = [RouteSegment]()
+        var styleIndex: UInt = 0
+        for points in segmentPoints {
+            // 경로 포인트로 RouteSegment 생성. 사용할 스타일 인덱스도 지정한다.
+            let seg = RouteSegment(points: points, styleIndex: styleIndex)
+            segments.append(seg)
+            styleIndex = (styleIndex + 1) % 4
+        }
+        
+        let options = RouteOptions(routeID: "routes", styleID: "routeStyleSet1", zOrder: 0)
+        options.segments = segments
+        let route = layer?.addRoute(option: options)
+        route?.show()
+        
+        let pnt = segments[0].points[0]
+        mapView.moveCamera(CameraUpdate.make(target: pnt, zoomLevel: 15, mapView: mapView))
     }
     
     
+    /// 위도 경도를 이용하여 point를 찍음
+    func routeSegmentPoints(pathList: [[Double]]) -> [[MapPoint]] {
+        var segments = [[MapPoint]]()
+        
+        var points = [MapPoint]()
+        
+        print("😡")
+        
+        _ = pathList.map { point in
+            points.append(MapPoint(longitude: point[0], latitude: point[1]))
+        }
+        
+        segments.append(points)
+        
+//        points = [MapPoint]()   // 따로 표시가 됨
+//        points.append(MapPoint(longitude: 129.0759853,
+//                               latitude: 35.1794697))
+//        points.append(MapPoint(longitude: 129.0764276,
+//                               latitude: 35.1795108))
+//        points.append(MapPoint(longitude: 129.0762855,
+//                               latitude: 35.1793188))
+//        segments.append(points)
+        return segments
+    }
+    
+
     // MARK: - Poi Functions
     
     /// POI가 속할 LabelLayer를 생성

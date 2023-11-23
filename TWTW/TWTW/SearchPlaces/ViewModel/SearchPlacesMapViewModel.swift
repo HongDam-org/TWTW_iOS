@@ -123,10 +123,8 @@ final class SearchPlacesMapViewModel {
                                                      categoryGroupCode: "NONE")
         .subscribe(onNext: { [weak self] result in
             guard let self = self  else { return }
-            
             let coordinate = CLLocationCoordinate2D(latitude: yPosition, longitude: xPosition)
             coordinator?.finishSearchPlaces(coordinate: coordinate, searchPlaceList: result.results)
-            
         })
         .disposed(by: disposeBag)
     }

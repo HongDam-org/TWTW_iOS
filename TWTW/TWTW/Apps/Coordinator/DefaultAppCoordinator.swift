@@ -5,6 +5,7 @@
 //  Created by 박다미 on 2023/08/26.
 //
 
+import CoreLocation
 import Foundation
 import UIKit
 
@@ -31,6 +32,8 @@ final class DefaultAppCoordinator: AppCoordinator {
     
     func moveMain() {
         childCoordinators.removeAll()
+        _ = KeychainWrapper.saveItem(value: "\(0.0)", forKey: "latitude")
+        _ = KeychainWrapper.saveItem(value: "\(0.0)", forKey: "longitude")
         // MeetingListCoodrinator로 이동
         let meetingListCoordinator = DefaultMeetingListCoordinator(navigationController: navigationController)
         meetingListCoordinator.start()

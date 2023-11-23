@@ -27,7 +27,8 @@ struct PlaceResponse: Codable {
 
 /// 장소 정보
 struct SearchPlace: Codable {
-    let placeName, distance: String?
+    let placeName: String?
+    let distance: Int?
     let placeURL: String?
     let categoryName, addressName, roadAddressName, categoryGroupCode: String?
     let xPosition, yPosition: Double?

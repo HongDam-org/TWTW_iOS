@@ -16,6 +16,7 @@ import UIKit
 
 final class MainMapViewModel {
     private let coordinator: DefaultMainMapCoordinator?
+    private let routeService: RouteProtocol?
     private let disposeBag = DisposeBag()
     
     struct Input {
@@ -33,6 +34,9 @@ final class MainMapViewModel {
         
         /// 내위치 버튼 Y 좌표
         let tabbarControllerViewPanEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
+        
+        /// 주변 장소 선택한 경우
+        let surroundSelectedTouchEvnets: Observable<IndexPath>?
     }
     
     struct Output {
@@ -61,13 +65,16 @@ final class MainMapViewModel {
         /// 검색지 주변 장소 데이터 리스트
         var nearByplaceRelay: BehaviorRelay<[PlaceInformation]> = BehaviorRelay(value: [])
         
+        /// 목적지 까지의 경로
+        var destinationPathRelay: BehaviorRelay<[[Double]]> = BehaviorRelay(value: [[]])
         
         var moveSearchCoordinator: PublishSubject<Bool> = PublishSubject()
     }
 
     // MARK: - init
-    init(coordinator: DefaultMainMapCoordinator?) {
+    init(coordinator: DefaultMainMapCoordinator?, routeService: RouteProtocol) {
         self.coordinator = coordinator
+        self.routeService = routeService
     }
 
     /// bind
@@ -98,6 +105,23 @@ final class MainMapViewModel {
             .bind { manager in
                 output.myLocatiaonRelay.accept(manager.location?.coordinate ?? CLLocationCoordinate2D())
                 output.cameraCoordinateObservable.accept(manager.location?.coordinate ?? CLLocationCoordinate2D())
+            }
+            .disposed(by: disposeBag)
+        
+        input.surroundSelectedTouchEvnets?
+            .bind { [weak self] indexPath in
+                guard let self = self else { return }
+                let myLocation = output.myLocatiaonRelay.value
+                let selectedItem = output.nearByplaceRelay.value[indexPath.row]
+                let destinationLocation = CLLocationCoordinate2D(latitude: selectedItem.yPosition ?? 0.0,
+                                                                 longitude: selectedItem.xPosition ?? 0.0)
+                let body = CarRouteRequest(start: "\(myLocation.longitude),\(myLocation.latitude)",
+                                           end: "\(destinationLocation.longitude),\(destinationLocation.latitude)",
+                                           way: "",
+                                           option: "TRAFAST",
+                                           fuel: "DIESEL",
+                                           car: 1)
+                getCarRoute(body: body, output: output)
             }
             .disposed(by: disposeBag)
         
@@ -153,49 +177,14 @@ final class MainMapViewModel {
         coordinator?.moveSearch(output: output)
     }
     
-    /// 지도에 선 그리기
-    func createRouteline(mapView: KakaoMap, layer: RouteLayer?, output: Output) {
-        let segmentPoints = routeSegmentPoints(longitude: output.myLocatiaonRelay.value.longitude,
-                                               latitude: output.myLocatiaonRelay.value.latitude)
-        
-        var segments: [RouteSegment] = [RouteSegment]()
-        var styleIndex: UInt = 0
-        for points in segmentPoints {
-            // 경로 포인트로 RouteSegment 생성. 사용할 스타일 인덱스도 지정한다.
-            let seg = RouteSegment(points: points, styleIndex: styleIndex)
-            segments.append(seg)
-            styleIndex = (styleIndex + 1) % 4
-        }
-        
-        let options = RouteOptions(routeID: "routes", styleID: "routeStyleSet1", zOrder: 0)
-        options.segments = segments
-        let route = layer?.addRoute(option: options)
-        route?.show()
-        
-        let pnt = segments[0].points[0]
-        mapView.moveCamera(CameraUpdate.make(target: pnt, zoomLevel: 15, mapView: mapView))
+    /// 자동차 경로 가져오기
+    private func getCarRoute(body: CarRouteRequest, output: Output) {
+        routeService?.carRoute(request: body)
+            .subscribe(onNext: { route in
+                output.destinationPathRelay.accept(route.route?.trafast?.first?.path ?? [])
+            }, onError: { error in
+                print(error)
+            })
+            .disposed(by: disposeBag)
     }
-    
-    /// 위도 경도를 이용하여 point를 찍음
-    func routeSegmentPoints(longitude: Double, latitude: Double) -> [[MapPoint]] {
-        var segments = [[MapPoint]]()
-        
-        var points = [MapPoint]()
-        
-        points.append(MapPoint(longitude: longitude, latitude: latitude))
-        points.append(MapPoint(longitude: 126.7323429, latitude: 37.3416939))
-        
-        segments.append(points)
-        
-        points = [MapPoint]()   // 따로 표시가 됨
-        points.append(MapPoint(longitude: 129.0759853,
-                               latitude: 35.1794697))
-        points.append(MapPoint(longitude: 129.0764276,
-                               latitude: 35.1795108))
-        points.append(MapPoint(longitude: 129.0762855,
-                               latitude: 35.1793188))
-        segments.append(points)
-        return segments
-    }
-
 }
