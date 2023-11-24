@@ -11,5 +11,5 @@ import UIKit
 
 protocol SearchPlacesMapCoordinatorProtocol: Coordinator {
     // 장소검색 이후
-    func finishSearchPlaces(coordinator: CLLocationCoordinate2D)
+    func finishSearchPlaces(coordinate: CLLocationCoordinate2D)
 }

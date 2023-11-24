@@ -19,9 +19,9 @@ final class MockSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtocol {
         self.navigationController = navigationController
     }
 
-    func finishSearchPlaces(coordinator: CLLocationCoordinate2D) {
+    func finishSearchPlaces(coordinate coordinator: CLLocationCoordinate2D) {
         finishSearchPlacesCalled = true
-        print("🍎Mock \(#function)")
+        print("Mock \(#function)")
     }
 
     func start() {

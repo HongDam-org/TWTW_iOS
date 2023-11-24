@@ -39,7 +39,7 @@ final class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtoco
     }
     
     /// 서치 완료후 :  cLLocation전달 & pop VC
-    func finishSearchPlaces(coordinator: CLLocationCoordinate2D) {
+    func finishSearchPlaces(coordinate: CLLocationCoordinate2D) {
         delegate?.didSelectCoordinate(coordinate: coordinate)
         navigationController.popViewController(animated: true)
     }

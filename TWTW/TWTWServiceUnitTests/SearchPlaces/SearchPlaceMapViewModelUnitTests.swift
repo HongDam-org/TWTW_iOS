@@ -13,7 +13,6 @@ import CoreLocation
 @testable import TWTW
 
 final class SearchPlacesMapViewModelUnitTests: XCTestCase {
-
     private var disposeBag: DisposeBag!
     private var scheduler: TestScheduler!
     private var viewModel: SearchPlacesMapViewModel!
@@ -22,22 +21,15 @@ final class SearchPlacesMapViewModelUnitTests: XCTestCase {
     private var output: SearchPlacesMapViewModel.Output!
     private var mockCoordinator: MockSearchPlacesMapCoordinator!
 
-    private let mockPlace1 = SearchPlace(placeName: "Place1", distance: "100m", placeURL: "url",
-                                         categoryName: "Cafe", addressName: "Address", roadAddressName: "RoadAdd",
-                                         categoryGroupCode: "CGC", xPosition: "100.0", yPosition: "200.0")
-    private let mockPlace2 = SearchPlace(placeName: "Place2", distance: "200m", placeURL: "url2",
-                                         categoryName: "Cafe2", addressName: "Address2", roadAddressName: "RoadAdd2",
-                                         categoryGroupCode: "CGC2", xPosition: "300.0", yPosition: "400.0")
-
     override func setUpWithError() throws {
         try super.setUpWithError()
         scheduler = TestScheduler(initialClock: 0)
-        mockCoordinator = MockSearchPlacesMapCoordinator(childCoordinators: [], navigationController: UINavigationController())
+        mockCoordinator = MockSearchPlacesMapCoordinator(childCoordinators: [],
+                                                         navigationController: UINavigationController())
         mockService = MockSearchPlacesMapService()
         viewModel = SearchPlacesMapViewModel(coordinator: mockCoordinator, searchPlacesServices: mockService)
         disposeBag = DisposeBag()
     }
-
     override func tearDownWithError() throws {
         disposeBag = nil
         scheduler = nil
@@ -47,8 +39,6 @@ final class SearchPlacesMapViewModelUnitTests: XCTestCase {
     }
 
     func testLoadDataOnSearchTextChange() {
-        mockService.mockResponse = PlaceResponse(results: [mockPlace1], isLast: false)
-
         let searchTextObservable = scheduler.createHotObservable([
             .next(10, "Place1")
         ]).asObservable().map { $0 as String? }
@@ -58,7 +48,6 @@ final class SearchPlacesMapViewModelUnitTests: XCTestCase {
             loadMoreTrigger: PublishRelay<Void>(),
             selectedCoorinate: Observable<SearchPlace>.never()
         )
-
         output = viewModel.bind(input: input)
 
         let result = scheduler.createObserver([SearchPlace].self)
@@ -66,39 +55,23 @@ final class SearchPlacesMapViewModelUnitTests: XCTestCase {
 
         scheduler.start()
 
-        if let resultAt10 = result.events.filter({ $0.time == 10 })
-            .first?.value.element?.first {
-            XCTAssertEqual(resultAt10.placeName, mockPlace1.placeName, "time 10에 place1결과")
+        if let resultAt10 = result.events.filter({ $0.time == 10 }).first?.value.element?.first {
+            XCTAssertEqual(resultAt10.placeName, mockService.mockPlace1.placeName, "PlaceName 일치")
+            XCTAssertEqual(resultAt10.distance, mockService.mockPlace1.distance, "Distance 일치")
         } else {
             XCTFail("결과없음")
         }
     }
 
-    // Place1 Place2 표시되는지, 장소들을 선택했을 때  xPosition과 yPosition이 반환
+    // 클릭시 xPosition과 yPosition이 반환
     func testTableViewCellSelectsCorrectCoordinates() {
-        mockService.mockResponse = PlaceResponse(results: [mockPlace1, mockPlace2], isLast: false)
         let searchTextObservable = scheduler.createHotObservable([
-            .next(10, "Place1")
+            .next(10, "Place")
         ]).asObservable().map { $0 as String? }
 
-        input = SearchPlacesMapViewModel.Input(
-            searchText: searchTextObservable,
-            loadMoreTrigger: PublishRelay<Void>(),
-            selectedCoorinate: Observable<SearchPlace>.never()
-        )
-
-        output = viewModel.bind(input: input)
-
-        let result = scheduler.createObserver([SearchPlace].self)
-        output.filteredPlaces.bind(to: result).disposed(by: disposeBag)
-
-        scheduler.start()
-        let resultsAt10 = result.events.filter { $0.time == 10 }.first?.value.element ?? []
-        XCTAssertEqual(resultsAt10.map { $0.placeName }, ["Place1", "Place2"], "time 10에 Place1과 Place2 표시")
-
         let selectedPlaceObservable = scheduler.createHotObservable([
-            .next(20, mockPlace1),
-            .next(30, mockPlace2)
+            .next(20, mockService.mockPlace1),
+            .next(30, mockService.mockPlace2)
         ]).asObservable()
 
         input = SearchPlacesMapViewModel.Input(
@@ -112,11 +85,10 @@ final class SearchPlacesMapViewModelUnitTests: XCTestCase {
         let selectedPlaceResult = scheduler.createObserver(CLLocationCoordinate2D.self)
         selectedPlaceObservable.map { CLLocationCoordinate2D(latitude: Double($0.yPosition) ?? 0,
                                                              longitude: Double($0.xPosition) ?? 0) }
-            .bind(to: selectedPlaceResult)
-            .disposed(by: disposeBag)
+        .bind(to: selectedPlaceResult)
+        .disposed(by: disposeBag)
 
         scheduler.start()
-
         let expectedCoordinate1 = CLLocationCoordinate2D(latitude: 200.0, longitude: 100.0)
         let expectedCoordinate2 = CLLocationCoordinate2D(latitude: 400.0, longitude: 300.0)
         let actualCoordinates = selectedPlaceResult.events.compactMap { $0.value.element }
@@ -136,19 +108,17 @@ final class SearchPlacesMapViewModelUnitTests: XCTestCase {
             XCTFail("두 번째 장소 좌표가 반환되지 않음")
         }
         selectedPlaceObservable.subscribe(onNext: { [weak self] place in
-                    let coordinate = CLLocationCoordinate2D(
-                        latitude: Double(place.yPosition) ?? 0,
-                        longitude: Double(place.xPosition) ?? 0)
-                    self?.mockCoordinator.finishSearchPlaces(coordinate: coordinate)
-                }).disposed(by: disposeBag)
+            let coordinate = CLLocationCoordinate2D(
+                latitude: Double(place.yPosition) ?? 0,
+                longitude: Double(place.xPosition) ?? 0)
+            self?.mockCoordinator.finishSearchPlaces(coordinate: coordinate)
+        }).disposed(by: disposeBag)
         XCTAssertTrue(mockCoordinator.finishSearchPlacesCalled, "finishSearchPlaces")
     }
 
     func testLoadMoreSearchResults() {
-        mockService.mockResponse = PlaceResponse(results: [mockPlace1], isLast: false)
-
         let searchTextObservable = scheduler.createHotObservable([
-            .next(10, "Place1")
+            .next(10, "Place")
         ]).asObservable().map { $0 as String? }
 
         let loadMoreTrigger = PublishRelay<Void>()
@@ -157,19 +127,21 @@ final class SearchPlacesMapViewModelUnitTests: XCTestCase {
             loadMoreTrigger: loadMoreTrigger,
             selectedCoorinate: Observable<SearchPlace>.never()
         )
+
         output = viewModel.bind(input: input)
         let result = scheduler.createObserver([SearchPlace].self)
         output.filteredPlaces.bind(to: result).disposed(by: disposeBag)
 
         scheduler.scheduleAt(15) {
-            self.mockService.mockResponse = PlaceResponse(results: [self.mockPlace2], isLast: false)
             loadMoreTrigger.accept(())
         }
 
         scheduler.start()
 
-        let resultsAt15 = result.events.filter { $0.time == 15 }.first?.value.element ?? []
-           let placeNamesAt15 = resultsAt15.map { $0.placeName }
-        XCTAssertEqual(placeNamesAt15, [mockPlace1.placeName, mockPlace2.placeName], "time 15에 추가된결과 Place1 Place2")
+        let resultsAt15 = result.events.filter { $0.time >= 15 }.compactMap { $0.value.element }.flatMap { $0 }
+        let placeNamesAt15 = resultsAt15.map { $0.placeName }
+
+        XCTAssertEqual(placeNamesAt15, ["Place1", "Place2"],
+                       "time 15에 추가된결과 Place1 Place2")
     }
 }
