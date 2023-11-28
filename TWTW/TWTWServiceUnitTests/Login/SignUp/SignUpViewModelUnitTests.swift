@@ -26,7 +26,6 @@ final class SignUpViewModelUnitTests: XCTestCase {
         disposeBag = DisposeBag()
         print("Start SignUpViewModelUnitTests Unit Test")
     }
-
     override func tearDownWithError() throws {
         disposeBag = nil
         scheduler = nil
