@@ -69,15 +69,15 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        appear = false
-        mapController?.stopRendering()  // 렌더링 중지.
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        appear = false
+//        mapController?.stopRendering()  // 렌더링 중지.
+//    }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        removeObservers()
-        mapController?.stopEngine()     // 엔진 정지. 추가되었던 ViewBase들이 삭제된다.
-    }
+//    override func viewDidDisappear(_ animated: Bool) {
+//        removeObservers()
+//        mapController?.stopEngine()     // 엔진 정지. 추가되었던 ViewBase들이 삭제된다.
+//    }
     
     private func set() {
         view.addSubview(mapView)

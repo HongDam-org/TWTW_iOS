@@ -22,15 +22,16 @@ struct PlacesRequest: Codable {
 /// 검색 결과 리스트
 struct PlaceResponse: Codable {
     let results: [SearchPlace]
-    let isLast: Bool
+    let isLast: Bool?
 }
 
 /// 장소 정보
 struct SearchPlace: Codable {
-    let placeName, distance: String
-    let placeURL: String
-    let categoryName, addressName, roadAddressName, categoryGroupCode: String
-    let xPosition, yPosition: String
+    let placeName: String?
+    let distance: Int?
+    let placeURL: String?
+    let categoryName, addressName, roadAddressName, categoryGroupCode: String?
+    let xPosition, yPosition: Double?
     
     enum CodingKeys: String, CodingKey {
         case placeName, distance

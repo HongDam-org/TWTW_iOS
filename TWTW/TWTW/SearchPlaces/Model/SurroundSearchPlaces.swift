@@ -15,10 +15,11 @@ struct SurroundSearchPlaces: Codable {
 
 /// 주변지 정보
 struct PlaceInformation: Codable {
-    let placeName, distance: String
-    let placeURL: String
-    let categoryName, addressName, roadAddressName, categoryGroupCode: String
-    let xPosition, yPosition: String
+    let placeName: String?
+    let distance: Int?
+    let placeURL: String?
+    let categoryName, addressName, roadAddressName, categoryGroupCode: String?
+    let xPosition, yPosition: Double?
 
     enum CodingKeys: String, CodingKey {
         case placeName, distance

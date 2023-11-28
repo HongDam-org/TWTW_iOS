@@ -118,13 +118,13 @@ final class SignUpViewModel {
     ///   - output: Output 구조체
     func signUp(nickName: String, output: Output) {
         
-        let identifier = KeychainWrapper.loadString(forKey: SignInSaveKeyChain.identifier.rawValue) ?? ""
-        let authType = KeychainWrapper.loadString(forKey: SignInSaveKeyChain.authType.rawValue) ?? ""
+        let identifier = KeychainWrapper.loadItem(forKey: SignInSaveKeyChain.identifier.rawValue) ?? ""
+        let authType = KeychainWrapper.loadItem(forKey: SignInSaveKeyChain.authType.rawValue) ?? ""
         
         let loginRequest = LoginRequest(nickname: nickName,
                                         profileImage: "!!!!!",
-                                        oauthRequest: OAuthRequest(token: identifier,
-                                                                   authType: authType))
+                                        oauthRequest: OAuthRequest(token: "\(identifier)",
+                                                                   authType: "\(authType)"))
         print(#function)
         print(loginRequest)
         signUpServices?.signUpService(request: loginRequest)

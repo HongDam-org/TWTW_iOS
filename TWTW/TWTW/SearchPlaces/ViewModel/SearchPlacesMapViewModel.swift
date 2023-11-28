@@ -17,6 +17,7 @@ final class SearchPlacesMapViewModel {
     weak var coordinator: SearchPlacesMapCoordinatorProtocol?
     private let disposeBag = DisposeBag()
     private let searchPlacesServices: SearchPlaceProtocol?
+    private let surroundSearchServices: SurroundSearchProtocol?
     private var state = SearchPlacesMapState()
     
     struct Input {
@@ -33,15 +34,20 @@ final class SearchPlacesMapViewModel {
     struct Output {
         /// 테이블뷰에 보낼 검색장소
         let filteredPlaces: BehaviorRelay<[SearchPlace]> = BehaviorRelay<[SearchPlace]>(value: [])
+
         /// 서버에 보낼 Url text
         let searchText: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
     }
-    
+
     // MARK: - init
-    init(coordinator: SearchPlacesMapCoordinatorProtocol?, searchPlacesServices: SearchPlaceProtocol?) {
+    init(coordinator: SearchPlacesMapCoordinatorProtocol?,
+         searchPlacesServices: SearchPlaceProtocol?,
+         surroundSearchServices: SurroundSearchProtocol?) {
         self.coordinator = coordinator
         self.searchPlacesServices = searchPlacesServices
+        self.surroundSearchServices = surroundSearchServices
     }
+    
     ///  bind
     func bind(input: Input) -> Output {
         let output = createOutput(input: input)
@@ -77,10 +83,9 @@ final class SearchPlacesMapViewModel {
         input.selectedCoorinate
             .bind(onNext: { [weak self] selectedPlace in
                 guard let self = self,
-                      let placeX = Double(selectedPlace.xPosition),
-                      let placeY = Double(selectedPlace.yPosition) else { return }
-                let coordinate = CLLocationCoordinate2D(latitude: placeY, longitude: placeX)
-                coordinator?.finishSearchPlaces(coordinate: coordinate)
+                      let placeX = selectedPlace.xPosition,
+                      let placeY = selectedPlace.yPosition else { return }
+                getSurroundPlace(output: output, xPosition: placeX, yPosition: placeY)
             })
             .disposed(by: disposeBag)
         return output
@@ -106,6 +111,20 @@ final class SearchPlacesMapViewModel {
             var existingData = output.filteredPlaces.value
             existingData.append(contentsOf: placeResponse.results)
             output.filteredPlaces.accept(existingData)
+        })
+        .disposed(by: disposeBag)
+    }
+    
+    /// 주변 장소 목록 받아오기
+    private func getSurroundPlace(output: Output, xPosition: Double, yPosition: Double) {
+        surroundSearchServices?.surroundSearchPlaces(xPosition: xPosition,
+                                                     yPosition: yPosition,
+                                                     page: 1,
+                                                     categoryGroupCode: "NONE")
+        .subscribe(onNext: { [weak self] result in
+            guard let self = self  else { return }
+            let coordinate = CLLocationCoordinate2D(latitude: yPosition, longitude: xPosition)
+            coordinator?.finishSearchPlaces(coordinate: coordinate, searchPlaceList: result.results)
         })
         .disposed(by: disposeBag)
     }

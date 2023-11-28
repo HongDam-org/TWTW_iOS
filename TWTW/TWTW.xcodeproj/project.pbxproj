@@ -86,6 +86,7 @@
 		3B6CF3D72ADAC80200325D05 /* SignInProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3D62ADAC80200325D05 /* SignInProtocol.swift */; };
 		3B6CF3D92ADACA7500325D05 /* MockSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3D82ADACA7500325D05 /* MockSignInService.swift */; };
 		3B6CF3DB2ADAD14A00325D05 /* MockSignInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3DA2ADAD14A00325D05 /* MockSignInCoordinator.swift */; };
+		3B7E25072B0E4F4700526ACE /* SurroundSearchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7E25062B0E4F4700526ACE /* SurroundSearchProtocol.swift */; };
 		3B9FD0FF2AE7418F00D81328 /* MainMapViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FD0FE2AE7418F00D81328 /* MainMapViewModelUnitTests.swift */; };
 		3B9FD1012AE758C100D81328 /* CLLocationManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FD1002AE758C100D81328 /* CLLocationManagerMock.swift */; };
 		3BAA4A192ADC1DEA009D14E7 /* SignUpProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA4A182ADC1DEA009D14E7 /* SignUpProtocol.swift */; };
@@ -100,6 +101,10 @@
 		3BC1D27E2AE0D27F00A7D0CC /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D27D2AE0D27F00A7D0CC /* RxCocoa */; };
 		3BC1D2842AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1D2832AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift */; };
 		3BC1D2872AE1A6E700A7D0CC /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1D2862AE1A6E700A7D0CC /* TabItem.swift */; };
+		3BC8D6A22B0F0F0A00BE22EF /* RouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8D6A12B0F0F0A00BE22EF /* RouteService.swift */; };
+		3BC8D6A42B0F0F3700BE22EF /* RouteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8D6A32B0F0F3700BE22EF /* RouteProtocol.swift */; };
+		3BC8D6A72B0F15D700BE22EF /* CarRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8D6A62B0F15D700BE22EF /* CarRoute.swift */; };
+		3BC8D6AA2B0F520C00BE22EF /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC8D6A92B0F520C00BE22EF /* Kingfisher */; };
 		3BE034982AD83AC800953498 /* SignInViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */; };
 		3BE038C92AFB0BE70039B4FD /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3BE038C82AFB0BE70039B4FD /* .swiftlint.yml */; };
 		3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */; };
@@ -196,6 +201,7 @@
 		3B6CF3D62ADAC80200325D05 /* SignInProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInProtocol.swift; sourceTree = "<group>"; };
 		3B6CF3D82ADACA7500325D05 /* MockSignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignInService.swift; sourceTree = "<group>"; };
 		3B6CF3DA2ADAD14A00325D05 /* MockSignInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignInCoordinator.swift; sourceTree = "<group>"; };
+		3B7E25062B0E4F4700526ACE /* SurroundSearchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurroundSearchProtocol.swift; sourceTree = "<group>"; };
 		3B9FD0FE2AE7418F00D81328 /* MainMapViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModelUnitTests.swift; sourceTree = "<group>"; };
 		3B9FD1002AE758C100D81328 /* CLLocationManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationManagerMock.swift; sourceTree = "<group>"; };
 		3BAA4A182ADC1DEA009D14E7 /* SignUpProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpProtocol.swift; sourceTree = "<group>"; };
@@ -204,6 +210,9 @@
 		3BC1D27F2AE0D58600A7D0CC /* TWTWUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TWTWUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BC1D2832AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemsCollectionViewCell.swift; sourceTree = "<group>"; };
 		3BC1D2862AE1A6E700A7D0CC /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
+		3BC8D6A12B0F0F0A00BE22EF /* RouteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteService.swift; sourceTree = "<group>"; };
+		3BC8D6A32B0F0F3700BE22EF /* RouteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteProtocol.swift; sourceTree = "<group>"; };
+		3BC8D6A62B0F15D700BE22EF /* CarRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarRoute.swift; sourceTree = "<group>"; };
 		3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelUnitTests.swift; sourceTree = "<group>"; };
 		3BE038C82AFB0BE70039B4FD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		3BF9EF9F2AB1AE220014855E /* TWTW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWTW.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -219,6 +228,7 @@
 				3BC1D2742AE0D15D00A7D0CC /* RxSwift in Frameworks */,
 				3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */,
 				375E8B052A96187800F8DE42 /* RxGesture in Frameworks */,
+				3BC8D6AA2B0F520C00BE22EF /* Kingfisher in Frameworks */,
 				3BC1D2702AE0D15D00A7D0CC /* RxCocoa in Frameworks */,
 				3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */,
 				3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */,
@@ -313,6 +323,8 @@
 				3B6C7F972ADE264B0060091C /* Protocol */,
 				3BC1D2812AE1A55700A7D0CC /* View */,
 				3B76F0972AF9D17800B2BD1D /* ViewModel */,
+				3BC8D6A52B0F15B900BE22EF /* Model */,
+				3BC8D6A02B0F0EE900BE22EF /* Service */,
 				370AB4592ADD12E000951562 /* DefaultMainMapCoordinator.swift */,
 			);
 			path = Map;
@@ -399,6 +411,7 @@
 				37C305142AE80D4700D132CF /* Delegate */,
 				37C305132AE80D3900D132CF /* Coordinator */,
 				3737AE8A2AE93EE600FE7453 /* SearchPlaceProtocol.swift */,
+				3B7E25062B0E4F4700526ACE /* SurroundSearchProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -609,6 +622,7 @@
 			isa = PBXGroup;
 			children = (
 				3B6C7F8F2ADE24340060091C /* Coordinator */,
+				3BC8D6A32B0F0F3700BE22EF /* RouteProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -888,6 +902,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		3BC8D6A02B0F0EE900BE22EF /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3BC8D6A12B0F0F0A00BE22EF /* RouteService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		3BC8D6A52B0F15B900BE22EF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3BC8D6A62B0F15D700BE22EF /* CarRoute.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3BE034962AD83AC800953498 /* TWTWServiceUnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -933,6 +963,7 @@
 				3BC1D26F2AE0D15D00A7D0CC /* RxCocoa */,
 				3BC1D2712AE0D15D00A7D0CC /* RxRelay */,
 				3BC1D2732AE0D15D00A7D0CC /* RxSwift */,
+				3BC8D6A92B0F520C00BE22EF /* Kingfisher */,
 			);
 			productName = TWTW;
 			productReference = 3BF9EF9F2AB1AE220014855E /* TWTW.app */;
@@ -997,6 +1028,7 @@
 				375E8B032A96187800F8DE42 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				3BF9EFA02AB1AE4A0014855E /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
 				3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */,
+				3BC8D6A82B0F520B00BE22EF /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 3758F17F2A7D007100E2933C;
 			projectDirPath = "";
@@ -1059,6 +1091,7 @@
 				3B6CF3DB2ADAD14A00325D05 /* MockSignInCoordinator.swift in Sources */,
 				3BAA4A222ADCD0C8009D14E7 /* MockSignUpService.swift in Sources */,
 				37D3AFE32B0F3E67006FB449 /* MockSearchPlacesMapCoordinator.swift in Sources */,
+				3BC8D6A72B0F15D700BE22EF /* CarRoute.swift in Sources */,
 				3B274D712AD3F77600D79698 /* DefaultSignInCoordinator.swift in Sources */,
 				373C854A2AADBCAF00325155 /* TabBarViewModel.swift in Sources */,
 				3BC1D2872AE1A6E700A7D0CC /* TabItem.swift in Sources */,
@@ -1078,6 +1111,7 @@
 				3737AE8D2AE93EE600FE7453 /* SearchPlacesMapViewModel.swift in Sources */,
 				3737AE902AE93EE600FE7453 /* SearchPlaceProtocol.swift in Sources */,
 				3B6CF3D92ADACA7500325D05 /* MockSignInService.swift in Sources */,
+				3BC8D6A22B0F0F0A00BE22EF /* RouteService.swift in Sources */,
 				3B20E1EA2AE41EE9009572AA /* NotificationCoordinator.swift in Sources */,
 				370AB45A2ADD12E000951562 /* DefaultMainMapCoordinator.swift in Sources */,
 				375CB2C12AF88D8C00119DF1 /* CellIdentifiers.swift in Sources */,
@@ -1087,6 +1121,7 @@
 				3B0691552ABBD73900C98D6D /* Login.swift in Sources */,
 				3758F1A02A7D122100E2933C /* SignInViewController.swift in Sources */,
 				3B20E1E12AE41E4D009572AA /* CallCoordinator.swift in Sources */,
+				3BC8D6A42B0F0F3700BE22EF /* RouteProtocol.swift in Sources */,
 				370AB45E2ADD134800951562 /* DefaultMeetingListCoordinator.swift in Sources */,
 				377CB0592AD8665E003453D6 /* MeetingListViewModel.swift in Sources */,
 				3B274D7B2AD4CFDA00D79698 /* SignUpCoordinatorFinishDelegate.swift in Sources */,
@@ -1094,6 +1129,7 @@
 				3799E5022A99D68500E06218 /* CallViewController.swift in Sources */,
 				3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */,
 				3B274D792AD4584600D79698 /* SignInCoordinatorProtocol.swift in Sources */,
+				3B7E25072B0E4F4700526ACE /* SurroundSearchProtocol.swift in Sources */,
 				3B0D6AA92ABBD1A900B08CAB /* LoginConstants.swift in Sources */,
 				3703095B2AAF1C8400F9CD80 /* FriendsListCollectionView.swift in Sources */,
 				371C1D312ADBAFF300B30DC5 /* DefaultPreviousAppointmentsCoordinator.swift in Sources */,
@@ -1497,6 +1533,14 @@
 				minimumVersion = 6.6.0;
 			};
 		};
+		3BC8D6A82B0F520B00BE22EF /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.0;
+			};
+		};
 		3BF9EFA02AB1AE4A0014855E /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao-mapsSDK/KakaoMapsSDK-SPM.git";
@@ -1562,6 +1606,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxCocoa;
+		};
+		3BC8D6A92B0F520C00BE22EF /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BC8D6A82B0F520B00BE22EF /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */ = {
 			isa = XCSwiftPackageProductDependency;

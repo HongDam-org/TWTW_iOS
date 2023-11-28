@@ -6,6 +6,7 @@
 //
 
 import Alamofire
+import CoreLocation
 import Foundation
 import RxSwift
 import UIKit
@@ -19,10 +20,15 @@ final class SearchPlacesMapService: SearchPlaceProtocol {
             
             let encodedQuery = EncodedQueryConfig.encodedQuery(searchText: request.searchText).getEncodedQuery()
             let headers = Header.header.getHeader()
+            let longitude = KeychainWrapper.loadItem(forKey: "longitude") ?? ""
+            let latitude = KeychainWrapper.loadItem(forKey: "latitude") ?? ""
             
             let url = Domain.RESTAPI + SearchPath.placeAndCategory.rawValue
-                .replacingOccurrences(of: "encodedQuery", with: encodedQuery)
+                .replacingOccurrences(of: "xPosition", with: longitude)
+                .replacingOccurrences(of: "yPosition", with: latitude)
                 .replacingOccurrences(of: "pageNum", with: "\(request.pageNum)")
+                .replacingOccurrences(of: "encodedQuery", with: encodedQuery)
+            print(url)
             
             AF.request(url, method: .get, parameters: request, headers: headers)
                 .validate(statusCode: 200..<201)
