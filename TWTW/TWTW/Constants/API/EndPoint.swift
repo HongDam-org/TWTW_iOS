@@ -23,3 +23,7 @@ enum LoginPath: String {
 enum RoutePath: String {
     case car = "/paths/search/car"
 }
+
+enum GroupPath: String {
+    case groupList = "/group"
+}

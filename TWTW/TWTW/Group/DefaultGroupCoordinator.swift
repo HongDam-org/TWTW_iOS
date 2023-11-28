@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class DefaultMeetingListCoordinator: MeetingListCoordinatorProtocol {
+final class DefaultGroupCoordinator: GroupCoordinatorProtocol {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
@@ -17,14 +17,15 @@ final class DefaultMeetingListCoordinator: MeetingListCoordinatorProtocol {
     }
     
     func start() {
-        let meetingListViewModel = MeetingListViewModel(coordinator: self)
-        let meetingListViewController = MeetingListViewController(viewModel: meetingListViewModel)
+        let meetingListViewModel = GroupViewModel(coordinator: self, service: GroupService())
+        let meetingListViewController = GroupViewController(viewModel: meetingListViewModel)
         
         navigationController.pushViewController(meetingListViewController, animated: true)
     }
     
     func moveMainMap() {
         let mainMapCoordinator = DefaultMainMapCoordinator(navigationController: navigationController)
+        childCoordinators.append(mainMapCoordinator)
         mainMapCoordinator.start()
     }
     
