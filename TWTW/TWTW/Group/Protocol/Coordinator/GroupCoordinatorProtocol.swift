@@ -9,4 +9,5 @@ import Foundation
 
 protocol GroupCoordinatorProtocol: Coordinator {
     func moveMainMap()
+    func moveCreateGroup()
 }

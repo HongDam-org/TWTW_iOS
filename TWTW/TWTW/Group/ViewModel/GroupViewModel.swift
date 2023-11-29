@@ -50,8 +50,10 @@ final class GroupViewModel {
             .disposed(by: disposeBag)
         
         input.clickedCreateGroupEvents?
-            .bind {
+            .bind { [weak self] in
+                guard let self = self else { return }
                 print("clicked createGroupBarButton")
+                moveCreateGroup()
             }
             .disposed(by: disposeBag)
         
@@ -69,6 +71,11 @@ final class GroupViewModel {
     /// move mainMap
     func moveMainMap() {
         coordinator.moveMainMap()
+    }
+    
+    /// move create group
+    func moveCreateGroup() {
+        coordinator.moveCreateGroup()
     }
         
     // MARK: - API Connect

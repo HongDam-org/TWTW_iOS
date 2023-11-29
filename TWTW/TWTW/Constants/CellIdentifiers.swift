@@ -18,4 +18,6 @@ enum CellIdentifier: String {
     case friendsListColletionViewCell = "FriendsListColletionViewCell"
     
     case groupTableViewCell = "GroupTableViewCell"
+    
+    case friendListTableViewCell = "FriendListTableViewCell"
 }
