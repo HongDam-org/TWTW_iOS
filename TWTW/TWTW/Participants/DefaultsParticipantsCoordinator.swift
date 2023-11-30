@@ -1,14 +1,14 @@
 //
-//  FriendsListCoordinator.swift
+//  DefaultsParticipantsCoordinator.swift
 //  TWTW
 //
-//  Created by 박다미 on 2023/10/15.
+//  Created by 박다미 on 2023/11/30.
 //
 
 import Foundation
 import UIKit
 
-final class DefaultFriendsListCoordinator: FriendsListCoordinator {
+final class DefaultsParticipantsCoordinator: ParticipantsCoordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
@@ -17,7 +17,9 @@ final class DefaultFriendsListCoordinator: FriendsListCoordinator {
     }
     
     func start() {
-        let participantsViewController = FriendsListViewController()
+        let
+        participantsViewController = ParticipantsViewController()
         navigationController.pushViewController(participantsViewController, animated: true)
     }
+
 }

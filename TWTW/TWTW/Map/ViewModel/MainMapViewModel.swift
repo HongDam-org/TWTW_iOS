@@ -18,7 +18,7 @@ final class MainMapViewModel {
     private let coordinator: DefaultMainMapCoordinator?
     private let routeService: RouteProtocol?
     private let disposeBag = DisposeBag()
-    
+ 
     struct Input {
         /// 지도 화면 터치 감지
         let screenTouchEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
@@ -32,8 +32,6 @@ final class MainMapViewModel {
         /// 내위치 버튼 눌렀을 때
         let myLocationTappedEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
         
-        /// 내위치 버튼 Y 좌표
-        let tabbarControllerViewPanEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
         
         /// 주변 장소 선택한 경우
         let surroundSelectedTouchEvnets: Observable<IndexPath>?
@@ -134,9 +132,7 @@ final class MainMapViewModel {
             .disposed(by: disposeBag)
         
         touchMyLocation(input: input, output: output)
-        
-        hideImageView(input: input, output: output, viewMiddleYPoint: viewMiddleYPoint)
-        
+            
         return output
     }
     
@@ -151,24 +147,7 @@ final class MainMapViewModel {
         }
         .disposed(by: disposeBag)
     }
-    
-    /// hide image View
-    private func hideImageView(input: Input, output: Output, viewMiddleYPoint: CGFloat?) {
-        input.tabbarControllerViewPanEvents?
-            .bind { gesture in
-                switch gesture.state {
-                case .began, .changed, .ended, .cancelled:
-                    if let height = gesture.view?.bounds.height, height > viewMiddleYPoint ?? 0 {
-                        output.hideMyLocationImageViewRelay.accept(true)
-                        return
-                    }
-                    output.hideMyLocationImageViewRelay.accept(false)
-                default:
-                    return
-                }
-            }
-            .disposed(by: disposeBag)
-    }
+  
     
     // MARK: - Logic
     

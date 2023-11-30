@@ -67,7 +67,7 @@ extension FriendsListViewController: UICollectionViewDelegateFlowLayout {
 extension FriendsListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return friendsList.count
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView,

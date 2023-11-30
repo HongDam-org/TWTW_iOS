@@ -30,21 +30,14 @@ struct SearchPlace: Codable {
     let placeName: String?
     let distance: Int?
     let placeURL: String?
-    let categoryName, addressName, roadAddressName, categoryGroupCode: String?
+    let addressName, roadAddressName, categoryGroupCode: String?
     let xPosition, yPosition: Double?
     
     enum CodingKeys: String, CodingKey {
         case placeName, distance
         case placeURL = "placeUrl"
-        case categoryName, addressName, roadAddressName, categoryGroupCode
+        case addressName, roadAddressName, categoryGroupCode
         case xPosition = "x"
         case yPosition = "y"
     }
-}
-
-/// 임시 구조체
-struct SearchNearByPlaces {
-    let imageName: String?
-    let title: String?
-    let subTitle: String?
 }

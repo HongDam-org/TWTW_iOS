@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class MeetingListViewModel {
+    
     var coordinator: DefaultMeetingListCoordinator
     
     init(coordinator: DefaultMeetingListCoordinator) {

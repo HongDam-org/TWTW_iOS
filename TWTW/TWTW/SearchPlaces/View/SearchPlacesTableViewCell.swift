@@ -28,14 +28,6 @@ final class SearchPlacesTableViewCell: UITableViewCell {
         return label
     }()
     
-    /// 카테고리 명
-    private lazy var categoryNameLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .gray
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        return label
-    }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubViews()
@@ -50,8 +42,6 @@ final class SearchPlacesTableViewCell: UITableViewCell {
     private func addSubViews() {
         contentView.addSubview(placeNameLabel)
         contentView.addSubview(addressNameLabel)
-        contentView.addSubview(categoryNameLabel)
-        
         configureConstraints()
     }
     
@@ -65,17 +55,11 @@ final class SearchPlacesTableViewCell: UITableViewCell {
             make.leading.equalToSuperview().inset(15)
             make.top.equalTo(placeNameLabel.snp.bottom).offset(6)
         }
-        categoryNameLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(15)
-            make.top.equalTo(addressNameLabel.snp.bottom).offset(10)
-            make.bottom.equalTo(contentView).offset(-8)
-        }
     }
     
     /// configure
-    func configure(placeName: String, addressName: String, categoryName: String) {
+    func configure(placeName: String, addressName: String) {
         placeNameLabel.text = placeName
         addressNameLabel.text = addressName
-        categoryNameLabel.text = categoryName
     }
 }
