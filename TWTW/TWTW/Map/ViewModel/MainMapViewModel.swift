@@ -51,7 +51,7 @@ final class MainMapViewModel {
         var hideNearPlacesRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         
         /// 내위치 나타내는 버튼
-        /// true: hide, false: show
+        /// true: hide,  false: show
         var hideMyLocationImageViewRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         
         /// 자신의 위치 반환

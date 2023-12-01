@@ -42,6 +42,6 @@ class CustomTabButtonViewModel {
 
     // 알림 화면으로 이동
       private func notificationsButtonTapped() {
-          coordinator?.moveToNotifications()
+          coordinator?.moveToPlans()
       }
     }

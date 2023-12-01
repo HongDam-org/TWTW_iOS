@@ -1,23 +1,24 @@
 //
-//  FriendsListCoordinator.swift
+//  DefaultsPlansCoordinator.swift
 //  TWTW
 //
-//  Created by 박다미 on 2023/10/15.
+//  Created by 박다미 on 2023/12/01.
 //
 
 import Foundation
 import UIKit
 
-final class DefaultFriendsListCoordinator: FriendsListCoordinator {
+final class DefaultPlansCoordinator: PlanCoordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
+    private lazy var planVC = PlanViewController()
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func start() {
-        let participantsViewController = FriendsListViewController()
-        navigationController.pushViewController(participantsViewController, animated: false)
+        planVC = PlanViewController()
+        navigationController.pushViewController(planVC, animated: false)
     }
 }

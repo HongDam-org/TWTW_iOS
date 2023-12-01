@@ -17,7 +17,6 @@ final class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtoco
     var navigationController: UINavigationController
     weak var delegate: SearchPlacesMapCoordDelegate?
     
-    // MARK: - UI Property
     private var searchPlacesMapViewController: SearchPlacesMapViewController?
     private var searchPlacesMapViewModel: SearchPlacesMapViewModel?
     

@@ -12,14 +12,14 @@ final class DefaultsParticipantsCoordinator: ParticipantsCoordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
+    private lazy var participantsVC = ParticipantsViewController()
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func start() {
-        let
-        participantsViewController = ParticipantsViewController()
-        navigationController.pushViewController(participantsViewController, animated: true)
+        participantsVC = ParticipantsViewController()
+        navigationController.pushViewController(participantsVC, animated: false)
     }
 
 }

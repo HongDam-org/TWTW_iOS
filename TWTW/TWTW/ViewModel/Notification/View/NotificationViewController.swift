@@ -16,5 +16,10 @@ final class NotificationViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.layer.cornerRadius = 20
+        setNavi()
+    }
+    /// 네비게이션 item보이기
+    private func setNavi() {
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
 }

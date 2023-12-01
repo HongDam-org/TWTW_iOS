@@ -109,7 +109,6 @@ final class MainMapViewController: KakaoMapViewController {
         addSubViewsMyloctaionImageView()
         configureConstraintsCusomTabButtonView()
         view.backgroundColor = .white
-        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     
@@ -145,11 +144,9 @@ final class MainMapViewController: KakaoMapViewController {
     
     /// Configure   Constraints UI - SearchBar
     private func configureConstraintsSearchBar() {
-        searchBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
-            make.leading.trailing.equalToSuperview().inset(5)
-        }
+        navigationItem.titleView = searchBar
     }
+    
     private func configureConstraintCsusomTabButtonView() {
         customTabButtonsView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
