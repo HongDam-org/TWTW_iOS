@@ -45,9 +45,9 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     }
     ///  친구 목록 화면으로 이동
     func moveToParticipantsList() {
-        let planCoordinator = DefaultPlansCoordinator(navigationController: navigationController)
-        planCoordinator.start()
-              childCoordinators.append(planCoordinator)
+        let participantsCoordinator = DefaultsParticipantsCoordinator(navigationController: navigationController)
+        participantsCoordinator.start()
+              childCoordinators.append(participantsCoordinator)
       }
     /// 알림 화면으로 이동
     func moveToPlans() {

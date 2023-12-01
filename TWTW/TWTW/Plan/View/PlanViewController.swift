@@ -5,11 +5,18 @@
 //  Created by 박다미 on 2023/12/01.
 //
 
-import Foundation
+import RxCocoa
+import RxSwift
 import UIKit
 
 final class PlanViewController: UIViewController {
     
+    private lazy var planTableView: UITableView = {
+        let tableView = UITableView()
+        return tableView
+    }()
+    private let disposeBag = DisposeBag()
+
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()

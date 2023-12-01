@@ -123,8 +123,7 @@ final class MainMapViewModel {
             .disposed(by: disposeBag)
         
             touchMyLocation(input: input, output: output)
-        
-    output.hideUIComponetsRelay
+
         return output
     }
     

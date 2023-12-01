@@ -9,7 +9,7 @@ import Foundation
 
 ///  Cell식별 Enum
 enum CellIdentifier: String {
-    
+    case participantsTableViewCell = "ParticipantsTableViewCell"
     case searchPlacesTableViewCell = "SearchPlacesTableViewCell"
     
     /// NearbyPlacesCollectionViewCell.cellIdentifier
