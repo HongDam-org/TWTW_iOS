@@ -93,6 +93,7 @@
 		3B6CF3D72ADAC80200325D05 /* SignInProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3D62ADAC80200325D05 /* SignInProtocol.swift */; };
 		3B6CF3D92ADACA7500325D05 /* MockSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3D82ADACA7500325D05 /* MockSignInService.swift */; };
 		3B6CF3DB2ADAD14A00325D05 /* MockSignInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3DA2ADAD14A00325D05 /* MockSignInCoordinator.swift */; };
+		3B79E21C2B1A4C4E000790A2 /* FriendSearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B79E21B2B1A4C4E000790A2 /* FriendSearchDelegate.swift */; };
 		3B7E25072B0E4F4700526ACE /* SurroundSearchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7E25062B0E4F4700526ACE /* SurroundSearchProtocol.swift */; };
 		3B9693D82B175346001DDAE8 /* DefaultCreateGroupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9693D72B175346001DDAE8 /* DefaultCreateGroupCoordinator.swift */; };
 		3B9693DA2B1753AD001DDAE8 /* CreateGroupCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9693D92B1753AD001DDAE8 /* CreateGroupCoordinatorProtocol.swift */; };
@@ -224,6 +225,7 @@
 		3B6CF3D62ADAC80200325D05 /* SignInProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInProtocol.swift; sourceTree = "<group>"; };
 		3B6CF3D82ADACA7500325D05 /* MockSignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignInService.swift; sourceTree = "<group>"; };
 		3B6CF3DA2ADAD14A00325D05 /* MockSignInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignInCoordinator.swift; sourceTree = "<group>"; };
+		3B79E21B2B1A4C4E000790A2 /* FriendSearchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchDelegate.swift; sourceTree = "<group>"; };
 		3B7E25062B0E4F4700526ACE /* SurroundSearchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurroundSearchProtocol.swift; sourceTree = "<group>"; };
 		3B9693D72B175346001DDAE8 /* DefaultCreateGroupCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCreateGroupCoordinator.swift; sourceTree = "<group>"; };
 		3B9693D92B1753AD001DDAE8 /* CreateGroupCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupCoordinatorProtocol.swift; sourceTree = "<group>"; };
@@ -857,6 +859,7 @@
 		3B76F09E2AF9D53D00B2BD1D /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				3B79E21A2B1A4C43000790A2 /* Delegate */,
 				3B4A66052B16147600DF9C84 /* GroupProtocol.swift */,
 				3BB85C022B19B4E200F8BBF3 /* FriendProtocol.swift */,
 				3B76F09F2AF9D54700B2BD1D /* Coordinator */,
@@ -902,6 +905,14 @@
 				3B274D782AD4584600D79698 /* SignInCoordinatorProtocol.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		3B79E21A2B1A4C43000790A2 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				3B79E21B2B1A4C4E000790A2 /* FriendSearchDelegate.swift */,
+			);
+			path = Delegate;
 			sourceTree = "<group>";
 		};
 		3B9FD0FA2AE7412000D81328 /* MainMap */ = {
@@ -1209,6 +1220,7 @@
 				3B274D792AD4584600D79698 /* SignInCoordinatorProtocol.swift in Sources */,
 				3B4A66062B16147600DF9C84 /* GroupProtocol.swift in Sources */,
 				3B7E25072B0E4F4700526ACE /* SurroundSearchProtocol.swift in Sources */,
+				3B79E21C2B1A4C4E000790A2 /* FriendSearchDelegate.swift in Sources */,
 				3B0D6AA92ABBD1A900B08CAB /* LoginConstants.swift in Sources */,
 				3703095B2AAF1C8400F9CD80 /* FriendsListCollectionView.swift in Sources */,
 				371C1D312ADBAFF300B30DC5 /* DefaultPreviousAppointmentsCoordinator.swift in Sources */,

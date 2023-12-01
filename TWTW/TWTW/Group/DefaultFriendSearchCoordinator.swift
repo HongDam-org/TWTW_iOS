@@ -11,8 +11,8 @@ import UIKit
 
 final class DefaultFriendSearchCoordinator: FriendSearchCoordinatorProtocol {
     var childCoordinators: [Coordinator] = []
-    
     var navigationController: UINavigationController
+    var delegate: FriendSearchDelegate?
     
     // MARK: - Init
     init(navigationController: UINavigationController) {
@@ -25,5 +25,9 @@ final class DefaultFriendSearchCoordinator: FriendSearchCoordinatorProtocol {
         navigationController.pushViewController(friendSearchViewController, animated: true)
     }
     
-    
+    /// 선택한 친구들 전송
+    /// - Parameter output: Output
+    func sendSelectedFriends(output: FriendSearchViewModel.Output) {
+        delegate?.sendData(selectedList: output.selectedFriendRelay.value)
+    }
 }

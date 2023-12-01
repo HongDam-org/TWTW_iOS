@@ -12,6 +12,7 @@ import UIKit
 final class DefaultCreateGroupCoordinator: CreateGroupCoordinatorProtocol {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
+    private var output: CreateGroupViewModel.Output?
     
     // MARK: - Init
     init(navigationController: UINavigationController) {
@@ -26,8 +27,18 @@ final class DefaultCreateGroupCoordinator: CreateGroupCoordinatorProtocol {
     
     /// move Selected Friends Page
     func moveSelectedFriends(output: CreateGroupViewModel.Output) {
+        self.output = output
         let defaultFriendSearchCoordinator = DefaultFriendSearchCoordinator(navigationController: navigationController)
+        defaultFriendSearchCoordinator.delegate = self
         defaultFriendSearchCoordinator.start()
         childCoordinators.append(defaultFriendSearchCoordinator)
+    }
+}
+
+extension DefaultCreateGroupCoordinator: FriendSearchDelegate {
+    func sendData(selectedList: [Friend]) {
+        output?.selectedFriendListRelay.accept(selectedList)
+        childCoordinators = []
+        navigationController.popViewController(animated: true)
     }
 }

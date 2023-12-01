@@ -8,5 +8,5 @@
 import Foundation
 
 protocol FriendSearchCoordinatorProtocol: Coordinator {
-    
+    func sendSelectedFriends(output: FriendSearchViewModel.Output)
 }

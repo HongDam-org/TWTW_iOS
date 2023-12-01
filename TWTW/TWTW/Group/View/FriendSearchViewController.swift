@@ -14,11 +14,9 @@ final class FriendSearchViewController: UIViewController {
     
     /// 초대하기 버튼, 내비게이션 바 오른쪽 버튼
     private lazy var rightItemButton: UIButton = {
-        let btn = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 30))
-        btn.setImage(UIImage(systemName: "checkmark"), for: .normal)
-        btn.setTitle("초대하기", for: .normal)
+        let btn = UIButton()
+        btn.setTitle("추가", for: .normal)
         btn.setTitleColor(.black, for: .normal)
-        btn.backgroundColor = .yellow
         return btn
     }()
     
@@ -28,6 +26,7 @@ final class FriendSearchViewController: UIViewController {
         searchBar.placeholder = "Searching Friends"
         searchBar.showsCancelButton = false
         searchBar.backgroundImage = UIImage()
+        searchBar.tintColor = .black
         return searchBar
     }()
     
@@ -60,7 +59,7 @@ final class FriendSearchViewController: UIViewController {
         navigationItem.title = "친구 찾기"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         
-        navigationController?.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightItemButton)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightItemButton)
         
         addSubViews()
         bind()
@@ -95,11 +94,12 @@ final class FriendSearchViewController: UIViewController {
     
     /// binding
     private func bind() {
-        let input = FriendSearchViewModel.Input(searchBarEvents: searchBar.rx.text
-                                                                    .orEmpty
-                                                                    .debounce(RxTimeInterval.milliseconds(300), scheduler: MainScheduler.instance)
+        let input = FriendSearchViewModel.Input(searchBarEvents: searchBar.rx.text.orEmpty
+                                                                    .debounce(RxTimeInterval.milliseconds(300),
+                                                                              scheduler: MainScheduler.instance)
                                                                     .distinctUntilChanged(),
-                                                selectedFriendsEvents: friendsTableView.rx.itemSelected)
+                                                selectedFriendsEvents: friendsTableView.rx.itemSelected,
+                                                clickedAddButtonEvents: rightItemButton.rx.tap)
         
         let output = viewModel.createOutput(input: input)
         bindTableView(output: output)

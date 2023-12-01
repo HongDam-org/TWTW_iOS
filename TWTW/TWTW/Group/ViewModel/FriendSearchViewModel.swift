@@ -19,6 +19,7 @@ final class FriendSearchViewModel {
     struct Input {
         let searchBarEvents: Observable<String>?
         let selectedFriendsEvents: ControlEvent<IndexPath>?
+        let clickedAddButtonEvents: ControlEvent<Void>?
     }
     
     struct Output {
@@ -57,17 +58,28 @@ final class FriendSearchViewModel {
                 if select.contains(output.filteringFriendListRelay.value[indexPath.row]) {
                     select.remove(at: select.firstIndex(of: output.filteringFriendListRelay.value[indexPath.row]) ?? 0)
                     output.selectedFriendRelay.accept(select)
-                    print(select)
                     return
                 }
                 select.append(output.filteringFriendListRelay.value[indexPath.row])
                 output.selectedFriendRelay.accept(select)
-                print(select)
+            }
+            .disposed(by: disposeBag)
+        
+        input.clickedAddButtonEvents?
+            .bind { [weak self] in
+                guard let self = self else { return }
+                moveCreateFriend(output: output)
             }
             .disposed(by: disposeBag)
         
         getAllFriends(output: output)
         return output
+    }
+    
+    /// 그룹 생성 페이지로 이동
+    /// - Parameter output: Output
+    private func moveCreateFriend(output: Output) {
+        coordinator.sendSelectedFriends(output: output)
     }
 
     // MARK: - API Connect
@@ -90,6 +102,7 @@ final class FriendSearchViewModel {
         
         output.friendListRelay.accept(list)
         
+        // Real API Call
 //        friendService.getAllFriends()
 //            .subscribe(onNext: { list in
 //                print(#function, list)
