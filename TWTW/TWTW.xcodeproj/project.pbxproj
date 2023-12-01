@@ -87,8 +87,7 @@
 		3B4A66082B16148C00DF9C84 /* GroupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4A66072B16148C00DF9C84 /* GroupService.swift */; };
 		3B4A660A2B161D1600DF9C84 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4A66092B161D1600DF9C84 /* CreateGroupViewController.swift */; };
 		3B4A660C2B161D8200DF9C84 /* CreateGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4A660B2B161D8200DF9C84 /* CreateGroupViewModel.swift */; };
-		3B4A660F2B161EC600DF9C84 /* FriendListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4A660E2B161EC600DF9C84 /* FriendListView.swift */; };
-		3B4A66112B1634C900DF9C84 /* FriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4A66102B1634C900DF9C84 /* FriendListViewModel.swift */; };
+		3B4A66112B1634C900DF9C84 /* FriendSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4A66102B1634C900DF9C84 /* FriendSearchViewModel.swift */; };
 		3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */; };
 		3B6C7F952ADE25080060091C /* TabbarCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6C7F942ADE25080060091C /* TabbarCoordinatorDelegate.swift */; };
 		3B6CF3D72ADAC80200325D05 /* SignInProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CF3D62ADAC80200325D05 /* SignInProtocol.swift */; };
@@ -104,6 +103,11 @@
 		3BAA4A192ADC1DEA009D14E7 /* SignUpProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA4A182ADC1DEA009D14E7 /* SignUpProtocol.swift */; };
 		3BAA4A1F2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA4A1E2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift */; };
 		3BAA4A222ADCD0C8009D14E7 /* MockSignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA4A212ADCD0C8009D14E7 /* MockSignUpService.swift */; };
+		3BB85C012B19B4B800F8BBF3 /* FriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB85C002B19B4B800F8BBF3 /* FriendService.swift */; };
+		3BB85C032B19B4E200F8BBF3 /* FriendProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB85C022B19B4E200F8BBF3 /* FriendProtocol.swift */; };
+		3BB85C052B19D33400F8BBF3 /* FriendSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB85C042B19D33400F8BBF3 /* FriendSearchViewController.swift */; };
+		3BB85C072B19D37500F8BBF3 /* DefaultFriendSearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB85C062B19D37500F8BBF3 /* DefaultFriendSearchCoordinator.swift */; };
+		3BB85C092B19D39200F8BBF3 /* FriendSearchCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB85C082B19D39200F8BBF3 /* FriendSearchCoordinatorProtocol.swift */; };
 		3BC1D2702AE0D15D00A7D0CC /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D26F2AE0D15D00A7D0CC /* RxCocoa */; };
 		3BC1D2722AE0D15D00A7D0CC /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D2712AE0D15D00A7D0CC /* RxRelay */; };
 		3BC1D2742AE0D15D00A7D0CC /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D2732AE0D15D00A7D0CC /* RxSwift */; };
@@ -214,8 +218,7 @@
 		3B4A66072B16148C00DF9C84 /* GroupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupService.swift; sourceTree = "<group>"; };
 		3B4A66092B161D1600DF9C84 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
 		3B4A660B2B161D8200DF9C84 /* CreateGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewModel.swift; sourceTree = "<group>"; };
-		3B4A660E2B161EC600DF9C84 /* FriendListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListView.swift; sourceTree = "<group>"; };
-		3B4A66102B1634C900DF9C84 /* FriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewModel.swift; sourceTree = "<group>"; };
+		3B4A66102B1634C900DF9C84 /* FriendSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchViewModel.swift; sourceTree = "<group>"; };
 		3B6BA9882A7F7D0900A11FE4 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SignInViewModel.swift; path = TWTW/Login/ViewModel/SignInViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3B6C7F942ADE25080060091C /* TabbarCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		3B6CF3D62ADAC80200325D05 /* SignInProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInProtocol.swift; sourceTree = "<group>"; };
@@ -231,6 +234,11 @@
 		3BAA4A182ADC1DEA009D14E7 /* SignUpProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpProtocol.swift; sourceTree = "<group>"; };
 		3BAA4A1E2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelUnitTests.swift; sourceTree = "<group>"; };
 		3BAA4A212ADCD0C8009D14E7 /* MockSignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignUpService.swift; sourceTree = "<group>"; };
+		3BB85C002B19B4B800F8BBF3 /* FriendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendService.swift; sourceTree = "<group>"; };
+		3BB85C022B19B4E200F8BBF3 /* FriendProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProtocol.swift; sourceTree = "<group>"; };
+		3BB85C042B19D33400F8BBF3 /* FriendSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchViewController.swift; sourceTree = "<group>"; };
+		3BB85C062B19D37500F8BBF3 /* DefaultFriendSearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFriendSearchCoordinator.swift; sourceTree = "<group>"; };
+		3BB85C082B19D39200F8BBF3 /* FriendSearchCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		3BC1D27F2AE0D58600A7D0CC /* TWTWUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TWTWUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BC1D2832AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemsCollectionViewCell.swift; sourceTree = "<group>"; };
 		3BC1D2862AE1A6E700A7D0CC /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
@@ -340,6 +348,7 @@
 				3B4A65FF2B15FF2600DF9C84 /* Service */,
 				370AB45D2ADD134800951562 /* DefaultGroupCoordinator.swift */,
 				3B9693D72B175346001DDAE8 /* DefaultCreateGroupCoordinator.swift */,
+				3BB85C062B19D37500F8BBF3 /* DefaultFriendSearchCoordinator.swift */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -624,6 +633,7 @@
 			isa = PBXGroup;
 			children = (
 				3B4A66072B16148C00DF9C84 /* GroupService.swift */,
+				3BB85C002B19B4B800F8BBF3 /* FriendService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -848,6 +858,7 @@
 			isa = PBXGroup;
 			children = (
 				3B4A66052B16147600DF9C84 /* GroupProtocol.swift */,
+				3BB85C022B19B4E200F8BBF3 /* FriendProtocol.swift */,
 				3B76F09F2AF9D54700B2BD1D /* Coordinator */,
 			);
 			path = Protocol;
@@ -858,6 +869,7 @@
 			children = (
 				377CB05A2AD8666F003453D6 /* GroupCoordinatorProtocol.swift */,
 				3B9693D92B1753AD001DDAE8 /* CreateGroupCoordinatorProtocol.swift */,
+				3BB85C082B19D39200F8BBF3 /* FriendSearchCoordinatorProtocol.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -867,7 +879,7 @@
 			children = (
 				3B4A660D2B161E5800DF9C84 /* ViewController */,
 				3B4A66002B1609F000DF9C84 /* GroupTableViewCell.swift */,
-				3B4A660E2B161EC600DF9C84 /* FriendListView.swift */,
+				3BB85C042B19D33400F8BBF3 /* FriendSearchViewController.swift */,
 				3B9693DD2B176DED001DDAE8 /* FriendListTableViewCell.swift */,
 			);
 			path = View;
@@ -878,7 +890,7 @@
 			children = (
 				377CB0582AD8665E003453D6 /* GroupViewModel.swift */,
 				3B4A660B2B161D8200DF9C84 /* CreateGroupViewModel.swift */,
-				3B4A66102B1634C900DF9C84 /* FriendListViewModel.swift */,
+				3B4A66102B1634C900DF9C84 /* FriendSearchViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1160,7 +1172,6 @@
 				3B274D762AD4541E00D79698 /* SignInCoordinatorFinishDelegate.swift in Sources */,
 				3B4A660C2B161D8200DF9C84 /* CreateGroupViewModel.swift in Sources */,
 				375E8B022A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift in Sources */,
-				3B4A660F2B161EC600DF9C84 /* FriendListView.swift in Sources */,
 				3799E5092A99D72D00E06218 /* NotificationViewController.swift in Sources */,
 				377CB0612AD8699C003453D6 /* MainMapCoordinator.swift in Sources */,
 				372109FC2B0CE7DD00B0946C /* MockSearchPlacesMapService.swift in Sources */,
@@ -1170,6 +1181,7 @@
 				3B4A66042B160C7900DF9C84 /* Group.swift in Sources */,
 				3B1850B02AB5C939001945EE /* Domain.swift in Sources */,
 				3BAA4A192ADC1DEA009D14E7 /* SignUpProtocol.swift in Sources */,
+				3BB85C012B19B4B800F8BBF3 /* FriendService.swift in Sources */,
 				3737AE8C2AE93EE600FE7453 /* DefaultSearchPlacesMapCoordinator.swift in Sources */,
 				3737AE8D2AE93EE600FE7453 /* SearchPlacesMapViewModel.swift in Sources */,
 				3737AE902AE93EE600FE7453 /* SearchPlaceProtocol.swift in Sources */,
@@ -1184,6 +1196,7 @@
 				3B1C36EF2A8FD30200838682 /* BottomSheetDelegate.swift in Sources */,
 				3B0691552ABBD73900C98D6D /* Login.swift in Sources */,
 				3758F1A02A7D122100E2933C /* SignInViewController.swift in Sources */,
+				3BB85C072B19D37500F8BBF3 /* DefaultFriendSearchCoordinator.swift in Sources */,
 				3B9693DA2B1753AD001DDAE8 /* CreateGroupCoordinatorProtocol.swift in Sources */,
 				3B20E1E12AE41E4D009572AA /* CallCoordinator.swift in Sources */,
 				3BC8D6A42B0F0F3700BE22EF /* RouteProtocol.swift in Sources */,
@@ -1209,6 +1222,7 @@
 				3BF9EFB12AB1DEDB0014855E /* UIImage+Ext.swift in Sources */,
 				3758F1902A7D007200E2933C /* GroupViewController.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
+				3BB85C092B19D39200F8BBF3 /* FriendSearchCoordinatorProtocol.swift in Sources */,
 				3B6C7F952ADE25080060091C /* TabbarCoordinatorDelegate.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
 				37EF0CFB2AB85C2400D77B0A /* UIViewController+Ext.swift in Sources */,
@@ -1216,7 +1230,7 @@
 				3B274D822AD4D40700D79698 /* AppCoordinator.swift in Sources */,
 				3737AE922AE93FB000FE7453 /* SearchPlacesMapCoordinator.swift in Sources */,
 				3B274D7D2AD4D19B00D79698 /* SignUpViewModel.swift in Sources */,
-				3B4A66112B1634C900DF9C84 /* FriendListViewModel.swift in Sources */,
+				3B4A66112B1634C900DF9C84 /* FriendSearchViewModel.swift in Sources */,
 				3B4A66082B16148C00DF9C84 /* GroupService.swift in Sources */,
 				3B26F32F2AC11DAD00EFEE12 /* SignUpViewController.swift in Sources */,
 				3B4A66012B1609F000DF9C84 /* GroupTableViewCell.swift in Sources */,
@@ -1229,12 +1243,14 @@
 				37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */,
 				371C1D2D2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift in Sources */,
 				3B4A660A2B161D1600DF9C84 /* CreateGroupViewController.swift in Sources */,
+				3BB85C032B19B4E200F8BBF3 /* FriendProtocol.swift in Sources */,
 				3799E4F12A99C4D100E06218 /* DefaultAppCoordinator.swift in Sources */,
 				3737AE8F2AE93EE600FE7453 /* SearchPlacesMapViewController.swift in Sources */,
 				3B274D842AD5207100D79698 /* SignUpService.swift in Sources */,
 				3B20E1DD2AE41D32009572AA /* PreviousAppointmentsCoordinator.swift in Sources */,
 				377CB05B2AD8666F003453D6 /* GroupCoordinatorProtocol.swift in Sources */,
 				3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */,
+				3BB85C052B19D33400F8BBF3 /* FriendSearchViewController.swift in Sources */,
 				3B274D802AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift in Sources */,
 				371C1D2F2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift in Sources */,
 				37CE1EAF2AE75813009CDA21 /* SearchPlace.swift in Sources */,

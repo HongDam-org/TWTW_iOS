@@ -15,7 +15,6 @@ final class FriendListTableViewCell: UITableViewCell {
     /// 유저 프로필 이미지
     private lazy var userProfilImageView: UIImageView = {
         let view = UIImageView()
-        
         return view
     }()
     
@@ -23,8 +22,14 @@ final class FriendListTableViewCell: UITableViewCell {
     private lazy var userNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        
         return label
+    }()
+    
+    /// 선택된 이미지
+    private lazy var selectedImage: UIImageView = {
+        let view = UIImageView()
+        
+        return view
     }()
     
     // MARK: - init
@@ -41,6 +46,8 @@ final class FriendListTableViewCell: UITableViewCell {
     private func addSubViews() {
         addSubview(userProfilImageView)
         addSubview(userNameLabel)
+        addSubview(selectedImage)
+        
         constraints()
     }
     
@@ -53,7 +60,12 @@ final class FriendListTableViewCell: UITableViewCell {
         
         userNameLabel.snp.makeConstraints { make in
             make.centerY.equalTo(userProfilImageView.snp.centerY)
-            make.leading.equalTo(userNameLabel.snp.trailing).offset(20)
+            make.leading.equalTo(userProfilImageView.snp.trailing).offset(20)
+        }
+        
+        selectedImage.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-20)
         }
     }
     
@@ -63,5 +75,18 @@ final class FriendListTableViewCell: UITableViewCell {
     func inputData(info: Friend) {
         userProfilImageView.image = UIImage(named: "profile")
         userNameLabel.text = info.nickname
+    }
+    
+    /// 선택된 친구 목록에 체크 마크 표시
+    /// - Parameters:
+    ///   - info: 친구 정보
+    ///   - selected: true: 선택됨, false: 선택 안됨
+    func selectedFriendInputData(info: Friend, selected: Bool) {
+        userProfilImageView.image = UIImage(named: "profile")
+        userNameLabel.text = info.nickname
+         
+        if selected {
+            selectedImage.image = UIImage(systemName: "checkmark")
+        }
     }
 }

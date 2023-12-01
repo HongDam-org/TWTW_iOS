@@ -46,27 +46,48 @@ final class CreateGroupViewController: UIViewController {
         return field
     }()
     
-    /// 스크롤 뷰
-    private lazy var scrollView: UIScrollView = {
-        let view = UIScrollView()
+    /// 친구 추가 버튼
+    private lazy var addFriendButton: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("친구 추가", for: .normal)
+        btn.setTitleColor(.black, for: .normal)
+        return btn
+    }()
+    
+    /// 친구 목록 제목
+    private lazy var headerTitleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.text = "초대할 친구"
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        return label
+    }()
+    
+    /// 친구 목록 tableView
+    private lazy var friendListTableView: UITableView = {
+        let view = UITableView()
         view.backgroundColor = .clear
+        view.register(FriendListTableViewCell.self, forCellReuseIdentifier: CellIdentifier.friendListTableViewCell.rawValue)
         return view
     }()
     
-    /// contentview
-    private lazy var contentView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        return view
+    /// 생성하기 버튼
+    private lazy var createGroupButton: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("생성하기", for: .normal)
+        btn.backgroundColor = .systemBlue
+        btn.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        btn.setTitleColor(.white, for: .normal)
+        btn.layer.cornerRadius = 20
+        return btn
     }()
     
     private var viewModel: CreateGroupViewModel
-    private let friendListView: FriendListView
+    private let disposeBag = DisposeBag()
     
     // MARK: - Init
-    init(viewModel: CreateGroupViewModel, friendListview: FriendListView) {
+    init(viewModel: CreateGroupViewModel) {
         self.viewModel = viewModel
-        self.friendListView = friendListview
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -79,9 +100,10 @@ final class CreateGroupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        let title = NSAttributedString(string: "그룹 만들기", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
-        navigationItem.title = title.string
+        navigationItem.title = "그룹 만들기"
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         addSubViews()
+        bind()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -91,30 +113,19 @@ final class CreateGroupViewController: UIViewController {
     
     /// Add UI
     private func addSubViews() {
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        contentView.addSubview(groupImageButton)
-        contentView.addSubview(groupTitleLabel)
-        contentView.addSubview(groupTitleTextField)
-        contentView.addSubview(friendListView)
+        view.addSubview(groupImageButton)
+        view.addSubview(groupTitleLabel)
+        view.addSubview(groupTitleTextField)
+        view.addSubview(headerTitleLabel)
+        view.addSubview(friendListTableView)
+        view.addSubview(addFriendButton)
+        view.addSubview(createGroupButton)
+        
         constraints()
     }
     
     /// Set AutoLayout
     private func constraints() {
-        scrollView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.bottom.equalToSuperview()
-        }
-        
-        contentView.snp.makeConstraints { make in
-            make.top.equalTo(scrollView.snp.top)
-            make.leading.equalTo(scrollView.snp.leading)
-            make.trailing.equalTo(scrollView.snp.trailing)
-            make.bottom.equalTo(scrollView.snp.bottom)
-            make.width.equalTo(scrollView.snp.width)
-        }
-        
         groupImageButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
             make.centerX.equalToSuperview()
@@ -132,10 +143,51 @@ final class CreateGroupViewController: UIViewController {
             make.height.equalTo(40)
         }
         
-        friendListView.snp.makeConstraints { make in
-            make.top.equalTo(groupTitleTextField.snp.bottom).offset(10)
-            make.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview()
+        headerTitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(groupTitleTextField.snp.bottom).offset(20)
+            make.leading.equalToSuperview().offset(20)
+        }
+        
+        addFriendButton.snp.makeConstraints { make in
+            make.top.equalTo(headerTitleLabel.snp.top)
+            make.trailing.equalTo(friendListTableView.snp.trailing)
+        }
+        
+        friendListTableView.snp.makeConstraints { make in
+            make.top.equalTo(headerTitleLabel.snp.bottom).offset(10)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.bottom.equalTo(createGroupButton.snp.top).offset(-20)
+        }
+        
+        createGroupButton.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().offset(-40)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(100)
+            make.height.equalTo(40)
         }
     }
+    
+    func bind() {
+        let input = CreateGroupViewModel.Input(clickedAddFriendEvents: addFriendButton.rx.tap)
+        
+        let output = viewModel.createOutput(input: input)
+        
+        bindFriendListTableView(output: output)
+    }
+    
+    /// binding FriendListTableView
+    private func bindFriendListTableView(output: CreateGroupViewModel.Output) {
+        output.selectedFriendListRelay
+            .bind(to: friendListTableView.rx
+                .items(cellIdentifier: CellIdentifier.friendListTableViewCell.rawValue,
+                       cellType: FriendListTableViewCell.self)) { _, element, cell in
+                cell.selectionStyle = .none
+                cell.backgroundColor = .clear
+                cell.inputData(info: element)
+            }
+            .disposed(by: disposeBag)
+        
+    }
+    
 }

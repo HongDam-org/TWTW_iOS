@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Friend: Codable {
+struct Friend: Codable, Equatable {
     let memberId: String?
     let nickname: String?
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 import UIKit
 
 final class DefaultCreateGroupCoordinator: CreateGroupCoordinatorProtocol {
@@ -19,11 +20,14 @@ final class DefaultCreateGroupCoordinator: CreateGroupCoordinatorProtocol {
     
     func start() {
         let createGroupViewModel = CreateGroupViewModel(coordinator: self)
-        let friendListView = FriendListView()
-        friendListView.viewModel = FriendListViewModel(coordinator: self)
-        let createGroupViewController = CreateGroupViewController(viewModel: createGroupViewModel,
-                                                                  friendListview: friendListView)
+        let createGroupViewController = CreateGroupViewController(viewModel: createGroupViewModel)
         navigationController.pushViewController(createGroupViewController, animated: true)
     }
     
+    /// move Selected Friends Page
+    func moveSelectedFriends(output: CreateGroupViewModel.Output) {
+        let defaultFriendSearchCoordinator = DefaultFriendSearchCoordinator(navigationController: navigationController)
+        defaultFriendSearchCoordinator.start()
+        childCoordinators.append(defaultFriendSearchCoordinator)
+    }
 }
