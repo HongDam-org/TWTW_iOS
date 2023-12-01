@@ -10,7 +10,7 @@ import SnapKit
 import UIKit
 
 class ParticipantsTableViewCell: UITableViewCell {
-    
+    var disposeBag = DisposeBag()
     let participantImageView = UIImageView()
     let nameLabel = UILabel()
 
@@ -21,7 +21,7 @@ class ParticipantsTableViewCell: UITableViewCell {
     var locationBtnTapObservable: Observable<Void> {
         return locationButton.rx.tap.asObservable()
     }
-     var disposeBag = DisposeBag()
+    
     private lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal

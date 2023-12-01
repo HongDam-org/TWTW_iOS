@@ -13,4 +13,3 @@ struct Participant {
     let callImage: UIImage?
     let locationImage: UIImage?
 }
-

@@ -27,12 +27,12 @@ final class ParticipantsViewController: UIViewController {
                     name: "박다미", callImage: UIImage(systemName: "phone"), 
                     locationImage: UIImage(systemName: "map"))
 ]
+    private let disposeBag = DisposeBag()
     
     private lazy var partiTableView: UITableView = {
         let tableView = UITableView()
         return tableView
     }()
-    private let disposeBag = DisposeBag()
     
     // MARK: View Did Load
     override func viewDidLoad() {
@@ -43,7 +43,7 @@ final class ParticipantsViewController: UIViewController {
         bindTableView()
     }
 
-    func setupTableView() {
+    private func setupTableView() {
         view.addSubview(partiTableView)
         partiTableView.register(ParticipantsTableViewCell.self, forCellReuseIdentifier: CellIdentifier.participantsTableViewCell.rawValue)
         partiTableView.snp.makeConstraints { make in
@@ -51,7 +51,7 @@ final class ParticipantsViewController: UIViewController {
         }
     }
 
-    func bindTableView() {
+    private func bindTableView() {
         // 데이터 바인딩
         Observable.just(participants)
             .bind(to: partiTableView.rx.items(
