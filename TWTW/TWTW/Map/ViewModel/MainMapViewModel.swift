@@ -32,7 +32,6 @@ final class MainMapViewModel {
         /// 내위치 버튼 눌렀을 때
         let myLocationTappedEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
         
-        
         /// 주변 장소 선택한 경우
         let surroundSelectedTouchEvnets: Observable<IndexPath>?
     }
@@ -48,11 +47,11 @@ final class MainMapViewModel {
         
         /// 주변 검색 결과 UI 가리기
         /// true: hide, false: show
-        var hideNearPlacesRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+       // var hideNearPlacesRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         
         /// 내위치 나타내는 버튼
-        /// true: hide,  false: show
-        var hideMyLocationImageViewRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        /// true: hide, false: show
+        var hideUIComponetsRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         
         /// 자신의 위치 반환
         var myLocatiaonRelay: BehaviorRelay<CLLocationCoordinate2D> = BehaviorRelay(value: CLLocationCoordinate2D())
@@ -85,9 +84,9 @@ final class MainMapViewModel {
         let output = Output()
         input.screenTouchEvents?
             .bind(onNext: { _ in
+                output.hideSearchBarRelay.accept(!output.hideSearchBarRelay.value)
                 output.hideTabbarControllerRelay.accept(!output.hideTabbarControllerRelay.value)
-                output.hideMyLocationImageViewRelay.accept(!output.hideMyLocationImageViewRelay.value)
-                output.hideNearPlacesRelay.accept(true)
+                output.hideUIComponetsRelay.accept(!output.hideUIComponetsRelay.value)
             })
             .disposed(by: disposeBag)
         
@@ -123,16 +122,9 @@ final class MainMapViewModel {
             }
             .disposed(by: disposeBag)
         
-        output.cameraCoordinateObservable
-            .subscribe(onNext: { _ in
-                output.hideTabbarControllerRelay.accept(true)
-                output.hideMyLocationImageViewRelay.accept(true)
-                output.hideNearPlacesRelay.accept(false)
-            })
-            .disposed(by: disposeBag)
+            touchMyLocation(input: input, output: output)
         
-        touchMyLocation(input: input, output: output)
-            
+    output.hideUIComponetsRelay
         return output
     }
     

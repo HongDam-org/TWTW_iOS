@@ -91,7 +91,7 @@ final class MainMapViewController: KakaoMapViewController {
         if mapController?.addView(mapviewInfo) == Result.OK {   // 지도가 다 그려진 다음 실행
             print("Success Build Map")
             if let output = output {
-                bindHideNearPlaces(output: output)
+              //  bindHideNearPlaces(output: output)
                 bindMyLocation(output: output)
                 bindSearchPlaceLocation(output: output)
                 bindHideMyLocationImageViewRelay(output: output)
@@ -104,7 +104,7 @@ final class MainMapViewController: KakaoMapViewController {
     
     /// Setting UI
     private func setupUI() {
-        addSubViewsNearbyPlacesCollectionView()
+       // addSubViewsNearbyPlacesCollectionView()
         addSubViewsSearchBar()
         addSubViewsMyloctaionImageView()
         configureConstraintsCusomTabButtonView()
@@ -126,11 +126,11 @@ final class MainMapViewController: KakaoMapViewController {
     }
     
     /// Add  UI -  CollectionView
-    private func addSubViewsNearbyPlacesCollectionView() {
-        view.addSubview(nearbyPlacesCollectionView)
-        configureConstraintsNearbyPlacesCollectionView()
-    }
-    
+//    private func addSubViewsNearbyPlacesCollectionView() {
+//        view.addSubview(nearbyPlacesCollectionView)
+//        configureConstraintsNearbyPlacesCollectionView()
+//    }
+//    
     /// Add  UI -  MyloctaionImageView
     private func addSubViewsMyloctaionImageView() {
         view.addSubview(myloctaionImageView)
@@ -146,7 +146,6 @@ final class MainMapViewController: KakaoMapViewController {
     private func configureConstraintsSearchBar() {
         navigationItem.titleView = searchBar
     }
-    
     private func configureConstraintCsusomTabButtonView() {
         customTabButtonsView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -155,20 +154,11 @@ final class MainMapViewController: KakaoMapViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(3)
         }
     }
-    /// Configure   Constraints UI - CollectionView
-    private func configureConstraintsNearbyPlacesCollectionView() {
-        nearbyPlacesCollectionView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(nearbyPlacesCollectionView.snp.width).multipliedBy(0.7)
-            make.bottom.equalToSuperview().inset(20)
-        }
-    }
-    
+
     /// Configure   Constraints UI - MyloctaionImageView
     private func configureConstraintsMyloctaionImageView() {
         myloctaionImageView.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(5)
-            make.bottom.equalTo(view.snp.bottom).offset(30)
+            make.center.equalToSuperview()
             make.width.height.equalTo(view.snp.width).dividedBy(10) // 이미지 크기 설정
         }
     }
@@ -215,15 +205,15 @@ final class MainMapViewController: KakaoMapViewController {
     }
     
     /// 주변 검색 결과  숨기기 유무
-    private func bindHideNearPlaces(output: MainMapViewModel.Output) {
-        output.hideNearPlacesRelay
-            .bind { [weak self] check in
-                guard let self = self else { return }
-                print(#function, "called", check)
-                handleNearbyPlacesVisibility(hide: check)
-            }
-            .disposed(by: disposeBag)
-    }
+//    private func bindHideNearPlaces(output: MainMapViewModel.Output) {
+//        output.hideNearPlacesRelay
+//            .bind { [weak self] check in
+//                guard let self = self else { return }
+//                print(#function, "called", check)
+//                handleNearbyPlacesVisibility(hide: check)
+//            }
+//            .disposed(by: disposeBag)
+//    }
     
     /// handle NearbyPlaces Visibility
     private func handleNearbyPlacesVisibility(hide: Bool) {
@@ -239,22 +229,25 @@ final class MainMapViewController: KakaoMapViewController {
         
     /// 내위치 버튼 유무
     private func bindHideMyLocationImageViewRelay(output: MainMapViewModel.Output) {
-        output.hideMyLocationImageViewRelay
+        output.hideUIComponetsRelay
             .bind { [weak self] check in
                 guard let self = self else {return}
-                handleMyLocationImageView(hide: check)
+                handlehiddenView(hide: check)
             }
             .disposed(by: disposeBag)
     }
     
     /// 화면터치 시 show/hide UI
-    private func handleMyLocationImageView(hide: Bool) {
+    private func handlehiddenView(hide: Bool) {
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             guard let self = self else {return}
+            searchBar.alpha = hide ? 0 : 1
             myloctaionImageView.alpha = hide ? 0 : 1
+            customTabButtonsView.alpha = hide ? 0 : 1
         }, completion: { [weak self] _ in
             guard let self = self else {return}
             myloctaionImageView.isHidden = hide
+            customTabButtonsView.isHidden = hide
         })
     }
         
