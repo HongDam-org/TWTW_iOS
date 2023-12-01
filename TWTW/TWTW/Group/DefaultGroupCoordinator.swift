@@ -36,5 +36,5 @@ final class DefaultGroupCoordinator: GroupCoordinatorProtocol {
         childCoordinators.append(defaultCreateGroupCoordinator)
         defaultCreateGroupCoordinator.start()
     }
-    
+
 }

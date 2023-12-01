@@ -77,17 +77,4 @@ final class FriendListTableViewCell: UITableViewCell {
         userNameLabel.text = info.nickname
     }
     
-    /// 선택된 친구 목록에 체크 마크 표시
-    /// - Parameters:
-    ///   - info: 친구 정보
-    ///   - selected: true: 선택됨, false: 선택 안됨
-    func selectedFriendInputData(info: Friend, selected: Bool) {
-        userProfilImageView.image = UIImage(named: "profile")
-        userNameLabel.text = info.nickname
-         
-        if selected {
-            print(#function, info)
-            selectedImage.image = UIImage(systemName: "checkmark")
-        }
-    }
 }

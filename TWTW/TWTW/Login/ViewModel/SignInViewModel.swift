@@ -39,7 +39,7 @@ final class SignInViewModel {
     // MARK: - Functions
     
     /// 저장된 토큰 확인
-    func checkSavingTokens(output: Output) {    
+    func checkSavingTokens(output: Output) {
         if KeychainWrapper.loadItem(forKey: SignIn.accessToken.rawValue) != nil,
            KeychainWrapper.loadItem(forKey: SignIn.refreshToken.rawValue) != nil {
             return checkAccessTokenValidation(output: output)

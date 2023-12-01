@@ -103,6 +103,7 @@ final class FriendSearchViewController: UIViewController {
         
         let output = viewModel.createOutput(input: input)
         bindTableView(output: output)
+        hideKeyboard()
     }
     
     /// bind tableView
@@ -113,13 +114,22 @@ final class FriendSearchViewController: UIViewController {
                                          cellType: FriendListTableViewCell.self)) { _, element, cell in
                 cell.backgroundColor = .clear
                 cell.selectionStyle = .none
-                cell.selectedFriendInputData(info: element, selected: false)
+                cell.accessoryType = .none
+                cell.inputData(info: element)
                 if output.selectedFriendRelay.value.contains(element) {
-                    cell.selectedFriendInputData(info: element, selected: true)
+                    cell.accessoryType = .checkmark
                 }
-                
             }
             .disposed(by: disposeBag)
-        
+    }
+    
+    /// keyboard 내림
+    private func hideKeyboard() {
+        friendsTableView.rx.didScroll
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                searchBar.endEditing(true)
+            }
+            .disposed(by: disposeBag)
     }
 }
