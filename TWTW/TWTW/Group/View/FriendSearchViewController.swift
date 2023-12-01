@@ -15,6 +15,7 @@ final class FriendSearchViewController: UIViewController {
     /// 초대하기 버튼, 내비게이션 바 오른쪽 버튼
     private lazy var rightItemButton: UIButton = {
         let btn = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 30))
+        btn.setImage(UIImage(systemName: "checkmark"), for: .normal)
         btn.setTitle("초대하기", for: .normal)
         btn.setTitleColor(.black, for: .normal)
         btn.backgroundColor = .yellow
@@ -34,6 +35,7 @@ final class FriendSearchViewController: UIViewController {
     private lazy var friendsTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
+        tableView.register(FriendListTableViewCell.self, forCellReuseIdentifier: CellIdentifier.friendListTableViewCell.rawValue)
         return tableView
     }()
     
@@ -64,6 +66,11 @@ final class FriendSearchViewController: UIViewController {
         bind()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        searchBar.endEditing(true)
+    }
+    
     /// Add UI
     private func addSubViews() {
         view.addSubview(searchBar)
@@ -81,14 +88,17 @@ final class FriendSearchViewController: UIViewController {
         
         friendsTableView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom).offset(20)
-            make.horizontalEdges.equalToSuperview().inset(20)
+            make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
         }
     }
     
     /// binding
     private func bind() {
-        let input = FriendSearchViewModel.Input(searchBarEvents: searchBar.rx.text,
+        let input = FriendSearchViewModel.Input(searchBarEvents: searchBar.rx.text
+                                                                    .orEmpty
+                                                                    .debounce(RxTimeInterval.milliseconds(300), scheduler: MainScheduler.instance)
+                                                                    .distinctUntilChanged(),
                                                 selectedFriendsEvents: friendsTableView.rx.itemSelected)
         
         let output = viewModel.createOutput(input: input)
@@ -97,16 +107,17 @@ final class FriendSearchViewController: UIViewController {
     
     /// bind tableView
     private func bindTableView(output: FriendSearchViewModel.Output) {
-        output.friendListRelay
+        output.filteringFriendListRelay
             .bind(to: friendsTableView.rx
-                .items(cellIdentifier: CellIdentifier.friendListTableViewCell.rawValue,
-                       cellType: FriendListTableViewCell.self)) { _, element, cell in
+                              .items(cellIdentifier: CellIdentifier.friendListTableViewCell.rawValue,
+                                         cellType: FriendListTableViewCell.self)) { _, element, cell in
                 cell.backgroundColor = .clear
                 cell.selectionStyle = .none
-                if output.selectedFriendsRelay.value.contains(element) {
-                   return cell.selectedFriendInputData(info: element, selected: true)
+                cell.selectedFriendInputData(info: element, selected: false)
+                if output.selectedFriendRelay.value.contains(element) {
+                    cell.selectedFriendInputData(info: element, selected: true)
                 }
-                return cell.selectedFriendInputData(info: element, selected: false)
+                
             }
             .disposed(by: disposeBag)
         

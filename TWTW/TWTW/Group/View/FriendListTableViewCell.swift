@@ -86,6 +86,7 @@ final class FriendListTableViewCell: UITableViewCell {
         userNameLabel.text = info.nickname
          
         if selected {
+            print(#function, info)
             selectedImage.image = UIImage(systemName: "checkmark")
         }
     }
