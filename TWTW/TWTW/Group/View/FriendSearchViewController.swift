@@ -58,7 +58,7 @@ final class FriendSearchViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "친구 찾기"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightItemButton)
         
         addSubViews()

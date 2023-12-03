@@ -7,11 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3703095B2AAF1C8400F9CD80 /* FriendsListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3703095A2AAF1C8400F9CD80 /* FriendsListCollectionView.swift */; };
 		370AB45A2ADD12E000951562 /* DefaultMainMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB4592ADD12E000951562 /* DefaultMainMapCoordinator.swift */; };
-		370AB45E2ADD134800951562 /* DefaultGroupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB45D2ADD134800951562 /* DefaultGroupCoordinator.swift */; };
-		371C1D282ADABB3800B30DC5 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D272ADABB3800B30DC5 /* TabBarController.swift */; };
-		370AB45E2ADD134800951562 /* DefaultMeetingListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB45D2ADD134800951562 /* DefaultMeetingListCoordinator.swift */; };
 		371C1D2D2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D2C2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift */; };
 		371C1D2F2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D2E2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift */; };
 		371C1D312ADBAFF300B30DC5 /* DefaultPreviousAppointmentsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D302ADBAFF300B30DC5 /* DefaultPreviousAppointmentsCoordinator.swift */; };
@@ -45,6 +41,9 @@
 		375E8B052A96187800F8DE42 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 375E8B042A96187800F8DE42 /* RxGesture */; };
 		3760CC8C2AE2C0E800CFC2D5 /* SurroundSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3760CC8B2AE2C0E800CFC2D5 /* SurroundSearchService.swift */; };
 		3760CC8F2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3760CC8E2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift */; };
+		376754472B1C2E3E006DFF6E /* DefaultGroupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376754462B1C2E3E006DFF6E /* DefaultGroupCoordinator.swift */; };
+		3767544A2B1C374D006DFF6E /* FriendsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376754492B1C374D006DFF6E /* FriendsListTableViewCell.swift */; };
+		3767544C2B1C3AC1006DFF6E /* FriendsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3767544B2B1C3AC1006DFF6E /* FriendsListViewModel.swift */; };
 		377CB0592AD8665E003453D6 /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0582AD8665E003453D6 /* GroupViewModel.swift */; };
 		377CB05B2AD8666F003453D6 /* GroupCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB05A2AD8666F003453D6 /* GroupCoordinatorProtocol.swift */; };
 		377CB0612AD8699C003453D6 /* MainMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0602AD8699C003453D6 /* MainMapCoordinator.swift */; };
@@ -149,11 +148,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3703095A2AAF1C8400F9CD80 /* FriendsListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCollectionView.swift; sourceTree = "<group>"; };
 		370AB4592ADD12E000951562 /* DefaultMainMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMainMapCoordinator.swift; sourceTree = "<group>"; };
-		370AB45D2ADD134800951562 /* DefaultGroupCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGroupCoordinator.swift; sourceTree = "<group>"; };
-		371C1D272ADABB3800B30DC5 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		370AB45D2ADD134800951562 /* DefaultMeetingListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMeetingListCoordinator.swift; sourceTree = "<group>"; };
 		371C1D2C2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNotificationCoordinator.swift; sourceTree = "<group>"; };
 		371C1D2E2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFriendsListCoordinator.swift; sourceTree = "<group>"; };
 		371C1D302ADBAFF300B30DC5 /* DefaultPreviousAppointmentsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPreviousAppointmentsCoordinator.swift; sourceTree = "<group>"; };
@@ -185,6 +180,9 @@
 		375E8B012A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlacesCollectionViewCell.swift; sourceTree = "<group>"; };
 		3760CC8B2AE2C0E800CFC2D5 /* SurroundSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurroundSearchService.swift; sourceTree = "<group>"; };
 		3760CC8E2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurroundSearchPlaces.swift; sourceTree = "<group>"; };
+		376754462B1C2E3E006DFF6E /* DefaultGroupCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultGroupCoordinator.swift; sourceTree = "<group>"; };
+		376754492B1C374D006DFF6E /* FriendsListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableViewCell.swift; sourceTree = "<group>"; };
+		3767544B2B1C3AC1006DFF6E /* FriendsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewModel.swift; sourceTree = "<group>"; };
 		377CB0582AD8665E003453D6 /* GroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
 		377CB05A2AD8666F003453D6 /* GroupCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		377CB0602AD8699C003453D6 /* MainMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapCoordinator.swift; sourceTree = "<group>"; };
@@ -361,6 +359,14 @@
 			path = TWTW;
 			sourceTree = "<group>";
 		};
+		3767544D2B1C3ACB006DFF6E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3767544B2B1C3AC1006DFF6E /* FriendsListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		377CB0572AD86628003453D6 /* Group */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,7 +375,6 @@
 				3B76F0A12AF9D55E00B2BD1D /* ViewModel */,
 				3B4A66022B160C5500DF9C84 /* Model */,
 				3B4A65FF2B15FF2600DF9C84 /* Service */,
-				370AB45D2ADD134800951562 /* DefaultGroupCoordinator.swift */,
 				3B9693D72B175346001DDAE8 /* DefaultCreateGroupCoordinator.swift */,
 				3BB85C062B19D37500F8BBF3 /* DefaultFriendSearchCoordinator.swift */,
 			);
@@ -477,10 +482,11 @@
 		3799E4F92A99D62100E06218 /* FriendsList */ = {
 			isa = PBXGroup;
 			children = (
-				371C1D2E2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift */,
+				3767544D2B1C3ACB006DFF6E /* ViewModel */,
 				3B20E1E22AE41E81009572AA /* Protocol */,
 				3B76F0922AF9D05C00B2BD1D /* View */,
 				3B76F0942AF9D07F00B2BD1D /* Model */,
+				371C1D2E2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift */,
 			);
 			path = FriendsList;
 			sourceTree = "<group>";
@@ -749,6 +755,7 @@
 		3B4A65FF2B15FF2600DF9C84 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				376754462B1C2E3E006DFF6E /* DefaultGroupCoordinator.swift */,
 				3B4A66072B16148C00DF9C84 /* GroupService.swift */,
 				3BB85C002B19B4B800F8BBF3 /* FriendService.swift */,
 			);
@@ -866,7 +873,7 @@
 			isa = PBXGroup;
 			children = (
 				3799E5062A99D70500E06218 /* FriendsListViewController.swift */,
-				3703095A2AAF1C8400F9CD80 /* FriendsListCollectionView.swift */,
+				376754492B1C374D006DFF6E /* FriendsListTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1261,7 +1268,6 @@
 				37D5D7912B19ECF300302EAD /* Plan.swift in Sources */,
 				3B1850AE2AB5C781001945EE /* EndPoint.swift in Sources */,
 				3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */,
-				3703095F2AAF20D900F9CD80 /* FriendsListModel.swift in Sources */,
 				3B4A66042B160C7900DF9C84 /* Group.swift in Sources */,
 				3B1850B02AB5C939001945EE /* Domain.swift in Sources */,
 				3BAA4A192ADC1DEA009D14E7 /* SignUpProtocol.swift in Sources */,
@@ -1272,6 +1278,8 @@
 				3737AE902AE93EE600FE7453 /* SearchPlaceProtocol.swift in Sources */,
 				3B6CF3D92ADACA7500325D05 /* MockSignInService.swift in Sources */,
 				3BC8D6A22B0F0F0A00BE22EF /* RouteService.swift in Sources */,
+				3767544C2B1C3AC1006DFF6E /* FriendsListViewModel.swift in Sources */,
+				376754472B1C2E3E006DFF6E /* DefaultGroupCoordinator.swift in Sources */,
 				3B20E1EA2AE41EE9009572AA /* NotificationCoordinator.swift in Sources */,
 				3B9693DC2B176BC3001DDAE8 /* Friend.swift in Sources */,
 				370AB45A2ADD12E000951562 /* DefaultMainMapCoordinator.swift in Sources */,
@@ -1285,7 +1293,6 @@
 				37D5D78D2B19E81F00302EAD /* ChangeLocationViewController.swift in Sources */,
 				3B20E1E12AE41E4D009572AA /* CallCoordinator.swift in Sources */,
 				3BC8D6A42B0F0F3700BE22EF /* RouteProtocol.swift in Sources */,
-				370AB45E2ADD134800951562 /* DefaultGroupCoordinator.swift in Sources */,
 				377CB0592AD8665E003453D6 /* GroupViewModel.swift in Sources */,
 				3B274D7B2AD4CFDA00D79698 /* SignUpCoordinatorFinishDelegate.swift in Sources */,
 				3760CC8C2AE2C0E800CFC2D5 /* SurroundSearchService.swift in Sources */,
@@ -1295,14 +1302,13 @@
 				37D5D78F2B19EAEB00302EAD /* PlanTableViewCell.swift in Sources */,
 				3788AEBE2B18DF7F007FC2F6 /* DefaultsPlansCoordinator.swift in Sources */,
 				3B274D792AD4584600D79698 /* SignInCoordinatorProtocol.swift in Sources */,
+				3767544A2B1C374D006DFF6E /* FriendsListTableViewCell.swift in Sources */,
 				3B4A66062B16147600DF9C84 /* GroupProtocol.swift in Sources */,
 				3B7E25072B0E4F4700526ACE /* SurroundSearchProtocol.swift in Sources */,
 				3B79E21C2B1A4C4E000790A2 /* FriendSearchDelegate.swift in Sources */,
 				3B0D6AA92ABBD1A900B08CAB /* LoginConstants.swift in Sources */,
 				37D5D7872B19CEA100302EAD /* Participants.swift in Sources */,
-				3703095B2AAF1C8400F9CD80 /* FriendsListCollectionView.swift in Sources */,
 				371C1D312ADBAFF300B30DC5 /* DefaultPreviousAppointmentsCoordinator.swift in Sources */,
-				3BC1D2842AE1A58100A7D0CC /* TabBarItemsCollectionViewCell.swift in Sources */,
 				3B9693DE2B176DED001DDAE8 /* FriendListTableViewCell.swift in Sources */,
 				37E9FBFE2B1635B4004AFF79 /* CustomTabButtonViewModel.swift in Sources */,
 				3B20E1E62AE41E97009572AA /* FriendsListCoordinator.swift in Sources */,
@@ -1315,7 +1321,6 @@
 				3758F1902A7D007200E2933C /* GroupViewController.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
 				3BB85C092B19D39200F8BBF3 /* FriendSearchCoordinatorProtocol.swift in Sources */,
-				3B6C7F952ADE25080060091C /* TabbarCoordinatorDelegate.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
 				3788AEB82B18DCF4007FC2F6 /* PlanCoordinator.swift in Sources */,
 				37EF0CFB2AB85C2400D77B0A /* UIViewController+Ext.swift in Sources */,

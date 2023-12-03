@@ -9,9 +9,14 @@ import Foundation
 
 ///  Cell식별 Enum
 enum CellIdentifier: String {
+    
     case planTableViewCell = "PlanTableViewCell"
+    
     case participantsTableViewCell = "ParticipantsTableViewCell"
+   
     case searchPlacesTableViewCell = "SearchPlacesTableViewCell"
+    
+    case friendsListTableViewCell = "FriendsListTableViewCell"
     
     case nearbyPlacesCollectionViewCell = "NearbyPlacesCollectionViewCell"
 
