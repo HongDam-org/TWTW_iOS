@@ -11,14 +11,17 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class CustomTabButtonView: UIView {
+/// MainMapCustomTabButtonsView
+final class MainMapCustomTabButtonsView: UIView {
+    
+    /// stackView - participantsBtn, planBtn
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 3
         stackView.distribution = .fillEqually
         return stackView
     }()
-    
+    /// participantsButton
     private lazy var participantsButton: UIButton = {
         let btn = UIButton()
         btn.layer.cornerRadius = 10
@@ -27,7 +30,7 @@ final class CustomTabButtonView: UIView {
         btn.backgroundColor = .white
         return btn
     }()
-    
+    /// notificationButton
     private lazy var notificationButton: UIButton = {
         let btn = UIButton()
         btn.layer.cornerRadius = 10
@@ -37,10 +40,11 @@ final class CustomTabButtonView: UIView {
         return btn
     }()
     
-    private let viewModel: CustomTabButtonViewModel?
+    private let viewModel: MainMapCustomTabButtonViewModel?
     private let disposeBag = DisposeBag()
     
-    init(frame: CGRect, viewModel: CustomTabButtonViewModel) {
+    // MARK: - Init
+    init(frame: CGRect, viewModel: MainMapCustomTabButtonViewModel) {
         self.viewModel = viewModel
         super.init(frame: frame)
         addSubviews()
@@ -52,6 +56,7 @@ final class CustomTabButtonView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// addSubviews
     private func addSubviews() {
         addSubview(stackView)
         stackView.addArrangedSubview(participantsButton)
@@ -61,9 +66,10 @@ final class CustomTabButtonView: UIView {
         }
     }
     
+    /// bindViewModel
     private func bindViewModel() {
         guard let viewModel = viewModel else { return }
-        let input = CustomTabButtonViewModel.Input(
+        let input = MainMapCustomTabButtonViewModel.Input(
             participantsButtonTapped: participantsButton.rx.tap.asObservable(),
             notificationsButtonTapped: notificationButton.rx.tap.asObservable()
         )

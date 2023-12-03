@@ -61,13 +61,13 @@ final class MainMapViewController: KakaoMapViewController {
     private let disposeBag = DisposeBag()
     private let viewModel: MainMapViewModel
     private var output: MainMapViewModel.Output?
-    private let customTabButtonsView: CustomTabButtonView
+    private let mainMapCustomTabButtonsView: MainMapCustomTabButtonsView
     // MARK: - init
     
     init(viewModel: MainMapViewModel, coordinator: DefaultMainMapCoordinator) {
         self.viewModel = viewModel
-        let tabViewModel = CustomTabButtonViewModel(coordinator: coordinator)
-        self.customTabButtonsView = CustomTabButtonView(frame: .zero, viewModel: tabViewModel)
+        let tabViewModel = MainMapCustomTabButtonViewModel(coordinator: coordinator)
+        self.mainMapCustomTabButtonsView = MainMapCustomTabButtonsView(frame: .zero, viewModel: tabViewModel)
         super.init()
     }
     
@@ -91,7 +91,6 @@ final class MainMapViewController: KakaoMapViewController {
         if mapController?.addView(mapviewInfo) == Result.OK {   // 지도가 다 그려진 다음 실행
             print("Success Build Map")
             if let output = output {
-              //  bindHideNearPlaces(output: output)
                 bindMyLocation(output: output)
                 bindSearchPlaceLocation(output: output)
                 bindHideMyLocationImageViewRelay(output: output)
@@ -104,10 +103,9 @@ final class MainMapViewController: KakaoMapViewController {
     
     /// Setting UI
     private func setupUI() {
-       // addSubViewsNearbyPlacesCollectionView()
         addSubViewsSearchBar()
         addSubViewsMyloctaionImageView()
-        configureConstraintsCusomTabButtonView()
+        configureConstraintsMainMapCusomTabButtonView()
         view.backgroundColor = .white
     }
     
@@ -120,24 +118,18 @@ final class MainMapViewController: KakaoMapViewController {
         view.bringSubviewToFront(searchBar)
         configureConstraintsSearchBar()
     }
-    private func addSubViewsCusomTabButtonView() {
-        view.addSubview(customTabButtonsView)
-        configureConstraintsCusomTabButtonView()
+    private func addSubViewsMainMapCusomTabButtonView() {
+        view.addSubview(mainMapCustomTabButtonsView)
+        configureConstraintsMainMapCusomTabButtonView()
     }
     
-    /// Add  UI -  CollectionView
-//    private func addSubViewsNearbyPlacesCollectionView() {
-//        view.addSubview(nearbyPlacesCollectionView)
-//        configureConstraintsNearbyPlacesCollectionView()
-//    }
-//    
     /// Add  UI -  MyloctaionImageView
     private func addSubViewsMyloctaionImageView() {
         view.addSubview(myloctaionImageView)
         configureConstraintsMyloctaionImageView()
     }
-    private func configureConstraintsCusomTabButtonView() {
-        view.addSubview(customTabButtonsView)
+    private func configureConstraintsMainMapCusomTabButtonView() {
+        view.addSubview(mainMapCustomTabButtonsView)
         configureConstraintCsusomTabButtonView()
     }
     // MARK: - Constraints
@@ -147,14 +139,14 @@ final class MainMapViewController: KakaoMapViewController {
         navigationItem.titleView = searchBar
     }
     private func configureConstraintCsusomTabButtonView() {
-        customTabButtonsView.snp.makeConstraints { make in
+        mainMapCustomTabButtonsView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.35)
-            make.height.equalTo(customTabButtonsView.snp.width).multipliedBy(0.35)
+            make.height.equalTo(mainMapCustomTabButtonsView.snp.width).multipliedBy(0.35)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(3)
         }
     }
-
+    
     /// Configure   Constraints UI - MyloctaionImageView
     private func configureConstraintsMyloctaionImageView() {
         myloctaionImageView.snp.makeConstraints { make in
@@ -178,7 +170,7 @@ final class MainMapViewController: KakaoMapViewController {
                                            searchBarTouchEvents: searchBar.rx.tapGesture().when(.recognized).asObservable(),
                                            cLLocationCoordinate2DEvents: Observable.just(configureLocationManager()),
                                            myLocationTappedEvents: myloctaionImageView.rx.anyGesture(.tap())
-                                                                                    .when(.recognized).asObservable(),
+            .when(.recognized).asObservable(),
                                            surroundSelectedTouchEvnets: nearbyPlacesCollectionView.rx.itemSelected.asObservable())
         let output = viewModel.bind(input: input, viewMiddleYPoint: view.frame.height/2)
         self.output = output
@@ -200,20 +192,9 @@ final class MainMapViewController: KakaoMapViewController {
             .subscribe(onNext: { [weak self] coordinate in
                 guard let self = self else {return}
                 moveCameraToCoordinate(coordinate, output)
-
+                
             }).disposed(by: disposeBag)
     }
-    
-    /// 주변 검색 결과  숨기기 유무
-//    private func bindHideNearPlaces(output: MainMapViewModel.Output) {
-//        output.hideNearPlacesRelay
-//            .bind { [weak self] check in
-//                guard let self = self else { return }
-//                print(#function, "called", check)
-//                handleNearbyPlacesVisibility(hide: check)
-//            }
-//            .disposed(by: disposeBag)
-//    }
     
     /// handle NearbyPlaces Visibility
     private func handleNearbyPlacesVisibility(hide: Bool) {
@@ -226,7 +207,7 @@ final class MainMapViewController: KakaoMapViewController {
             }
         })
     }
-        
+    
     /// 내위치 버튼 유무
     private func bindHideMyLocationImageViewRelay(output: MainMapViewModel.Output) {
         output.hideUIComponetsRelay
@@ -243,14 +224,14 @@ final class MainMapViewController: KakaoMapViewController {
             guard let self = self else {return}
             searchBar.alpha = hide ? 0 : 1
             myloctaionImageView.alpha = hide ? 0 : 1
-            customTabButtonsView.alpha = hide ? 0 : 1
+            mainMapCustomTabButtonsView.alpha = hide ? 0 : 1
         }, completion: { [weak self] _ in
             guard let self = self else {return}
             myloctaionImageView.isHidden = hide
-            customTabButtonsView.isHidden = hide
+            mainMapCustomTabButtonsView.isHidden = hide
         })
     }
-        
+    
     /// 목적지까지 경로
     private func bindDestinationPathRelay(output: MainMapViewModel.Output) {
         output.destinationPathRelay
@@ -355,18 +336,18 @@ extension MainMapViewController {
         
         segments.append(points)
         
-//        points = [MapPoint]()   // 따로 표시가 됨
-//        points.append(MapPoint(longitude: 129.0759853,
-//                               latitude: 35.1794697))
-//        points.append(MapPoint(longitude: 129.0764276,
-//                               latitude: 35.1795108))
-//        points.append(MapPoint(longitude: 129.0762855,
-//                               latitude: 35.1793188))
-//        segments.append(points)
+        //        points = [MapPoint]()   // 따로 표시가 됨
+        //        points.append(MapPoint(longitude: 129.0759853,
+        //                               latitude: 35.1794697))
+        //        points.append(MapPoint(longitude: 129.0764276,
+        //                               latitude: 35.1795108))
+        //        points.append(MapPoint(longitude: 129.0762855,
+        //                               latitude: 35.1793188))
+        //        segments.append(points)
         return segments
     }
     
-
+    
     // MARK: - Poi Functions
     
     /// POI가 속할 LabelLayer를 생성

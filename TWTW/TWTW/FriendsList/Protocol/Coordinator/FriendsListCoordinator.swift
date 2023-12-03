@@ -8,6 +8,4 @@
 import Foundation
 import UIKit
 
-protocol FriendsListCoordinator: Coordinator {
-    func start()
-}
+protocol FriendsListCoordinator: Coordinator {}

@@ -19,8 +19,8 @@ final class SurroundSearchService: SurroundSearchProtocol {
                               page: Int,
                               categoryGroupCode: String) -> Observable<SurroundSearchPlaces> {
         let url = Domain.RESTAPI + SearchPath.nearByPlace.rawValue
-            .replacingOccurrences(of: "xPosition", with: "\(xPosition)")
-            .replacingOccurrences(of: "yPosition", with: "\(yPosition)")
+            .replacingOccurrences(of: "longitude", with: "\(xPosition)")
+            .replacingOccurrences(of: "latitude", with: "\(yPosition)")
             .replacingOccurrences(of: "pageNum", with: "\(page)")
         
         let headers = Header.header.getHeader()

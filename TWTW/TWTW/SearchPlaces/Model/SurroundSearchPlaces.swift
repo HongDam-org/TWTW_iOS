@@ -19,13 +19,13 @@ struct PlaceInformation: Codable {
     let distance: Int?
     let placeURL: String?
     let categoryName, addressName, roadAddressName, categoryGroupCode: String?
-    let xPosition, yPosition: Double?
+    let longitude, latitude: Double?
 
     enum CodingKeys: String, CodingKey {
         case placeName, distance
         case placeURL = "placeUrl"
         case categoryName, addressName, roadAddressName, categoryGroupCode
-        case xPosition = "x"
-        case yPosition = "y"
+        case longitude = "longitude"
+        case latitude = "latitude"
     }
 }

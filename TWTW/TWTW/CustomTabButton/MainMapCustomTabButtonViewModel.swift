@@ -9,14 +9,16 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-class CustomTabButtonViewModel {
+final class MainMapCustomTabButtonViewModel {
     private let disposeBag = DisposeBag()
     weak var coordinator: DefaultMainMapCoordinator?
 
+    // MARK: - Init
     init(coordinator: DefaultMainMapCoordinator) {
         self.coordinator = coordinator
     }
     
+    /// Input
     struct Input {
          let participantsButtonTapped: Observable<Void>
          let notificationsButtonTapped: Observable<Void>

@@ -9,14 +9,19 @@ import RxCocoa
 import RxSwift
 import UIKit
 
+///  PlanViewController - 일정
 final class PlanViewController: UIViewController {
-    ///더미
+    
+    /// sample
     let plans: [Plan] = [
         Plan(planTitle: "제목", plansubTitle: "부제목"),
         Plan(planTitle: "제목", plansubTitle: "부제목"),
         Plan(planTitle: "제목", plansubTitle: "부제목"),
         Plan(planTitle: "제목", plansubTitle: "부제목")
     ]
+    
+    // MARK: Properties
+    /// planTableView
     private lazy var planTableView: UITableView = {
         let tableView = UITableView()
         return tableView
@@ -31,13 +36,23 @@ final class PlanViewController: UIViewController {
         setupTableView()
         bindTableView()
     }
+    
+    // MARK: Function
+    /// setupTableView - table addSubView, register
     private func setupTableView() {
         view.addSubview(planTableView)
         planTableView.register(PlanTableViewCell.self, forCellReuseIdentifier: CellIdentifier.planTableViewCell.rawValue)
+        constraintsTableView()
+        
+    }
+    /// constraintsTableView
+    private func constraintsTableView(){
         planTableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
+    
+    /// bindTableView - touchEvent with rx
     private func bindTableView() {
         Observable.just(plans)
             .bind(to: planTableView.rx.items(

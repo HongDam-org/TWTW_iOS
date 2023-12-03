@@ -14,6 +14,7 @@ import RxRelay
 import RxSwift
 import UIKit
 
+/// MainMapViewModel
 final class MainMapViewModel {
     private let coordinator: DefaultMainMapCoordinator?
     private let routeService: RouteProtocol?
@@ -44,10 +45,6 @@ final class MainMapViewModel {
         /// 검색바 가리기
         /// true: hide, false: show
         var hideSearchBarRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-        
-        /// 주변 검색 결과 UI 가리기
-        /// true: hide, false: show
-       // var hideNearPlacesRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         
         /// 내위치 나타내는 버튼
         /// true: hide, false: show
@@ -110,8 +107,8 @@ final class MainMapViewModel {
                 guard let self = self else { return }
                 let myLocation = output.myLocatiaonRelay.value
                 let selectedItem = output.nearByplaceRelay.value[indexPath.row]
-                let destinationLocation = CLLocationCoordinate2D(latitude: selectedItem.yPosition ?? 0.0,
-                                                                 longitude: selectedItem.xPosition ?? 0.0)
+                let destinationLocation = CLLocationCoordinate2D(latitude: selectedItem.latitude ?? 0.0,
+                                                                 longitude: selectedItem.longitude ?? 0.0)
                 let body = CarRouteRequest(start: "\(myLocation.longitude),\(myLocation.latitude)",
                                            end: "\(destinationLocation.longitude),\(destinationLocation.latitude)",
                                            way: "",

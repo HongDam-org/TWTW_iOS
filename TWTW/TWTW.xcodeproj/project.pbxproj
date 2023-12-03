@@ -66,8 +66,8 @@
 		37E0D8AF2B1809EE002E0CF5 /* ParticipantsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E0D8AE2B1809EE002E0CF5 /* ParticipantsCoordinator.swift */; };
 		37E0D8B12B180A2B002E0CF5 /* FriendsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E0D8B02B180A2B002E0CF5 /* FriendsListModel.swift */; };
 		37E0D8B42B180A68002E0CF5 /* DefaultsParticipantsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E0D8B32B180A68002E0CF5 /* DefaultsParticipantsCoordinator.swift */; };
-		37E9FBFB2B16337D004AFF79 /* CustomTabButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9FBFA2B16337D004AFF79 /* CustomTabButtonView.swift */; };
-		37E9FBFE2B1635B4004AFF79 /* CustomTabButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9FBFD2B1635B4004AFF79 /* CustomTabButtonViewModel.swift */; };
+		37E9FBFB2B16337D004AFF79 /* MainMapCustomTabButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9FBFA2B16337D004AFF79 /* MainMapCustomTabButtonsView.swift */; };
+		37E9FBFE2B1635B4004AFF79 /* MainMapCustomTabButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9FBFD2B1635B4004AFF79 /* MainMapCustomTabButtonViewModel.swift */; };
 		37EF0CFB2AB85C2400D77B0A /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */; };
 		37F903A62AF9BD2F008120B6 /* EncodedQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F903A52AF9BD2F008120B6 /* EncodedQuery.swift */; };
 		37F903A82AF9BD88008120B6 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F903A72AF9BD88008120B6 /* Header.swift */; };
@@ -206,8 +206,8 @@
 		37E0D8AE2B1809EE002E0CF5 /* ParticipantsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsCoordinator.swift; sourceTree = "<group>"; };
 		37E0D8B02B180A2B002E0CF5 /* FriendsListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsListModel.swift; sourceTree = "<group>"; };
 		37E0D8B32B180A68002E0CF5 /* DefaultsParticipantsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsParticipantsCoordinator.swift; sourceTree = "<group>"; };
-		37E9FBFA2B16337D004AFF79 /* CustomTabButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabButtonView.swift; sourceTree = "<group>"; };
-		37E9FBFD2B1635B4004AFF79 /* CustomTabButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabButtonViewModel.swift; sourceTree = "<group>"; };
+		37E9FBFA2B16337D004AFF79 /* MainMapCustomTabButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapCustomTabButtonsView.swift; sourceTree = "<group>"; };
+		37E9FBFD2B1635B4004AFF79 /* MainMapCustomTabButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapCustomTabButtonViewModel.swift; sourceTree = "<group>"; };
 		37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		37F903A52AF9BD2F008120B6 /* EncodedQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodedQuery.swift; sourceTree = "<group>"; };
 		37F903A72AF9BD88008120B6 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
@@ -585,8 +585,8 @@
 		37E9FBFC2B16358A004AFF79 /* CustomTabButton */ = {
 			isa = PBXGroup;
 			children = (
-				37E9FBFA2B16337D004AFF79 /* CustomTabButtonView.swift */,
-				37E9FBFD2B1635B4004AFF79 /* CustomTabButtonViewModel.swift */,
+				37E9FBFA2B16337D004AFF79 /* MainMapCustomTabButtonsView.swift */,
+				37E9FBFD2B1635B4004AFF79 /* MainMapCustomTabButtonViewModel.swift */,
 			);
 			path = CustomTabButton;
 			sourceTree = "<group>";
@@ -1310,13 +1310,13 @@
 				37D5D7872B19CEA100302EAD /* Participants.swift in Sources */,
 				371C1D312ADBAFF300B30DC5 /* DefaultPreviousAppointmentsCoordinator.swift in Sources */,
 				3B9693DE2B176DED001DDAE8 /* FriendListTableViewCell.swift in Sources */,
-				37E9FBFE2B1635B4004AFF79 /* CustomTabButtonViewModel.swift in Sources */,
+				37E9FBFE2B1635B4004AFF79 /* MainMapCustomTabButtonViewModel.swift in Sources */,
 				3B20E1E62AE41E97009572AA /* FriendsListCoordinator.swift in Sources */,
 				37F903A82AF9BD88008120B6 /* Header.swift in Sources */,
 				3760CC8F2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift in Sources */,
 				3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */,
 				3799E5052A99D6DC00E06218 /* PreviousAppointmentsViewController.swift in Sources */,
-				37E9FBFB2B16337D004AFF79 /* CustomTabButtonView.swift in Sources */,
+				37E9FBFB2B16337D004AFF79 /* MainMapCustomTabButtonsView.swift in Sources */,
 				3BF9EFB12AB1DEDB0014855E /* UIImage+Ext.swift in Sources */,
 				3758F1902A7D007200E2933C /* GroupViewController.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
