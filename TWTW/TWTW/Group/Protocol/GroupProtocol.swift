@@ -17,4 +17,10 @@ protocol GroupProtocol {
     /// - Parameter info: Group Info
     /// - Returns: Group
     func createGroup(info: Group) -> Observable<Group>
+    
+    /// 그룹에 가입하기
+    /// - Parameters:
+    ///   - groupId: Group Id
+    /// - Returns: Group Id
+    func joinGroup(groupId: String) -> Observable<Group>
 }

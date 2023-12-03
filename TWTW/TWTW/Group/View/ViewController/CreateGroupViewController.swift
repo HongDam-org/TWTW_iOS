@@ -182,6 +182,7 @@ final class CreateGroupViewController: UIViewController {
     }
     
     /// Binding FriendListTableView
+    /// - Parameter output: Output
     private func bindFriendListTableView(output: CreateGroupViewModel.Output) {
         output.selectedFriendListRelay
             .bind(to: friendListTableView.rx
@@ -196,6 +197,7 @@ final class CreateGroupViewController: UIViewController {
     }
     
     /// When Failures
+    /// - Parameter output: Output
     private func bindFailures(output: CreateGroupViewModel.Output) {
         output.failCreateGroupSubject
             .bind { [weak self] check in
@@ -214,6 +216,15 @@ final class CreateGroupViewController: UIViewController {
                 }
             }
             .disposed(by: disposeBag)
+        
+        output.failInviteGroupMemberSubject
+            .bind { [weak self] check in
+                guard let self = self else { return }
+                if check {
+                    showToast(view, message: "친구 초대에 실패하였습니다.")
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     /// show Toast Message
@@ -223,8 +234,9 @@ final class CreateGroupViewController: UIViewController {
     ///   - duration: 보여줄 시간
     private func showToast(_ view: UIView, message: String, duration: TimeInterval = 2.0) {
         let toastLabel = UILabel(frame: CGRect(x: view.frame.size.width/2 - 150, y: view.frame.size.height-100, width: 300, height: 35))
-        toastLabel.backgroundColor = UIColor.black
-        toastLabel.textColor = UIColor.white
+        toastLabel.backgroundColor = UIColor.lightGray
+        toastLabel.layer.cornerRadius = 10
+        toastLabel.textColor = UIColor.black
         toastLabel.textAlignment = NSTextAlignment.center
         view.addSubview(toastLabel)
         toastLabel.text = message

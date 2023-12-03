@@ -25,6 +25,8 @@ final class CreateGroupViewModel {
         let doneCreateGroupSubject: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: false)
         let errorTextFieldSubject: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: false)
         let failCreateGroupSubject: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: false)
+        let doneInviteGroupMemberSubject: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: false)
+        let failInviteGroupMemberSubject: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: false)
     }
     
     // MARK: - init
@@ -86,12 +88,28 @@ final class CreateGroupViewModel {
         .subscribe(onNext: { [weak self] group in
             guard let self = self else { return }
             output.doneCreateGroupSubject.onNext(true)
-            
-            moveGroupList()
+            inviteMember(groupId: group.groupId ?? "", output: output)
         }, onError: { error in
             output.failCreateGroupSubject.onNext(true)
             print(#function, error)
         })
         .disposed(by: disposeBag)
+    }
+    
+    /// Invite Group Member
+    /// - Parameters:
+    ///   - groupId: group Id
+    ///   - output: Output
+    private func inviteMember(groupId: String, output: Output) {
+        groupService.joinGroup(groupId: groupId)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                output.doneInviteGroupMemberSubject.onNext(true)
+                moveGroupList()
+            }, onError: { error in
+                output.failInviteGroupMemberSubject.onNext(true)
+                print(#function, error)
+            })
+            .disposed(by: disposeBag)
     }
 }

@@ -35,7 +35,6 @@ final class DefaultCreateGroupCoordinator: CreateGroupCoordinatorProtocol {
         childCoordinators.append(defaultFriendSearchCoordinator)
     }
     
-    
     /// Move to Group List Page
     func moveGroupList() {
         navigationController.popViewController(animated: true)
