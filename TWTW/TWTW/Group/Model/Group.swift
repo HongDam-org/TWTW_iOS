@@ -14,4 +14,3 @@ struct Group: Codable {
     let name: String?
     let groupImage: String?
 }
-

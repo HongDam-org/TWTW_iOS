@@ -70,7 +70,7 @@ final class GroupService: GroupProtocol {
         let parameter = [
             "friendMemberIds": inviteMembers,
             "groupId": groupId
-        ] as [String : Any]
+        ] as [String: Any]
         
         print(url)
         return Observable.create { observer in
@@ -101,7 +101,7 @@ final class GroupService: GroupProtocol {
         let headers = Header.header.getHeader()
         let parameter = [
             "groupId": groupId
-        ] as [String : Any]
+        ] as [String: Any]
         
         print(url)
         return Observable.create { observer in

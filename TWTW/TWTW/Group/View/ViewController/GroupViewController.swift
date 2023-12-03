@@ -119,7 +119,7 @@ final class GroupViewController: UIViewController {
             .bind { [weak self] indexPath in
                 guard let self = self else { return }
                 groupListTableView.deleteRows(at: [indexPath], with: .automatic)
-                // TODO: 삭제 API 작성
+                // todo: 삭제 API 작성
             }
             .disposed(by: disposeBag)
     }
