@@ -12,18 +12,25 @@ import RxSwift
 final class CreateGroupViewModel {
     var coordinator: CreateGroupCoordinatorProtocol
     private let disposeBag = DisposeBag()
+    private let groupService: GroupProtocol
     
     struct Input {
         let clickedAddFriendEvents: ControlEvent<Void>?
+        let groupTitleEvents: Observable<ControlProperty<String>.Element>?
+        let clickedCreateButtonEvents: ControlEvent<Void>?
     }
     
     struct Output {
         let selectedFriendListRelay: BehaviorRelay<[Friend]> = BehaviorRelay<[Friend]>(value: [])
+        let doneCreateGroupSubject: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: false)
+        let errorTextFieldSubject: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: false)
+        let failCreateGroupSubject: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: false)
     }
     
     // MARK: - init
-    init(coordinator: CreateGroupCoordinatorProtocol) {
+    init(coordinator: CreateGroupCoordinatorProtocol, groupService: GroupProtocol) {
         self.coordinator = coordinator
+        self.groupService = groupService
     }
     
     /// Create Output
@@ -38,7 +45,18 @@ final class CreateGroupViewModel {
                 moveSelectedFriend(output: output)
             }
             .disposed(by: disposeBag)
-
+        
+        if let createEvents = input.clickedCreateButtonEvents, let groupTitle = input.groupTitleEvents {
+            Observable.combineLatest(createEvents, groupTitle)
+                .bind { [weak self] _, title in
+                    guard let self = self else { return }
+                    if title != " " {
+                        return createGroup(image: "", title: title, output: output)
+                    }
+                    output.errorTextFieldSubject.onNext(true)
+                }
+                .disposed(by: disposeBag)
+        }
         return output
     }
     
@@ -46,5 +64,34 @@ final class CreateGroupViewModel {
     /// - Parameter output: Output
     private func moveSelectedFriend(output: Output) {
         coordinator.moveSelectedFriends(output: output)
+    }
+    
+    /// Move to Group page
+    private func moveGroupList() {
+        coordinator.moveGroupList()
+    }
+    
+    // MARK: - API Connect
+    
+    /// Create Group
+    /// - Parameters:
+    ///   - image: Group Profile Image
+    ///   - title: Group Title
+    ///   - output: Output
+    private func createGroup(image: String, title: String, output: Output) {
+        groupService.createGroup(info: Group(groupId: nil,
+                                             leaderId: nil,
+                                             name: title,
+                                             groupImage: "??"))
+        .subscribe(onNext: { [weak self] group in
+            guard let self = self else { return }
+            output.doneCreateGroupSubject.onNext(true)
+            
+            moveGroupList()
+        }, onError: { error in
+            output.failCreateGroupSubject.onNext(true)
+            print(#function, error)
+        })
+        .disposed(by: disposeBag)
     }
 }

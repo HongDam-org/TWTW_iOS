@@ -168,15 +168,20 @@ final class CreateGroupViewController: UIViewController {
         }
     }
     
+    /// Bind
     func bind() {
-        let input = CreateGroupViewModel.Input(clickedAddFriendEvents: addFriendButton.rx.tap)
-        
+        let input = CreateGroupViewModel.Input(clickedAddFriendEvents: addFriendButton.rx.tap,
+                                               groupTitleEvents: groupTitleTextField.rx.text.orEmpty
+                                                                    .distinctUntilChanged()
+                                                                    .throttle(.milliseconds(300), scheduler: MainScheduler.instance),
+                                               clickedCreateButtonEvents: createGroupButton.rx.tap)
         let output = viewModel.createOutput(input: input)
         
         bindFriendListTableView(output: output)
+        bindFailures(output: output)
     }
     
-    /// binding FriendListTableView
+    /// Binding FriendListTableView
     private func bindFriendListTableView(output: CreateGroupViewModel.Output) {
         output.selectedFriendListRelay
             .bind(to: friendListTableView.rx
@@ -190,4 +195,51 @@ final class CreateGroupViewController: UIViewController {
         
     }
     
+    /// When Failures
+    private func bindFailures(output: CreateGroupViewModel.Output) {
+        output.failCreateGroupSubject
+            .bind { [weak self] check in
+                guard let self = self else { return }
+                if check {
+                    showToast(view, message: "모임 생성에 실패하였습니다.")
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        output.errorTextFieldSubject
+            .bind { [weak self] check in
+                guard let self = self else { return }
+                if check {
+                    showToast(view, message: "그룹이름을 입력해 주세요")
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// show Toast Message
+    /// - Parameters:
+    ///   - view: 보여줄 View
+    ///   - message: 보여줄 Message
+    ///   - duration: 보여줄 시간
+    private func showToast(_ view: UIView, message: String, duration: TimeInterval = 2.0) {
+        let toastLabel = UILabel(frame: CGRect(x: view.frame.size.width/2 - 150, y: view.frame.size.height-100, width: 300, height: 35))
+        toastLabel.backgroundColor = UIColor.black
+        toastLabel.textColor = UIColor.white
+        toastLabel.textAlignment = NSTextAlignment.center
+        view.addSubview(toastLabel)
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10
+        toastLabel.clipsToBounds  =  true
+        
+        UIView.animate(withDuration: 0.4,
+                       delay: duration - 0.4,
+                       options: UIView.AnimationOptions.curveEaseOut,
+                       animations: {
+            toastLabel.alpha = 0.0
+        },
+                       completion: { _ in
+            toastLabel.removeFromSuperview()
+        })
+    }
 }

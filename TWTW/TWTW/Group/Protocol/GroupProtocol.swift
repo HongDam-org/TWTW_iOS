@@ -12,4 +12,9 @@ protocol GroupProtocol {
     /// 자신이 속한 그룹 받기
     /// - Returns: 자신이 속한 그룹
     func groupList() -> Observable<[Group]>
+    
+    /// Create Group
+    /// - Parameter info: Group Info
+    /// - Returns: Group
+    func createGroup(info: Group) -> Observable<Group>
 }

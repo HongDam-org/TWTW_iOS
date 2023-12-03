@@ -87,7 +87,7 @@ final class FriendSearchViewController: UIViewController {
         
         friendsTableView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom).offset(20)
-            make.horizontalEdges.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(20)
             make.bottom.equalToSuperview()
         }
     }

@@ -25,7 +25,7 @@ enum RoutePath: String {
 }
 
 enum GroupPath: String {
-    case groupList = "/group"
+    case group = "/group"
 }
 
 enum FriendPath: String {
