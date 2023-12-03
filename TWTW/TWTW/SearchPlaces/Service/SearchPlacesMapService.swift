@@ -24,8 +24,8 @@ final class SearchPlacesMapService: SearchPlaceProtocol {
             let latitude = KeychainWrapper.loadItem(forKey: "latitude") ?? ""
             
             let url = Domain.RESTAPI + SearchPath.placeAndCategory.rawValue
-                .replacingOccurrences(of: "longitude", with: longitude)
-                .replacingOccurrences(of: "latitude", with: latitude)
+                .replacingOccurrences(of: "LONGITUDE", with: longitude)
+                .replacingOccurrences(of: "LATITUDE", with: latitude)
                 .replacingOccurrences(of: "pageNum", with: "\(request.pageNum)")
                 .replacingOccurrences(of: "encodedQuery", with: encodedQuery)
             print(url)

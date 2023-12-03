@@ -8,8 +8,8 @@
 import Foundation
 
 enum SearchPath: String {
-    case placeAndCategory = "/plans/search/destination?query=encodedQuery&x=longitude&y=latitude&page=pageNum&categoryGroupCode=NONE"
-    case nearByPlace = "/places/surround?x=longitude&y=latitude&page=pageNum"
+    case placeAndCategory = "/plans/search/destination?query=encodedQuery&longitude=LONGITUDE&latitude=LATITUDE&page=pageNum&categoryGroupCode=NONE"
+    case nearByPlace = "/places/surround?longitude=LONGITUDE&latitude=LATITUDE&page=pageNum"
 }
 
 enum LoginPath: String {

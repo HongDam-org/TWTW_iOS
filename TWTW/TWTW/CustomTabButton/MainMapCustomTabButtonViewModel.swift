@@ -12,17 +12,17 @@ import RxSwift
 final class MainMapCustomTabButtonViewModel {
     private let disposeBag = DisposeBag()
     weak var coordinator: DefaultMainMapCoordinator?
-
-    // MARK: - Init
-    init(coordinator: DefaultMainMapCoordinator) {
-        self.coordinator = coordinator
-    }
     
     /// Input
     struct Input {
          let participantsButtonTapped: Observable<Void>
          let notificationsButtonTapped: Observable<Void>
      }
+    
+    // MARK: - Init
+    init(coordinator: DefaultMainMapCoordinator) {
+        self.coordinator = coordinator
+    }
     /// bind
     func bind(input: Input) {
         input.participantsButtonTapped
