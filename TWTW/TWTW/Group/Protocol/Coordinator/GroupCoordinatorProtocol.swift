@@ -7,6 +7,7 @@
 
 import Foundation
 
-protocol MeetingListCoordinatorProtocol: Coordinator {
+protocol GroupCoordinatorProtocol: Coordinator {
     func moveMainMap()
+    func moveCreateGroup()
 }

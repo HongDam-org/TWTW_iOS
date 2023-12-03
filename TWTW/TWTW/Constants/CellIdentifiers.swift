@@ -13,10 +13,13 @@ enum CellIdentifier: String {
     case participantsTableViewCell = "ParticipantsTableViewCell"
     case searchPlacesTableViewCell = "SearchPlacesTableViewCell"
     
-    /// NearbyPlacesCollectionViewCell.cellIdentifier
     case nearbyPlacesCollectionViewCell = "NearbyPlacesCollectionViewCell"
 
     case tabBarItemsCollectionViewCell = "TabBarItemsCollectionViewCell"
     
     case friendsListColletionViewCell = "FriendsListColletionViewCell"
+    
+    case groupTableViewCell = "GroupTableViewCell"
+    
+    case friendListTableViewCell = "FriendListTableViewCell"
 }
