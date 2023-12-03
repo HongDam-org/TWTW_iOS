@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol FriendSearchDelegate {
+protocol FriendSearchDelegate: AnyObject {
     func sendData(selectedList: [Friend])
 }

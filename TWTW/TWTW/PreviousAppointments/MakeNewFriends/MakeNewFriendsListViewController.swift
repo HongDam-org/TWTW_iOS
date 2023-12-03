@@ -1,21 +1,21 @@
 //
-//  FriendsListViewController.swift
+//  MakeNewFriendsListViewController.swift
 //  TWTW
 //
-//  Created by 박다미 on 2023/08/26.
+//  Created by 박다미 on 2023/12/03.
 //
 
 import RxCocoa
 import RxSwift
 import UIKit
 
-// 친구목록
-final class FriendsListViewController: UIViewController {
+final class MakeNewFriendsListViewController: UIViewController {
+    
     // 더미 데이터 생성
     let friendsd: [Friend] =
-    [ Friend(memberId: "1234", nickname: "박유미"),
-      Friend(memberId: "1234", nickname: "박유미"),
-      Friend(memberId: "1234", nickname: "박유미"),
+    [ Friend(memberId: "1234", nickname: "박다미"),
+      Friend(memberId: "1234", nickname: "박다미"),
+      Friend(memberId: "1234", nickname: "박다미"),
       Friend(memberId: "1234", nickname: "박유미")
     ]
     /// 서치바UI
@@ -54,8 +54,7 @@ final class FriendsListViewController: UIViewController {
         configureConstraints()
         
     }
-    private func setNavi(){
-      
+    private func setNavi() {
         navigationItem.rightBarButtonItem = addButton
         makeNewFriendsTapped()
     }
@@ -84,7 +83,7 @@ final class FriendsListViewController: UIViewController {
                 }
                 .disposed(by: disposeBag)
     }
-    private func makeNewFriendsTapped(){
+    private func makeNewFriendsTapped() {
         addButton.rx.tap
                .subscribe(onNext: { [weak self] in
                    self?.showFindNewFriendsListVC()

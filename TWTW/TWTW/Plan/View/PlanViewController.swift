@@ -46,7 +46,7 @@ final class PlanViewController: UIViewController {
         
     }
     /// constraintsTableView
-    private func constraintsTableView(){
+    private func constraintsTableView() {
         planTableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -57,7 +57,7 @@ final class PlanViewController: UIViewController {
         Observable.just(plans)
             .bind(to: planTableView.rx.items(
                 cellIdentifier: CellIdentifier.planTableViewCell.rawValue,
-                cellType: PlanTableViewCell.self)){
+                cellType: PlanTableViewCell.self)) {
                     (row, plan, cell) in
                     cell.configure(plan: plan)
                 }

@@ -9,7 +9,7 @@ import RxSwift
 import SnapKit
 import UIKit
 
-class ParticipantsTableViewCell: UITableViewCell {
+final class ParticipantsTableViewCell: UITableViewCell {
     var disposeBag = DisposeBag()
     let participantImageView = UIImageView()
     let nameLabel = UILabel()
