@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 protocol NotificationCoordinator: Coordinator {
-    /// Create Controller
-    /// - Returns: NavigationController
-    func startPush() -> UINavigationController
+    
+    func start()
 }

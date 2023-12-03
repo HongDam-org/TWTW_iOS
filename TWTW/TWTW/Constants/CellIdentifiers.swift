@@ -10,12 +10,21 @@ import Foundation
 ///  Cell식별 Enum
 enum CellIdentifier: String {
     
+    case planTableViewCell = "PlanTableViewCell"
+    
+    case participantsTableViewCell = "ParticipantsTableViewCell"
+   
     case searchPlacesTableViewCell = "SearchPlacesTableViewCell"
     
-    /// NearbyPlacesCollectionViewCell.cellIdentifier
+    case friendsListTableViewCell = "FriendsListTableViewCell"
+    
     case nearbyPlacesCollectionViewCell = "NearbyPlacesCollectionViewCell"
 
     case tabBarItemsCollectionViewCell = "TabBarItemsCollectionViewCell"
     
     case friendsListColletionViewCell = "FriendsListColletionViewCell"
+    
+    case groupTableViewCell = "GroupTableViewCell"
+    
+    case friendListTableViewCell = "FriendListTableViewCell"
 }

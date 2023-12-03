@@ -83,8 +83,8 @@ final class SearchPlacesMapViewModel {
         input.selectedCoorinate
             .bind(onNext: { [weak self] selectedPlace in
                 guard let self = self,
-                      let placeX = selectedPlace.xPosition,
-                      let placeY = selectedPlace.yPosition else { return }
+                      let placeX = selectedPlace.longitude,
+                      let placeY = selectedPlace.latitude else { return }
                 getSurroundPlace(output: output, xPosition: placeX, yPosition: placeY)
             })
             .disposed(by: disposeBag)

@@ -17,15 +17,7 @@ final class DefaultFriendsListCoordinator: FriendsListCoordinator {
     }
     
     func start() {
-        
+        let friendsListViewController = FriendsListViewController()
+        navigationController.pushViewController(friendsListViewController, animated: false)
     }
-    
-    /// Create Controller
-    /// - Returns: NavigationController
-    func startPush() -> UINavigationController {
-        let friendsViewController = FriendsListViewController()
-        navigationController.pushViewController(friendsViewController, animated: true)
-        return navigationController
-    }
-    
 }

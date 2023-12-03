@@ -1,0 +1,59 @@
+//
+//  FriendService.swift
+//  TWTW
+//
+//  Created by 정호진 on 12/1/23.
+//
+
+import Alamofire
+import RxSwift
+
+final class FriendService: FriendProtocol {
+    /// 전체 친구 목록 받아옴
+    /// - Returns: 전체 친구 목록
+    func getAllFriends() -> Observable<[Friend]> {
+        let url = Domain.RESTAPI + FriendPath.all.rawValue
+        let header = Header.header.getHeader()
+        
+        print(url)
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .get,
+                       headers: header)
+            .responseDecodable(of: [Friend].self) { response in
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    /// 닉네임 검색
+    /// - Parameter word: 입력한 닉네임
+    /// - Returns: 닉네임과 일치하는 친구 목록
+    func searchingFriends(word: String) -> Observable<[Friend]> {
+        let url = Domain.RESTAPI + FriendPath.search.rawValue
+            .replacingOccurrences(of: "NAME", with: word)
+        let header = Header.header.getHeader()
+        
+        print(url)
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .get,
+                       headers: header)
+            .responseDecodable(of: [Friend].self) { response in
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+}

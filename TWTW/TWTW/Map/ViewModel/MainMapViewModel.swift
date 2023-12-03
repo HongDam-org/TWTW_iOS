@@ -14,11 +14,12 @@ import RxRelay
 import RxSwift
 import UIKit
 
+/// MainMapViewModel
 final class MainMapViewModel {
     private let coordinator: DefaultMainMapCoordinator?
     private let routeService: RouteProtocol?
     private let disposeBag = DisposeBag()
-    
+ 
     struct Input {
         /// 지도 화면 터치 감지
         let screenTouchEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
@@ -31,9 +32,6 @@ final class MainMapViewModel {
         
         /// 내위치 버튼 눌렀을 때
         let myLocationTappedEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
-        
-        /// 내위치 버튼 Y 좌표
-        let tabbarControllerViewPanEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
         
         /// 주변 장소 선택한 경우
         let surroundSelectedTouchEvnets: Observable<IndexPath>?
@@ -48,13 +46,9 @@ final class MainMapViewModel {
         /// true: hide, false: show
         var hideSearchBarRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         
-        /// 주변 검색 결과 UI 가리기
-        /// true: hide, false: show
-        var hideNearPlacesRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-        
         /// 내위치 나타내는 버튼
         /// true: hide, false: show
-        var hideMyLocationImageViewRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+        var hideUIComponetsRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
         
         /// 자신의 위치 반환
         var myLocatiaonRelay: BehaviorRelay<CLLocationCoordinate2D> = BehaviorRelay(value: CLLocationCoordinate2D())
@@ -87,9 +81,9 @@ final class MainMapViewModel {
         let output = Output()
         input.screenTouchEvents?
             .bind(onNext: { _ in
+                output.hideSearchBarRelay.accept(!output.hideSearchBarRelay.value)
                 output.hideTabbarControllerRelay.accept(!output.hideTabbarControllerRelay.value)
-                output.hideMyLocationImageViewRelay.accept(!output.hideMyLocationImageViewRelay.value)
-                output.hideNearPlacesRelay.accept(true)
+                output.hideUIComponetsRelay.accept(!output.hideUIComponetsRelay.value)
             })
             .disposed(by: disposeBag)
         
@@ -113,8 +107,8 @@ final class MainMapViewModel {
                 guard let self = self else { return }
                 let myLocation = output.myLocatiaonRelay.value
                 let selectedItem = output.nearByplaceRelay.value[indexPath.row]
-                let destinationLocation = CLLocationCoordinate2D(latitude: selectedItem.yPosition ?? 0.0,
-                                                                 longitude: selectedItem.xPosition ?? 0.0)
+                let destinationLocation = CLLocationCoordinate2D(latitude: selectedItem.latitude ?? 0.0,
+                                                                 longitude: selectedItem.longitude ?? 0.0)
                 let body = CarRouteRequest(start: "\(myLocation.longitude),\(myLocation.latitude)",
                                            end: "\(destinationLocation.longitude),\(destinationLocation.latitude)",
                                            way: "",
@@ -125,18 +119,8 @@ final class MainMapViewModel {
             }
             .disposed(by: disposeBag)
         
-        output.cameraCoordinateObservable
-            .subscribe(onNext: { _ in
-                output.hideTabbarControllerRelay.accept(true)
-                output.hideMyLocationImageViewRelay.accept(true)
-                output.hideNearPlacesRelay.accept(false)
-            })
-            .disposed(by: disposeBag)
-        
-        touchMyLocation(input: input, output: output)
-        
-        hideImageView(input: input, output: output, viewMiddleYPoint: viewMiddleYPoint)
-        
+            touchMyLocation(input: input, output: output)
+
         return output
     }
     
@@ -151,24 +135,7 @@ final class MainMapViewModel {
         }
         .disposed(by: disposeBag)
     }
-    
-    /// hide image View
-    private func hideImageView(input: Input, output: Output, viewMiddleYPoint: CGFloat?) {
-        input.tabbarControllerViewPanEvents?
-            .bind { gesture in
-                switch gesture.state {
-                case .began, .changed, .ended, .cancelled:
-                    if let height = gesture.view?.bounds.height, height > viewMiddleYPoint ?? 0 {
-                        output.hideMyLocationImageViewRelay.accept(true)
-                        return
-                    }
-                    output.hideMyLocationImageViewRelay.accept(false)
-                default:
-                    return
-                }
-            }
-            .disposed(by: disposeBag)
-    }
+  
     
     // MARK: - Logic
     

@@ -40,19 +40,12 @@ final class SearchPlacesMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setNavi()
         addSubViews()
         hideKeyboard()
         bindViewModel()
     }
     
-    // MARK: - Set Up
-    
-    /// 네비게이션 item보이기
-    private func setNavi() {
-        navigationController?.setNavigationBarHidden(false, animated: false)
-    }
-    
+// MARK: - Set Up
     /// Add  UI - SearchBar
     private func addSubViews() {
         navigationItem.titleView = searchBar
@@ -128,8 +121,7 @@ final class SearchPlacesMapViewController: UIViewController {
                     cellIdentifier: CellIdentifier.searchPlacesTableViewCell.rawValue, cellType: SearchPlacesTableViewCell.self)
             ) { _, place, cell in
                 cell.configure(placeName: place.placeName ?? "",
-                               addressName: place.addressName ?? "",
-                               categoryName: place.categoryName ?? "")
+                               addressName: place.addressName ?? "")
             }
             .disposed(by: disposeBag)
     }

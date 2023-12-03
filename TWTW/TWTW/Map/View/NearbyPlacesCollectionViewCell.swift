@@ -13,7 +13,6 @@ import UIKit
 
 /// NearbyPlacesCollectionViewCell- 목적지 근방 장소들 보여주기
 final class NearbyPlacesCollectionViewCell: UICollectionViewCell {
-        
     // MARK: - UI Property
     
     /// 셀구성을 감싸는 view
@@ -54,7 +53,6 @@ final class NearbyPlacesCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubViews()
-        
     }
     
     @available(*, unavailable)

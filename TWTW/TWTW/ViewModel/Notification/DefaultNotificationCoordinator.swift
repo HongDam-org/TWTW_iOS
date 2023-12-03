@@ -20,12 +20,4 @@ final class DefaultNotificationCoordinator: NotificationCoordinator {
         let notificationViewController = NotificationViewController()
         navigationController.pushViewController(notificationViewController, animated: true)
     }
-    
-    /// Create Controller
-    /// - Returns: NavigationController
-    func startPush() -> UINavigationController {
-        let notificationViewController = NotificationViewController()
-        navigationController.pushViewController(notificationViewController, animated: true)
-        return navigationController
-    }
 }
