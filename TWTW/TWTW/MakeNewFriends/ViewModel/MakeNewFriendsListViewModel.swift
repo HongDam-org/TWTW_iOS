@@ -1,8 +1,8 @@
 //
-//  FriendListViewModel.swift
+//  MakeNewFriendsListViewModel.swift
 //  TWTW
 //
-//  Created by 정호진 on 11/28/23.
+//  Created by 박다미 on 2023/12/03.
 //
 
 import Foundation
@@ -10,9 +10,8 @@ import RxCocoa
 import RxRelay
 import RxSwift
 
-
-final class FriendSearchViewModel {
-    var coordinator: FriendSearchCoordinatorProtocol
+final class MakeNewFriendsListViewModel {
+    var coordinator: MakeNewFriendsListCoordinatorProtocol
     private let friendService: FriendProtocol
     private let disposeBag = DisposeBag()
     
@@ -29,7 +28,7 @@ final class FriendSearchViewModel {
     }
     
     // MARK: - init
-    init(coordinator: FriendSearchCoordinatorProtocol, friendService: FriendProtocol) {
+    init(coordinator: MakeNewFriendsListCoordinatorProtocol, friendService: FriendService) {
         self.coordinator = coordinator
         self.friendService = friendService
     }
@@ -39,17 +38,34 @@ final class FriendSearchViewModel {
     /// - Returns: Output Model
     func createOutput(input: Input) -> Output {
         let output = Output()
-
+        
         input.searchBarEvents?
             .flatMapLatest { word -> Observable<[Friend]> in
                 if word.isEmpty {
+                    return Observable.just([])
+                } else {
+                    self.getMakeNewFriends(searchText: word, output: output)
+                    //self.getMakeNewFriends(searchText: word, output: output) //real API
                     return output.friendListRelay.asObservable()
                 }
-                return output.friendListRelay.asObservable().map { $0.filter { $0.nickname?.hasPrefix(word) ?? false}}
             }
+            .observe(on: MainScheduler.asyncInstance)
             .bind(to: output.filteringFriendListRelay)
             .disposed(by: disposeBag)
         
+
+//        input.selectedFriendsEvents?
+//            .bind { [weak self] indexPath in
+//                guard let self = self else { return }
+//                var selectedFriends = output.selectedFriendRelay.value
+//                let selectedFriend = output.filteringFriendListRelay.value[indexPath.row]
+//                if let index = selectedFriends.firstIndex(of: selectedFriend) {
+//                    selectedFriends.remove(at: index)
+//                }
+//                selectedFriends.append(selectedFriend)
+//                output.selectedFriendRelay.accept(selectedFriends)
+//            }
+//            .disposed(by: disposeBag)
         input.selectedFriendsEvents?
             .bind { indexPath in
                 var select = output.selectedFriendRelay.value
@@ -71,22 +87,30 @@ final class FriendSearchViewModel {
                 moveCreateFriend(output: output)
             }
             .disposed(by: disposeBag)
-        
-        getAllFriends(output: output)
+
         return output
     }
     
     /// 그룹 생성 페이지로 이동
     /// - Parameter output: Output
     private func moveCreateFriend(output: Output) {
-        coordinator.sendSelectedFriends(output: output)
+        print("선택된 친구들: \(output.selectedFriendRelay.value)")
+        coordinator.sendSelectedNewFriends(output: output)
     }
-
+    
     // MARK: - API Connect
     
-    /// 전체 친구 목록 로딩
+    /// 새로운 친구 목록 로딩
     /// - Parameter output: output
-    private func getAllFriends(output: Output) {
+    private func getMakeNewFriends(searchText: String, output: Output) {
+        
+//        // Real API Call
+//        friendService.searchingFriends(word: searchText)
+//            .subscribe(onNext: { friends in
+//                output.friendListRelay.accept(friends)
+//            }, onError: { error in
+//                print(error)
+//            }).disposed(by: disposeBag)
         let list = [Friend(memberId: "aasd1", nickname: "1"),
                     Friend(memberId: "aasd2", nickname: "2"),
                     Friend(memberId: "aasd3", nickname: "3"),
@@ -98,11 +122,9 @@ final class FriendSearchViewModel {
                     Friend(memberId: "aasd9", nickname: "9"),
                     Friend(memberId: "aasd10", nickname: "10"),
                     Friend(memberId: "aasd11", nickname: "11"),
-                    Friend(memberId: "aasd12", nickname: "12")]
-        
+                    Friend(memberId: "aasd12", nickname: "12")
+        ]
         output.friendListRelay.accept(list)
-      //  friendService.searchingFriends(word: <#T##String#>)
 
     }
-
 }
