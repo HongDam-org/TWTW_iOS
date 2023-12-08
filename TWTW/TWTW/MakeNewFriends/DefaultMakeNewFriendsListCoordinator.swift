@@ -13,7 +13,7 @@ final class DefaultMakeNewFriendsListCoordinator: MakeNewFriendsListCoordinatorP
 
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
-    var delegate: FriendSearchDelegate?
+    var delegate: MakeNewFriendsDelegate?
     
     // MARK: - Init
     init(navigationController: UINavigationController) {
@@ -22,7 +22,6 @@ final class DefaultMakeNewFriendsListCoordinator: MakeNewFriendsListCoordinatorP
     
     func start() {
         let makeNewFriendsListViewModel = MakeNewFriendsListViewModel(coordinator: self, friendService: FriendService())
-        
         let makeNewFriendsListViewController = MakeNewFriendsListViewController(viewModel: makeNewFriendsListViewModel)
         navigationController.pushViewController(makeNewFriendsListViewController, animated: true)
     }
@@ -31,4 +30,5 @@ final class DefaultMakeNewFriendsListCoordinator: MakeNewFriendsListCoordinatorP
     func sendSelectedNewFriends(output: MakeNewFriendsListViewModel.Output) {
         delegate?.sendData(selectedList: output.selectedFriendRelay.value)
     }
+    
 }

@@ -32,7 +32,7 @@ final class ParticipantsViewModel {
             .disposed(by: disposeBag)
     }
     /// 화면이동
-    private func changeLocationButtonTapped(){
+    private func changeLocationButtonTapped() {
         coordinator?.moveToChangeLocation()
     }
 }

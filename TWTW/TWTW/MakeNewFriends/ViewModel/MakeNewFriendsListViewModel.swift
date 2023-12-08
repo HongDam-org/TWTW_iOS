@@ -11,6 +11,7 @@ import RxRelay
 import RxSwift
 
 final class MakeNewFriendsListViewModel {
+    weak var delegate: MakeNewFriendsDelegate?
     var coordinator: MakeNewFriendsListCoordinatorProtocol
     private let friendService: FriendProtocol
     private let disposeBag = DisposeBag()
@@ -22,7 +23,6 @@ final class MakeNewFriendsListViewModel {
     }
     
     struct Output {
-        var friendListRelay: BehaviorRelay<[Friend]> = BehaviorRelay(value: [])
         var filteringFriendListRelay: BehaviorRelay<[Friend]> = BehaviorRelay(value: [])
         var selectedFriendRelay: BehaviorRelay<[Friend]> = BehaviorRelay(value: [])
     }
@@ -43,29 +43,13 @@ final class MakeNewFriendsListViewModel {
             .flatMapLatest { word -> Observable<[Friend]> in
                 if word.isEmpty {
                     return Observable.just([])
-                } else {
-                    self.getMakeNewFriends(searchText: word, output: output)
-                    //self.getMakeNewFriends(searchText: word, output: output) //real API
-                    return output.friendListRelay.asObservable()
                 }
+                return self.searchMakeNewFriends(searchText: word)
             }
             .observe(on: MainScheduler.asyncInstance)
             .bind(to: output.filteringFriendListRelay)
             .disposed(by: disposeBag)
-        
 
-//        input.selectedFriendsEvents?
-//            .bind { [weak self] indexPath in
-//                guard let self = self else { return }
-//                var selectedFriends = output.selectedFriendRelay.value
-//                let selectedFriend = output.filteringFriendListRelay.value[indexPath.row]
-//                if let index = selectedFriends.firstIndex(of: selectedFriend) {
-//                    selectedFriends.remove(at: index)
-//                }
-//                selectedFriends.append(selectedFriend)
-//                output.selectedFriendRelay.accept(selectedFriends)
-//            }
-//            .disposed(by: disposeBag)
         input.selectedFriendsEvents?
             .bind { indexPath in
                 var select = output.selectedFriendRelay.value
@@ -95,22 +79,22 @@ final class MakeNewFriendsListViewModel {
     /// - Parameter output: Output
     private func moveCreateFriend(output: Output) {
         print("선택된 친구들: \(output.selectedFriendRelay.value)")
-        coordinator.sendSelectedNewFriends(output: output)
+        delegate?.sendData(selectedList: output.selectedFriendRelay.value)
     }
     
     // MARK: - API Connect
     
     /// 새로운 친구 목록 로딩
     /// - Parameter output: output
-    private func getMakeNewFriends(searchText: String, output: Output) {
+    private func searchMakeNewFriends(searchText: String) -> Observable<[Friend]> {
         
 //        // Real API Call
-//        friendService.searchingFriends(word: searchText)
-//            .subscribe(onNext: { friends in
-//                output.friendListRelay.accept(friends)
-//            }, onError: { error in
-//                print(error)
-//            }).disposed(by: disposeBag)
+//        if searchText.isEmpty {
+//            return Observable.just([])
+//        }
+//        return friendService.searchingFriends(word: searchText)
+//            .catchAndReturn([])
+
         let list = [Friend(memberId: "aasd1", nickname: "1"),
                     Friend(memberId: "aasd2", nickname: "2"),
                     Friend(memberId: "aasd3", nickname: "3"),
@@ -124,7 +108,7 @@ final class MakeNewFriendsListViewModel {
                     Friend(memberId: "aasd11", nickname: "11"),
                     Friend(memberId: "aasd12", nickname: "12")
         ]
-        output.friendListRelay.accept(list)
+        return Observable.just(list.filter {$0.nickname?.contains(searchText) ?? false })
 
     }
 }

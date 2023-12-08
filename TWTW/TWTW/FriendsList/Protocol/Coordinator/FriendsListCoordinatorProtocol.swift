@@ -8,6 +8,4 @@
 import Foundation
 import UIKit
 
-protocol FriendsListCoordinatorProtocol: Coordinator {
-    func sendSelectedFriends(output: FriendsListViewModel.Output)
-}
+protocol FriendsListCoordinatorProtocol: Coordinator {}

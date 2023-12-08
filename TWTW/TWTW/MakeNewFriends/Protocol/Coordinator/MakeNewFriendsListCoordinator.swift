@@ -9,5 +9,5 @@ import Foundation
 import UIKit
 
 protocol MakeNewFriendsListCoordinatorProtocol: Coordinator {
-    func sendSelectedNewFriends(output: MakeNewFriendsListViewModel.Output)
+
 }
