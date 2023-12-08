@@ -33,9 +33,7 @@ final class DefaultGroupCoordinator: GroupCoordinatorProtocol {
     /// 그룹 생성 화면으로 이동
     func moveCreateGroup() {
         let defaultCreateGroupCoordinator = DefaultCreateGroupCoordinator(navigationController: navigationController)
-        
         childCoordinators.append(defaultCreateGroupCoordinator)
         defaultCreateGroupCoordinator.start()
     }
-
 }

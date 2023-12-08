@@ -20,12 +20,13 @@ final class DefaultCreateGroupCoordinator: CreateGroupCoordinatorProtocol {
     }
     
     func start() {
-        let createGroupViewModel = CreateGroupViewModel(coordinator: self)
+        let createGroupViewModel = CreateGroupViewModel(coordinator: self, groupService: GroupService())
         let createGroupViewController = CreateGroupViewController(viewModel: createGroupViewModel)
         navigationController.pushViewController(createGroupViewController, animated: true)
     }
     
     /// move Selected Friends Page
+    /// - Parameter output: Output
     func moveSelectedFriends(output: CreateGroupViewModel.Output) {
         self.output = output
         let defaultFriendSearchCoordinator = DefaultFriendSearchCoordinator(navigationController: navigationController)
@@ -33,9 +34,17 @@ final class DefaultCreateGroupCoordinator: CreateGroupCoordinatorProtocol {
         defaultFriendSearchCoordinator.start()
         childCoordinators.append(defaultFriendSearchCoordinator)
     }
+    
+    /// Move to Group List Page
+    func moveGroupList() {
+        navigationController.popViewController(animated: true)
+        childCoordinators = []
+    }
 }
 
 extension DefaultCreateGroupCoordinator: FriendSearchDelegate {
+    /// Send Data
+    /// - Parameter selectedList: Selected Friend List
     func sendData(selectedList: [Friend]) {
         output?.selectedFriendListRelay.accept(selectedList)
         childCoordinators = []

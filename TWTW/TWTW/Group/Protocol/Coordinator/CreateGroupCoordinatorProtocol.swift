@@ -12,4 +12,7 @@ protocol CreateGroupCoordinatorProtocol: Coordinator {
     /// move Selected Friends Page
     func moveSelectedFriends(output: CreateGroupViewModel.Output)
     
+    /// Move to Group List Page
+    func moveGroupList()
+    
 }
