@@ -10,17 +10,9 @@ import SnapKit
 import UIKit
 
 final class ParticipantsTableViewCell: UITableViewCell {
-    var disposeBag = DisposeBag()
+    lazy var disposeBag = DisposeBag()
     let participantImageView = UIImageView()
     let nameLabel = UILabel()
-
-    var callBtnTapObservable: Observable<Void> {
-        return callButton.rx.tap.asObservable()
-    }
-    
-    var locationBtnTapObservable: Observable<Void> {
-        return locationButton.rx.tap.asObservable()
-    }
     
     private lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView()
@@ -39,6 +31,16 @@ final class ParticipantsTableViewCell: UITableViewCell {
         btn.tintColor = .black
         return btn
     }()
+    
+    var callBtnTapObservable: Observable<Void> {
+        return callButton.rx.tap.asObservable()
+    }
+    
+    var locationBtnTapObservable: Observable<Void> {
+        return locationButton.rx.tap.asObservable()
+    }
+    
+    // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubViews()
@@ -53,6 +55,7 @@ final class ParticipantsTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     /// addSubViews()
     private func addSubViews() {
         contentView.addSubview(participantImageView)
@@ -64,7 +67,7 @@ final class ParticipantsTableViewCell: UITableViewCell {
         configureConstraints()
     }
     
-    /// addSubViews()
+    /// configureConstraints()
     private func configureConstraints() {
         participantImageView.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(10)
