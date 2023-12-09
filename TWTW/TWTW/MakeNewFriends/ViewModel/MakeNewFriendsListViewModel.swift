@@ -11,7 +11,6 @@ import RxRelay
 import RxSwift
 
 final class MakeNewFriendsListViewModel {
-    weak var delegate: MakeNewFriendsDelegate?
     var coordinator: MakeNewFriendsListCoordinatorProtocol
     private let friendService: FriendProtocol
     private let disposeBag = DisposeBag()
@@ -79,7 +78,22 @@ final class MakeNewFriendsListViewModel {
     /// - Parameter output: Output
     private func moveCreateFriend(output: Output) {
         print("선택된 친구들: \(output.selectedFriendRelay.value)")
-        delegate?.sendData(selectedList: output.selectedFriendRelay.value)
+        output.selectedFriendRelay.value.forEach { friend in
+            friendService.requestFriends(memberId: friend.memberId ?? "")
+                .subscribe(
+                    onNext: { friends in
+                        if friends.isEmpty {
+                            print("서버 응답 성공, 데이터 비어있음.")
+                        } else {
+                            print("성공")
+                        }
+                    },
+                    onError: { error in
+                        print("에러 발생: \(error)")
+                    })
+        }
+        coordinator.sendSelectedNewFriends(output: output)
+        coordinator.navigateBack()
     }
     
     // MARK: - API Connect

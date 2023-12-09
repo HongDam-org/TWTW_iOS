@@ -31,6 +31,7 @@ final class DefaultFriendsListCoordinator: FriendsListCoordinatorProtocol {
         defaultMakeNewFriendsListCoordinator.start()
     }
 }
+
 extension DefaultFriendsListCoordinator: MakeNewFriendsDelegate {
     func sendData(selectedList: [Friend]) {
         guard !selectedList.isEmpty else {

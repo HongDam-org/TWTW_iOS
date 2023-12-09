@@ -56,4 +56,29 @@ final class FriendService: FriendProtocol {
             return Disposables.create()
         }
     }
+    
+    
+    /// 친구 신청보내기
+    /// - Returns: 친구
+    func requestFriends(memberId: String) -> Observable<[Friend]> {
+        let url = Domain.RESTAPI + FriendPath.request.rawValue
+        let header = Header.header.getHeader()
+        let parameters: [String: Any] = ["memberId": memberId]
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .post,
+                       parameters: parameters,
+                       encoding: JSONEncoding.default,
+                       headers: header)
+            .responseDecodable(of: [Friend].self) {response in
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
 }

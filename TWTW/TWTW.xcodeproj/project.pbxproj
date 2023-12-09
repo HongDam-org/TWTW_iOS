@@ -59,6 +59,7 @@
 		37BB03012B231188006B2BEB /* ChangeLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB03002B231188006B2BEB /* ChangeLocationModel.swift */; };
 		37BB03032B231198006B2BEB /* DefaultChangeLocationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB03022B231198006B2BEB /* DefaultChangeLocationCoordinator.swift */; };
 		37BB03052B2311DA006B2BEB /* ChangeLocationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB03042B2311DA006B2BEB /* ChangeLocationCoordinator.swift */; };
+		37BB03122B2347E6006B2BEB /* MakeNewFriendsCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB03112B2347E6006B2BEB /* MakeNewFriendsCoordinatorProtocol.swift */; };
 		37C35EDF2B1CC6FE008A289D /* MakeNewFriendsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C35EDE2B1CC6FE008A289D /* MakeNewFriendsListViewModel.swift */; };
 		37C35EE32B1CC876008A289D /* MakeNewFriendsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C35EE22B1CC876008A289D /* MakeNewFriendsListCoordinator.swift */; };
 		37C35EE52B1CC8A6008A289D /* DefaultMakeNewFriendsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C35EE42B1CC8A6008A289D /* DefaultMakeNewFriendsListCoordinator.swift */; };
@@ -207,6 +208,7 @@
 		37BB03002B231188006B2BEB /* ChangeLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLocationModel.swift; sourceTree = "<group>"; };
 		37BB03022B231198006B2BEB /* DefaultChangeLocationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultChangeLocationCoordinator.swift; sourceTree = "<group>"; };
 		37BB03042B2311DA006B2BEB /* ChangeLocationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLocationCoordinator.swift; sourceTree = "<group>"; };
+		37BB03112B2347E6006B2BEB /* MakeNewFriendsCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNewFriendsCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		37C35EDE2B1CC6FE008A289D /* MakeNewFriendsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNewFriendsListViewModel.swift; sourceTree = "<group>"; };
 		37C35EE22B1CC876008A289D /* MakeNewFriendsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNewFriendsListCoordinator.swift; sourceTree = "<group>"; };
 		37C35EE42B1CC8A6008A289D /* DefaultMakeNewFriendsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMakeNewFriendsListCoordinator.swift; sourceTree = "<group>"; };
@@ -703,6 +705,7 @@
 			isa = PBXGroup;
 			children = (
 				37C35EE22B1CC876008A289D /* MakeNewFriendsListCoordinator.swift */,
+				37BB03112B2347E6006B2BEB /* MakeNewFriendsCoordinatorProtocol.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -1541,6 +1544,7 @@
 				3B20E1DD2AE41D32009572AA /* PreviousAppointmentsCoordinator.swift in Sources */,
 				377CB05B2AD8666F003453D6 /* GroupCoordinatorProtocol.swift in Sources */,
 				3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */,
+				37BB03122B2347E6006B2BEB /* MakeNewFriendsCoordinatorProtocol.swift in Sources */,
 				3BB85C052B19D33400F8BBF3 /* FriendSearchViewController.swift in Sources */,
 				3B274D802AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift in Sources */,
 				371C1D2F2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift in Sources */,

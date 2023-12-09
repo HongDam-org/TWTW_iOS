@@ -17,4 +17,6 @@ protocol FriendProtocol {
     /// - Parameter word: 입력한 닉네임
     /// - Returns: 닉네임과 일치하는 친구 목록
     func searchingFriends(word: String) -> Observable<[Friend]>
+    
+    func requestFriends(memberId: String) -> Observable<[Friend]>
 }

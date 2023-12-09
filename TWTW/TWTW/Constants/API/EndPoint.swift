@@ -31,4 +31,5 @@ enum GroupPath: String {
 enum FriendPath: String {
     case all = "/friends/all"
     case search = "/friends/search?nickname=NAME"
+    case request = "/friends/request"
 }
