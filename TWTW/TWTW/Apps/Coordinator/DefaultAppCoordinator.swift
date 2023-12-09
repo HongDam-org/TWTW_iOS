@@ -24,7 +24,7 @@ final class DefaultAppCoordinator: AppCoordinator {
     }
     
     func moveSignIn() {
-        let defaultSignInCoordinator = DefaultFriendsListCoordinator(navigationController: navigationController)//DefaultSignInCoordinator(navigationController: navigationController)
+        let defaultSignInCoordinator = DefaultTabBarCoordinator(navigationController: navigationController)//DefaultGroupCoordinator(navigationController: navigationController)//DefaultFriendsListCoordinator(navigationController: navigationController)//DefaultSignInCoordinator(navigationController: navigationController)
         //defaultSignInCoordinator.delegate = self
         defaultSignInCoordinator.start()
         childCoordinators.append(defaultSignInCoordinator)
