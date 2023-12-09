@@ -27,6 +27,7 @@
 		374DB4632B247C8800AF648C /* DefaultMyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374DB4622B247C8800AF648C /* DefaultMyPageCoordinator.swift */; };
 		374DB4662B247CB700AF648C /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374DB4652B247CB700AF648C /* MyPageCoordinator.swift */; };
 		374DB4682B247CC800AF648C /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374DB4672B247CC800AF648C /* MyPageViewController.swift */; };
+		374DB46A2B24834700AF648C /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374DB4692B24834700AF648C /* TabCoordinator.swift */; };
 		3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8402A8D23EE00D63A16 /* SnapKit */; };
 		3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8432A8D242C00D63A16 /* Alamofire */; };
 		3751E8472A8D246A00D63A16 /* RxKakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8462A8D246A00D63A16 /* RxKakaoSDK */; };
@@ -182,6 +183,7 @@
 		374DB4622B247C8800AF648C /* DefaultMyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMyPageCoordinator.swift; sourceTree = "<group>"; };
 		374DB4652B247CB700AF648C /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		374DB4672B247CC800AF648C /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		374DB4692B24834700AF648C /* TabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCoordinator.swift; sourceTree = "<group>"; };
 		3754BB6F2A9B455100522420 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewController.swift; sourceTree = "<group>"; };
 		3758F18B2A7D007200E2933C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 			children = (
 				374DB45E2B24750A00AF648C /* TabBarCoordinator.swift */,
 				374DB4602B24752800AF648C /* DefaultTabBarCoordinator.swift */,
+				374DB4692B24834700AF648C /* TabCoordinator.swift */,
 			);
 			path = Tabbar;
 			sourceTree = "<group>";
@@ -1517,6 +1520,7 @@
 				3B274D7B2AD4CFDA00D79698 /* SignUpCoordinatorFinishDelegate.swift in Sources */,
 				3760CC8C2AE2C0E800CFC2D5 /* SurroundSearchService.swift in Sources */,
 				3799E5022A99D68500E06218 /* CallViewController.swift in Sources */,
+				374DB46A2B24834700AF648C /* TabCoordinator.swift in Sources */,
 				37BB02FF2B23117E006B2BEB /* ChangeLocationViewModel.swift in Sources */,
 				3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */,
 				37E0D8AF2B1809EE002E0CF5 /* ParticipantsCoordinator.swift in Sources */,
