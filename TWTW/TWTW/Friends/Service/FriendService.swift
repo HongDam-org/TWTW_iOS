@@ -60,7 +60,7 @@ final class FriendService: FriendProtocol {
     
     /// 친구 신청보내기
     /// - Returns: 친구
-    func requestFriends(memberId: String) -> Observable<[Friend]> {
+    func requestFriends(memberId: String) -> Observable<Void> {
         let url = Domain.RESTAPI + FriendPath.request.rawValue
         let header = Header.header.getHeader()
         let parameters: [String: Any] = ["memberId": memberId]
@@ -72,8 +72,8 @@ final class FriendService: FriendProtocol {
                        headers: header)
             .responseDecodable(of: [Friend].self) {response in
                 switch response.result {
-                case .success(let data):
-                    observer.onNext(data)
+                case .success:
+                    observer.onCompleted()
                 case .failure(let error):
                     observer.onError(error)
                 }

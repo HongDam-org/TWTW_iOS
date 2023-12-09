@@ -48,7 +48,7 @@ final class MakeNewFriendsListViewModel {
             .observe(on: MainScheduler.asyncInstance)
             .bind(to: output.filteringFriendListRelay)
             .disposed(by: disposeBag)
-
+        
         input.selectedFriendsEvents?
             .bind { indexPath in
                 var select = output.selectedFriendRelay.value
@@ -70,7 +70,7 @@ final class MakeNewFriendsListViewModel {
                 moveCreateFriend(output: output)
             }
             .disposed(by: disposeBag)
-
+        
         return output
     }
     
@@ -81,16 +81,13 @@ final class MakeNewFriendsListViewModel {
         output.selectedFriendRelay.value.forEach { friend in
             friendService.requestFriends(memberId: friend.memberId ?? "")
                 .subscribe(
-                    onNext: { friends in
-                        if friends.isEmpty {
-                            print("서버 응답 성공, 데이터 비어있음.")
-                        } else {
-                            print("성공")
-                        }
-                    },
                     onError: { error in
                         print("에러 발생: \(error)")
+                    }, onCompleted: {
+                        print("친구 신청 성공")
+                        
                     })
+                .disposed(by: disposeBag)
         }
         coordinator.sendSelectedNewFriends(output: output)
         coordinator.navigateBack()
@@ -102,13 +99,13 @@ final class MakeNewFriendsListViewModel {
     /// - Parameter output: output
     private func searchMakeNewFriends(searchText: String) -> Observable<[Friend]> {
         
-//        // Real API Call
-//        if searchText.isEmpty {
-//            return Observable.just([])
-//        }
-//        return friendService.searchingFriends(word: searchText)
-//            .catchAndReturn([])
-
+        //        // Real API Call
+        //        if searchText.isEmpty {
+        //            return Observable.just([])
+        //        }
+        //        return friendService.searchingFriends(word: searchText)
+        //            .catchAndReturn([])
+        
         let list = [Friend(memberId: "aasd1", nickname: "1"),
                     Friend(memberId: "aasd2", nickname: "2"),
                     Friend(memberId: "aasd3", nickname: "3"),
@@ -123,6 +120,5 @@ final class MakeNewFriendsListViewModel {
                     Friend(memberId: "aasd12", nickname: "12")
         ]
         return Observable.just(list.filter {$0.nickname?.contains(searchText) ?? false })
-
     }
 }

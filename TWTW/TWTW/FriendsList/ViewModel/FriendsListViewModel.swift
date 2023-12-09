@@ -28,11 +28,13 @@ final class FriendsListViewModel {
         var filteringFriendListRelay: BehaviorRelay<[Friend]> = BehaviorRelay(value: [])
         var selectedFriendRelay: BehaviorRelay<[Friend]> = BehaviorRelay(value: [])
     }
+    
     // MARK: - init
     init(coordinator: DefaultFriendsListCoordinator, friendService: FriendProtocol) {
         self.coordinator = coordinator
         self.friendService = friendService
     }
+    
     /// create Output
     /// - Parameter input: Input Model
     /// - Returns: Output Model
@@ -48,7 +50,7 @@ final class FriendsListViewModel {
             .bind(to: output.filteringFriendListRelay)
             .disposed(by: disposeBag)
         input.clickedAddButtonEvents?
-            .bind { [weak self] indexPath in
+            .bind { [weak self] _ in
                 guard let self = self else { return }
                 moveMakeNewFriends()
             }.disposed(by: disposeBag)
@@ -56,10 +58,12 @@ final class FriendsListViewModel {
         getAllFriends(output: output)
         return output
     }
+    
     /// move MakeNewFriends
     func moveMakeNewFriends() {
         coordinator.makeNewFriends()
     }
+    
     /// 전체 친구 목록 로딩
     /// - Parameter output: output
     private func getAllFriends(output: Output) {
