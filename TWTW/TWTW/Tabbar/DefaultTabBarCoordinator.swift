@@ -9,10 +9,9 @@ import Foundation
 import RxSwift
 import UIKit
 
-final class DefaultTabBarCoordinator: TabBarCoordinator {
-    var navigationControllerDelegate = TabBarNavigationControllerDelegate()
-
+final class DefaultTabBarCoordinator: BaseTabBarCoodinator {
     
+    var navigationControllerDelegate = TabBarNavigationControllerDelegate()
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     var tabBarController: TabBarController

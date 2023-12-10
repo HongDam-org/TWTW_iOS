@@ -8,7 +8,7 @@
 import UIKit
 
 /// 탭 코디네이터 구조체
-struct TabCoordinator {
+struct TabBar {
     let title: String
     let icon: UIImage?
     let coordinator: Coordinator

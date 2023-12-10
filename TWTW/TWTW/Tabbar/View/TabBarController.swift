@@ -9,23 +9,36 @@ import Foundation
 import UIKit
 
 final class TabBarController: UITabBarController {
-    var tabCoordinators: [TabCoordinator] = []
+    var tabCoordinators: [TabBar] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUI()
         setupTabs()
+    }
+    
+    private func setUI() {
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+
+        tabBar.standardAppearance = appearance
+        tabBar.scrollEdgeAppearance = appearance
+
+        tabBar.tintColor = .black // 선택된 아이템
+        tabBar.unselectedItemTintColor = UIColor.gray // 선택하지 않은 아이템
     }
 
     private func setupTabs() {
 
         tabCoordinators = [
-            TabCoordinator(title: "홈", icon: UIImage(systemName: "house"),
+            TabBar(title: "홈", icon: UIImage(systemName: "house"),
                            coordinator: DefaultGroupCoordinator(navigationController: UINavigationController())),
-            TabCoordinator(title: "친구목록", icon: UIImage(systemName: "person.2"),
+            TabBar(title: "친구목록", icon: UIImage(systemName: "person.2"),
                            coordinator: DefaultFriendsListCoordinator(navigationController: UINavigationController())),
-            TabCoordinator(title: "알림", icon: UIImage(systemName: "bell"),
+            TabBar(title: "알림", icon: UIImage(systemName: "bell"),
                            coordinator: DefaultNotificationCoordinator(navigationController: UINavigationController())),
-            TabCoordinator(title: "마이페이지", icon: UIImage(systemName: "person"),
+            TabBar(title: "마이페이지", icon: UIImage(systemName: "person"),
                            coordinator: DefaultMyPageCoordinator(navigationController: UINavigationController()))
         ]
 

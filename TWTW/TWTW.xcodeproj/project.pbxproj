@@ -22,14 +22,14 @@
 		3737AE922AE93FB000FE7453 /* SearchPlacesMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3737AE912AE93FB000FE7453 /* SearchPlacesMapCoordinator.swift */; };
 		3737AE942AE93FB900FE7453 /* SearchPlacesMapCoordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3737AE932AE93FB900FE7453 /* SearchPlacesMapCoordDelegate.swift */; };
 		3737AE982AE983F600FE7453 /* SearchPlacesMapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3737AE972AE983F600FE7453 /* SearchPlacesMapService.swift */; };
-		374DB45F2B24750A00AF648C /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374DB45E2B24750A00AF648C /* TabBarCoordinator.swift */; };
 		374DB4612B24752800AF648C /* DefaultTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374DB4602B24752800AF648C /* DefaultTabBarCoordinator.swift */; };
 		374DB4632B247C8800AF648C /* DefaultMyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374DB4622B247C8800AF648C /* DefaultMyPageCoordinator.swift */; };
 		374DB4662B247CB700AF648C /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374DB4652B247CB700AF648C /* MyPageCoordinator.swift */; };
 		374DB4682B247CC800AF648C /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374DB4672B247CC800AF648C /* MyPageViewController.swift */; };
-		374DB46A2B24834700AF648C /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374DB4692B24834700AF648C /* TabCoordinator.swift */; };
+		374DB46A2B24834700AF648C /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374DB4692B24834700AF648C /* TabBar.swift */; };
 		374EAEA62B25D4E500BAA897 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374EAEA52B25D4E500BAA897 /* TabBarController.swift */; };
 		374EAEAA2B2600B400BAA897 /* TabBarNavigationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374EAEA92B2600B400BAA897 /* TabBarNavigationControllerDelegate.swift */; };
+		374EAEAC2B260BA900BAA897 /* BaseTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374EAEAB2B260BA900BAA897 /* BaseTabBarCoordinator.swift */; };
 		3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8402A8D23EE00D63A16 /* SnapKit */; };
 		3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8432A8D242C00D63A16 /* Alamofire */; };
 		3751E8472A8D246A00D63A16 /* RxKakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8462A8D246A00D63A16 /* RxKakaoSDK */; };
@@ -180,14 +180,14 @@
 		3737AE912AE93FB000FE7453 /* SearchPlacesMapCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapCoordinator.swift; sourceTree = "<group>"; };
 		3737AE932AE93FB900FE7453 /* SearchPlacesMapCoordDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapCoordDelegate.swift; sourceTree = "<group>"; };
 		3737AE972AE983F600FE7453 /* SearchPlacesMapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapService.swift; sourceTree = "<group>"; };
-		374DB45E2B24750A00AF648C /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		374DB4602B24752800AF648C /* DefaultTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTabBarCoordinator.swift; sourceTree = "<group>"; };
 		374DB4622B247C8800AF648C /* DefaultMyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMyPageCoordinator.swift; sourceTree = "<group>"; };
 		374DB4652B247CB700AF648C /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		374DB4672B247CC800AF648C /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
-		374DB4692B24834700AF648C /* TabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCoordinator.swift; sourceTree = "<group>"; };
+		374DB4692B24834700AF648C /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		374EAEA52B25D4E500BAA897 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		374EAEA92B2600B400BAA897 /* TabBarNavigationControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarNavigationControllerDelegate.swift; sourceTree = "<group>"; };
+		374EAEAB2B260BA900BAA897 /* BaseTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarCoordinator.swift; sourceTree = "<group>"; };
 		3754BB6F2A9B455100522420 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewController.swift; sourceTree = "<group>"; };
 		3758F18B2A7D007200E2933C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -356,11 +356,10 @@
 		374DB45D2B24745B00AF648C /* Tabbar */ = {
 			isa = PBXGroup;
 			children = (
-				374DB45E2B24750A00AF648C /* TabBarCoordinator.swift */,
-				374EAEA52B25D4E500BAA897 /* TabBarController.swift */,
+				374EAEAF2B260D1A00BAA897 /* Coordinator */,
+				374EAEAE2B260D0C00BAA897 /* View */,
+				374EAEAD2B260D0400BAA897 /* Model */,
 				374DB4602B24752800AF648C /* DefaultTabBarCoordinator.swift */,
-				374DB4692B24834700AF648C /* TabCoordinator.swift */,
-				374EAEA92B2600B400BAA897 /* TabBarNavigationControllerDelegate.swift */,
 			);
 			path = Tabbar;
 			sourceTree = "<group>";
@@ -373,6 +372,39 @@
 				374DB4672B247CC800AF648C /* MyPageViewController.swift */,
 			);
 			path = MyPage;
+			sourceTree = "<group>";
+		};
+		374EAEAD2B260D0400BAA897 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				374DB4692B24834700AF648C /* TabBar.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		374EAEAE2B260D0C00BAA897 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				374EAEA52B25D4E500BAA897 /* TabBarController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		374EAEAF2B260D1A00BAA897 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				374EAEA92B2600B400BAA897 /* TabBarNavigationControllerDelegate.swift */,
+				374EAEB02B260D2100BAA897 /* Protocol */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		374EAEB02B260D2100BAA897 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				374EAEAB2B260BA900BAA897 /* BaseTabBarCoordinator.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		3758F17F2A7D007100E2933C = {
@@ -1526,7 +1558,7 @@
 				3B274D7B2AD4CFDA00D79698 /* SignUpCoordinatorFinishDelegate.swift in Sources */,
 				3760CC8C2AE2C0E800CFC2D5 /* SurroundSearchService.swift in Sources */,
 				3799E5022A99D68500E06218 /* CallViewController.swift in Sources */,
-				374DB46A2B24834700AF648C /* TabCoordinator.swift in Sources */,
+				374DB46A2B24834700AF648C /* TabBar.swift in Sources */,
 				37BB02FF2B23117E006B2BEB /* ChangeLocationViewModel.swift in Sources */,
 				3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */,
 				37E0D8AF2B1809EE002E0CF5 /* ParticipantsCoordinator.swift in Sources */,
@@ -1545,7 +1577,6 @@
 				3B9693DE2B176DED001DDAE8 /* FriendListTableViewCell.swift in Sources */,
 				37E9FBFE2B1635B4004AFF79 /* MainMapCustomTabButtonViewModel.swift in Sources */,
 				3B20E1E62AE41E97009572AA /* FriendsListCoordinatorProtocol.swift in Sources */,
-				374DB45F2B24750A00AF648C /* TabBarCoordinator.swift in Sources */,
 				37F903A82AF9BD88008120B6 /* Header.swift in Sources */,
 				3760CC8F2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift in Sources */,
 				37CCCC392B1C8FB3003710DB /* MakeNewFriendsListViewController.swift in Sources */,
@@ -1570,6 +1601,7 @@
 				3737AE922AE93FB000FE7453 /* SearchPlacesMapCoordinator.swift in Sources */,
 				3B274D7D2AD4D19B00D79698 /* SignUpViewModel.swift in Sources */,
 				3B4A66112B1634C900DF9C84 /* FriendSearchViewModel.swift in Sources */,
+				374EAEAC2B260BA900BAA897 /* BaseTabBarCoordinator.swift in Sources */,
 				3B4A66082B16148C00DF9C84 /* GroupService.swift in Sources */,
 				37C35EDF2B1CC6FE008A289D /* MakeNewFriendsListViewModel.swift in Sources */,
 				3B26F32F2AC11DAD00EFEE12 /* SignUpViewController.swift in Sources */,

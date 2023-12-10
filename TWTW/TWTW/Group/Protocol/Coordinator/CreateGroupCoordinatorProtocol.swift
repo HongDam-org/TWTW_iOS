@@ -8,8 +8,7 @@
 import Foundation
 import RxSwift
 
-protocol CreateGroupCoordinatorProtocol: Coordinator {
+protocol CreateGroupCoordinatorProtocol: BaseTabBarCoodinator {
     /// move Selected Friends Page
     func moveSelectedFriends(output: CreateGroupViewModel.Output)
-    
 }

@@ -9,17 +9,23 @@ import Foundation
 import UIKit
 
 final class DefaultFriendsListCoordinator: FriendsListCoordinatorProtocol {
-    
+
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
+    var navigationControllerDelegate = TabBarNavigationControllerDelegate()
+
     private var output: FriendsListViewModel.Output?
 
     // MARK: - Init
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
+    func setNavigationControllerDelegate() {
+        navigationController.delegate = navigationControllerDelegate
+    }
     
     func start() {
+        setNavigationControllerDelegate()
         let friendsListViewModel = FriendsListViewModel(coordinator: self, friendService: FriendService())
         let friendsListViewController = FriendsListViewController(viewModel: friendsListViewModel)
         navigationController.pushViewController(friendsListViewController, animated: false)

@@ -8,4 +8,4 @@
 import Foundation
 import UIKit
 
-protocol FriendsListCoordinatorProtocol: Coordinator {}
+protocol FriendsListCoordinatorProtocol: BaseTabBarCoodinator {}
