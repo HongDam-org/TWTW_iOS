@@ -26,9 +26,11 @@ final class DefaultFriendsListCoordinator: FriendsListCoordinatorProtocol {
     }
     /// 새로운 친구추가 화면으로 이동
     func makeNewFriends() {
+        
         let defaultMakeNewFriendsListCoordinator = DefaultMakeNewFriendsListCoordinator(navigationController: navigationController)
         childCoordinators.append(defaultMakeNewFriendsListCoordinator)
         defaultMakeNewFriendsListCoordinator.start()
+
     }
 }
 

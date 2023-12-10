@@ -10,8 +10,12 @@ import RxSwift
 import UIKit
 
 final class DefaultCreateGroupCoordinator: CreateGroupCoordinatorProtocol {
+ 
+    
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
+    var navigationControllerDelegate = TabBarNavigationControllerDelegate()
+
     private var output: CreateGroupViewModel.Output?
     
     // MARK: - Init
@@ -20,6 +24,7 @@ final class DefaultCreateGroupCoordinator: CreateGroupCoordinatorProtocol {
     }
     
     func start() {
+//        navigationController.delegate = navigationControllerDelegate
         let createGroupViewModel = CreateGroupViewModel(coordinator: self)
         let createGroupViewController = CreateGroupViewController(viewModel: createGroupViewModel)
         navigationController.pushViewController(createGroupViewController, animated: true)

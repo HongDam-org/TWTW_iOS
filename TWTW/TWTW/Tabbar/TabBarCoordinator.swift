@@ -8,5 +8,5 @@
 import Foundation
 
 protocol TabBarCoordinator: Coordinator {
-    /// 검색화면으로 이동
+    func setNavigationControllerDelegate()
 }

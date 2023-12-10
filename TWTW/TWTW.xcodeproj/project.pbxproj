@@ -28,6 +28,8 @@
 		374DB4662B247CB700AF648C /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374DB4652B247CB700AF648C /* MyPageCoordinator.swift */; };
 		374DB4682B247CC800AF648C /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374DB4672B247CC800AF648C /* MyPageViewController.swift */; };
 		374DB46A2B24834700AF648C /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374DB4692B24834700AF648C /* TabCoordinator.swift */; };
+		374EAEA62B25D4E500BAA897 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374EAEA52B25D4E500BAA897 /* TabBarController.swift */; };
+		374EAEAA2B2600B400BAA897 /* TabBarNavigationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374EAEA92B2600B400BAA897 /* TabBarNavigationControllerDelegate.swift */; };
 		3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8402A8D23EE00D63A16 /* SnapKit */; };
 		3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8432A8D242C00D63A16 /* Alamofire */; };
 		3751E8472A8D246A00D63A16 /* RxKakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8462A8D246A00D63A16 /* RxKakaoSDK */; };
@@ -184,6 +186,8 @@
 		374DB4652B247CB700AF648C /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		374DB4672B247CC800AF648C /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		374DB4692B24834700AF648C /* TabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCoordinator.swift; sourceTree = "<group>"; };
+		374EAEA52B25D4E500BAA897 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		374EAEA92B2600B400BAA897 /* TabBarNavigationControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarNavigationControllerDelegate.swift; sourceTree = "<group>"; };
 		3754BB6F2A9B455100522420 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewController.swift; sourceTree = "<group>"; };
 		3758F18B2A7D007200E2933C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -353,8 +357,10 @@
 			isa = PBXGroup;
 			children = (
 				374DB45E2B24750A00AF648C /* TabBarCoordinator.swift */,
+				374EAEA52B25D4E500BAA897 /* TabBarController.swift */,
 				374DB4602B24752800AF648C /* DefaultTabBarCoordinator.swift */,
 				374DB4692B24834700AF648C /* TabCoordinator.swift */,
+				374EAEA92B2600B400BAA897 /* TabBarNavigationControllerDelegate.swift */,
 			);
 			path = Tabbar;
 			sourceTree = "<group>";
@@ -1548,6 +1554,7 @@
 				3799E5052A99D6DC00E06218 /* PreviousAppointmentsViewController.swift in Sources */,
 				37E9FBFB2B16337D004AFF79 /* MainMapCustomTabButtonsView.swift in Sources */,
 				3BF9EFB12AB1DEDB0014855E /* UIImage+Ext.swift in Sources */,
+				374EAEA62B25D4E500BAA897 /* TabBarController.swift in Sources */,
 				3758F1902A7D007200E2933C /* GroupViewController.swift in Sources */,
 				37C35EE32B1CC876008A289D /* MakeNewFriendsListCoordinator.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
@@ -1575,6 +1582,7 @@
 				37F903A62AF9BD2F008120B6 /* EncodedQuery.swift in Sources */,
 				37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */,
 				371C1D2D2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift in Sources */,
+				374EAEAA2B2600B400BAA897 /* TabBarNavigationControllerDelegate.swift in Sources */,
 				37BB03032B231198006B2BEB /* DefaultChangeLocationCoordinator.swift in Sources */,
 				3B4A660A2B161D1600DF9C84 /* CreateGroupViewController.swift in Sources */,
 				3BB85C032B19B4E200F8BBF3 /* FriendProtocol.swift in Sources */,

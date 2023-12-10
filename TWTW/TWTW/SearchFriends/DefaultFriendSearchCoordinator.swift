@@ -22,6 +22,7 @@ final class DefaultFriendSearchCoordinator: FriendSearchCoordinatorProtocol {
     func start() {
         let friendSearchViewModel = FriendSearchViewModel(coordinator: self, friendService: FriendService())
         let friendSearchViewController = FriendSearchViewController(viewModel: friendSearchViewModel)
+        
         navigationController.pushViewController(friendSearchViewController, animated: true)
     }
     
