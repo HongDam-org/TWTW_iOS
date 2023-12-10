@@ -24,5 +24,17 @@ extension UIViewController {
     func toPreview() -> some View {
         Preview(viewController: self)
     }
+    
 }
 #endif
+
+extension UIViewController {
+    typealias AlertOKCallback = (UIAlertAction) -> Void
+
+    func showErrorAlert(message: String, completion handler: AlertOKCallback? = nil) {
+        let alertVC = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: handler))
+
+        present(alertVC, animated: true)
+    }
+}

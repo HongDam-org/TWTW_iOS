@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B4B507D2B251E4000FE3858 /* TrackerARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B507C2B251E4000FE3858 /* TrackerARView.swift */; };
+		0B4B50802B251F9F00FE3858 /* ARCL in Frameworks */ = {isa = PBXBuildFile; productRef = 0B4B507F2B251F9F00FE3858 /* ARCL */; };
+		0B4B50852B2521DB00FE3858 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B50842B2521DB00FE3858 /* Tracker.swift */; };
+		0B4B50872B25221E00FE3858 /* MKMapView+Zoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4B50862B25221E00FE3858 /* MKMapView+Zoom.swift */; };
 		370AB45A2ADD12E000951562 /* DefaultMainMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB4592ADD12E000951562 /* DefaultMainMapCoordinator.swift */; };
 		371C1D2D2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D2C2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift */; };
 		371C1D2F2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D2E2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift */; };
@@ -148,6 +152,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B4B507C2B251E4000FE3858 /* TrackerARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerARView.swift; sourceTree = "<group>"; };
+		0B4B50842B2521DB00FE3858 /* Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
+		0B4B50862B25221E00FE3858 /* MKMapView+Zoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+Zoom.swift"; sourceTree = "<group>"; };
 		370AB4592ADD12E000951562 /* DefaultMainMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMainMapCoordinator.swift; sourceTree = "<group>"; };
 		371C1D2C2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNotificationCoordinator.swift; sourceTree = "<group>"; };
 		371C1D2E2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFriendsListCoordinator.swift; sourceTree = "<group>"; };
@@ -194,7 +201,7 @@
 		3799E5042A99D6DC00E06218 /* PreviousAppointmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousAppointmentsViewController.swift; sourceTree = "<group>"; };
 		3799E5062A99D70500E06218 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
 		3799E5082A99D72D00E06218 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
-		37BAF8952A949C4900BD85DC /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		37BAF8952A949C4900BD85DC /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Config.xcconfig; path = ../../../TWTW_iOS_stale/TWTW/TWTW/Config.xcconfig; sourceTree = "<group>"; };
 		37CE1EAE2AE75813009CDA21 /* SearchPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlace.swift; sourceTree = "<group>"; };
 		37D3AFE22B0F3E67006FB449 /* MockSearchPlacesMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchPlacesMapCoordinator.swift; sourceTree = "<group>"; };
 		37D5D7862B19CEA100302EAD /* Participants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participants.swift; sourceTree = "<group>"; };
@@ -281,6 +288,7 @@
 				3BC8D6AA2B0F520C00BE22EF /* Kingfisher in Frameworks */,
 				3BC1D2702AE0D15D00A7D0CC /* RxCocoa in Frameworks */,
 				3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */,
+				0B4B50802B251F9F00FE3858 /* ARCL in Frameworks */,
 				3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */,
 				3BC1D2722AE0D15D00A7D0CC /* RxRelay in Frameworks */,
 				3751E8472A8D246A00D63A16 /* RxKakaoSDK in Frameworks */,
@@ -301,6 +309,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B4B506D2B25029300FE3858 /* Tracker */ = {
+			isa = PBXGroup;
+			children = (
+				0B4B50712B2502B600FE3858 /* Model */,
+				0B4B50702B2502AF00FE3858 /* View */,
+				0B4B506E2B2502A100FE3858 /* ViewModel */,
+			);
+			path = Tracker;
+			sourceTree = "<group>";
+		};
+		0B4B506E2B2502A100FE3858 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0B4B50702B2502AF00FE3858 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0B4B507C2B251E4000FE3858 /* TrackerARView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0B4B50712B2502B600FE3858 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0B4B50842B2521DB00FE3858 /* Tracker.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		372109F52B0CE70700B0946C /* SearchPlaces */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,6 +374,7 @@
 		3758F18A2A7D007200E2933C /* TWTW */ = {
 			isa = PBXGroup;
 			children = (
+				0B4B506D2B25029300FE3858 /* Tracker */,
 				37D5D78B2B19E81200302EAD /* ChangeLocation */,
 				3788AEB12B18DC59007FC2F6 /* Plan */,
 				37E0D8AB2B1807E0002E0CF5 /* Participants */,
@@ -608,6 +650,7 @@
 				3754BB6F2A9B455100522420 /* Color+Ext.swift */,
 				3BF9EFB02AB1DEDB0014855E /* UIImage+Ext.swift */,
 				37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */,
+				0B4B50862B25221E00FE3858 /* MKMapView+Zoom.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1127,6 +1170,7 @@
 				3BC1D2712AE0D15D00A7D0CC /* RxRelay */,
 				3BC1D2732AE0D15D00A7D0CC /* RxSwift */,
 				3BC8D6A92B0F520C00BE22EF /* Kingfisher */,
+				0B4B507F2B251F9F00FE3858 /* ARCL */,
 			);
 			productName = TWTW;
 			productReference = 3BF9EF9F2AB1AE220014855E /* TWTW.app */;
@@ -1192,6 +1236,7 @@
 				3BF9EFA02AB1AE4A0014855E /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
 				3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */,
 				3BC8D6A82B0F520B00BE22EF /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				0B4B507E2B251F9F00FE3858 /* XCRemoteSwiftPackageReference "ARKit-CoreLocation" */,
 			);
 			productRefGroup = 3758F17F2A7D007100E2933C;
 			projectDirPath = "";
@@ -1319,6 +1364,7 @@
 				37E9FBFB2B16337D004AFF79 /* MainMapCustomTabButtonsView.swift in Sources */,
 				3BF9EFB12AB1DEDB0014855E /* UIImage+Ext.swift in Sources */,
 				3758F1902A7D007200E2933C /* GroupViewController.swift in Sources */,
+				0B4B507D2B251E4000FE3858 /* TrackerARView.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
 				3BB85C092B19D39200F8BBF3 /* FriendSearchCoordinatorProtocol.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
@@ -1338,11 +1384,13 @@
 				3B274D6D2AD3F6F400D79698 /* Coordinator.swift in Sources */,
 				3B9693D82B175346001DDAE8 /* DefaultCreateGroupCoordinator.swift in Sources */,
 				3737AE982AE983F600FE7453 /* SearchPlacesMapService.swift in Sources */,
+				0B4B50852B2521DB00FE3858 /* Tracker.swift in Sources */,
 				3754BB702A9B455100522420 /* Color+Ext.swift in Sources */,
 				37F903A62AF9BD2F008120B6 /* EncodedQuery.swift in Sources */,
 				37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */,
 				371C1D2D2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift in Sources */,
 				3B4A660A2B161D1600DF9C84 /* CreateGroupViewController.swift in Sources */,
+				0B4B50872B25221E00FE3858 /* MKMapView+Zoom.swift in Sources */,
 				3BB85C032B19B4E200F8BBF3 /* FriendProtocol.swift in Sources */,
 				3799E4F12A99C4D100E06218 /* DefaultAppCoordinator.swift in Sources */,
 				3737AE8F2AE93EE600FE7453 /* SearchPlacesMapViewController.swift in Sources */,
@@ -1681,6 +1729,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0B4B507E2B251F9F00FE3858 /* XCRemoteSwiftPackageReference "ARKit-CoreLocation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AndrewHartAR/ARKit-CoreLocation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
 		3751E83F2A8D23EE00D63A16 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1740,6 +1796,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0B4B507F2B251F9F00FE3858 /* ARCL */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B4B507E2B251F9F00FE3858 /* XCRemoteSwiftPackageReference "ARKit-CoreLocation" */;
+			productName = ARCL;
+		};
 		3751E8402A8D23EE00D63A16 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3751E83F2A8D23EE00D63A16 /* XCRemoteSwiftPackageReference "SnapKit" */;
