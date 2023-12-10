@@ -89,7 +89,6 @@ final class MakeNewFriendsListViewModel {
                     })
                 .disposed(by: disposeBag)
         }
-        coordinator.sendSelectedNewFriends(output: output)
         coordinator.navigateBack()
     }
     

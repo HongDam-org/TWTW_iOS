@@ -16,7 +16,7 @@ final class TabBarController: UITabBarController {
         setUI()
         setupTabs()
     }
-    
+    /// 탭바 UI 속성
     private func setUI() {
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -29,6 +29,7 @@ final class TabBarController: UITabBarController {
         tabBar.unselectedItemTintColor = UIColor.gray // 선택하지 않은 아이템
     }
 
+    /// setupTabs
     private func setupTabs() {
 
         tabCoordinators = [

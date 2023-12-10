@@ -9,5 +9,7 @@ import Foundation
 
 /// Tabbar hidden/show 관리 포함 Coordinator
 protocol BaseTabBarCoodinator: Coordinator {
+    
+    /// 탭바관리 함수
     func setNavigationControllerDelegate()
 }

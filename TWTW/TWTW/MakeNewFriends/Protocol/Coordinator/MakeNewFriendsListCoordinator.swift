@@ -9,8 +9,6 @@ import Foundation
 import UIKit
 
 protocol MakeNewFriendsListCoordinatorProtocol: BaseTabBarCoodinator {
-    
-    func sendSelectedNewFriends(output: MakeNewFriendsListViewModel.Output)
-   
+       
     func navigateBack()
 }

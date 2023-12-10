@@ -39,19 +39,3 @@ final class DefaultFriendsListCoordinator: FriendsListCoordinatorProtocol {
 
     }
 }
-
-extension DefaultFriendsListCoordinator: MakeNewFriendsDelegate {
-    func sendData(selectedList: [Friend]) {
-        guard !selectedList.isEmpty else {
-            // 선택된 친구 목록이 비어있을 경우 처리
-            print("No friends selected")
-            return
-        }
-
-        output?.friendListRelay.accept(selectedList)
-        childCoordinators = []
-        navigationController.popViewController(animated: true)
-        print("Received data: \(selectedList)")
-
-    }
-}

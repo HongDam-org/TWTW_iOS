@@ -101,8 +101,5 @@ final class FriendSearchViewModel {
                     Friend(memberId: "aasd12", nickname: "12")]
         
         output.friendListRelay.accept(list)
-      //  friendService.searchingFriends(word: <#T##String#>)
-
     }
-
 }

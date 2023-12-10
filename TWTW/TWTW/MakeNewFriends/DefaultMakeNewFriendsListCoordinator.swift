@@ -13,7 +13,6 @@ final class DefaultMakeNewFriendsListCoordinator: MakeNewFriendsListCoordinatorP
     
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
-    var delegate: MakeNewFriendsDelegate?
     var navigationControllerDelegate = TabBarNavigationControllerDelegate()
 
     // MARK: - Init
@@ -33,12 +32,7 @@ final class DefaultMakeNewFriendsListCoordinator: MakeNewFriendsListCoordinatorP
     func setNavigationControllerDelegate() {
         navigationController.delegate = navigationControllerDelegate
     }
-    /// 선택한 친구들 전송
-    /// - Parameter output: Output
-    func sendSelectedNewFriends(output: MakeNewFriendsListViewModel.Output) {
-        delegate?.sendData(selectedList: output.selectedFriendRelay.value)
-    }
-    
+
     func navigateBack() {
         navigationController.popViewController(animated: true)
     }

@@ -121,5 +121,4 @@ final class FriendsListViewController: UIViewController {
             }
             .disposed(by: disposeBag)
     }
-    
 }
