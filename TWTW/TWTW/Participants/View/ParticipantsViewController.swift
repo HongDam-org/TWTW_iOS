@@ -17,22 +17,34 @@ final class ParticipantsViewController: UIViewController {
         Participant(participantsimage: UIImage(systemName: "person"),
                     name: "박다미",
                     callImage: UIImage(systemName: "phone"), locationImage: UIImage(systemName: "map")),
-        Participant(participantsimage: UIImage(systemName: "person"), 
-                    name: "박다미", callImage: UIImage(systemName: "phone"), 
+        Participant(participantsimage: UIImage(systemName: "person"),
+                    name: "박다미", callImage: UIImage(systemName: "phone"),
                     locationImage: UIImage(systemName: "map")),
         Participant(participantsimage: UIImage(systemName: "person"),
-                    name: "박다미", callImage: UIImage(systemName: "phone"), 
+                    name: "박다미", callImage: UIImage(systemName: "phone"),
                     locationImage: UIImage(systemName: "map")),
         Participant(participantsimage: UIImage(systemName: "person"),
-                    name: "박다미", callImage: UIImage(systemName: "phone"), 
+                    name: "박다미", callImage: UIImage(systemName: "phone"),
                     locationImage: UIImage(systemName: "map"))
-]
+    ]
     private let disposeBag = DisposeBag()
+    private var viewModel: ParticipantsViewModel
     
     private lazy var partiTableView: UITableView = {
         let tableView = UITableView()
         return tableView
     }()
+    
+    // MARK: - Init
+    init(viewModel: ParticipantsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: View Did Load
     override func viewDidLoad() {
@@ -42,7 +54,7 @@ final class ParticipantsViewController: UIViewController {
         setupTableView()
         bindTableView()
     }
-
+    
     private func setupTableView() {
         view.addSubview(partiTableView)
         partiTableView.register(ParticipantsTableViewCell.self, forCellReuseIdentifier: CellIdentifier.participantsTableViewCell.rawValue)
@@ -50,7 +62,7 @@ final class ParticipantsViewController: UIViewController {
             make.edges.equalToSuperview()
         }
     }
-
+    
     private func bindTableView() {
         // 데이터 바인딩
         Observable.just(participants)
@@ -58,14 +70,14 @@ final class ParticipantsViewController: UIViewController {
                 cellIdentifier: CellIdentifier.participantsTableViewCell.rawValue,
                 cellType: ParticipantsTableViewCell.self)) { (row, participant, cell) in
                     cell.configure(participant: participant)
-
+                    
                     /// 전화 버튼 탭 이벤트 구독
                     cell.callBtnTapObservable
                         .subscribe(onNext: {
                             print("전화")
                         })
                         .disposed(by: cell.disposeBag)
-
+                    
                     /// 위치 버튼 탭 이벤트 구독
                     cell.locationBtnTapObservable
                         .subscribe(onNext: {
@@ -74,17 +86,13 @@ final class ParticipantsViewController: UIViewController {
                         .disposed(by: cell.disposeBag)
                 }
                 .disposed(by: disposeBag)
-
+        
         /// 셀 선택 이벤트 처리
-        partiTableView.rx.itemSelected
-            .map { indexPath in
-                self.participants[indexPath.row]
-            }
-            .subscribe(onNext: { [weak self] _ in
-                let changeLocationVC = ChangeLocationViewController()
-                self?.present(changeLocationVC, animated: true, completion: nil)
-            })
-            .disposed(by: disposeBag)
+        let changeLocationTapped = partiTableView.rx.itemSelected
+            .map { _ in () }
+            .asObservable()
+        
+        let input = ParticipantsViewModel.Input(changeLocationButtonTapped: changeLocationTapped)
+        viewModel.bind(input: input)
     }
-
 }

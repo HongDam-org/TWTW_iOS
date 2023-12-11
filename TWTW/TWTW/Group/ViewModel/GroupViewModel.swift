@@ -36,7 +36,6 @@ final class GroupViewModel {
         groupService = service
     }
     
-    
     /// create Output
     /// - Parameter input: Input Model
     /// - Returns: Output Model
