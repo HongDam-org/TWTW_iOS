@@ -51,6 +51,7 @@
 		3760CC8F2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3760CC8E2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift */; };
 		376754472B1C2E3E006DFF6E /* DefaultGroupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376754462B1C2E3E006DFF6E /* DefaultGroupCoordinator.swift */; };
 		3767544C2B1C3AC1006DFF6E /* FriendsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3767544B2B1C3AC1006DFF6E /* FriendsListViewModel.swift */; };
+		3772041C2B27045E00FE20A9 /* SearchPlaceBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3772041B2B27045E00FE20A9 /* SearchPlaceBottomSheet.swift */; };
 		377CB0592AD8665E003453D6 /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0582AD8665E003453D6 /* GroupViewModel.swift */; };
 		377CB05B2AD8666F003453D6 /* GroupCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB05A2AD8666F003453D6 /* GroupCoordinatorProtocol.swift */; };
 		377CB0612AD8699C003453D6 /* MainMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0602AD8699C003453D6 /* MainMapCoordinator.swift */; };
@@ -205,6 +206,7 @@
 		3760CC8E2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurroundSearchPlaces.swift; sourceTree = "<group>"; };
 		376754462B1C2E3E006DFF6E /* DefaultGroupCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultGroupCoordinator.swift; sourceTree = "<group>"; };
 		3767544B2B1C3AC1006DFF6E /* FriendsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewModel.swift; sourceTree = "<group>"; };
+		3772041B2B27045E00FE20A9 /* SearchPlaceBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceBottomSheet.swift; sourceTree = "<group>"; };
 		377CB0582AD8665E003453D6 /* GroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
 		377CB05A2AD8666F003453D6 /* GroupCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		377CB0602AD8699C003453D6 /* MainMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapCoordinator.swift; sourceTree = "<group>"; };
@@ -1183,6 +1185,7 @@
 			children = (
 				3737AE892AE93EE600FE7453 /* SearchPlacesMapViewController.swift */,
 				3737AE882AE93EE600FE7453 /* SearchPlacesTableViewCell.swift */,
+				3772041B2B27045E00FE20A9 /* SearchPlaceBottomSheet.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1555,6 +1558,7 @@
 				374DB46A2B24834700AF648C /* TabBar.swift in Sources */,
 				37BB02FF2B23117E006B2BEB /* ChangeLocationViewModel.swift in Sources */,
 				3B1C36EC2A8FD0BE00838682 /* Map.swift in Sources */,
+				3772041C2B27045E00FE20A9 /* SearchPlaceBottomSheet.swift in Sources */,
 				37E0D8AF2B1809EE002E0CF5 /* ParticipantsCoordinator.swift in Sources */,
 				37D5D78F2B19EAEB00302EAD /* PlanTableViewCell.swift in Sources */,
 				3788AEBE2B18DF7F007FC2F6 /* DefaultsPlansCoordinator.swift in Sources */,

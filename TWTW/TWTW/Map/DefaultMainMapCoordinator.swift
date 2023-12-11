@@ -60,11 +60,12 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
 // MARK: - SearchPlacesCoordinator에서 좌표 받는 함수
 extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate {
     
-    func didSelectCoordinate(coordinate: CLLocationCoordinate2D, searchPlaceList: [PlaceInformation]) {
+    func didSelectCoordinate(coordinate: CLLocationCoordinate2D) {
         mainMapViewModelOutput?.cameraCoordinateObservable.accept(coordinate)
-        mainMapViewModelOutput?.nearByplaceRelay.accept(searchPlaceList)
-        _ = childCoordinators.popLast()
+       // mainMapViewModelOutput?.nearByplaceRelay.accept(searchPlaceList)
+        navigationController.popViewController(animated: true)
         print(#function)
+        print("🍎")
         print(childCoordinators)
     }
 }

@@ -11,5 +11,5 @@ import UIKit
 
 protocol SearchPlacesMapCoordinatorProtocol: Coordinator {
     /// 서치 완료후 :  cLLocation전달 & pop VC
-    func finishSearchPlaces(coordinate: CLLocationCoordinate2D, searchPlaceList: [PlaceInformation])
+    func finishSearchPlaces(coordinate: CLLocationCoordinate2D)
 }
