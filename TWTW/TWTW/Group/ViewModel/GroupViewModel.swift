@@ -59,6 +59,7 @@ final class GroupViewModel {
         input.clickedTableViewItemEvents?
             .bind { [weak self] indexPath in
                 guard let self = self else { return }
+                _ = KeychainWrapper.saveItem(value: output.groupListRelay.value[indexPath.row].groupId ?? "", forKey: "GroupId")
                 moveMainMap()
             }
             .disposed(by: disposeBag)

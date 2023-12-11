@@ -91,14 +91,24 @@ final class GroupViewController: UIViewController {
     }
     
     /// binding TableView
+    /// - Parameter output: Output
     private func bindTableView(output: GroupViewModel.Output) {
-        output.groupListRelay.bind(to: groupListTableView.rx
-            .items(cellIdentifier: CellIdentifier.groupTableViewCell.rawValue,
-                   cellType: GroupTableViewCell.self)) { _, element, cell in
-            cell.inputData(item: element)
-            cell.backgroundColor = .clear
-            cell.selectionStyle = .none
-        }
-        .disposed(by: disposeBag)
+        output.groupListRelay
+            .bind(to: groupListTableView.rx
+                .items(cellIdentifier: CellIdentifier.groupTableViewCell.rawValue,
+                       cellType: GroupTableViewCell.self)) { _, element, cell in
+                cell.inputData(item: element)
+                cell.backgroundColor = .clear
+                cell.selectionStyle = .none
+            }
+            .disposed(by: disposeBag)
+        
+        groupListTableView.rx.itemDeleted
+            .bind { [weak self] indexPath in
+                guard let self = self else { return }
+                groupListTableView.deleteRows(at: [indexPath], with: .automatic)
+                // todo: 삭제 API 작성
+            }
+            .disposed(by: disposeBag)
     }
 }

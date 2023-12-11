@@ -25,13 +25,6 @@ final class FriendListTableViewCell: UITableViewCell {
         return label
     }()
     
-    /// 선택된 이미지
-    private lazy var selectedImage: UIImageView = {
-        let view = UIImageView()
-        
-        return view
-    }()
-    
     // MARK: - init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -46,7 +39,6 @@ final class FriendListTableViewCell: UITableViewCell {
     private func addSubViews() {
         addSubview(userProfilImageView)
         addSubview(userNameLabel)
-        addSubview(selectedImage)
         
         constraints()
     }
@@ -55,17 +47,12 @@ final class FriendListTableViewCell: UITableViewCell {
     private func constraints() {
         userProfilImageView.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview().inset(10)
-            make.leading.equalToSuperview().offset(20)
+            make.leading.equalToSuperview()
         }
         
         userNameLabel.snp.makeConstraints { make in
             make.centerY.equalTo(userProfilImageView.snp.centerY)
             make.leading.equalTo(userProfilImageView.snp.trailing).offset(20)
-        }
-        
-        selectedImage.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-20)
         }
     }
     
