@@ -24,8 +24,8 @@ final class DefaultAppCoordinator: AppCoordinator {
     }
     
     func moveSignIn() {
-        let defaultSignInCoordinator = DefaultTabBarCoordinator(navigationController: navigationController)//DefaultGroupCoordinator(navigationController: navigationController)//DefaultFriendsListCoordinator(navigationController: navigationController)//DefaultSignInCoordinator(navigationController: navigationController)
-        //defaultSignInCoordinator.delegate = self
+        let defaultSignInCoordinator = DefaultSignInCoordinator(navigationController: navigationController)
+        defaultSignInCoordinator.delegate = self
         defaultSignInCoordinator.start()
         childCoordinators.append(defaultSignInCoordinator)
     }
@@ -35,11 +35,9 @@ final class DefaultAppCoordinator: AppCoordinator {
         _ = KeychainWrapper.saveItem(value: "\(0.0)", forKey: "latitude")
         _ = KeychainWrapper.saveItem(value: "\(0.0)", forKey: "longitude")
         // MeetingListCoodrinator로 이동
-        let meetingListCoordinator = DefaultFriendsListCoordinator(navigationController: navigationController)//DefaultGroupCoordinator(navigationController: navigationController)
+        let meetingListCoordinator = DefaultTabBarCoordinator(navigationController: navigationController)
         meetingListCoordinator.start()
-        
     }
-    
 }
 
 extension DefaultAppCoordinator: SignInCoordinatorFinishDelegate {
@@ -48,5 +46,4 @@ extension DefaultAppCoordinator: SignInCoordinatorFinishDelegate {
         navigationController.viewControllers = []
         moveMain()
     }
-    
 }

@@ -59,7 +59,6 @@ final class FriendService: FriendProtocol {
     
     
     /// 친구 신청보내기
-    /// - Returns: 친구
     func requestFriends(memberId: String) -> Observable<Void> {
         let url = Domain.RESTAPI + FriendPath.request.rawValue
         let header = Header.header.getHeader()

@@ -67,29 +67,14 @@ final class FriendsListViewModel {
     /// 전체 친구 목록 로딩
     /// - Parameter output: output
     private func getAllFriends(output: Output) {
-        let list = [Friend(memberId: "aasd1", nickname: "1"),
-                    Friend(memberId: "aasd2", nickname: "2"),
-                    Friend(memberId: "aasd3", nickname: "3"),
-                    Friend(memberId: "aasd4", nickname: "4"),
-                    Friend(memberId: "aasd5", nickname: "5"),
-                    Friend(memberId: "aasd6", nickname: "6"),
-                    Friend(memberId: "aasd7", nickname: "7"),
-                    Friend(memberId: "aasd8", nickname: "8"),
-                    Friend(memberId: "aasd9", nickname: "9"),
-                    Friend(memberId: "aasd10", nickname: "10"),
-                    Friend(memberId: "aasd11", nickname: "11"),
-                    Friend(memberId: "aasd12", nickname: "12")]
-        
-        output.friendListRelay.accept(list)
-        
-        // Real API Call
-//        friendService.getAllFriends()
-//            .subscribe(onNext: { list in
-//                print(#function, list)
-//                output.friendListRelay.accept(list)
-//            }, onError: { error in
-//                print(#function, error)
-//            })
-//            .disposed(by: disposeBag)
+
+        friendService.getAllFriends()
+            .subscribe(onNext: { list in
+                print(#function, list)
+                output.friendListRelay.accept(list)
+            }, onError: { error in
+                print(#function, error)
+            })
+            .disposed(by: disposeBag)
     }
 }
