@@ -35,11 +35,9 @@ final class DefaultAppCoordinator: AppCoordinator {
         _ = KeychainWrapper.saveItem(value: "\(0.0)", forKey: "latitude")
         _ = KeychainWrapper.saveItem(value: "\(0.0)", forKey: "longitude")
         // MeetingListCoodrinator로 이동
-        let meetingListCoordinator = DefaultGroupCoordinator(navigationController: navigationController)
+        let meetingListCoordinator = DefaultTabBarCoordinator(navigationController: navigationController)
         meetingListCoordinator.start()
-        
     }
-    
 }
 
 extension DefaultAppCoordinator: SignInCoordinatorFinishDelegate {
@@ -48,5 +46,4 @@ extension DefaultAppCoordinator: SignInCoordinatorFinishDelegate {
         navigationController.viewControllers = []
         moveMain()
     }
-    
 }

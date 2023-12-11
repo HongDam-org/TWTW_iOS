@@ -1,21 +1,23 @@
 //
-//  FriendsListViewController.swift
+//  MakeNewFriendsListViewController.swift
 //  TWTW
 //
-//  Created by 박다미 on 2023/08/26.
+//  Created by 박다미 on 2023/12/03.
 //
 
-import Foundation
 import RxCocoa
 import RxSwift
 import UIKit
 
-/// 친구목록
-final class FriendsListViewController: UIViewController {
+final class MakeNewFriendsListViewController: UIViewController {
     
-    /// 친구 검색 버튼
-    private lazy var rightItemButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
-    
+    /// 초대하기 버튼, 내비게이션 바 오른쪽 버튼
+    private lazy var rightItemButton: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("추가", for: .normal)
+        btn.setTitleColor(.black, for: .normal)
+        return btn
+    }()
     /// 서치바UI
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -25,18 +27,18 @@ final class FriendsListViewController: UIViewController {
         return searchBar
     }()
     
-    /// 검색된 친구 테이블
+    /// 검색된 친구테이블
     private lazy var friendsTableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(FriendListTableViewCell.self, forCellReuseIdentifier: CellIdentifier.friendListTableViewCell.rawValue)
         return tableView
     }()
+    private lazy var addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
     
+    private let viewModel: MakeNewFriendsListViewModel
     private let disposeBag = DisposeBag()
-    var viewModel: FriendsListViewModel
-    
+
     // MARK: - Init
-    init(viewModel: FriendsListViewModel) {
+    init(viewModel: MakeNewFriendsListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -50,10 +52,13 @@ final class FriendsListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        bind()
+        navigationItem.title = "새로운 친구찾기"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightItemButton)
         addSubviews()
-        
+        setupTableView()
+        bind()
     }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         searchBar.endEditing(true)
@@ -62,13 +67,11 @@ final class FriendsListViewController: UIViewController {
     // MARK: - Set Up
     /// Add  UI - SearchBar
     private func addSubviews() {
-        navigationItem.title = "친구 목록"
         view.addSubview(searchBar)
         view.addSubview(friendsTableView)
-        navigationItem.rightBarButtonItem = rightItemButton
         configureConstraints()
     }
-    
+
     private func configureConstraints() {
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(10)
@@ -81,15 +84,17 @@ final class FriendsListViewController: UIViewController {
         }
     }
     
+    private func setupTableView() {
+        friendsTableView.register(FriendListTableViewCell.self, forCellReuseIdentifier: CellIdentifier.friendListTableViewCell.rawValue)
+    }
     /// binding
     private func bind() {
-        let input = FriendsListViewModel.Input(searchBarEvents: searchBar.rx.text.orEmpty
-            .debounce(RxTimeInterval.milliseconds(300),
-                      scheduler: MainScheduler.instance)
-                .distinctUntilChanged(),
-                                               selectedFriendsEvents: friendsTableView.rx.itemSelected,
-                                               clickedAddButtonEvents: rightItemButton.rx.tap
-        )
+        let input = MakeNewFriendsListViewModel.Input(searchBarEvents: searchBar.rx.text.orEmpty
+                                                                    .debounce(RxTimeInterval.milliseconds(300),
+                                                                              scheduler: MainScheduler.instance)
+                                                                    .distinctUntilChanged(),
+                                                selectedFriendsEvents: friendsTableView.rx.itemSelected,
+                                                clickedAddButtonEvents: rightItemButton.rx.tap)
         
         let output = viewModel.createOutput(input: input)
         bindTableView(output: output)
@@ -97,11 +102,11 @@ final class FriendsListViewController: UIViewController {
     }
     
     /// bind tableView
-    private func bindTableView(output: FriendsListViewModel.Output) {
+    private func bindTableView(output: MakeNewFriendsListViewModel.Output) {
         output.filteringFriendListRelay
             .bind(to: friendsTableView.rx
-                .items(cellIdentifier: CellIdentifier.friendListTableViewCell.rawValue,
-                       cellType: FriendListTableViewCell.self)) { _, element, cell in
+                              .items(cellIdentifier: CellIdentifier.friendListTableViewCell.rawValue,
+                                         cellType: FriendListTableViewCell.self)) { _, element, cell in
                 cell.backgroundColor = .clear
                 cell.selectionStyle = .none
                 cell.accessoryType = .none
@@ -110,8 +115,9 @@ final class FriendsListViewController: UIViewController {
                     cell.accessoryType = .checkmark
                 }
             }
-                       .disposed(by: disposeBag)
+            .disposed(by: disposeBag)
     }
+
     /// keyboard 내림
     private func hideKeyboard() {
         friendsTableView.rx.didScroll

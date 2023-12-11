@@ -30,15 +30,6 @@ final class GroupViewController: UIViewController {
         return btn
     }()
     
-    /// 버튼들 담는 StackView
-    private lazy var stackView: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [alertBarButton, createGroupBarButton])
-        view.axis = .horizontal
-        view.distribution = .fillEqually
-        view.spacing = 20
-        return view
-    }()
-    
     /// 그룹 목록 보여줄 tableView
     private lazy var groupListTableView: UITableView = {
         let view = UITableView()
@@ -51,7 +42,6 @@ final class GroupViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     // MARK: - Init
-    
     init(viewModel: GroupViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -66,29 +56,27 @@ final class GroupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        setupNavigationBar()
         addSubViews()
         bind()
     }
-    
+    /// 네비게이션 바 설정
+        private func setupNavigationBar() {
+            let alertBarButtonItem = UIBarButtonItem(customView: alertBarButton)
+            let createGroupBarButtonItem = UIBarButtonItem(customView: createGroupBarButton)
+
+            navigationItem.rightBarButtonItems = [createGroupBarButtonItem, alertBarButtonItem]
+        }
     /// Add UI
     private func addSubViews() {
-        view.addSubview(stackView)
         view.addSubview(groupListTableView)
         constraints()
     }
     
     /// Set AutoLayout
     private func constraints() {
-        stackView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(-20)
-            make.trailing.equalToSuperview().offset(-10)
-        }
-        
         groupListTableView.snp.makeConstraints { make in
-            make.top.equalTo(stackView.snp.bottom).offset(10)
-            make.horizontalEdges.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
@@ -123,5 +111,4 @@ final class GroupViewController: UIViewController {
             }
             .disposed(by: disposeBag)
     }
-    
 }

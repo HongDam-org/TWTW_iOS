@@ -39,9 +39,9 @@ final class SearchPlacesMapService: SearchPlaceProtocol {
                     case .failure(let error):
                         if let statusCode = response.response?.statusCode, statusCode == 401 {
                             print("아직 검색과 일치하는 장소가 없음.")
-                        } else {
-                            observer.onError(error)
                         }
+                        observer.onError(error)
+                        
                     }
                 }
             return Disposables.create()
