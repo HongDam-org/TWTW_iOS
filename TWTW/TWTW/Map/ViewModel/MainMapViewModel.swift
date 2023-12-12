@@ -15,11 +15,14 @@ import RxSwift
 import UIKit
 
 /// MainMapViewModel
-final class MainMapViewModel {
+final class MainMapViewModel: MapViewModelProtocol {
+    var viewModelType = "MainMapViewModel"
+    
     private let coordinator: DefaultMainMapCoordinator?
     private let routeService: RouteProtocol?
     private let disposeBag = DisposeBag()
- 
+    var output: MainMapViewModel.Output?
+    
     struct Input {
         /// 지도 화면 터치 감지
         let screenTouchEvents: Observable<ControlEvent<RxGestureRecognizer>.Element>?
@@ -64,13 +67,13 @@ final class MainMapViewModel {
         
         var moveSearchCoordinator: PublishSubject<Bool> = PublishSubject()
     }
-
+    
     // MARK: - init
     init(coordinator: DefaultMainMapCoordinator?, routeService: RouteProtocol) {
         self.coordinator = coordinator
         self.routeService = routeService
     }
-
+    
     /// bind
     func bind(input: Input, viewMiddleYPoint: CGFloat?) -> Output {
         return createOutput(input: input, viewMiddleYPoint: viewMiddleYPoint)
@@ -119,8 +122,8 @@ final class MainMapViewModel {
             }
             .disposed(by: disposeBag)
         
-            touchMyLocation(input: input, output: output)
-
+        touchMyLocation(input: input, output: output)
+        
         return output
     }
     
@@ -135,7 +138,7 @@ final class MainMapViewModel {
         }
         .disposed(by: disposeBag)
     }
-  
+    
     
     // MARK: - Logic
     

@@ -15,7 +15,8 @@ import UIKit
 
 /// MainMapViewController - 지도화면
 final class MainMapViewController: KakaoMapViewController {
-    
+    private var currentViewModelType: ViewModelState = .mainMap
+
     // MARK: - UI Property
     
     /// 목적지 근처 장소들을 보여줄 컬렉션 뷰
@@ -59,12 +60,12 @@ final class MainMapViewController: KakaoMapViewController {
     }()
     
     private let disposeBag = DisposeBag()
-    private let viewModel: MainMapViewModel
+    private var viewModel: MapViewModelProtocol
     private var output: MainMapViewModel.Output?
     private let mainMapCustomTabButtonsView: MainMapCustomTabButtonsView
     // MARK: - init
     
-    init(viewModel: MainMapViewModel, coordinator: DefaultMainMapCoordinator) {
+    init(viewModel: MapViewModelProtocol, coordinator: DefaultMainMapCoordinator) {
         self.viewModel = viewModel
         let tabViewModel = MainMapCustomTabButtonViewModel(coordinator: coordinator)
         self.mainMapCustomTabButtonsView = MainMapCustomTabButtonsView(frame: .zero, viewModel: tabViewModel)
@@ -80,9 +81,8 @@ final class MainMapViewController: KakaoMapViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupUI()
         bind()
+        setupUI()
     }
     
     /// 지도 그리기
@@ -107,6 +107,8 @@ final class MainMapViewController: KakaoMapViewController {
         addSubViewsMyloctaionImageView()
         configureConstraintsMainMapCusomTabButtonView()
         view.backgroundColor = .white
+        configureUIComponentsFor(currentViewModelType)
+
     }
     
     
@@ -163,17 +165,60 @@ final class MainMapViewController: KakaoMapViewController {
         return cLLocationManager
     }
     
-    // MARK: - ViewModel bind
-    /// ViewModel Binding
     private func bind() {
-        let input = MainMapViewModel.Input(screenTouchEvents: kMViewContainer?.rx.anyGesture(.tap()).when(.recognized).asObservable(),
-                                           searchBarTouchEvents: searchBar.rx.tapGesture().when(.recognized).asObservable(),
-                                           cLLocationCoordinate2DEvents: Observable.just(configureLocationManager()),
-                                           myLocationTappedEvents: myloctaionImageView.rx.anyGesture(.tap())
-            .when(.recognized).asObservable(),
-                                           surroundSelectedTouchEvnets: nearbyPlacesCollectionView.rx.itemSelected.asObservable())
-        let output = viewModel.bind(input: input, viewMiddleYPoint: view.frame.height/2)
-        self.output = output
+            switch currentViewModelType {
+            case .mainMap:
+                if let viewModel = viewModel as? MainMapViewModel {
+                    bindMainMapViewModel(viewModel)
+                    self.view.isUserInteractionEnabled = true
+
+                }
+            case .searchMap:
+                if let viewModel = viewModel as? SearchMapViewModel {
+                    bindSearchMapViewModel(viewModel)
+                    self.view.isUserInteractionEnabled = false
+
+                }
+            }
+        }
+
+    func updateViewModel(with newViewModel: MapViewModelProtocol) {
+         self.viewModel = newViewModel
+         if newViewModel is MainMapViewModel {
+             currentViewModelType = .mainMap
+         } else if newViewModel is SearchMapViewModel {
+             currentViewModelType = .searchMap
+         }
+         configureUIComponentsFor(currentViewModelType)
+         bind()
+     }
+
+     private func configureUIComponentsFor(_ viewModelType: ViewModelState) {
+         switch viewModelType {
+         case .mainMap:
+             searchBar.isHidden = false
+             myloctaionImageView.isHidden = false
+             mainMapCustomTabButtonsView.isHidden = false
+         case .searchMap:
+             searchBar.isHidden = true
+             myloctaionImageView.isHidden = true
+             mainMapCustomTabButtonsView.isHidden = true
+         }
+     }
+
+    private func bindMainMapViewModel(_ viewModel: MainMapViewModel) {
+        let input = MainMapViewModel.Input(
+              screenTouchEvents: kMViewContainer?.rx.anyGesture(.tap()).when(.recognized).asObservable(),
+              searchBarTouchEvents: searchBar.rx.tapGesture().when(.recognized).asObservable(),
+              cLLocationCoordinate2DEvents: Observable.just(configureLocationManager()),
+              myLocationTappedEvents: myloctaionImageView.rx.anyGesture(.tap()).when(.recognized).asObservable(),
+              surroundSelectedTouchEvnets: nearbyPlacesCollectionView.rx.itemSelected.asObservable()
+          )
+          let output = viewModel.bind(input: input, viewMiddleYPoint: view.frame.height/2)
+          self.output = output
+        }
+    
+    private func bindSearchMapViewModel(_ viewModel: SearchMapViewModel) {
     }
     
     /// 내 위치 binding
@@ -194,18 +239,6 @@ final class MainMapViewController: KakaoMapViewController {
                 moveCameraToCoordinate(coordinate, output)
                 
             }).disposed(by: disposeBag)
-    }
-    
-    /// handle NearbyPlaces Visibility
-    private func handleNearbyPlacesVisibility(hide: Bool) {
-        UIView.animate(withDuration: 0.2,
-                       animations: {
-            self.nearbyPlacesCollectionView.alpha = hide ? 0 : 1
-        }, completion: { completed in
-            if completed {
-                self.nearbyPlacesCollectionView.isHidden = hide
-            }
-        })
     }
     
     /// 내위치 버튼 유무

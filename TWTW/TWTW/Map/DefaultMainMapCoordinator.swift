@@ -58,14 +58,15 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
   
 }
 // MARK: - SearchPlacesCoordinator에서 좌표 받는 함수
+
 extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate {
     
     func didSelectCoordinate(coordinate: CLLocationCoordinate2D) {
         mainMapViewModelOutput?.cameraCoordinateObservable.accept(coordinate)
-       // mainMapViewModelOutput?.nearByplaceRelay.accept(searchPlaceList)
         navigationController.popViewController(animated: true)
-        print(#function)
-        print("🍎")
-        print(childCoordinators)
+            if let mainMapVC = self.navigationController.viewControllers.last as? MainMapViewController {
+                let newViewModel = SearchMapViewModel() // 새 뷰 모델 인스턴스 생성
+                mainMapVC.updateViewModel(with: newViewModel)
+            }
     }
 }
