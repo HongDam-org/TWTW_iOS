@@ -15,6 +15,8 @@ import UIKit
 
 /// MainMapViewController - 지도화면
 final class MainMapViewController: KakaoMapViewController {
+    private var currentViewType: ViewState = .mainMap
+    private var searchPlaceBottomSheet: SearchPlaceBottomSheet?
     
     // MARK: - UI Property
     
@@ -58,10 +60,11 @@ final class MainMapViewController: KakaoMapViewController {
         return imageView
     }()
     
-    private let disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
     private let viewModel: MainMapViewModel
     private var output: MainMapViewModel.Output?
     private let mainMapCustomTabButtonsView: MainMapCustomTabButtonsView
+    
     // MARK: - init
     
     init(viewModel: MainMapViewModel, coordinator: DefaultMainMapCoordinator) {
@@ -80,9 +83,8 @@ final class MainMapViewController: KakaoMapViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupUI()
         bind()
+        setupUI()
     }
     
     /// 지도 그리기
@@ -107,6 +109,7 @@ final class MainMapViewController: KakaoMapViewController {
         addSubViewsMyloctaionImageView()
         configureConstraintsMainMapCusomTabButtonView()
         view.backgroundColor = .white
+        configureUIComponentsFor(currentViewType)
     }
     
     
@@ -163,8 +166,6 @@ final class MainMapViewController: KakaoMapViewController {
         return cLLocationManager
     }
     
-    // MARK: - ViewModel bind
-    /// ViewModel Binding
     private func bind() {
         let input = MainMapViewModel.Input(screenTouchEvents: kMViewContainer?.rx.anyGesture(.tap()).when(.recognized).asObservable(),
                                            searchBarTouchEvents: searchBar.rx.tapGesture().when(.recognized).asObservable(),
@@ -172,9 +173,59 @@ final class MainMapViewController: KakaoMapViewController {
                                            myLocationTappedEvents: myloctaionImageView.rx.anyGesture(.tap())
             .when(.recognized).asObservable(),
                                            surroundSelectedTouchEvnets: nearbyPlacesCollectionView.rx.itemSelected.asObservable())
-        let output = viewModel.bind(input: input, viewMiddleYPoint: view.frame.height/2)
+        let output = viewModel.bind(input: input)
         self.output = output
     }
+    
+    func updateViewState(to newViewState: ViewState, placeName: String, roadAddressName: String) {
+        currentViewType = newViewState
+        switch currentViewType {
+            case .mainMap:
+                searchPlaceBottomSheet?.removeFromSuperview()
+            case .searchMap:
+                addSearchPlaceBottomSheet(placeName: placeName, roadAddressName: roadAddressName)
+        }
+
+        configureUIComponentsFor(currentViewType)
+    }
+
+
+    
+    private func addSearchPlaceBottomSheet(placeName: String, roadAddressName: String) {
+        searchPlaceBottomSheet?.removeFromSuperview()
+        searchPlaceBottomSheet = nil
+        
+        let bottomSheet = SearchPlaceBottomSheet()
+        bottomSheet.setupPlace(name: placeName, address: roadAddressName)
+        self.view.addSubview(bottomSheet)
+        bottomSheet.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.3)
+        }
+        searchPlaceBottomSheet = bottomSheet
+    }
+    
+    private func configureUIComponentsFor(_ viewType: ViewState) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            switch viewType {
+                case .mainMap:
+                    self.navigationItem.titleView = self.searchBar
+                    self.searchBar.isHidden = false
+                    self.myloctaionImageView.isHidden = false
+                    self.mainMapCustomTabButtonsView.isHidden = false
+                    self.searchPlaceBottomSheet?.removeFromSuperview()
+                    self.searchPlaceBottomSheet = nil
+                    
+                case .searchMap:
+                    self.myloctaionImageView.removeFromSuperview()
+                    self.mainMapCustomTabButtonsView.removeFromSuperview()
+                }
+            
+        }
+    }
+    
+
     
     /// 내 위치 binding
     private func bindMyLocation(output: MainMapViewModel.Output) {
@@ -194,18 +245,6 @@ final class MainMapViewController: KakaoMapViewController {
                 moveCameraToCoordinate(coordinate, output)
                 
             }).disposed(by: disposeBag)
-    }
-    
-    /// handle NearbyPlaces Visibility
-    private func handleNearbyPlacesVisibility(hide: Bool) {
-        UIView.animate(withDuration: 0.2,
-                       animations: {
-            self.nearbyPlacesCollectionView.alpha = hide ? 0 : 1
-        }, completion: { completed in
-            if completed {
-                self.nearbyPlacesCollectionView.isHidden = hide
-            }
-        })
     }
     
     /// 내위치 버튼 유무

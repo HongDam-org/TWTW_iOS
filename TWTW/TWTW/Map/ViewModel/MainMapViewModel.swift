@@ -72,12 +72,12 @@ final class MainMapViewModel {
     }
 
     /// bind
-    func bind(input: Input, viewMiddleYPoint: CGFloat?) -> Output {
-        return createOutput(input: input, viewMiddleYPoint: viewMiddleYPoint)
+    func bind(input: Input) -> Output {
+        return createOutput(input: input)
     }
     
     /// create output
-    private func createOutput(input: Input, viewMiddleYPoint: CGFloat?) -> Output {
+    private func createOutput(input: Input) -> Output {
         let output = Output()
         input.screenTouchEvents?
             .bind(onNext: { _ in

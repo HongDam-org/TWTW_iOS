@@ -28,7 +28,7 @@ final class SearchPlacesMapService: SearchPlaceProtocol {
                 .replacingOccurrences(of: "LATITUDE", with: latitude)
                 .replacingOccurrences(of: "pageNum", with: "\(request.pageNum)")
                 .replacingOccurrences(of: "encodedQuery", with: encodedQuery)
-            print(url)
+           // print(url)
             
             AF.request(url, method: .get, parameters: request, headers: headers)
                 .validate(statusCode: 200..<201)
@@ -36,12 +36,12 @@ final class SearchPlacesMapService: SearchPlaceProtocol {
                     switch response.result {
                     case .success(let data):
                         observer.onNext(data)
+                        print(data)
                     case .failure(let error):
                         if let statusCode = response.response?.statusCode, statusCode == 401 {
                             print("아직 검색과 일치하는 장소가 없음.")
                         }
                         observer.onError(error)
-                        
                     }
                 }
             return Disposables.create()

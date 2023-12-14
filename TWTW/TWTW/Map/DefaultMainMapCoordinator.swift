@@ -21,11 +21,10 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         mainMapViewModel = MainMapViewModel(coordinator: self, routeService: RouteService())
-        
     }
     
     // MARK: - Fuctions
-
+    
     func start() {
         guard let mainMapViewModel = mainMapViewModel else { return }
         
@@ -47,24 +46,26 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     func moveToParticipantsList() {
         let participantsCoordinator = DefaultsParticipantsCoordinator(navigationController: navigationController)
         participantsCoordinator.start()
-              childCoordinators.append(participantsCoordinator)
-      }
+        childCoordinators.append(participantsCoordinator)
+    }
     /// 알림 화면으로 이동
     func moveToPlans() {
         let plansCoordinator = DefaultPlansCoordinator(navigationController: navigationController)
         plansCoordinator.start()
         childCoordinators.append(plansCoordinator)
-       }
-  
-}
-// MARK: - SearchPlacesCoordinator에서 좌표 받는 함수
-extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate {
-    
-    func didSelectCoordinate(coordinate: CLLocationCoordinate2D, searchPlaceList: [PlaceInformation]) {
-        mainMapViewModelOutput?.cameraCoordinateObservable.accept(coordinate)
-        mainMapViewModelOutput?.nearByplaceRelay.accept(searchPlaceList)
-        _ = childCoordinators.popLast()
-        print(#function)
-        print(childCoordinators)
     }
 }
+
+// MARK: - SearchPlacesCoordinator에서 좌표 받는 함수
+
+extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate {
+    func didSelectCoordinate(coordinate: CLLocationCoordinate2D, placeName: String, roadAddressName: String) {
+        navigationController.popViewController(animated: true)
+        mainMapViewModelOutput?.cameraCoordinateObservable.accept(coordinate)
+
+        if let mainMapVC = navigationController.viewControllers.last as? MainMapViewController {
+            mainMapVC.updateViewState(to: .searchMap, placeName: placeName, roadAddressName: roadAddressName)
+        }
+    }
+}
+

@@ -14,7 +14,7 @@ import UIKit
 
 /// 검색 결과를 표시하는 새로운 View Controller
 final class SearchPlacesMapViewController: UIViewController {
-
+    
     // MARK: - UI Property
     
     /// 서치바UI
@@ -45,7 +45,7 @@ final class SearchPlacesMapViewController: UIViewController {
         bindViewModel()
     }
     
-// MARK: - Set Up
+    // MARK: - Set Up
     /// Add  UI - SearchBar
     private func addSubViews() {
         navigationItem.titleView = searchBar
@@ -69,7 +69,7 @@ final class SearchPlacesMapViewController: UIViewController {
             make.edges.equalTo(additionalSafeAreaInsets)
         }
     }
- 
+    
     private func bindViewModel() {
         guard let viewModel = viewModel else {
             return
@@ -79,7 +79,7 @@ final class SearchPlacesMapViewController: UIViewController {
         
         let input = SearchPlacesMapViewModel.Input(searchText: searchBar.rx.text.asObservable(),
                                                    loadMoreTrigger: loadMoreTrigger,
-                                                   selectedCoorinate: placesTableView.rx.modelSelected(SearchPlace.self).asObservable())
+                                                   selectedPlace: placesTableView.rx.modelSelected(SearchPlace.self).asObservable())
         let output = viewModel.bind(input: input)
         
         setupSearchTextBindings(output: output)
@@ -100,11 +100,11 @@ final class SearchPlacesMapViewController: UIViewController {
             .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] contentOffset in
                 guard let self = self else { return }
-
+                
                 let scrollViewHeight = self.placesTableView.bounds.size.height
                 let contentSizeHeight = self.placesTableView.contentSize.height
                 let bottomInset = self.placesTableView.contentInset.bottom
-
+                
                 // 테이블뷰의 스크롤이 맨 아래로 내렸을 때
                 if contentOffset.y >= contentSizeHeight - scrollViewHeight - bottomInset {
                     loadMoreTrigger.accept(()) // 추가 데이터 로드 트리거
