@@ -21,7 +21,7 @@ final class MainMapViewModel: MapViewModelProtocol {
     private let coordinator: DefaultMainMapCoordinator?
     private let routeService: RouteProtocol?
     private let disposeBag = DisposeBag()
-    var output: MainMapViewModel.Output?
+    //var output: MainMapViewModel.Output?
     
     struct Input {
         /// 지도 화면 터치 감지
@@ -75,12 +75,12 @@ final class MainMapViewModel: MapViewModelProtocol {
     }
     
     /// bind
-    func bind(input: Input, viewMiddleYPoint: CGFloat?) -> Output {
-        return createOutput(input: input, viewMiddleYPoint: viewMiddleYPoint)
+    func bind(input: Input) -> Output {
+        return createOutput(input: input)
     }
     
     /// create output
-    private func createOutput(input: Input, viewMiddleYPoint: CGFloat?) -> Output {
+    private func createOutput(input: Input) -> Output {
         let output = Output()
         input.screenTouchEvents?
             .bind(onNext: { _ in

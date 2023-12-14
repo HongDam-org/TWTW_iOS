@@ -21,11 +21,10 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         mainMapViewModel = MainMapViewModel(coordinator: self, routeService: RouteService())
-        
     }
     
     // MARK: - Fuctions
-
+    
     func start() {
         guard let mainMapViewModel = mainMapViewModel else { return }
         
@@ -47,26 +46,25 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     func moveToParticipantsList() {
         let participantsCoordinator = DefaultsParticipantsCoordinator(navigationController: navigationController)
         participantsCoordinator.start()
-              childCoordinators.append(participantsCoordinator)
-      }
+        childCoordinators.append(participantsCoordinator)
+    }
     /// 알림 화면으로 이동
     func moveToPlans() {
         let plansCoordinator = DefaultPlansCoordinator(navigationController: navigationController)
         plansCoordinator.start()
         childCoordinators.append(plansCoordinator)
-       }
-  
+    }
 }
+
 // MARK: - SearchPlacesCoordinator에서 좌표 받는 함수
 
 extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate {
-    
-    func didSelectCoordinate(coordinate: CLLocationCoordinate2D) {
-        mainMapViewModelOutput?.cameraCoordinateObservable.accept(coordinate)
+    func didSelectCoordinate(coordinate: CLLocationCoordinate2D, placeName: String, roadAddressName: String) {
         navigationController.popViewController(animated: true)
-            if let mainMapVC = self.navigationController.viewControllers.last as? MainMapViewController {
-                let newViewModel = SearchMapViewModel() // 새 뷰 모델 인스턴스 생성
-                mainMapVC.updateViewModel(with: newViewModel)
-            }
+        mainMapViewModelOutput?.cameraCoordinateObservable.accept(coordinate)
+        if let mainMapVC = self.navigationController.viewControllers.last as? MainMapViewController {
+            let newViewModel = SearchMapViewModel(coordinator: self)
+            mainMapVC.updateViewModel(with: newViewModel, placeName: placeName, roadAddressName: roadAddressName)
+        }
     }
 }

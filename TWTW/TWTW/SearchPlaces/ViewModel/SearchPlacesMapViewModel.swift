@@ -73,22 +73,23 @@ final class SearchPlacesMapViewModel {
         /// 트리거로 추가 데이터를 로드하고 VC에 전달
         input.loadMoreTrigger
             .subscribe(onNext: { [weak self] in
-                guard let self = self else {
-                    return
-                }
+                guard let self = self else { return }
                 loadMoreData(output: output)
             })
             .disposed(by: disposeBag)
 
+        
         input.selectedPlace
             .bind(onNext: { [weak self] selectedPlace in
                 guard let self = self else { return }
-                print("셀 선택됨: \(selectedPlace)")
+
                 let placeX = selectedPlace.longitude ?? 0
                 let placeY = selectedPlace.latitude ?? 0
                 let coordinate = CLLocationCoordinate2D(latitude: placeY, longitude: placeX )
                 print(coordinate)
-                coordinator?.finishSearchPlaces(coordinate: coordinate)
+                self.coordinator?.finishSearchPlaces(coordinate: coordinate, 
+                                                     placeName: selectedPlace.placeName ?? "",
+                                                     roadAddressName: selectedPlace.roadAddressName ?? "")
             })
             .disposed(by: disposeBag)
         

@@ -16,7 +16,8 @@ import UIKit
 /// MainMapViewController - 지도화면
 final class MainMapViewController: KakaoMapViewController {
     private var currentViewModelType: ViewModelState = .mainMap
-
+    private var searchPlaceBottomSheet: SearchPlaceBottomSheet?
+    
     // MARK: - UI Property
     
     /// 목적지 근처 장소들을 보여줄 컬렉션 뷰
@@ -59,9 +60,11 @@ final class MainMapViewController: KakaoMapViewController {
         return imageView
     }()
     
-    private let disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
     private var viewModel: MapViewModelProtocol
-    private var output: MainMapViewModel.Output?
+    private var mainMapViewModelOutput: MainMapViewModel.Output?
+    private var searchMapViewModelOutput: SearchMapViewModel.Output?
+
     private let mainMapCustomTabButtonsView: MainMapCustomTabButtonsView
     // MARK: - init
     
@@ -90,7 +93,7 @@ final class MainMapViewController: KakaoMapViewController {
         let mapviewInfo: MapviewInfo = MapviewInfo(viewName: "mapview", viewInfoName: "map", defaultPosition: Map.DEFAULTPOSITION)
         if mapController?.addView(mapviewInfo) == Result.OK {   // 지도가 다 그려진 다음 실행
             print("Success Build Map")
-            if let output = output {
+            if let output = mainMapViewModelOutput {
                 bindMyLocation(output: output)
                 bindSearchPlaceLocation(output: output)
                 bindHideMyLocationImageViewRelay(output: output)
@@ -108,7 +111,6 @@ final class MainMapViewController: KakaoMapViewController {
         configureConstraintsMainMapCusomTabButtonView()
         view.backgroundColor = .white
         configureUIComponentsFor(currentViewModelType)
-
     }
     
     
@@ -166,59 +168,101 @@ final class MainMapViewController: KakaoMapViewController {
     }
     
     private func bind() {
-            switch currentViewModelType {
-            case .mainMap:
-                if let viewModel = viewModel as? MainMapViewModel {
-                    bindMainMapViewModel(viewModel)
-                    self.view.isUserInteractionEnabled = true
+        switch currentViewModelType {
+        case .mainMap:
+            if let viewModel = viewModel as? MainMapViewModel {
+                       bindMainMapViewModel(viewModel) //바인딩 설정
+                deactivatViewModelBindings()
+                   }
+        case .searchMap:
+            if let viewModel = viewModel as? SearchMapViewModel {
+                       bindSearchMapViewModel(viewModel)
+                deactivatViewModelBindings()
+                   }
+        }
+    }
+    // MainMap/SearchMap ViewModel과 관련된 바인딩을 해제
+    private func deactivatViewModelBindings() {
+        self.disposeBag = DisposeBag()
 
-                }
-            case .searchMap:
-                if let viewModel = viewModel as? SearchMapViewModel {
-                    bindSearchMapViewModel(viewModel)
-                    self.view.isUserInteractionEnabled = false
+    }
+    func updateViewModel(with newViewModel: MapViewModelProtocol, placeName: String, roadAddressName: String) {
+        self.viewModel = newViewModel
 
-                }
-            }
+        if newViewModel is SearchMapViewModel {
+            currentViewModelType = .searchMap
+            addSearchPlaceBottomSheet(placeName: placeName, roadAddressName: roadAddressName)
+            setupSearchMapBindings()
+        } else if newViewModel is MainMapViewModel {
+            currentViewModelType = .mainMap
         }
 
-    func updateViewModel(with newViewModel: MapViewModelProtocol) {
-         self.viewModel = newViewModel
-         if newViewModel is MainMapViewModel {
-             currentViewModelType = .mainMap
-         } else if newViewModel is SearchMapViewModel {
-             currentViewModelType = .searchMap
-         }
-         configureUIComponentsFor(currentViewModelType)
-         bind()
-     }
-
-     private func configureUIComponentsFor(_ viewModelType: ViewModelState) {
-         switch viewModelType {
-         case .mainMap:
-             searchBar.isHidden = false
-             myloctaionImageView.isHidden = false
-             mainMapCustomTabButtonsView.isHidden = false
-         case .searchMap:
-             searchBar.isHidden = true
-             myloctaionImageView.isHidden = true
-             mainMapCustomTabButtonsView.isHidden = true
-         }
-     }
-
+        configureUIComponentsFor(currentViewModelType)
+        bind()
+    }
+    private func setupSearchMapBindings() {
+        if let viewModel = viewModel as? SearchMapViewModel {
+            let input = SearchMapViewModel.Input(searchBarTouchEvents: searchBar.rx.tapGesture().when(.recognized).asObservable())
+            let output = viewModel.bind(input: input)
+            self.searchMapViewModelOutput = output
+        }
+    }
+    
+    private func addSearchPlaceBottomSheet(placeName: String, roadAddressName: String) {
+        searchPlaceBottomSheet?.removeFromSuperview()
+        searchPlaceBottomSheet = nil
+        
+        let bottomSheet = SearchPlaceBottomSheet()
+        bottomSheet.setupPlace(name: placeName, address: roadAddressName)
+        self.view.addSubview(bottomSheet)
+        bottomSheet.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.3)
+        }
+        searchPlaceBottomSheet = bottomSheet
+    }
+    
+    private func configureUIComponentsFor(_ viewModelType: ViewModelState) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            switch viewModelType {
+                
+               
+                case .mainMap:
+                    self.navigationItem.titleView = self.searchBar
+                    self.searchBar.isHidden = false
+                    self.myloctaionImageView.isHidden = false
+                    self.mainMapCustomTabButtonsView.isHidden = false
+                    self.searchPlaceBottomSheet?.removeFromSuperview()
+                    self.searchPlaceBottomSheet = nil
+                    
+                case .searchMap:
+                    self.myloctaionImageView.removeFromSuperview()
+                    self.mainMapCustomTabButtonsView.removeFromSuperview()
+                }
+            
+        }
+    }
+    
     private func bindMainMapViewModel(_ viewModel: MainMapViewModel) {
         let input = MainMapViewModel.Input(
-              screenTouchEvents: kMViewContainer?.rx.anyGesture(.tap()).when(.recognized).asObservable(),
-              searchBarTouchEvents: searchBar.rx.tapGesture().when(.recognized).asObservable(),
-              cLLocationCoordinate2DEvents: Observable.just(configureLocationManager()),
-              myLocationTappedEvents: myloctaionImageView.rx.anyGesture(.tap()).when(.recognized).asObservable(),
-              surroundSelectedTouchEvnets: nearbyPlacesCollectionView.rx.itemSelected.asObservable()
-          )
-          let output = viewModel.bind(input: input, viewMiddleYPoint: view.frame.height/2)
-          self.output = output
-        }
+            screenTouchEvents: kMViewContainer?.rx.anyGesture(.tap()).when(.recognized).asObservable(),
+            searchBarTouchEvents: searchBar.rx.tapGesture().when(.recognized).asObservable(),
+            cLLocationCoordinate2DEvents: Observable.just(configureLocationManager()),
+            myLocationTappedEvents: myloctaionImageView.rx.anyGesture(.tap()).when(.recognized).asObservable(),
+            surroundSelectedTouchEvnets: nearbyPlacesCollectionView.rx.itemSelected.asObservable()
+        )
+        let output = viewModel.bind(input: input)
+        self.mainMapViewModelOutput = output
+    }
     
     private func bindSearchMapViewModel(_ viewModel: SearchMapViewModel) {
+        
+        let input = SearchMapViewModel.Input(
+            searchBarTouchEvents: searchBar.rx.tapGesture().when(.recognized).asObservable()
+        )
+        let output = viewModel.bind(input: input)
+         self.searchMapViewModelOutput = output
     }
     
     /// 내 위치 binding

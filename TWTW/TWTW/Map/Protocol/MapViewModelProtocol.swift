@@ -9,5 +9,5 @@ import Foundation
 
 protocol MapViewModelProtocol {
     var viewModelType: String { get }
-    var output: MainMapViewModel.Output? { get set }
+  //  var output: MainMapViewModel.Output? { get set }
 }

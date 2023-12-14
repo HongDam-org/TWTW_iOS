@@ -38,8 +38,8 @@ final class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtoco
     }
     
     /// 서치 완료후 :  cLLocation전달 & pop VC
-    func finishSearchPlaces(coordinate: CLLocationCoordinate2D) {
-        delegate?.didSelectCoordinate(coordinate: coordinate)
+    func finishSearchPlaces(coordinate: CLLocationCoordinate2D, placeName: String, roadAddressName: String) {
+        delegate?.didSelectCoordinate(coordinate: coordinate, placeName: placeName, roadAddressName: roadAddressName)
         navigationController.popViewController(animated: true)
     }
 }
