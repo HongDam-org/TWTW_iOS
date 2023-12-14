@@ -62,9 +62,10 @@ extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate {
     func didSelectCoordinate(coordinate: CLLocationCoordinate2D, placeName: String, roadAddressName: String) {
         navigationController.popViewController(animated: true)
         mainMapViewModelOutput?.cameraCoordinateObservable.accept(coordinate)
-        if let mainMapVC = self.navigationController.viewControllers.last as? MainMapViewController {
-            let newViewModel = SearchMapViewModel(coordinator: self)
-            mainMapVC.updateViewModel(with: newViewModel, placeName: placeName, roadAddressName: roadAddressName)
+
+        if let mainMapVC = navigationController.viewControllers.last as? MainMapViewController {
+            mainMapVC.updateViewState(to: .searchMap, placeName: placeName, roadAddressName: roadAddressName)
         }
     }
 }
+

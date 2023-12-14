@@ -7,8 +7,7 @@
 
 import Foundation
 
-enum ViewModelState {
+enum ViewState {
     case mainMap
     case searchMap
 }
-
