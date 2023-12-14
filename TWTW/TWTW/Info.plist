@@ -23,8 +23,6 @@
 	</array>
 	<key>IP</key>
 	<string>$(IP)</string>
-	<key>PORT</key>
-	<string>$(PORT)</string>
 	<key>KAKAO_APP_KEY</key>
 	<string>${KAKAO_NATIVE_APP_KEY}</string>
 	<key>KAKAO_NATIVE_APP_KEY</key>
@@ -41,6 +39,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>PORT</key>
+	<string>$(PORT)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -58,5 +58,9 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>voip</string>
+	</array>
 </dict>
 </plist>
