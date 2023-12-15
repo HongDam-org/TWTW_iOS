@@ -16,7 +16,6 @@ import UIKit
 /// MainMapViewController - 지도화면
 final class MainMapViewController: KakaoMapViewController {
     private var currentViewType: ViewState = .mainMap
-    private var searchPlaceBottomSheet: SearchPlaceBottomSheet?
     
     // MARK: - UI Property
     
@@ -64,13 +63,17 @@ final class MainMapViewController: KakaoMapViewController {
     private let viewModel: MainMapViewModel
     private var output: MainMapViewModel.Output?
     private let mainMapCustomTabButtonsView: MainMapCustomTabButtonsView
-    
+    private var searchPlaceBottomSheet: SearchPlaceBottomSheet
+
     // MARK: - init
     
     init(viewModel: MainMapViewModel, coordinator: DefaultMainMapCoordinator) {
         self.viewModel = viewModel
         let tabViewModel = MainMapCustomTabButtonViewModel(coordinator: coordinator)
+        let bottomSheetViewwModel = SearchPlaceBottomSheetViewModel(coordinator: coordinator)
+
         self.mainMapCustomTabButtonsView = MainMapCustomTabButtonsView(frame: .zero, viewModel: tabViewModel)
+        self.searchPlaceBottomSheet = SearchPlaceBottomSheet(frame: .zero, viewModel: bottomSheetViewwModel)
         super.init()
     }
     
@@ -107,7 +110,7 @@ final class MainMapViewController: KakaoMapViewController {
     private func setupUI() {
         addSubViewsSearchBar()
         addSubViewsMyloctaionImageView()
-        configureConstraintsMainMapCusomTabButtonView()
+        addSubViewsMainMapCusomTabButtonView()
         view.backgroundColor = .white
         configureUIComponentsFor(currentViewType)
     }
@@ -123,7 +126,7 @@ final class MainMapViewController: KakaoMapViewController {
     }
     private func addSubViewsMainMapCusomTabButtonView() {
         view.addSubview(mainMapCustomTabButtonsView)
-        configureConstraintsMainMapCusomTabButtonView()
+        configureConstraintCustomTabButtonView()
     }
     
     /// Add  UI -  MyloctaionImageView
@@ -131,9 +134,10 @@ final class MainMapViewController: KakaoMapViewController {
         view.addSubview(myloctaionImageView)
         configureConstraintsMyloctaionImageView()
     }
-    private func configureConstraintsMainMapCusomTabButtonView() {
-        view.addSubview(mainMapCustomTabButtonsView)
-        configureConstraintCsusomTabButtonView()
+
+    private func configureConstraintsBottomSheet() {
+        view.addSubview(searchPlaceBottomSheet)
+        configureConstraintBottomSheet()
     }
     // MARK: - Constraints
     
@@ -141,12 +145,18 @@ final class MainMapViewController: KakaoMapViewController {
     private func configureConstraintsSearchBar() {
         navigationItem.titleView = searchBar
     }
-    private func configureConstraintCsusomTabButtonView() {
+    private func configureConstraintCustomTabButtonView() {
         mainMapCustomTabButtonsView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.35)
             make.height.equalTo(mainMapCustomTabButtonsView.snp.width).multipliedBy(0.35)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(3)
+        }
+    }
+    private func configureConstraintBottomSheet() {
+        searchPlaceBottomSheet.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.3)
         }
     }
     
@@ -181,28 +191,18 @@ final class MainMapViewController: KakaoMapViewController {
         currentViewType = newViewState
         switch currentViewType {
             case .mainMap:
-                searchPlaceBottomSheet?.removeFromSuperview()
+                searchPlaceBottomSheet.removeFromSuperview()
             case .searchMap:
                 addSearchPlaceBottomSheet(placeName: placeName, roadAddressName: roadAddressName)
         }
 
         configureUIComponentsFor(currentViewType)
     }
-
-
     
     private func addSearchPlaceBottomSheet(placeName: String, roadAddressName: String) {
-        searchPlaceBottomSheet?.removeFromSuperview()
-        searchPlaceBottomSheet = nil
-        
-        let bottomSheet = SearchPlaceBottomSheet()
-        bottomSheet.setupPlace(name: placeName, address: roadAddressName)
-        self.view.addSubview(bottomSheet)
-        bottomSheet.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.3)
-        }
-        searchPlaceBottomSheet = bottomSheet
+        searchPlaceBottomSheet.removeFromSuperview()
+        configureConstraintsBottomSheet()
+        searchPlaceBottomSheet.setupPlace(name: placeName, address: roadAddressName)
     }
     
     private func configureUIComponentsFor(_ viewType: ViewState) {
@@ -214,8 +214,7 @@ final class MainMapViewController: KakaoMapViewController {
                     self.searchBar.isHidden = false
                     self.myloctaionImageView.isHidden = false
                     self.mainMapCustomTabButtonsView.isHidden = false
-                    self.searchPlaceBottomSheet?.removeFromSuperview()
-                    self.searchPlaceBottomSheet = nil
+                    self.searchPlaceBottomSheet.removeFromSuperview()
                     
                 case .searchMap:
                     self.myloctaionImageView.removeFromSuperview()
@@ -224,8 +223,6 @@ final class MainMapViewController: KakaoMapViewController {
             
         }
     }
-    
-
     
     /// 내 위치 binding
     private func bindMyLocation(output: MainMapViewModel.Output) {

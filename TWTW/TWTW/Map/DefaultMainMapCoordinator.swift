@@ -68,4 +68,3 @@ extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate {
         }
     }
 }
-
