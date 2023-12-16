@@ -10,14 +10,13 @@ import UIKit
 
 final class PartiSetLocationViewModel: PartiLocationViewModel {
     private let disposeBag = DisposeBag()
-    weak var coordinator: DefaultsParticipantsCoordinator?
-  
+    weak var coordinator: DefaultPartiSetLocationCoordinator?
     
     // MARK: - Init
-    init(coordinator: DefaultsParticipantsCoordinator) {
+    init(coordinator: DefaultPartiSetLocationCoordinator) {
         self.coordinator = coordinator
     }
     func moveToSetLocationViewController() {
-        print("set")
+    
     }
 }

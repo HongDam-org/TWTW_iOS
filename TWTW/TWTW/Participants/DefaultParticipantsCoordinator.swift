@@ -1,5 +1,5 @@
 //
-//  DefaultsParticipantsCoordinator.swift
+//  DefaultParticipantsCoordinator.swift
 //  TWTW
 //
 //  Created by 박다미 on 2023/11/30.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class DefaultsParticipantsCoordinator: ParticipantsCoordinator {
+final class DefaultParticipantsCoordinator: ParticipantsCoordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
@@ -18,7 +18,7 @@ final class DefaultsParticipantsCoordinator: ParticipantsCoordinator {
     }
     
     func start() {
-        let participantsViewModel = PartiGetLocationViewModel(coordinator: self)
+        let participantsViewModel = ParticipantsGetViewModel(coordinator: self)
         let participantsViewController = ParticipantsViewController(viewModel: participantsViewModel)
         
         navigationController.pushViewController(participantsViewController, animated: true)
@@ -29,10 +29,10 @@ final class DefaultsParticipantsCoordinator: ParticipantsCoordinator {
 
             switch source {
             case .get:
-                viewModel = PartiGetLocationViewModel(coordinator: self)
+                viewModel = ParticipantsGetViewModel(coordinator: self)
                
             case .set:
-                viewModel = PartiSetLocationViewModel(coordinator: self)
+                viewModel = ParticipantsSetViewModel(coordinator: self)
 
             }
         
@@ -40,10 +40,19 @@ final class DefaultsParticipantsCoordinator: ParticipantsCoordinator {
               navigationController.pushViewController(participantsViewController, animated: true)
           }
 
-    /// 선택한 사람 장소 바꾸기
-    func moveToChangeLocation() {
-        let changeLocationCoordinator = DefaultChangeLocationCoordinator(navigationController: navigationController)
-        changeLocationCoordinator.start()
-        childCoordinators.append(changeLocationCoordinator)
+
+    func moveToPartiGetLocation() {
+        print(#function)
+        let partiGetLocationCoordinator = DefaultPartiGetLocationCoordinator(navigationController: navigationController)
+        partiGetLocationCoordinator.start()
+        childCoordinators.append(partiGetLocationCoordinator)
+    }
+    func moveToPartiSetLocation() {
+        print(#function)
+
+        let partiSetLocationCoordinator = DefaultPartiSetLocationCoordinator(navigationController: navigationController)
+        partiSetLocationCoordinator.start()
+        childCoordinators.append(partiSetLocationCoordinator)
+
     }
 }

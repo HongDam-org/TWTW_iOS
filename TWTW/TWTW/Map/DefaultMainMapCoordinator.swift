@@ -44,12 +44,12 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     }
     ///  친구 목록 화면으로 이동
     func moveToParticipantsList() {
-        let participantsCoordinator = DefaultsParticipantsCoordinator(navigationController: navigationController)
+        let participantsCoordinator = DefaultParticipantsCoordinator(navigationController: navigationController)
         participantsCoordinator.start()
     }
    
     func moveToParticipantsSetList(from source: ParticipantsSource) {
-        let participantsCoordinator = DefaultsParticipantsCoordinator(navigationController: navigationController)
+        let participantsCoordinator = DefaultParticipantsCoordinator(navigationController: navigationController)
         participantsCoordinator.startWithViewModel(from: source)
     }
     

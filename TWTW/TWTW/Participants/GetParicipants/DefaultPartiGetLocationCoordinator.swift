@@ -11,17 +11,20 @@ import UIKit
 final class DefaultPartiGetLocationCoordinator: PartiGetLocationCoordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
-        
+    private var partiGetLocationViewModel: PartiGetLocationViewModel?
+
     // MARK: - Init
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        partiGetLocationViewModel = PartiGetLocationViewModel(coordinator: self)
     }
     
     func start() {
-        print("get")
-//        let partiGetLocationViewModel = PartiGetLocationViewModel(coordinator: self)
-//        let partiGetLocationVC = PartiGetLocationViewController(viewModel: partiGetLocationViewModel)
-//        navigationController.pushViewController(partiGetLocationVC, animated: false)
+
+        let partiGetLocationViewModel = PartiGetLocationViewModel(coordinator: self)
+        let partiGetLocationVC = PartiGetLocationViewController(viewModel: partiGetLocationViewModel)
+        navigationController.pushViewController(partiGetLocationVC, animated: false)
 
      }
+    
 }

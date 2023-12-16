@@ -41,6 +41,7 @@ final class ParticipantsViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -88,16 +89,6 @@ final class ParticipantsViewController: UIViewController {
                 }
                 .disposed(by: disposeBag)
         
-//         셀 선택 이벤트 처리
-               partiTableView.rx.itemSelected
-                   .subscribe(onNext: {[weak self] indexPath in
-                       guard let self = self else { return }
-                       if let viewModel = self.viewModel as? PartiGetLocationViewModel {
-                           viewModel.moveToGetLocationViewController()
-                       } else if let viewModel = self.viewModel as? PartiSetLocationViewModel {
-                           viewModel.moveToSetLocationViewController()
-                       }
-                   })
-                   .disposed(by: disposeBag)
     }
+    
 }

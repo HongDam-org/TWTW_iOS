@@ -84,16 +84,18 @@
 		37D5D7912B19ECF300302EAD /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D5D7902B19ECF300302EAD /* Plan.swift */; };
 		37E0D8AD2B180804002E0CF5 /* ParticipantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E0D8AC2B180804002E0CF5 /* ParticipantsViewController.swift */; };
 		37E0D8AF2B1809EE002E0CF5 /* ParticipantsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E0D8AE2B1809EE002E0CF5 /* ParticipantsCoordinator.swift */; };
-		37E0D8B42B180A68002E0CF5 /* DefaultsParticipantsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E0D8B32B180A68002E0CF5 /* DefaultsParticipantsCoordinator.swift */; };
+		37E0D8B42B180A68002E0CF5 /* DefaultParticipantsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E0D8B32B180A68002E0CF5 /* DefaultParticipantsCoordinator.swift */; };
 		37E1B8312B2D94690047C7C7 /* ParticipantsSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1B8302B2D94690047C7C7 /* ParticipantsSource.swift */; };
-		37E1B8332B2D94950047C7C7 /* PartiGetLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1B8322B2D94950047C7C7 /* PartiGetLocationViewModel.swift */; };
-		37E1B8352B2D94A20047C7C7 /* PartiSetLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1B8342B2D94A20047C7C7 /* PartiSetLocationViewModel.swift */; };
+		37E1B8332B2D94950047C7C7 /* ParticipantsGetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1B8322B2D94950047C7C7 /* ParticipantsGetViewModel.swift */; };
+		37E1B8352B2D94A20047C7C7 /* ParticipantsSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1B8342B2D94A20047C7C7 /* ParticipantsSetViewModel.swift */; };
 		37E1B8372B2D966A0047C7C7 /* PartiGetLocationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1B8362B2D966A0047C7C7 /* PartiGetLocationCoordinator.swift */; };
 		37E1B8392B2D96880047C7C7 /* PartiSetLocationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1B8382B2D96880047C7C7 /* PartiSetLocationCoordinator.swift */; };
 		37E1B83B2B2D970F0047C7C7 /* PartiGetLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1B83A2B2D970F0047C7C7 /* PartiGetLocationViewController.swift */; };
 		37E1B83D2B2D97170047C7C7 /* PartiSetLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1B83C2B2D97170047C7C7 /* PartiSetLocationViewController.swift */; };
 		37E1B83F2B2DA2F60047C7C7 /* DefaultPartiGetLocationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1B83E2B2DA2F60047C7C7 /* DefaultPartiGetLocationCoordinator.swift */; };
 		37E1B8412B2DA3060047C7C7 /* DefaultPartiSetLocationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1B8402B2DA3060047C7C7 /* DefaultPartiSetLocationCoordinator.swift */; };
+		37E1B8432B2DAD0C0047C7C7 /* PartiGetLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1B8422B2DAD0C0047C7C7 /* PartiGetLocationViewModel.swift */; };
+		37E1B8452B2DAD100047C7C7 /* PartiSetLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E1B8442B2DAD100047C7C7 /* PartiSetLocationViewModel.swift */; };
 		37E9FBFB2B16337D004AFF79 /* MainMapCustomTabButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9FBFA2B16337D004AFF79 /* MainMapCustomTabButtonsView.swift */; };
 		37E9FBFE2B1635B4004AFF79 /* MainMapCustomTabButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9FBFD2B1635B4004AFF79 /* MainMapCustomTabButtonViewModel.swift */; };
 		37EF0CFB2AB85C2400D77B0A /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */; };
@@ -252,16 +254,18 @@
 		37D5D7902B19ECF300302EAD /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		37E0D8AC2B180804002E0CF5 /* ParticipantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsViewController.swift; sourceTree = "<group>"; };
 		37E0D8AE2B1809EE002E0CF5 /* ParticipantsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsCoordinator.swift; sourceTree = "<group>"; };
-		37E0D8B32B180A68002E0CF5 /* DefaultsParticipantsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsParticipantsCoordinator.swift; sourceTree = "<group>"; };
+		37E0D8B32B180A68002E0CF5 /* DefaultParticipantsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultParticipantsCoordinator.swift; sourceTree = "<group>"; };
 		37E1B8302B2D94690047C7C7 /* ParticipantsSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsSource.swift; sourceTree = "<group>"; };
-		37E1B8322B2D94950047C7C7 /* PartiGetLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartiGetLocationViewModel.swift; sourceTree = "<group>"; };
-		37E1B8342B2D94A20047C7C7 /* PartiSetLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartiSetLocationViewModel.swift; sourceTree = "<group>"; };
+		37E1B8322B2D94950047C7C7 /* ParticipantsGetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsGetViewModel.swift; sourceTree = "<group>"; };
+		37E1B8342B2D94A20047C7C7 /* ParticipantsSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsSetViewModel.swift; sourceTree = "<group>"; };
 		37E1B8362B2D966A0047C7C7 /* PartiGetLocationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartiGetLocationCoordinator.swift; sourceTree = "<group>"; };
 		37E1B8382B2D96880047C7C7 /* PartiSetLocationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartiSetLocationCoordinator.swift; sourceTree = "<group>"; };
 		37E1B83A2B2D970F0047C7C7 /* PartiGetLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartiGetLocationViewController.swift; sourceTree = "<group>"; };
 		37E1B83C2B2D97170047C7C7 /* PartiSetLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartiSetLocationViewController.swift; sourceTree = "<group>"; };
 		37E1B83E2B2DA2F60047C7C7 /* DefaultPartiGetLocationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPartiGetLocationCoordinator.swift; sourceTree = "<group>"; };
 		37E1B8402B2DA3060047C7C7 /* DefaultPartiSetLocationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPartiSetLocationCoordinator.swift; sourceTree = "<group>"; };
+		37E1B8422B2DAD0C0047C7C7 /* PartiGetLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartiGetLocationViewModel.swift; sourceTree = "<group>"; };
+		37E1B8442B2DAD100047C7C7 /* PartiSetLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartiSetLocationViewModel.swift; sourceTree = "<group>"; };
 		37E9FBFA2B16337D004AFF79 /* MainMapCustomTabButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapCustomTabButtonsView.swift; sourceTree = "<group>"; };
 		37E9FBFD2B1635B4004AFF79 /* MainMapCustomTabButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapCustomTabButtonViewModel.swift; sourceTree = "<group>"; };
 		37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
@@ -627,6 +631,8 @@
 		37BB02F72B230E93006B2BEB /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				37E1B8322B2D94950047C7C7 /* ParticipantsGetViewModel.swift */,
+				37E1B8342B2D94A20047C7C7 /* ParticipantsSetViewModel.swift */,
 				37BB02F82B230EA8006B2BEB /* ParticipantsViewModel.swift */,
 			);
 			path = ViewModel;
@@ -856,7 +862,7 @@
 				37E1B82F2B2D944B0047C7C7 /* GetParicipants */,
 				37E1B82E2B2D94380047C7C7 /* SetParicipants */,
 				37BB02F72B230E93006B2BEB /* ViewModel */,
-				37E0D8B32B180A68002E0CF5 /* DefaultsParticipantsCoordinator.swift */,
+				37E0D8B32B180A68002E0CF5 /* DefaultParticipantsCoordinator.swift */,
 				37E0D8B52B180A8D002E0CF5 /* Protocol */,
 				37E0D8B22B180A35002E0CF5 /* View */,
 				37D5D7882B19CEB200302EAD /* Model */,
@@ -884,7 +890,7 @@
 		37E1B82E2B2D94380047C7C7 /* SetParicipants */ = {
 			isa = PBXGroup;
 			children = (
-				37E1B8342B2D94A20047C7C7 /* PartiSetLocationViewModel.swift */,
+				37E1B8442B2DAD100047C7C7 /* PartiSetLocationViewModel.swift */,
 				37E1B8382B2D96880047C7C7 /* PartiSetLocationCoordinator.swift */,
 				37E1B83C2B2D97170047C7C7 /* PartiSetLocationViewController.swift */,
 				37E1B8402B2DA3060047C7C7 /* DefaultPartiSetLocationCoordinator.swift */,
@@ -895,7 +901,7 @@
 		37E1B82F2B2D944B0047C7C7 /* GetParicipants */ = {
 			isa = PBXGroup;
 			children = (
-				37E1B8322B2D94950047C7C7 /* PartiGetLocationViewModel.swift */,
+				37E1B8422B2DAD0C0047C7C7 /* PartiGetLocationViewModel.swift */,
 				37E1B8362B2D966A0047C7C7 /* PartiGetLocationCoordinator.swift */,
 				37E1B83A2B2D970F0047C7C7 /* PartiGetLocationViewController.swift */,
 				37E1B83E2B2DA2F60047C7C7 /* DefaultPartiGetLocationCoordinator.swift */,
@@ -1567,7 +1573,7 @@
 				3B274D712AD3F77600D79698 /* DefaultSignInCoordinator.swift in Sources */,
 				3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */,
 				3B274D762AD4541E00D79698 /* SignInCoordinatorFinishDelegate.swift in Sources */,
-				37E1B8352B2D94A20047C7C7 /* PartiSetLocationViewModel.swift in Sources */,
+				37E1B8352B2D94A20047C7C7 /* ParticipantsSetViewModel.swift in Sources */,
 				3B4A660C2B161D8200DF9C84 /* CreateGroupViewModel.swift in Sources */,
 				375E8B022A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift in Sources */,
 				3799E5092A99D72D00E06218 /* NotificationViewController.swift in Sources */,
@@ -1585,6 +1591,7 @@
 				3788AEBA2B18DD0A007FC2F6 /* PlanViewController.swift in Sources */,
 				3737AE8C2AE93EE600FE7453 /* DefaultSearchPlacesMapCoordinator.swift in Sources */,
 				3737AE8D2AE93EE600FE7453 /* SearchPlacesMapViewModel.swift in Sources */,
+				37E1B8452B2DAD100047C7C7 /* PartiSetLocationViewModel.swift in Sources */,
 				3737AE902AE93EE600FE7453 /* SearchPlaceProtocol.swift in Sources */,
 				37BB03052B2311DA006B2BEB /* ChangeLocationCoordinator.swift in Sources */,
 				3B6CF3D92ADACA7500325D05 /* MockSignInService.swift in Sources */,
@@ -1646,7 +1653,7 @@
 				37C35EE32B1CC876008A289D /* MakeNewFriendsListCoordinator.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
 				37BB02F92B230EA8006B2BEB /* ParticipantsViewModel.swift in Sources */,
-				37E1B8332B2D94950047C7C7 /* PartiGetLocationViewModel.swift in Sources */,
+				37E1B8332B2D94950047C7C7 /* ParticipantsGetViewModel.swift in Sources */,
 				3BB85C092B19D39200F8BBF3 /* FriendSearchCoordinatorProtocol.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
 				3788AEB82B18DCF4007FC2F6 /* PlanCoordinator.swift in Sources */,
@@ -1655,12 +1662,13 @@
 				37E0D8AD2B180804002E0CF5 /* ParticipantsViewController.swift in Sources */,
 				3B6BA9892A7F7D0900A11FE4 /* SignInViewModel.swift in Sources */,
 				3B274D822AD4D40700D79698 /* AppCoordinator.swift in Sources */,
-				37E0D8B42B180A68002E0CF5 /* DefaultsParticipantsCoordinator.swift in Sources */,
+				37E0D8B42B180A68002E0CF5 /* DefaultParticipantsCoordinator.swift in Sources */,
 				3737AE922AE93FB000FE7453 /* SearchPlacesMapCoordinator.swift in Sources */,
 				3B274D7D2AD4D19B00D79698 /* SignUpViewModel.swift in Sources */,
 				3B4A66112B1634C900DF9C84 /* FriendSearchViewModel.swift in Sources */,
 				374EAEAC2B260BA900BAA897 /* BaseTabBarCoordinator.swift in Sources */,
 				3B4A66082B16148C00DF9C84 /* GroupService.swift in Sources */,
+				37E1B8432B2DAD0C0047C7C7 /* PartiGetLocationViewModel.swift in Sources */,
 				37C35EDF2B1CC6FE008A289D /* MakeNewFriendsListViewModel.swift in Sources */,
 				3B26F32F2AC11DAD00EFEE12 /* SignUpViewController.swift in Sources */,
 				3B4A66012B1609F000DF9C84 /* GroupTableViewCell.swift in Sources */,

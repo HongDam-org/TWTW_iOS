@@ -8,16 +8,16 @@
 import RxSwift
 import UIKit
 
-final class PartiGetLocationViewModel: PartiLocationViewModel {
+final class ParticipantsGetViewModel: PartiLocationViewModel {
     private let disposeBag = DisposeBag()
-    weak var coordinator: DefaultPartiGetLocationCoordinator?
+    weak var coordinator: DefaultParticipantsCoordinator?
     
     // MARK: - Init
-    init(coordinator: DefaultPartiGetLocationCoordinator) {
+    init(coordinator: DefaultParticipantsCoordinator) {
         self.coordinator = coordinator
     }
-    
     func moveToGetLocationViewController() {
-        print("get")
+        coordinator?.moveToPartiGetLocation()
+        print("")
     }
 }

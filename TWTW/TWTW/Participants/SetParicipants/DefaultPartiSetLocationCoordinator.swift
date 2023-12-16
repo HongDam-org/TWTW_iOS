@@ -18,9 +18,9 @@ final class DefaultPartiSetLocationCoordinator: PartiSetLocationCoordinator {
     }
     
     func start() {
-        print("set")
-//        let partiSetLocationViewModel = PartiSetLocationViewModel(coordinator: self)
-//        let partiSetLocationVC = PartiSetLocationViewController(viewModel: partiSetLocationViewModel)
-//        navigationController.pushViewController(partiSetLocationVC, animated: false)
+
+        let partiSetLocationViewModel = PartiSetLocationViewModel(coordinator: self)
+        let partiSetLocationVC = PartiSetLocationViewController(viewModel: partiSetLocationViewModel)
+        navigationController.pushViewController(partiSetLocationVC, animated: false)
      }
 }
