@@ -28,7 +28,7 @@ final class ParticipantsViewController: UIViewController {
                     locationImage: UIImage(systemName: "map"))
     ]
     private let disposeBag = DisposeBag()
-    private var viewModel: ParticipantsViewModel
+    private var viewModel: PartiLocationViewModel
     
     private lazy var partiTableView: UITableView = {
         let tableView = UITableView()
@@ -36,7 +36,7 @@ final class ParticipantsViewController: UIViewController {
     }()
     
     // MARK: - Init
-    init(viewModel: ParticipantsViewModel) {
+    init(viewModel: PartiLocationViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -53,6 +53,7 @@ final class ParticipantsViewController: UIViewController {
         view.layer.cornerRadius = 20
         setupTableView()
         bindTableView()
+        print("😙\(viewModel)")
     }
     
     private func setupTableView() {
@@ -87,12 +88,16 @@ final class ParticipantsViewController: UIViewController {
                 }
                 .disposed(by: disposeBag)
         
-        /// 셀 선택 이벤트 처리
-        let changeLocationTapped = partiTableView.rx.itemSelected
-            .map { _ in () }
-            .asObservable()
-        
-        let input = ParticipantsViewModel.Input(changeLocationButtonTapped: changeLocationTapped)
-        viewModel.bind(input: input)
+//         셀 선택 이벤트 처리
+               partiTableView.rx.itemSelected
+                   .subscribe(onNext: {[weak self] indexPath in
+                       guard let self = self else { return }
+                       if let viewModel = self.viewModel as? PartiGetLocationViewModel {
+                           viewModel.moveToGetLocationViewController()
+                       } else if let viewModel = self.viewModel as? PartiSetLocationViewModel {
+                           viewModel.moveToSetLocationViewController()
+                       }
+                   })
+                   .disposed(by: disposeBag)
     }
 }

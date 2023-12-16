@@ -32,7 +32,6 @@ final class SearchPlaceBottomSheetViewModel {
     }
     
     private func participantsButtonTapped() {
-        // 친구 목록 화면으로 이동
-        coordinator?.moveToParticipantsList()
+        coordinator?.moveToParticipantsSetList(from: .set)
     }
 }

@@ -1,24 +1,24 @@
 //
-//  ParticipantsViewModel.swift
+//  PartiGetLocationViewModel.swift
 //  TWTW
 //
-//  Created by 박다미 on 2023/12/08.
+//  Created by 박다미 on 2023/12/16.
 //
 
-import Foundation
-import RxCocoa
 import RxSwift
+import UIKit
 
-final class ParticipantsViewModel {
+final class PartiGetLocationViewModel: PartiLocationViewModel {
     private let disposeBag = DisposeBag()
     weak var coordinator: DefaultsParticipantsCoordinator?
-  
+    
     
     // MARK: - Init
     init(coordinator: DefaultsParticipantsCoordinator) {
         self.coordinator = coordinator
     }
-}
-class PartiLocationViewModel {
-  
+    
+    func moveToGetLocationViewController() {
+        print("get")
+    }
 }

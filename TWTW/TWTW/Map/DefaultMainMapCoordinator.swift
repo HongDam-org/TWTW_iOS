@@ -46,14 +46,20 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     func moveToParticipantsList() {
         let participantsCoordinator = DefaultsParticipantsCoordinator(navigationController: navigationController)
         participantsCoordinator.start()
-        childCoordinators.append(participantsCoordinator)
     }
+   
+    func moveToParticipantsSetList(from source: ParticipantsSource) {
+        let participantsCoordinator = DefaultsParticipantsCoordinator(navigationController: navigationController)
+        participantsCoordinator.startWithViewModel(from: source)
+    }
+    
     /// 알림 화면으로 이동
     func moveToPlans() {
         let plansCoordinator = DefaultPlansCoordinator(navigationController: navigationController)
         plansCoordinator.start()
         childCoordinators.append(plansCoordinator)
     }
+    
 }
 
 // MARK: - SearchPlacesCoordinator에서 좌표 받는 함수
