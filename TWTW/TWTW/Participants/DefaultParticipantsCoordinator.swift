@@ -42,7 +42,7 @@ final class DefaultParticipantsCoordinator: ParticipantsCoordinator {
 
 
     func moveToPartiGetLocation() {
-        print(#function)
+        print("#function")
         let partiGetLocationCoordinator = DefaultPartiGetLocationCoordinator(navigationController: navigationController)
         partiGetLocationCoordinator.start()
         childCoordinators.append(partiGetLocationCoordinator)

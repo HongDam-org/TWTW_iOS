@@ -8,7 +8,7 @@
 import RxSwift
 import UIKit
 
-final class PartiSetLocationViewModel: PartiLocationViewModel {
+final class PartiSetLocationViewModel {
     private let disposeBag = DisposeBag()
     weak var coordinator: DefaultPartiSetLocationCoordinator?
     

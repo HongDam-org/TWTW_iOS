@@ -10,13 +10,25 @@ import UIKit
 
 final class ParticipantsSetViewModel: PartiLocationViewModel {
     private let disposeBag = DisposeBag()
-    weak var coordinator: DefaultParticipantsCoordinator?
+   // weak var coordinator: DefaultParticipantsCoordinator?
     
+    struct Input {
+        let selectedPlace: Observable<Participant>
+    }
+
     // MARK: - Init
     init(coordinator: DefaultParticipantsCoordinator) {
+        super.init()
         self.coordinator = coordinator
     }
-    func moveToSetLocationViewController() {
-        coordinator?.moveToPartiSetLocation()
+
+    func bind(input: Input) {
+        input.selectedPlace
+            .bind(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                coordinator?.moveToPartiSetLocation()
+                
+            })
+            .disposed(by: disposeBag)
     }
 }

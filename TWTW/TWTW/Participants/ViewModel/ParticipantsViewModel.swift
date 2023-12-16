@@ -20,5 +20,7 @@ final class ParticipantsViewModel {
     }
 }
 
-class PartiLocationViewModel {
+class PartiLocationViewModel {   
+    weak var coordinator: DefaultParticipantsCoordinator?
+
 }

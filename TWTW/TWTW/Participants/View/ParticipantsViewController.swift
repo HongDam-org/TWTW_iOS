@@ -88,6 +88,18 @@ final class ParticipantsViewController: UIViewController {
                         .disposed(by: cell.disposeBag)
                 }
                 .disposed(by: disposeBag)
+        // 셀 선택
+        if let getViewModel = viewModel as? ParticipantsGetViewModel {
+            let selectedPlace = partiTableView.rx.modelSelected(Participant.self).asObservable()
+            let input = ParticipantsGetViewModel.Input(selectedPlace: selectedPlace)
+            getViewModel.bind(input: input)
+        }
+        if let setViewModel = viewModel as? ParticipantsSetViewModel {
+            let selectedPlace = partiTableView.rx.modelSelected(Participant.self).asObservable()
+            let input = ParticipantsSetViewModel.Input(selectedPlace: selectedPlace)
+            setViewModel.bind(input: input)
+        }
+        
         
     }
     
