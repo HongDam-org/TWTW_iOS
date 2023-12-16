@@ -10,10 +10,11 @@ import UIKit
 
 final class ParticipantsSetViewModel: PartiLocationViewModel {
     private let disposeBag = DisposeBag()
-   // weak var coordinator: DefaultParticipantsCoordinator?
-    
+
     struct Input {
         let selectedPlace: Observable<Participant>
+        let addButtonTapped: Observable<Void>
+
     }
 
     // MARK: - Init
@@ -30,5 +31,12 @@ final class ParticipantsSetViewModel: PartiLocationViewModel {
                 
             })
             .disposed(by: disposeBag)
+        
+        input.addButtonTapped
+            .bind(onNext: { [weak self] in
+                self?.coordinator?.moveToMakeNewMeeting()
+            })
+            .disposed(by: disposeBag)
     }
+    
 }

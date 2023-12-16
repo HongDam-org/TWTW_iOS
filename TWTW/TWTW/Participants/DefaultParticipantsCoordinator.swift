@@ -26,33 +26,34 @@ final class DefaultParticipantsCoordinator: ParticipantsCoordinator {
     
     func startWithViewModel(from source: ParticipantsSource) {
         let viewModel: PartiLocationViewModel
-
-            switch source {
-            case .get:
-                viewModel = ParticipantsGetViewModel(coordinator: self)
-               
-            case .set:
-                viewModel = ParticipantsSetViewModel(coordinator: self)
-
-            }
         
-              let participantsViewController = ParticipantsViewController(viewModel: viewModel)
-              navigationController.pushViewController(participantsViewController, animated: true)
-          }
-
-
+        switch source {
+        case .get:
+            viewModel = ParticipantsGetViewModel(coordinator: self)
+            
+        case .set:
+            viewModel = ParticipantsSetViewModel(coordinator: self)
+        }
+        
+        let participantsViewController = ParticipantsViewController(viewModel: viewModel)
+        navigationController.pushViewController(participantsViewController, animated: true)
+    }
+    
     func moveToPartiGetLocation() {
-        print("#function")
         let partiGetLocationCoordinator = DefaultPartiGetLocationCoordinator(navigationController: navigationController)
         partiGetLocationCoordinator.start()
         childCoordinators.append(partiGetLocationCoordinator)
     }
+    
     func moveToPartiSetLocation() {
-        print(#function)
-
         let partiSetLocationCoordinator = DefaultPartiSetLocationCoordinator(navigationController: navigationController)
         partiSetLocationCoordinator.start()
         childCoordinators.append(partiSetLocationCoordinator)
-
+    }
+    
+    func moveToMakeNewMeeting() {
+        let makeNewMeetingCoordinator = DefaultMakeNewMeetingCoordinator(navigationController: navigationController)
+        makeNewMeetingCoordinator.start()
+        childCoordinators.append(makeNewMeetingCoordinator)
     }
 }

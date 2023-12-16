@@ -24,11 +24,11 @@ final class ParticipantsGetViewModel: PartiLocationViewModel {
     func bind(input: Input) {
         input.selectedPlace
             .bind(onNext: { [weak self] _ in
-                guard let self = self, let coordinator = self.coordinator else { return print("nil") }
+                guard let self = self, let coordinator = self.coordinator else { return }
                 coordinator.moveToPartiGetLocation()
-                print("get")
-                
+
             })
             .disposed(by: disposeBag)
+
+           }
     }
-}

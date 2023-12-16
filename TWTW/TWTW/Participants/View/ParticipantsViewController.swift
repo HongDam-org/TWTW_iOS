@@ -29,7 +29,8 @@ final class ParticipantsViewController: UIViewController {
     ]
     private let disposeBag = DisposeBag()
     private var viewModel: PartiLocationViewModel
-    
+    private let addButtonTappedSubject = PublishSubject<Void>()
+
     private lazy var partiTableView: UITableView = {
         let tableView = UITableView()
         return tableView
@@ -50,11 +51,9 @@ final class ParticipantsViewController: UIViewController {
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .orange
-        view.layer.cornerRadius = 20
         setupTableView()
         bindTableView()
-        print("😙\(viewModel)")
+        setupNavigationItem()
     }
     
     private func setupTableView() {
@@ -91,16 +90,27 @@ final class ParticipantsViewController: UIViewController {
         // 셀 선택
         if let getViewModel = viewModel as? ParticipantsGetViewModel {
             let selectedPlace = partiTableView.rx.modelSelected(Participant.self).asObservable()
+
             let input = ParticipantsGetViewModel.Input(selectedPlace: selectedPlace)
             getViewModel.bind(input: input)
         }
         if let setViewModel = viewModel as? ParticipantsSetViewModel {
             let selectedPlace = partiTableView.rx.modelSelected(Participant.self).asObservable()
-            let input = ParticipantsSetViewModel.Input(selectedPlace: selectedPlace)
+            let input = ParticipantsSetViewModel.Input(selectedPlace: selectedPlace, addButtonTapped: addButtonTappedSubject.asObservable())
             setViewModel.bind(input: input)
         }
-        
-        
     }
-    
+ 
+    private func setupNavigationItem() {
+        
+            if viewModel is ParticipantsGetViewModel {
+                navigationItem.rightBarButtonItem = nil
+            } else if viewModel is ParticipantsSetViewModel {
+                let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
+                navigationItem.rightBarButtonItem = addButton
+                addButton.rx.tap
+                    .bind(to: addButtonTappedSubject)
+                    .disposed(by: disposeBag)
+            }
+        }
 }

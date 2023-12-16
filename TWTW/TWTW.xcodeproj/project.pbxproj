@@ -58,6 +58,10 @@
 		3788AEB82B18DCF4007FC2F6 /* PlanCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3788AEB72B18DCF4007FC2F6 /* PlanCoordinator.swift */; };
 		3788AEBA2B18DD0A007FC2F6 /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3788AEB92B18DD0A007FC2F6 /* PlanViewController.swift */; };
 		3788AEBE2B18DF7F007FC2F6 /* DefaultsPlansCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3788AEBD2B18DF7F007FC2F6 /* DefaultsPlansCoordinator.swift */; };
+		378FD2A72B2DFF7700DFCE25 /* DefaultMakeNewMeetingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378FD2A62B2DFF7700DFCE25 /* DefaultMakeNewMeetingCoordinator.swift */; };
+		378FD2A92B2DFFCA00DFCE25 /* MakeNewMeetingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378FD2A82B2DFFCA00DFCE25 /* MakeNewMeetingCoordinator.swift */; };
+		378FD2AB2B2DFFF500DFCE25 /* MakeNewMeetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378FD2AA2B2DFFF500DFCE25 /* MakeNewMeetingViewController.swift */; };
+		378FD2AD2B2E003400DFCE25 /* MakeNewMeetingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378FD2AC2B2E003400DFCE25 /* MakeNewMeetingViewModel.swift */; };
 		3799E4F12A99C4D100E06218 /* DefaultAppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E4F02A99C4D100E06218 /* DefaultAppCoordinator.swift */; };
 		3799E5022A99D68500E06218 /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5012A99D68500E06218 /* CallViewController.swift */; };
 		3799E5052A99D6DC00E06218 /* PreviousAppointmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5042A99D6DC00E06218 /* PreviousAppointmentsViewController.swift */; };
@@ -227,6 +231,10 @@
 		3788AEB72B18DCF4007FC2F6 /* PlanCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCoordinator.swift; sourceTree = "<group>"; };
 		3788AEB92B18DD0A007FC2F6 /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		3788AEBD2B18DF7F007FC2F6 /* DefaultsPlansCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsPlansCoordinator.swift; sourceTree = "<group>"; };
+		378FD2A62B2DFF7700DFCE25 /* DefaultMakeNewMeetingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMakeNewMeetingCoordinator.swift; sourceTree = "<group>"; };
+		378FD2A82B2DFFCA00DFCE25 /* MakeNewMeetingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNewMeetingCoordinator.swift; sourceTree = "<group>"; };
+		378FD2AA2B2DFFF500DFCE25 /* MakeNewMeetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNewMeetingViewController.swift; sourceTree = "<group>"; };
+		378FD2AC2B2E003400DFCE25 /* MakeNewMeetingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNewMeetingViewModel.swift; sourceTree = "<group>"; };
 		3799E4F02A99C4D100E06218 /* DefaultAppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAppCoordinator.swift; sourceTree = "<group>"; };
 		3799E5012A99D68500E06218 /* CallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewController.swift; sourceTree = "<group>"; };
 		3799E5042A99D6DC00E06218 /* PreviousAppointmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousAppointmentsViewController.swift; sourceTree = "<group>"; };
@@ -577,6 +585,17 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		378FD2A12B2DFDBD00DFCE25 /* MakeNewMeeting */ = {
+			isa = PBXGroup;
+			children = (
+				378FD2A62B2DFF7700DFCE25 /* DefaultMakeNewMeetingCoordinator.swift */,
+				378FD2A82B2DFFCA00DFCE25 /* MakeNewMeetingCoordinator.swift */,
+				378FD2AA2B2DFFF500DFCE25 /* MakeNewMeetingViewController.swift */,
+				378FD2AC2B2E003400DFCE25 /* MakeNewMeetingViewModel.swift */,
+			);
+			path = MakeNewMeeting;
+			sourceTree = "<group>";
+		};
 		3799E4ED2A99C4A000E06218 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
@@ -859,6 +878,7 @@
 		37E0D8AB2B1807E0002E0CF5 /* Participants */ = {
 			isa = PBXGroup;
 			children = (
+				378FD2A12B2DFDBD00DFCE25 /* MakeNewMeeting */,
 				37E1B82F2B2D944B0047C7C7 /* GetParicipants */,
 				37E1B82E2B2D94380047C7C7 /* SetParicipants */,
 				37BB02F72B230E93006B2BEB /* ViewModel */,
@@ -1624,6 +1644,7 @@
 				37E0D8AF2B1809EE002E0CF5 /* ParticipantsCoordinator.swift in Sources */,
 				37C733752B2C4DD300D58224 /* SearchPlaceBottomSheetViewModel.swift in Sources */,
 				37D5D78F2B19EAEB00302EAD /* PlanTableViewCell.swift in Sources */,
+				378FD2AB2B2DFFF500DFCE25 /* MakeNewMeetingViewController.swift in Sources */,
 				37E1B83F2B2DA2F60047C7C7 /* DefaultPartiGetLocationCoordinator.swift in Sources */,
 				3788AEBE2B18DF7F007FC2F6 /* DefaultsPlansCoordinator.swift in Sources */,
 				3B274D792AD4584600D79698 /* SignInCoordinatorProtocol.swift in Sources */,
@@ -1639,6 +1660,7 @@
 				3B9693DE2B176DED001DDAE8 /* FriendListTableViewCell.swift in Sources */,
 				37E9FBFE2B1635B4004AFF79 /* MainMapCustomTabButtonViewModel.swift in Sources */,
 				3B20E1E62AE41E97009572AA /* FriendsListCoordinatorProtocol.swift in Sources */,
+				378FD2A92B2DFFCA00DFCE25 /* MakeNewMeetingCoordinator.swift in Sources */,
 				37E1B8392B2D96880047C7C7 /* PartiSetLocationCoordinator.swift in Sources */,
 				37F903A82AF9BD88008120B6 /* Header.swift in Sources */,
 				3760CC8F2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift in Sources */,
@@ -1675,6 +1697,7 @@
 				3737AE942AE93FB900FE7453 /* SearchPlacesMapCoordDelegate.swift in Sources */,
 				3B274D6D2AD3F6F400D79698 /* Coordinator.swift in Sources */,
 				3B9693D82B175346001DDAE8 /* DefaultCreateGroupCoordinator.swift in Sources */,
+				378FD2AD2B2E003400DFCE25 /* MakeNewMeetingViewModel.swift in Sources */,
 				3737AE982AE983F600FE7453 /* SearchPlacesMapService.swift in Sources */,
 				3754BB702A9B455100522420 /* Color+Ext.swift in Sources */,
 				37F903A62AF9BD2F008120B6 /* EncodedQuery.swift in Sources */,
@@ -1688,6 +1711,7 @@
 				3799E4F12A99C4D100E06218 /* DefaultAppCoordinator.swift in Sources */,
 				3737AE8F2AE93EE600FE7453 /* SearchPlacesMapViewController.swift in Sources */,
 				3B274D842AD5207100D79698 /* SignUpService.swift in Sources */,
+				378FD2A72B2DFF7700DFCE25 /* DefaultMakeNewMeetingCoordinator.swift in Sources */,
 				3B20E1DD2AE41D32009572AA /* PreviousAppointmentsCoordinator.swift in Sources */,
 				377CB05B2AD8666F003453D6 /* GroupCoordinatorProtocol.swift in Sources */,
 				3758F18E2A7D007200E2933C /* SceneDelegate.swift in Sources */,
