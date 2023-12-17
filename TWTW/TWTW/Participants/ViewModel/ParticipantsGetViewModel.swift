@@ -10,11 +10,11 @@ import UIKit
 
 final class ParticipantsGetViewModel: PartiLocationViewModel {
     private let disposeBag = DisposeBag()
-
+    
     struct Input {
         let selectedPlace: Observable<Participant>
     }
-
+    
     // MARK: - Init
     init(coordinator: DefaultParticipantsCoordinator) {
         super.init()
@@ -26,9 +26,9 @@ final class ParticipantsGetViewModel: PartiLocationViewModel {
             .bind(onNext: { [weak self] _ in
                 guard let self = self, let coordinator = self.coordinator else { return }
                 coordinator.moveToPartiGetLocation()
-
+                
             })
             .disposed(by: disposeBag)
-
-           }
+        
     }
+}

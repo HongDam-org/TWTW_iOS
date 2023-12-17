@@ -23,4 +23,11 @@ final class DefaultPartiSetLocationCoordinator: PartiSetLocationCoordinator {
         let partiSetLocationVC = PartiSetLocationViewController(viewModel: partiSetLocationViewModel)
         navigationController.pushViewController(partiSetLocationVC, animated: false)
      }
+    /// 친구추가 화면으로 이동
+    func addParticipants() {
+        let defaultFriendsListCoordinator = DefaultFriendsListCoordinator(navigationController: navigationController)
+        childCoordinators.append(defaultFriendsListCoordinator)
+        defaultFriendsListCoordinator.start()
+
+    }
 }

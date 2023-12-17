@@ -12,6 +12,9 @@
 		371C1D2F2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D2E2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift */; };
 		371C1D312ADBAFF300B30DC5 /* DefaultPreviousAppointmentsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D302ADBAFF300B30DC5 /* DefaultPreviousAppointmentsCoordinator.swift */; };
 		371C1D332ADBB00300B30DC5 /* DefaultCallCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D322ADBB00300B30DC5 /* DefaultCallCoordinator.swift */; };
+		371ECB832B2ECAF5005174FF /* PartiMeetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371ECB822B2ECAF5005174FF /* PartiMeetingViewController.swift */; };
+		371ECB852B2ECAFD005174FF /* PartiMeetingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371ECB842B2ECAFD005174FF /* PartiMeetingViewModel.swift */; };
+		371ECB872B2EE381005174FF /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371ECB862B2EE381005174FF /* Text.swift */; };
 		372109F82B0CE74B00B0946C /* SearchPlaceMapViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372109F72B0CE74B00B0946C /* SearchPlaceMapViewModelUnitTests.swift */; };
 		372109FC2B0CE7DD00B0946C /* MockSearchPlacesMapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372109FB2B0CE7DD00B0946C /* MockSearchPlacesMapService.swift */; };
 		3737AE8C2AE93EE600FE7453 /* DefaultSearchPlacesMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3737AE862AE93EE600FE7453 /* DefaultSearchPlacesMapCoordinator.swift */; };
@@ -187,6 +190,9 @@
 		371C1D2E2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFriendsListCoordinator.swift; sourceTree = "<group>"; };
 		371C1D302ADBAFF300B30DC5 /* DefaultPreviousAppointmentsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPreviousAppointmentsCoordinator.swift; sourceTree = "<group>"; };
 		371C1D322ADBB00300B30DC5 /* DefaultCallCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCallCoordinator.swift; sourceTree = "<group>"; };
+		371ECB822B2ECAF5005174FF /* PartiMeetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartiMeetingViewController.swift; sourceTree = "<group>"; };
+		371ECB842B2ECAFD005174FF /* PartiMeetingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartiMeetingViewModel.swift; sourceTree = "<group>"; };
+		371ECB862B2EE381005174FF /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		372109F72B0CE74B00B0946C /* SearchPlaceMapViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceMapViewModelUnitTests.swift; sourceTree = "<group>"; };
 		372109FB2B0CE7DD00B0946C /* MockSearchPlacesMapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchPlacesMapService.swift; sourceTree = "<group>"; };
 		3737AE862AE93EE600FE7453 /* DefaultSearchPlacesMapCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSearchPlacesMapCoordinator.swift; sourceTree = "<group>"; };
@@ -369,6 +375,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		371ECB812B2ECA9D005174FF /* Set */ = {
+			isa = PBXGroup;
+			children = (
+				37E1B82E2B2D94380047C7C7 /* SetParicipants */,
+				378FD2A12B2DFDBD00DFCE25 /* MakeNewMeeting */,
+				371ECB822B2ECAF5005174FF /* PartiMeetingViewController.swift */,
+				371ECB842B2ECAFD005174FF /* PartiMeetingViewModel.swift */,
+			);
+			path = Set;
+			sourceTree = "<group>";
+		};
 		372109F52B0CE70700B0946C /* SearchPlaces */ = {
 			isa = PBXGroup;
 			children = (
@@ -878,9 +895,8 @@
 		37E0D8AB2B1807E0002E0CF5 /* Participants */ = {
 			isa = PBXGroup;
 			children = (
-				378FD2A12B2DFDBD00DFCE25 /* MakeNewMeeting */,
+				371ECB812B2ECA9D005174FF /* Set */,
 				37E1B82F2B2D944B0047C7C7 /* GetParicipants */,
-				37E1B82E2B2D94380047C7C7 /* SetParicipants */,
 				37BB02F72B230E93006B2BEB /* ViewModel */,
 				37E0D8B32B180A68002E0CF5 /* DefaultParticipantsCoordinator.swift */,
 				37E0D8B52B180A8D002E0CF5 /* Protocol */,
@@ -914,6 +930,7 @@
 				37E1B8382B2D96880047C7C7 /* PartiSetLocationCoordinator.swift */,
 				37E1B83C2B2D97170047C7C7 /* PartiSetLocationViewController.swift */,
 				37E1B8402B2DA3060047C7C7 /* DefaultPartiSetLocationCoordinator.swift */,
+				371ECB862B2EE381005174FF /* Text.swift */,
 			);
 			path = SetParicipants;
 			sourceTree = "<group>";
@@ -1708,6 +1725,7 @@
 				37BB03032B231198006B2BEB /* DefaultChangeLocationCoordinator.swift in Sources */,
 				3B4A660A2B161D1600DF9C84 /* CreateGroupViewController.swift in Sources */,
 				3BB85C032B19B4E200F8BBF3 /* FriendProtocol.swift in Sources */,
+				371ECB832B2ECAF5005174FF /* PartiMeetingViewController.swift in Sources */,
 				3799E4F12A99C4D100E06218 /* DefaultAppCoordinator.swift in Sources */,
 				3737AE8F2AE93EE600FE7453 /* SearchPlacesMapViewController.swift in Sources */,
 				3B274D842AD5207100D79698 /* SignUpService.swift in Sources */,
@@ -1719,9 +1737,11 @@
 				3B274D802AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift in Sources */,
 				37E1B8372B2D966A0047C7C7 /* PartiGetLocationCoordinator.swift in Sources */,
 				37C198C32B2760C000D68196 /* MapViewModelProtocol.swift in Sources */,
+				371ECB872B2EE381005174FF /* Text.swift in Sources */,
 				37E1B8412B2DA3060047C7C7 /* DefaultPartiSetLocationCoordinator.swift in Sources */,
 				371C1D2F2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift in Sources */,
 				37CE1EAF2AE75813009CDA21 /* SearchPlace.swift in Sources */,
+				371ECB852B2ECAFD005174FF /* PartiMeetingViewModel.swift in Sources */,
 				3737AE8E2AE93EE600FE7453 /* SearchPlacesTableViewCell.swift in Sources */,
 				3B6CF3D72ADAC80200325D05 /* SignInProtocol.swift in Sources */,
 				375916372A7EB36000C21E1F /* SignInService.swift in Sources */,

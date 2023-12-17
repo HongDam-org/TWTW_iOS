@@ -16,7 +16,6 @@ final class FriendsListViewModel {
     private let friendService: FriendProtocol
     private let disposeBag = DisposeBag()
     
-    
     struct Input {
         let searchBarEvents: Observable<String>?
         let selectedFriendsEvents: ControlEvent<IndexPath>?
