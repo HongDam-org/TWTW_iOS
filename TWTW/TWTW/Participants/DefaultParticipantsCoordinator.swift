@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class DefaultParticipantsCoordinator: ParticipantsCoordinator {
+final class DefaultsParticipantsCoordinator: ParticipantsCoordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
@@ -18,42 +18,15 @@ final class DefaultParticipantsCoordinator: ParticipantsCoordinator {
     }
     
     func start() {
-        let participantsViewModel = ParticipantsGetViewModel(coordinator: self)
-        let participantsViewController = ParticipantsViewController(viewModel: participantsViewModel)
-        
-        navigationController.pushViewController(participantsViewController, animated: true)
+        let participantsViewModel = ParticipantsViewModel(coordinator: self)
+        let participantsVC = ParticipantsViewController(viewModel: participantsViewModel)
+        navigationController.pushViewController(participantsVC, animated: false)
     }
     
-    func startWithViewModel(from source: ParticipantsSource) {
-        let viewModel: PartiLocationViewModel
-        
-        switch source {
-        case .get:
-            viewModel = ParticipantsGetViewModel(coordinator: self)
-            
-        case .set:
-            viewModel = ParticipantsSetViewModel(coordinator: self)
-        }
-        
-        let participantsViewController = ParticipantsViewController(viewModel: viewModel)
-        navigationController.pushViewController(participantsViewController, animated: true)
-    }
-    
-    func moveToPartiGetLocation() {
-        let partiGetLocationCoordinator = DefaultPartiGetLocationCoordinator(navigationController: navigationController)
-        partiGetLocationCoordinator.start()
-        childCoordinators.append(partiGetLocationCoordinator)
-    }
-    
-    func moveToPartiSetLocation() {
-        let partiSetLocationCoordinator = DefaultPartiSetLocationCoordinator(navigationController: navigationController)
-        partiSetLocationCoordinator.start()
-        childCoordinators.append(partiSetLocationCoordinator)
-    }
-    
-    func moveToMakeNewMeeting() {
-        let makeNewMeetingCoordinator = DefaultMakeNewMeetingCoordinator(navigationController: navigationController)
-        makeNewMeetingCoordinator.start()
-        childCoordinators.append(makeNewMeetingCoordinator)
+    /// 선택한 사람 장소 바꾸기
+    func moveToChangeLocation() {
+        let changeLocationCoordinator = DefaultChangeLocationCoordinator(navigationController: navigationController)
+        changeLocationCoordinator.start()
+        childCoordinators.append(changeLocationCoordinator)
     }
 }

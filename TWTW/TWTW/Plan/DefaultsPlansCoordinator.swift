@@ -12,13 +12,41 @@ final class DefaultPlansCoordinator: PlanCoordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
-    private lazy var planVC = PlanViewController()
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func start() {
-        planVC = PlanViewController()
-        navigationController.pushViewController(planVC, animated: false)
+        let plansViewModel = PlansViewModel(coordinator: self)
+        let plansViewController = PlansViewController(viewModel: plansViewModel)
+        
+        navigationController.pushViewController(plansViewController, animated: true)
+    }
+    func startFromAlert() {
+        let plansViewModel = PlansViewModel(
+            coordinator: self,
+            caller: .fromAlert
+        )
+        let plansViewController = PlansViewController(viewModel: plansViewModel)
+        
+        navigationController.pushViewController(plansViewController, animated: false)
+        
+    }
+    
+    func moveToPartiGetLocation() {
+        let partiGetLocationCoordinator = DefaultPartiGetLocationCoordinator(navigationController: navigationController)
+        partiGetLocationCoordinator.start()
+        childCoordinators.append(partiGetLocationCoordinator)
+    }
+    
+    func moveToPartiSetLocation() {
+        let plansFromAlertCoordinator = DefaultPlansFromAlertCoordinator(navigationController: navigationController)
+        plansFromAlertCoordinator.start()
+        childCoordinators.append(plansFromAlertCoordinator)
+    }
+    func addPlans() {
+        let plansCoordinator = DefaultPlansCoordinator(navigationController: navigationController)
+        childCoordinators.append(plansCoordinator)
+        plansCoordinator.startFromAlert()
     }
 }

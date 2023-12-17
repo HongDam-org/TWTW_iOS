@@ -1,8 +1,8 @@
 //
-//  PartiSetLocationViewController.swift
+//  PlansFromAlertViewController.swift
 //  TWTW
 //
-//  Created by 박다미 on 2023/12/16.
+//  Created by 박다미 on 2023/12/18.
 //
 
 import RxCocoa
@@ -10,9 +10,9 @@ import RxSwift
 import SnapKit
 import UIKit
 
-final class PartiSetLocationViewController: UIViewController {
+final class PlansFromAlertViewController: UIViewController {
     private let disposeBag = DisposeBag()
-    private var viewModel: PartiSetLocationViewModel
+    private var viewModel: PlansFromAlertViewModel
     private var tableViewHeightConstraint: Constraint?
 
     private lazy var selectedFriendsTableView: UITableView = {
@@ -79,7 +79,7 @@ final class PartiSetLocationViewController: UIViewController {
     let contentView = UIView()
     
     // MARK: - Init
-    init(viewModel: PartiSetLocationViewModel) {
+    init(viewModel: PlansFromAlertViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -164,7 +164,7 @@ final class PartiSetLocationViewController: UIViewController {
     }
     
     private func bind() {
-        let input = PartiSetLocationViewModel.Input(clickedAddParticipantsEvents: addParticipantsButton.rx.tap)
+        let input = PlansFromAlertViewModel.Input(clickedAddParticipantsEvents: addParticipantsButton.rx.tap)
         
         let output = viewModel.createOutput(input: input)
       
@@ -231,3 +231,4 @@ final class PartiSetLocationViewController: UIViewController {
         return formatter.string(from: date)
     }
 }
+

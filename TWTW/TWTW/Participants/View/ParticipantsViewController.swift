@@ -28,8 +28,7 @@ final class ParticipantsViewController: UIViewController {
                     locationImage: UIImage(systemName: "map"))
     ]
     private let disposeBag = DisposeBag()
-    private var viewModel: PartiLocationViewModel
-    private let addButtonTappedSubject = PublishSubject<Void>()
+    private var viewModel: ParticipantsViewModel
     
     private lazy var partiTableView: UITableView = {
         let tableView = UITableView()
@@ -37,11 +36,10 @@ final class ParticipantsViewController: UIViewController {
     }()
     
     // MARK: - Init
-    init(viewModel: PartiLocationViewModel) {
+    init(viewModel: ParticipantsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-    
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
@@ -51,9 +49,10 @@ final class ParticipantsViewController: UIViewController {
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .orange
+        view.layer.cornerRadius = 20
         setupTableView()
         bindTableView()
-        setupNavigationItem()
     }
     
     private func setupTableView() {
@@ -87,30 +86,13 @@ final class ParticipantsViewController: UIViewController {
                         .disposed(by: cell.disposeBag)
                 }
                 .disposed(by: disposeBag)
-        // 셀 선택
-        if let getViewModel = viewModel as? ParticipantsGetViewModel {
-            let selectedPlace = partiTableView.rx.modelSelected(Participant.self).asObservable()
-            
-            let input = ParticipantsGetViewModel.Input(selectedPlace: selectedPlace)
-            getViewModel.bind(input: input)
-        }
-        if let setViewModel = viewModel as? ParticipantsSetViewModel {
-            let selectedPlace = partiTableView.rx.modelSelected(Participant.self).asObservable()
-            let input = ParticipantsSetViewModel.Input(selectedPlace: selectedPlace, addButtonTapped: addButtonTappedSubject.asObservable())
-            setViewModel.bind(input: input)
-        }
-    }
-    
-    private func setupNavigationItem() {
         
-        if viewModel is ParticipantsGetViewModel {
-            navigationItem.rightBarButtonItem = nil
-        } else if viewModel is ParticipantsSetViewModel {
-            let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
-            navigationItem.rightBarButtonItem = addButton
-            addButton.rx.tap
-                .bind(to: addButtonTappedSubject)
-                .disposed(by: disposeBag)
-        }
+        /// 셀 선택 이벤트 처리
+        let changeLocationTapped = partiTableView.rx.itemSelected
+            .map { _ in () }
+            .asObservable()
+        
+        let input = ParticipantsViewModel.Input(changeLocationButtonTapped: changeLocationTapped)
+        viewModel.bind(input: input)
     }
 }

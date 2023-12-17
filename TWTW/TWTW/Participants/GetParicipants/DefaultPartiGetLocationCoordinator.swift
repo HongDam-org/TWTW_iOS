@@ -23,8 +23,7 @@ final class DefaultPartiGetLocationCoordinator: PartiGetLocationCoordinator {
 
         let partiGetLocationViewModel = PartiGetLocationViewModel(coordinator: self)
         let partiGetLocationVC = PartiGetLocationViewController(viewModel: partiGetLocationViewModel)
-        navigationController.pushViewController(partiGetLocationVC, animated: false)
+        navigationController.pushViewController(partiGetLocationVC, animated: true)
 
      }
-    
 }

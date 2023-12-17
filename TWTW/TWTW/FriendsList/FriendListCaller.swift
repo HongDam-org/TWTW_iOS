@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Caller {
+enum FriendListCaller {
       case fromPartiSetLocation
       case fromTabBar
   }

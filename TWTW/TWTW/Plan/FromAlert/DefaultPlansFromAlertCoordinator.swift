@@ -1,31 +1,31 @@
 //
-//  DefaultPartiSetLocationCoordinator.swift
+//  DefaultPlansFromAlertCoordinator.swift
 //  TWTW
 //
-//  Created by 박다미 on 2023/12/16.
+//  Created by 박다미 on 2023/12/18.
 //
 
 import Foundation
 import UIKit
 
-final class DefaultPartiSetLocationCoordinator: PartiSetLocationCoordinator {
+final class DefaultPlansFromAlertCoordinator: PlanFromAlertCoordinator {
     
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
-    private var partiSetLocationViewModel: PartiSetLocationViewModel?
+    private var plansFromAlertViewModel: PlansFromAlertViewModel?
     
     // MARK: - Init
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        partiSetLocationViewModel = PartiSetLocationViewModel(coordinator: self)
+        plansFromAlertViewModel = PlansFromAlertViewModel(coordinator: self)
         
     }
     
     func start() {
-        let viewModel = PartiSetLocationViewModel(coordinator: self)
-        self.partiSetLocationViewModel = viewModel
-        let partiSetLocationVC = PartiSetLocationViewController(viewModel: viewModel)
-        navigationController.pushViewController(partiSetLocationVC, animated: false)
+        let viewModel = PlansFromAlertViewModel(coordinator: self)
+        self.plansFromAlertViewModel = viewModel
+        let plansFromAlertViewController = PlansFromAlertViewController(viewModel: viewModel)
+        navigationController.pushViewController(plansFromAlertViewController, animated: false)
     }
     /// 친구추가 화면으로 이동
 
@@ -38,8 +38,8 @@ final class DefaultPartiSetLocationCoordinator: PartiSetLocationCoordinator {
 
 }
 
-extension DefaultPartiSetLocationCoordinator: FriendsSendListCoordinatorDelegate {
+extension DefaultPlansFromAlertCoordinator: FriendsSendListCoordinatorDelegate {
     func didSelectFriends(_ friends: [Friend]) {
-        partiSetLocationViewModel?.updateSelectedFriends(friends)
+        plansFromAlertViewModel?.updateSelectedFriends(friends)
     }
 }

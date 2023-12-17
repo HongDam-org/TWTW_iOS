@@ -27,7 +27,7 @@ final class MainMapCustomTabButtonViewModel {
     func bind(input: Input) {
         input.participantsButtonTapped
             .subscribe(onNext: { [weak self] in
-                self?.participantsButtonTapped()
+                self?.plansButtonTapped()
             })
             .disposed(by: disposeBag)
         
@@ -39,7 +39,7 @@ final class MainMapCustomTabButtonViewModel {
     }
     
     /// 친구화면으로 이동
-    private func participantsButtonTapped() {
+    private func plansButtonTapped() {
         coordinator?.moveToParticipantsList()
     }
     

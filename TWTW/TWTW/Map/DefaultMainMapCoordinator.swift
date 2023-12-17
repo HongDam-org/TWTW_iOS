@@ -43,17 +43,16 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
         childCoordinators.append(searchPlacesMapCoordinator)
     }
     ///  친구 목록 화면으로 이동
-    ///  get
     func moveToParticipantsList() {
-        let participantsCoordinator = DefaultParticipantsCoordinator(navigationController: navigationController)
+        let participantsCoordinator = DefaultsParticipantsCoordinator(navigationController: navigationController)
         participantsCoordinator.start()
         childCoordinators.append(participantsCoordinator)
     }
-   /// set
-    func moveToParticipantsSetList(from source: ParticipantsSource) {
-        let participantsCoordinator = DefaultParticipantsCoordinator(navigationController: navigationController)
-        participantsCoordinator.startWithViewModel(from: source)
-        childCoordinators.append(participantsCoordinator)
+    
+    func moveToPlanFromAlert(from source: PlanCaller) {
+        let plansCoordinator = DefaultPlansCoordinator(navigationController: navigationController)
+        plansCoordinator.startFromAlert()
+        childCoordinators.append(plansCoordinator)
     }
     
     /// 알림 화면으로 이동

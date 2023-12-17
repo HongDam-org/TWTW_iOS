@@ -11,16 +11,28 @@ import RxSwift
 
 final class ParticipantsViewModel {
     private let disposeBag = DisposeBag()
-    weak var coordinator: DefaultParticipantsCoordinator?
-  
+    weak var coordinator: DefaultsParticipantsCoordinator?
+    
+    /// Input
+    struct Input {
+        let changeLocationButtonTapped: Observable<Void>
+    }
     
     // MARK: - Init
-    init(coordinator: DefaultParticipantsCoordinator) {
+    init(coordinator: DefaultsParticipantsCoordinator) {
         self.coordinator = coordinator
     }
-}
-
-class PartiLocationViewModel {   
-    weak var coordinator: DefaultParticipantsCoordinator?
-
+    
+    /// bind
+    func bind(input: Input) {
+        input.changeLocationButtonTapped
+            .subscribe(onNext: {[weak self] in
+                self?.changeLocationButtonTapped()
+            })
+            .disposed(by: disposeBag)
+    }
+    /// 화면이동
+    private func changeLocationButtonTapped() {
+        coordinator?.moveToChangeLocation()
+    }
 }

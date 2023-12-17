@@ -26,12 +26,12 @@ final class SearchPlaceBottomSheetViewModel {
     func bind(input: Input) {
         input.participantsButtonTapped
             .subscribe(onNext: { [weak self] in
-                self?.participantsButtonTapped()
+                self?.plansButtonTapped()
             })
             .disposed(by: disposeBag)
     }
     
-    private func participantsButtonTapped() {
-        coordinator?.moveToParticipantsSetList(from: .set)
+    private func plansButtonTapped() {
+        coordinator?.moveToPlanFromAlert(from: .fromAlert)
     }
 }
