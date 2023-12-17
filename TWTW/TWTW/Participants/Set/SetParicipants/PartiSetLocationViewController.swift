@@ -13,10 +13,13 @@ import UIKit
 final class PartiSetLocationViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var viewModel: PartiSetLocationViewModel
-    
+    private var tableViewHeightConstraint: Constraint?
+
     private lazy var selectedFriendsTableView: UITableView = {
            let tableView = UITableView()
         tableView.register(FriendListTableViewCell.self, forCellReuseIdentifier: CellIdentifier.friendListTableViewCell.rawValue)
+        tableView.rowHeight = 100
+        tableView.isScrollEnabled = false
         tableView.backgroundColor = .blue
            return tableView
        }()
@@ -59,13 +62,21 @@ final class PartiSetLocationViewController: UIViewController {
         return button
     }()
     
-    private lazy var selectedDateLabel: UILabel = UILabel()
+    private lazy var selectedDateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "선택한 날짜"
+        
+        return label
+    }()
+    
     
     private lazy var datePicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.datePickerMode = .date
         return picker
     }()
+    let scrollView = UIScrollView()
+    let contentView = UIView()
     
     // MARK: - Init
     init(viewModel: PartiSetLocationViewModel) {
@@ -87,28 +98,41 @@ final class PartiSetLocationViewController: UIViewController {
         bindTableView()
 
     }
-    
+  
     private func addSubeViews() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         // 원래 위치 레이블
-        view.addSubview(originalPlaceNameLabel)
+        contentView.addSubview(originalPlaceNameLabel)
         // 새 위치 레이블
-        view.addSubview(newPlaceNameLabel)
+        contentView.addSubview(newPlaceNameLabel)
         // 참여 인원 추가 버튼
-        view.addSubview(addParticipantsButton)
+        contentView.addSubview(addParticipantsButton)
         
-        view.addSubview(selectedFriendsTableView)
+        contentView.addSubview(selectedFriendsTableView)
         // 확인 버튼
-        view.addSubview(confirmButton)
+        contentView.addSubview(confirmButton)
         // 날짜 선택 버튼
-        view.addSubview(datePickerButton)
+        contentView.addSubview(datePickerButton)
         // 선택된 날짜 레이블
-        view.addSubview(selectedDateLabel)
+        contentView.addSubview(selectedDateLabel)
         configureConstraints()
     }
     
     private func configureConstraints() {
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView)
+            make.width.equalTo(scrollView)
+           // make.height.equalTo(2000)
+        }
+        
         originalPlaceNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.top.equalTo(contentView.snp.top).offset(20)
             make.centerX.equalToSuperview()
         }
         newPlaceNameLabel.snp.makeConstraints { make in
@@ -135,8 +159,10 @@ final class PartiSetLocationViewController: UIViewController {
         selectedDateLabel.snp.makeConstraints { make in
             make.top.equalTo(datePickerButton.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().inset(20)
         }
     }
+    
     private func bind() {
         let input = PartiSetLocationViewModel.Input(clickedAddParticipantsEvents: addParticipantsButton.rx.tap)
         
@@ -144,13 +170,26 @@ final class PartiSetLocationViewController: UIViewController {
       
     }
     private func bindTableView() {
-          viewModel.selectedFriendsObservable
-              .bind(to: selectedFriendsTableView.rx
-                  .items(cellIdentifier: CellIdentifier.friendListTableViewCell.rawValue, cellType: FriendListTableViewCell.self)) { index, friend, cell in
-                      cell.inputData(info: friend)
-                  }
-              .disposed(by: disposeBag)
-      }
+           viewModel.selectedFriendsObservable
+            .do(onNext: { [weak self] friends in
+                self?.updateTableViewHeight(friends.count)
+            })
+
+            .bind(to: selectedFriendsTableView.rx
+                   .items(cellIdentifier: CellIdentifier.friendListTableViewCell.rawValue, cellType: FriendListTableViewCell.self)) { index, friend, cell in
+                       cell.inputData(info: friend)
+                   }.disposed(by: disposeBag)
+       }
+    
+    private func updateTableViewHeight(_ count: Int) {
+          let rowHeight = selectedFriendsTableView.rowHeight
+          let totalHeight = rowHeight * CGFloat(count)
+        selectedFriendsTableView.snp.updateConstraints { make in
+            make.height.equalTo(totalHeight)
+        }
+        view.layoutIfNeeded()
+    }
+    
     
     private func setupBindings() {
         
