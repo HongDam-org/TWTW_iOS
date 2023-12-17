@@ -13,11 +13,19 @@ import UIKit
 final class PartiSetLocationViewModel {
     private let disposeBag = DisposeBag()
     weak var coordinator: DefaultPartiSetLocationCoordinator?
-    
+    // 선택된 친구 목록을 저장하는 Relay
+        private let selectedFriendsRelay = BehaviorRelay<[Friend]>(value: [])
+
+        // 선택된 친구 목록을 외부에 공개하는 Observable
+        var selectedFriendsObservable: Observable<[Friend]> {
+            return selectedFriendsRelay.asObservable()
+        }
+
+   
     struct Input {
-        //1.달력버튼 클릭
+        // 1.달력버튼 클릭
         
-        //2. 친구추가 버튼 클릭
+        // 2. 친구추가 버튼 클릭
         let clickedAddParticipantsEvents: ControlEvent<Void>?
         // 3.저장 버튼 클릭
        // let clickedSaveEvents: ControlEvent<Void>?
@@ -43,7 +51,6 @@ final class PartiSetLocationViewModel {
         input.clickedAddParticipantsEvents?
             .bind { [weak self] in
                 guard let self = self else { return }
-                print("친구 추가 눌림ㄱㄱ")
                 moveAddPrticipants()
             }
             .disposed(by: disposeBag)
@@ -52,10 +59,13 @@ final class PartiSetLocationViewModel {
     }
     
     func moveToSetLocationViewController() {
-        
     }
     
     func moveAddPrticipants() {
         coordinator?.addParticipants()
+    }
+    // 선택된 친구 목록을 업데이트하는 메서드
+    func updateSelectedFriends(_ friends: [Friend]) {
+        selectedFriendsRelay.accept(friends)
     }
 }

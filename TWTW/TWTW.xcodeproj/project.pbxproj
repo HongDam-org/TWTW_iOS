@@ -15,6 +15,8 @@
 		371ECB832B2ECAF5005174FF /* PartiMeetingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371ECB822B2ECAF5005174FF /* PartiMeetingViewController.swift */; };
 		371ECB852B2ECAFD005174FF /* PartiMeetingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371ECB842B2ECAFD005174FF /* PartiMeetingViewModel.swift */; };
 		371ECB872B2EE381005174FF /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371ECB862B2EE381005174FF /* Text.swift */; };
+		371ECB892B2EF20D005174FF /* Caller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371ECB882B2EF20D005174FF /* Caller.swift */; };
+		371ECB8B2B2EFE09005174FF /* FriendsListCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371ECB8A2B2EFE09005174FF /* FriendsListCoordinatorDelegate.swift */; };
 		372109F82B0CE74B00B0946C /* SearchPlaceMapViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372109F72B0CE74B00B0946C /* SearchPlaceMapViewModelUnitTests.swift */; };
 		372109FC2B0CE7DD00B0946C /* MockSearchPlacesMapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372109FB2B0CE7DD00B0946C /* MockSearchPlacesMapService.swift */; };
 		3737AE8C2AE93EE600FE7453 /* DefaultSearchPlacesMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3737AE862AE93EE600FE7453 /* DefaultSearchPlacesMapCoordinator.swift */; };
@@ -193,6 +195,8 @@
 		371ECB822B2ECAF5005174FF /* PartiMeetingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartiMeetingViewController.swift; sourceTree = "<group>"; };
 		371ECB842B2ECAFD005174FF /* PartiMeetingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartiMeetingViewModel.swift; sourceTree = "<group>"; };
 		371ECB862B2EE381005174FF /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
+		371ECB882B2EF20D005174FF /* Caller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Caller.swift; sourceTree = "<group>"; };
+		371ECB8A2B2EFE09005174FF /* FriendsListCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		372109F72B0CE74B00B0946C /* SearchPlaceMapViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceMapViewModelUnitTests.swift; sourceTree = "<group>"; };
 		372109FB2B0CE7DD00B0946C /* MockSearchPlacesMapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchPlacesMapService.swift; sourceTree = "<group>"; };
 		3737AE862AE93EE600FE7453 /* DefaultSearchPlacesMapCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSearchPlacesMapCoordinator.swift; sourceTree = "<group>"; };
@@ -640,6 +644,7 @@
 				3B20E1E22AE41E81009572AA /* Protocol */,
 				3B76F0922AF9D05C00B2BD1D /* View */,
 				371C1D2E2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift */,
+				371ECB882B2EF20D005174FF /* Caller.swift */,
 			);
 			path = FriendsList;
 			sourceTree = "<group>";
@@ -1041,6 +1046,7 @@
 			isa = PBXGroup;
 			children = (
 				3B20E1E32AE41E84009572AA /* Coordinator */,
+				371ECB8A2B2EFE09005174FF /* FriendsListCoordinatorDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1609,6 +1615,7 @@
 				3BC8D6A72B0F15D700BE22EF /* CarRoute.swift in Sources */,
 				3B274D712AD3F77600D79698 /* DefaultSignInCoordinator.swift in Sources */,
 				3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */,
+				371ECB8B2B2EFE09005174FF /* FriendsListCoordinatorDelegate.swift in Sources */,
 				3B274D762AD4541E00D79698 /* SignInCoordinatorFinishDelegate.swift in Sources */,
 				37E1B8352B2D94A20047C7C7 /* ParticipantsSetViewModel.swift in Sources */,
 				3B4A660C2B161D8200DF9C84 /* CreateGroupViewModel.swift in Sources */,
@@ -1651,6 +1658,7 @@
 				3BC8D6A42B0F0F3700BE22EF /* RouteProtocol.swift in Sources */,
 				37E1B83D2B2D97170047C7C7 /* PartiSetLocationViewController.swift in Sources */,
 				377CB0592AD8665E003453D6 /* GroupViewModel.swift in Sources */,
+				371ECB892B2EF20D005174FF /* Caller.swift in Sources */,
 				3B274D7B2AD4CFDA00D79698 /* SignUpCoordinatorFinishDelegate.swift in Sources */,
 				3760CC8C2AE2C0E800CFC2D5 /* SurroundSearchService.swift in Sources */,
 				3799E5022A99D68500E06218 /* CallViewController.swift in Sources */,

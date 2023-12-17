@@ -14,6 +14,12 @@ final class PartiSetLocationViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var viewModel: PartiSetLocationViewModel
     
+    private lazy var selectedFriendsTableView: UITableView = {
+           let tableView = UITableView()
+        tableView.register(FriendListTableViewCell.self, forCellReuseIdentifier: CellIdentifier.friendListTableViewCell.rawValue)
+        tableView.backgroundColor = .blue
+           return tableView
+       }()
     private lazy var originalMeetingNameLabel: UILabel = {
         let label = UILabel()
         label.text = "약속 명 (수정가능)"
@@ -78,6 +84,8 @@ final class PartiSetLocationViewController: UIViewController {
         addSubeViews()
         setupBindings()
         bind()
+        bindTableView()
+
     }
     
     private func addSubeViews() {
@@ -87,6 +95,8 @@ final class PartiSetLocationViewController: UIViewController {
         view.addSubview(newPlaceNameLabel)
         // 참여 인원 추가 버튼
         view.addSubview(addParticipantsButton)
+        
+        view.addSubview(selectedFriendsTableView)
         // 확인 버튼
         view.addSubview(confirmButton)
         // 날짜 선택 버튼
@@ -109,8 +119,13 @@ final class PartiSetLocationViewController: UIViewController {
             make.top.equalTo(newPlaceNameLabel.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
         }
-        confirmButton.snp.makeConstraints { make in
+        selectedFriendsTableView.snp.makeConstraints { make in
             make.top.equalTo(addParticipantsButton.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(100)
+        }
+        confirmButton.snp.makeConstraints { make in
+            make.top.equalTo(selectedFriendsTableView.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
         }
         datePickerButton.snp.makeConstraints { make in
@@ -128,13 +143,16 @@ final class PartiSetLocationViewController: UIViewController {
         let output = viewModel.createOutput(input: input)
       
     }
+    private func bindTableView() {
+          viewModel.selectedFriendsObservable
+              .bind(to: selectedFriendsTableView.rx
+                  .items(cellIdentifier: CellIdentifier.friendListTableViewCell.rawValue, cellType: FriendListTableViewCell.self)) { index, friend, cell in
+                      cell.inputData(info: friend)
+                  }
+              .disposed(by: disposeBag)
+      }
     
     private func setupBindings() {
-        addParticipantsButton.rx.tap
-            .bind { [weak self] in
-            
-            }
-            .disposed(by: disposeBag)
         
         confirmButton.rx.tap
             .bind { [weak self] in
