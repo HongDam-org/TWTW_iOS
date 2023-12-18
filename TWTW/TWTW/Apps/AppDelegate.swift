@@ -64,6 +64,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print(messaging)
         print("파이어베이스 토큰: \(fcmToken)")
     }
 }
@@ -74,7 +75,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        print("메시지 수신")
+        print("메시지 수신 \(#function)")
+        print(notification, center)
         completionHandler([.badge, .sound])
     }
 
@@ -82,6 +84,41 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         
+        let userInfo = response.notification.request.content.userInfo
+        
+        print("STart😡")
+        userInfo.forEach { (key: AnyHashable, value: Any) in
+            print(key, value)
+        }
+        
+        if let gameId = userInfo["gameId"] as? String {
+            print("gameId = \(gameId)")
+        }
+        
+        if let messageId = userInfo["messageId"] as? String {
+            print("messageId = \(messageId)")
+        }
+        
+        let meetingID = userInfo["MEETING_ID"] as! String
+        let userID = userInfo["USER_ID"] as! String
+        
+        // Perform the task associated with the action
+        switch response.actionIdentifier {
+        case "ACCEPT_ACTION":
+            print("\(userID)님이 \(meetingID) 미팅을 수락하셨습니다")
+        case "DECLINE_ACTION":
+            print("\(userID)님이 \(meetingID) 미팅을 거부하셨습니다")
+        case UNNotificationDefaultActionIdentifier:
+            print("그냥 액션 정의 안했고 알림 탭 해서 앱 실행시킨 경우")
+        case UNNotificationDismissActionIdentifier:
+            print("알림 dismiss 시켜버린 경우")
+        default:
+            break
+        }
+        
+        print("END😡")
+        print(#function)
+        print(center, response)
         completionHandler()
     }
 }
