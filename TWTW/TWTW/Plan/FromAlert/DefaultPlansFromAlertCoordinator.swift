@@ -27,6 +27,7 @@ final class DefaultPlansFromAlertCoordinator: PlanFromAlertCoordinator {
         let plansFromAlertViewController = PlansFromAlertViewController(viewModel: viewModel)
         navigationController.pushViewController(plansFromAlertViewController, animated: false)
     }
+    
     /// 친구추가 화면으로 이동
     func addParticipants() {
         let friendsListCoordinator = DefaultFriendsListCoordinator(navigationController: navigationController)
@@ -36,11 +37,15 @@ final class DefaultPlansFromAlertCoordinator: PlanFromAlertCoordinator {
     }
     /// 설정완료후 처음 지도 화면으로
     func moveToMain() {
-        let mainMapCoordinator = DefaultMainMapCoordinator(navigationController: navigationController)
-        childCoordinators.append(mainMapCoordinator)
-        mainMapCoordinator.start()
+        childCoordinators.removeAll()
+        navigationController.popToRootViewController(animated: true)
     }
-
+    /// 길찾기
+    func moveToFindRoad() {
+        let findRoadCoordinator = DefaultsFindRoadCoordinator(navigationController: navigationController)
+        childCoordinators.append(findRoadCoordinator)
+        findRoadCoordinator.start()
+    }
 }
 
 extension DefaultPlansFromAlertCoordinator: FriendsSendListCoordinatorDelegate {

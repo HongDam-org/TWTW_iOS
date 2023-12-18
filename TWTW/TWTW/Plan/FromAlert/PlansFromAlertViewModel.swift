@@ -57,14 +57,14 @@ final class PlansFromAlertViewModel {
         input.clickedConfirmEvents?
             .bind { [weak self] in
                 guard let self = self else {return }
-            moveToMain()}
+                moveToMain()
+            }
+            .disposed(by: disposeBag)
         
         return output
     }
     
-    func moveToSetLocationViewController() {
-    }
-    
+    /// 친구추가화면으로
     func moveAddPrticipants() {
         coordinator?.addParticipants()
     }

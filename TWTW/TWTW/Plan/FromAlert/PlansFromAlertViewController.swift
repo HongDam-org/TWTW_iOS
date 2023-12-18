@@ -163,7 +163,8 @@ final class PlansFromAlertViewController: UIViewController {
     }
     
     private func bind() {
-        let input = PlansFromAlertViewModel.Input(clickedAddParticipantsEvents: addParticipantsButton.rx.tap, clickedConfirmEvents: confirmButton.rx.tap)
+        let input = PlansFromAlertViewModel.Input(clickedAddParticipantsEvents: addParticipantsButton.rx.tap,
+                                                  clickedConfirmEvents: confirmButton.rx.tap)
         
         let output = viewModel.createOutput(input: input)
       
@@ -175,7 +176,8 @@ final class PlansFromAlertViewController: UIViewController {
             })
 
             .bind(to: selectedFriendsTableView.rx
-                   .items(cellIdentifier: CellIdentifier.friendListTableViewCell.rawValue, cellType: FriendListTableViewCell.self)) { index, friend, cell in
+                   .items(cellIdentifier: CellIdentifier.friendListTableViewCell.rawValue, 
+                          cellType: FriendListTableViewCell.self)) { index, friend, cell in
                        cell.inputData(info: friend)
                    }.disposed(by: disposeBag)
        }
