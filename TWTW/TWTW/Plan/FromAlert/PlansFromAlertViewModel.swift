@@ -28,7 +28,7 @@ final class PlansFromAlertViewModel {
         // 2. 친구추가 버튼 클릭
         let clickedAddParticipantsEvents: ControlEvent<Void>?
         // 3.저장 버튼 클릭
-        // let clickedSaveEvents: ControlEvent<Void>?
+         let clickedConfirmEvents: ControlEvent<Void>?
     }
     
     struct Output {
@@ -54,6 +54,11 @@ final class PlansFromAlertViewModel {
                 moveAddPrticipants()
             }
             .disposed(by: disposeBag)
+        input.clickedConfirmEvents?
+            .bind { [weak self] in
+                guard let self = self else {return }
+            moveToMain()}
+        
         return output
     }
     
@@ -62,6 +67,10 @@ final class PlansFromAlertViewModel {
     
     func moveAddPrticipants() {
         coordinator?.addParticipants()
+    }
+    /// 초기화면으로
+    func moveToMain() {
+        coordinator?.moveToMain()
     }
     // 선택된 친구 목록을 업데이트하는 메서드
     func updateSelectedFriends(_ friends: [Friend]) {

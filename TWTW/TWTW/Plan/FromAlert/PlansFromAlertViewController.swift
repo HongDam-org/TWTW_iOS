@@ -52,7 +52,7 @@ final class PlansFromAlertViewController: UIViewController {
     private lazy var confirmButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("변경", for: .normal)
-        
+
         return button
     }()
     
@@ -128,7 +128,6 @@ final class PlansFromAlertViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
             make.width.equalTo(scrollView)
-           // make.height.equalTo(2000)
         }
         
         originalPlaceNameLabel.snp.makeConstraints { make in
@@ -164,7 +163,7 @@ final class PlansFromAlertViewController: UIViewController {
     }
     
     private func bind() {
-        let input = PlansFromAlertViewModel.Input(clickedAddParticipantsEvents: addParticipantsButton.rx.tap)
+        let input = PlansFromAlertViewModel.Input(clickedAddParticipantsEvents: addParticipantsButton.rx.tap, clickedConfirmEvents: confirmButton.rx.tap)
         
         let output = viewModel.createOutput(input: input)
       
@@ -192,13 +191,6 @@ final class PlansFromAlertViewController: UIViewController {
     
     
     private func setupBindings() {
-        
-        confirmButton.rx.tap
-            .bind { [weak self] in
-                print("변경버튼 클릭")
-            }
-            .disposed(by: disposeBag)
-        
         datePickerButton.rx.tap
             .bind { [weak self] in
                 self?.presentDatePicker()
@@ -231,4 +223,3 @@ final class PlansFromAlertViewController: UIViewController {
         return formatter.string(from: date)
     }
 }
-

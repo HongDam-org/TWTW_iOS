@@ -28,12 +28,17 @@ final class DefaultPlansFromAlertCoordinator: PlanFromAlertCoordinator {
         navigationController.pushViewController(plansFromAlertViewController, animated: false)
     }
     /// 친구추가 화면으로 이동
-
     func addParticipants() {
         let friendsListCoordinator = DefaultFriendsListCoordinator(navigationController: navigationController)
-        friendsListCoordinator.delegate = self // delegate를 여기에 설정
+        friendsListCoordinator.delegate = self 
         childCoordinators.append(friendsListCoordinator)
         friendsListCoordinator.startFromPartiSetLocation()
+    }
+    /// 설정완료후 처음 지도 화면으로
+    func moveToMain() {
+        let mainMapCoordinator = DefaultMainMapCoordinator(navigationController: navigationController)
+        childCoordinators.append(mainMapCoordinator)
+        mainMapCoordinator.start()
     }
 
 }

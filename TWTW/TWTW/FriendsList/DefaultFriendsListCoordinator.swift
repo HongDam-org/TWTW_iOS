@@ -42,7 +42,7 @@ final class DefaultFriendsListCoordinator: FriendsListCoordinatorProtocol {
         )
         let friendsListViewController = FriendsListViewController(viewModel: friendsListViewModel)
         
-        navigationController.pushViewController(friendsListViewController, animated: false)
+        navigationController.pushViewController(friendsListViewController, animated: true)
         
     }
 

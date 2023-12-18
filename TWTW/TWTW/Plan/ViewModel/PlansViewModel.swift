@@ -21,6 +21,7 @@ final class PlansViewModel {
     
     struct Input {
         let selectedPlansList: Observable<IndexPath>
+        let addPlans: Observable<Void>
     }
     
     // MARK: - Init
@@ -41,6 +42,12 @@ final class PlansViewModel {
                     coordinator.moveToPartiGetLocation()
 
                 }
+            }.disposed(by: disposeBag)
+        
+        input.addPlans
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                coordinator.moveToPartiSetLocation()
             }.disposed(by: disposeBag)
     }
 }

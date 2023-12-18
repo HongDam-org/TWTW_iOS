@@ -17,12 +17,60 @@ final class PlansViewController: UIViewController {
     
     /// sample
     let plans: [Plan] = [
-        Plan(planTitle: "제목", plansubTitle: "부제목"),
-        Plan(planTitle: "제목", plansubTitle: "부제목"),
-        Plan(planTitle: "제목", plansubTitle: "부제목"),
-        Plan(planTitle: "제목", plansubTitle: "부제목"),
-        Plan(planTitle: "제목", plansubTitle: "부제목"),
-        Plan(planTitle: "제목", plansubTitle: "부제목")
+        Plan(
+            planId: "3b8e94bc-310a-4ee9-b5cc-624d3c794dd4",
+            placeId: "91e3045e-f75b-42a5-a5f5-2d63db7e2df8",
+            planMakerId: "065c66a2-7d21-47f0-bbfd-4751242d0a78",
+            placeDetails: PlaceDetails(
+                placeName: "서울 여의도공원",
+                placeUrl: "https://example.com/place/1",
+                roadAddressName: "여의도로 123",
+                longitude: 37.5259,
+                latitude: 126.9242
+            ),
+            groupInfo: GroupInfo(
+                groupId: "aa977768-a940-4f89-ba24-aa1bf2f71355",
+                leaderId: "8df2b9ac-b424-44ca-9f30-25b245dc75f1",
+                name: "친구와 나들이", groupImage: "aaaaa"
+            ),
+            members: [
+                Member(
+                    id: "37f64bef-b266-4787-8b53-599b2e0cea3c",
+                    nickname: "친구1"
+                ),
+                Member(
+                    id: "2f6f96bf-4e17-41d7-8e17-15e17d41d7b0",
+                    nickname: "친구2"
+                )
+            ]
+        ),
+        Plan(
+            planId: "3b8e94bc-310a-4ee9-b5cc-624d3c794dd4",
+            placeId: "91e3045e-f75b-42a5-a5f5-2d63db7e2df8",
+            planMakerId: "065c66a2-7d21-47f0-bbfd-4751242d0a78",
+            placeDetails: PlaceDetails(
+                placeName: "서울 여의도공원",
+                placeUrl: "https://example.com/place/1",
+                roadAddressName: "여의도로 123",
+                longitude: 37.5259,
+                latitude: 126.9242
+            ),
+            groupInfo: GroupInfo(
+                groupId: "aa977768-a940-4f89-ba24-aa1bf2f71355",
+                leaderId: "8df2b9ac-b424-44ca-9f30-25b245dc75f1",
+                name: "친구와 나들이", groupImage: "aaaaa"
+            ),
+            members: [
+                Member(
+                    id: "37f64bef-b266-4787-8b53-599b2e0cea3c",
+                    nickname: "친구1"
+                ),
+                Member(
+                    id: "2f6f96bf-4e17-41d7-8e17-15e17d41d7b0",
+                    nickname: "친구2"
+                )
+            ]
+        )
     ]
     
     // MARK: Properties
@@ -91,7 +139,9 @@ final class PlansViewController: UIViewController {
     /// binding
     private func bind() {
         let input = PlansViewModel.Input(
-            selectedPlansList: planTableView.rx.itemSelected.asObservable())
+            selectedPlansList: planTableView.rx.itemSelected.asObservable(),
+            addPlans: rightItemButton.rx.tap.asObservable()
+        )
         let output = viewModel.bind(input: input)
         // bindTableView()
     }
@@ -103,9 +153,11 @@ final class PlansViewController: UIViewController {
                 cellIdentifier: CellIdentifier.planTableViewCell.rawValue,
                 cellType: PlanTableViewCell.self)) {
                     (row, plan, cell) in
+                    let placeName = plan.placeDetails.placeName
+                    let groupName = plan.groupInfo.name
+                    
                     cell.configure(plan: plan)
                 }
-        
     }
-    
+
 }

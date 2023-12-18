@@ -7,7 +7,31 @@
 
 import UIKit
 
-struct Plan {
-    let planTitle: String
-    let plansubTitle: String
+struct PlaceDetails: Codable {
+    let placeName: String
+    let placeUrl: String
+    let roadAddressName: String
+    let longitude: Double
+    let latitude: Double
+}
+
+struct GroupInfo: Codable {
+    let groupId: String
+    let leaderId: String
+    let name: String
+    let groupImage: String
+}
+
+struct Member: Codable {
+    let id: String
+    let nickname: String
+}
+
+struct Plan: Codable {
+    let planId: String
+    let placeId: String
+    let planMakerId: String
+    let placeDetails: PlaceDetails
+    let groupInfo: GroupInfo
+    let members: [Member]
 }
