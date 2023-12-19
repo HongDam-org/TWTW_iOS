@@ -39,7 +39,7 @@ final class PlansViewModel {
                     coordinator.moveToPartiSetLocation()
                 case .fromTabBar:
                     print("탭바에서 호출됨")
-                    coordinator.moveToPartiGetLocation()
+                    coordinator.moveToPartiSetLocation()
 
                 }
             }.disposed(by: disposeBag)

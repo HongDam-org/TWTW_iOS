@@ -33,8 +33,8 @@ final class DefaultPlansCoordinator: PlanCoordinator {
         
     }
     
-    func moveToPartiGetLocation() {
-        let partiGetLocationCoordinator = DefaultPartiGetLocationCoordinator(navigationController: navigationController)
+    func moveToPlan() {
+        let partiGetLocationCoordinator = DefaultPlansCoordinator(navigationController: navigationController)
         partiGetLocationCoordinator.start()
         childCoordinators.append(partiGetLocationCoordinator)
     }
@@ -45,8 +45,6 @@ final class DefaultPlansCoordinator: PlanCoordinator {
         childCoordinators.append(plansFromAlertCoordinator)
     }
     func addPlans() {
-        let plansCoordinator = DefaultPlansCoordinator(navigationController: navigationController)
-        childCoordinators.append(plansCoordinator)
-        plansCoordinator.startFromAlert()
+       self.startFromAlert()
     }
 }

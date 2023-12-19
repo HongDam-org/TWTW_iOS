@@ -17,7 +17,6 @@ import UIKit
 /// MainMapViewModel
 final class MainMapViewModel {
     private let coordinator: DefaultMainMapCoordinator?
-    private let routeService: RouteProtocol?
     private let disposeBag = DisposeBag()
  
     struct Input {
@@ -66,9 +65,8 @@ final class MainMapViewModel {
     }
 
     // MARK: - init
-    init(coordinator: DefaultMainMapCoordinator?, routeService: RouteProtocol) {
+    init(coordinator: DefaultMainMapCoordinator?) {
         self.coordinator = coordinator
-        self.routeService = routeService
     }
 
     /// bind
@@ -115,7 +113,7 @@ final class MainMapViewModel {
                                            option: "TRAFAST",
                                            fuel: "DIESEL",
                                            car: 1)
-                getCarRoute(body: body, output: output)
+             //   getCarRoute(body: body, output: output)
             }
             .disposed(by: disposeBag)
         
@@ -145,13 +143,13 @@ final class MainMapViewModel {
     }
     
     /// 자동차 경로 가져오기
-    private func getCarRoute(body: CarRouteRequest, output: Output) {
-        routeService?.carRoute(request: body)
-            .subscribe(onNext: { route in
-                output.destinationPathRelay.accept(route.route?.trafast?.first?.path ?? [])
-            }, onError: { error in
-                print(error)
-            })
-            .disposed(by: disposeBag)
-    }
+//    private func getCarRoute(body: CarRouteRequest, output: Output) {
+//        routeService?.carRoute(request: body)
+//            .subscribe(onNext: { route in
+//                output.destinationPathRelay.accept(route.route?.trafast?.first?.path ?? [])
+//            }, onError: { error in
+//                print(error)
+//            })
+//            .disposed(by: disposeBag)
+//    }
 }

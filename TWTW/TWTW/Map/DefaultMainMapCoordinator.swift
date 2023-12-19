@@ -20,7 +20,7 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        mainMapViewModel = MainMapViewModel(coordinator: self, routeService: RouteService())
+        mainMapViewModel = MainMapViewModel(coordinator: self)
     }
     
     // MARK: - Fuctions

@@ -1,19 +1,20 @@
 //
-//  PartiGetLocationViewModel.swift
+//  FindRoadViewModel.swift
 //  TWTW
 //
-//  Created by 박다미 on 2023/12/16.
+//  Created by 박다미 on 2023/12/18.
 //
 
+import Foundation
 import RxSwift
 import UIKit
 
-final class PartiGetLocationViewModel {
+final class FindRoadViewModel {
     private let disposeBag = DisposeBag()
-    weak var coordinator: DefaultPartiGetLocationCoordinator?
+    weak var coordinator: DefaultsFindRoadCoordinator?
     
     // MARK: - Init
-    init(coordinator: DefaultPartiGetLocationCoordinator) {
+    init(coordinator: DefaultsFindRoadCoordinator) {
         self.coordinator = coordinator
     }
     

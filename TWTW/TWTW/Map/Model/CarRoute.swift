@@ -2,40 +2,12 @@
 //  CarRoute.swift
 //  TWTW
 //
-//  Created by 정호진 on 11/23/23.
+//  Created by 박다미 on 2023/12/19.
 //
 
 import Foundation
 
-struct CarRoute: Codable {
-    let code: Int?
-    let message, currentDateTime: String?
-    let route: Route?
-}
-
-struct Route: Codable {
-    let trafast: [Trafast]?
-}
-
-struct Trafast: Codable {
-    let summary: Summary?
-    let path: [[Double]]?
-}
-
-struct Summary: Codable {
-    let start, goal: Goal?
-    let waypoints: [Goal]?
-    let distance, duration: Int?
-    let bbox: [[Double]]?
-    let tollFare, taxiFare, fuelPrice: Int?
-}
-
-struct Goal: Codable {
-    let location: [[Double]]?
-    let dir, distance, duration, pointIndex: Int?
-}
-
-/// 자동차 길찾기 Body
+// 자동차 경로 요청 구조체
 struct CarRouteRequest: Codable {
     let start: String
     let end: String
@@ -43,4 +15,29 @@ struct CarRouteRequest: Codable {
     let option: String
     let fuel: String
     let car: Int
+}
+
+// 자동차 경로 응답 구조체
+struct CarRouteResponse: Codable {
+    struct Summary: Codable {
+        let start: String?
+        let goal: String?
+        let waypoints: [String]?
+        let distance: Double
+        let duration: Double
+        let bbox: [Double]?
+        let tollFare: Int
+        let taxiFare: Int
+        let fuelPrice: Int
+    }
+    
+    struct Path: Codable {
+        let path: [[Double]]
+    }
+    
+    let code: Int
+    let message: String?
+    let currentDateTime: String?
+    let route: [String: [Path]]
+    let summary: Summary
 }
