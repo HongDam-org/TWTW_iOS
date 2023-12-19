@@ -167,7 +167,10 @@ final class PlansFromAlertViewController: UIViewController {
                                                   clickedConfirmEvents: confirmButton.rx.tap)
         
         let output = viewModel.createOutput(input: input)
-      
+        
+        viewModel.newPlaceName
+                   .bind(to: newPlaceNameLabel.rx.text)
+                   .disposed(by: disposeBag)
     }
     private func bindTableView() {
            viewModel.selectedFriendsObservable

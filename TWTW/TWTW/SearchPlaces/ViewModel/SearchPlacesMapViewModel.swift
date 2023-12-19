@@ -82,14 +82,32 @@ final class SearchPlacesMapViewModel {
         input.selectedPlace
             .bind(onNext: { [weak self] selectedPlace in
                 guard let self = self else { return }
+                // 장소 이름 저장
+                       if let placeName = selectedPlace.placeName {
+                           _ = KeychainWrapper.saveItem(value: placeName, forKey: SearchPlaceKeyChain.placeName.rawValue)
+                       }
 
-                let placeX = selectedPlace.longitude ?? 0
-                let placeY = selectedPlace.latitude ?? 0
-                let coordinate = CLLocationCoordinate2D(latitude: placeY, longitude: placeX )
-                print(coordinate)
-                self.coordinator?.finishSearchPlaces(coordinate: coordinate, 
-                                                     placeName: selectedPlace.placeName ?? "",
-                                                     roadAddressName: selectedPlace.roadAddressName ?? "")
+                       // 장소 URL 저장
+                       if let placeURL = selectedPlace.placeURL {
+                           _ = KeychainWrapper.saveItem(value: placeURL, forKey: SearchPlaceKeyChain.placeURL.rawValue)
+                       }
+
+                       // 도로명 주소 저장
+                       if let roadAddressName = selectedPlace.roadAddressName {
+                           _ = KeychainWrapper.saveItem(value: roadAddressName, forKey: SearchPlaceKeyChain.roadAddressName.rawValue)
+                       }
+
+                       // 경도 저장
+                       if let longitude = selectedPlace.longitude {
+                           _ = KeychainWrapper.saveItem(value: "\(longitude)", forKey: SearchPlaceKeyChain.longitude.rawValue)
+                       }
+
+                       // 위도 저장
+                       if let latitude = selectedPlace.latitude {
+                           _ = KeychainWrapper.saveItem(value: "\(latitude)", forKey: SearchPlaceKeyChain.latitude.rawValue)
+                       }
+                //self.coordinator?.finishSearchPlaces(searchPlace: selectedPlace)
+                self.coordinator?.finishSearchPlaces()
             })
             .disposed(by: disposeBag)
         

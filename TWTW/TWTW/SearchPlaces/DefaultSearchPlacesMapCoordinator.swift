@@ -15,14 +15,14 @@ final class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtoco
     private let disposeBag = DisposeBag()
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
-    weak var delegate: SearchPlacesMapCoordDelegate?
+   // weak var delegate: SearchPlacesMapCoordDelegate?
     
     private var searchPlacesMapViewController: SearchPlacesMapViewController?
     private var searchPlacesMapViewModel: SearchPlacesMapViewModel?
     
-    init(navigationController: UINavigationController, delegate: SearchPlacesMapCoordDelegate) {
+    init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.delegate = delegate
+    
     }
     
     func start() {
@@ -38,8 +38,8 @@ final class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtoco
     }
     
     /// 서치 완료후 :  cLLocation전달 & pop VC
-    func finishSearchPlaces(coordinate: CLLocationCoordinate2D, placeName: String, roadAddressName: String) {
-        delegate?.didSelectCoordinate(coordinate: coordinate, placeName: placeName, roadAddressName: roadAddressName)
+    func finishSearchPlaces() {
+       // delegate?.didSelectPlace()
         navigationController.popViewController(animated: true)
     }
 }

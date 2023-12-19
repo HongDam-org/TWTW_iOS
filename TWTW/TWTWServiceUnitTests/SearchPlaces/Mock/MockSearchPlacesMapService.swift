@@ -10,11 +10,9 @@ import RxSwift
 
 final class MockSearchPlacesMapService: SearchPlaceProtocol {
     var mockPlace1 = SearchPlace(placeName: "Place1", distance: 100, placeURL: "url",
-                                 addressName: "Address", roadAddressName: "RoadAdd",
-                                 categoryGroupCode: "CGC", longitude: 100.0, latitude: 200.0)
+                                 roadAddressName: "Address", longitude: 100.0, latitude: 200.0)
     var mockPlace2 = SearchPlace(placeName: "Place2", distance: 200, placeURL: "url2",
-                                 addressName: "Address2", roadAddressName: "RoadAdd2",
-                                 categoryGroupCode: "CGC2", longitude: 300.0, latitude: 400.0)
+                                 roadAddressName: "Address2", longitude: 300.0, latitude: 400.0)
 
     func searchPlaceService(request: PlacesRequest) -> Observable<PlaceResponse> {
         if request.searchText == "Place1" {

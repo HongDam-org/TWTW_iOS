@@ -35,8 +35,7 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     /// SearchPlacesMapCoordinator 시작하는 메소드
     func moveSearch(output: MainMapViewModel.Output) {
         mainMapViewModelOutput = output
-        let searchPlacesMapCoordinator = DefaultSearchPlacesMapCoordinator(navigationController: navigationController,
-                                                                           delegate: self)
+        let searchPlacesMapCoordinator = DefaultSearchPlacesMapCoordinator(navigationController: navigationController)
         _ = KeychainWrapper.saveItem(value: "\(output.myLocatiaonRelay.value.latitude)", forKey: "latitude")
         _ = KeychainWrapper.saveItem(value: "\(output.myLocatiaonRelay.value.longitude)", forKey: "longitude")
         searchPlacesMapCoordinator.start()
@@ -61,18 +60,13 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
         plansCoordinator.start()
         childCoordinators.append(plansCoordinator)
     }
-    
-}
-
-// MARK: - SearchPlacesCoordinator에서 좌표 받는 함수
-
-extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate {
-    func didSelectCoordinate(coordinate: CLLocationCoordinate2D, placeName: String, roadAddressName: String) {
-        navigationController.popViewController(animated: true)
-        mainMapViewModelOutput?.cameraCoordinateObservable.accept(coordinate)
-
-        if let mainMapVC = navigationController.viewControllers.last as? MainMapViewController {
-            mainMapVC.updateViewState(to: .searchMap, placeName: placeName, roadAddressName: roadAddressName)
-        }
+    /// 알림 화면으로 이동
+    func moveToPlansFromTabBar() {
+        
+        let plansCoordinator = DefaultPlansCoordinator(navigationController: navigationController)
+        plansCoordinator.planStartFromTabBar()
+        childCoordinators.append(plansCoordinator)
     }
 }
+
+

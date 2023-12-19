@@ -20,7 +20,18 @@ final class PlansFromAlertViewModel {
     var selectedFriendsObservable: Observable<[Friend]> {
         return selectedFriendsRelay.asObservable()
     }
-    
+    // 새로 선택된 목적지 명
+    var newPlaceName: Observable<String> {
+        return Observable.create { observer in
+            if let newPlaceName = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.placeName.rawValue) {
+                       observer.onNext(newPlaceName)
+                   } else {
+                       observer.onNext(" ")
+                   }
+                   observer.onCompleted()
+                   return Disposables.create()
+               }
+     }
     
     struct Input {
         // 1.달력버튼 클릭
@@ -54,6 +65,7 @@ final class PlansFromAlertViewModel {
                 moveAddPrticipants()
             }
             .disposed(by: disposeBag)
+        
         input.clickedConfirmEvents?
             .bind { [weak self] in
                 guard let self = self else {return }

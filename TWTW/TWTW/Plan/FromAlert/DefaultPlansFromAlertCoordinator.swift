@@ -38,7 +38,10 @@ final class DefaultPlansFromAlertCoordinator: PlanFromAlertCoordinator {
     /// 설정완료후 처음 지도 화면으로
     func moveToMain() {
         childCoordinators.removeAll()
-        navigationController.popToRootViewController(animated: true)
+        let mainMapCoordinator = DefaultMainMapCoordinator(navigationController: navigationController)
+        mainMapCoordinator.start()
+        childCoordinators.append(mainMapCoordinator)
+        //navigationController.popToRootViewController(animated: true)
     }
     /// 길찾기
 //    func moveToFindRoad() {

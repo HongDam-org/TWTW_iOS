@@ -100,6 +100,8 @@
 		37E8B83C2B31AE40008D0F3D /* CarRouteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E8B83B2B31AE40008D0F3D /* CarRouteProtocol.swift */; };
 		37E8B83E2B31AFA0008D0F3D /* CarRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E8B83D2B31AFA0008D0F3D /* CarRoute.swift */; };
 		37E8B8402B31B192008D0F3D /* CarRouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E8B83F2B31B192008D0F3D /* CarRouteService.swift */; };
+		37E8B8422B31E31A008D0F3D /* SearchPlacesConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E8B8412B31E31A008D0F3D /* SearchPlacesConstraints.swift */; };
+		37E8B8442B31ED72008D0F3D /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E8B8432B31ED72008D0F3D /* Notification.swift */; };
 		37E9FBFB2B16337D004AFF79 /* MainMapCustomTabButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9FBFA2B16337D004AFF79 /* MainMapCustomTabButtonsView.swift */; };
 		37E9FBFE2B1635B4004AFF79 /* MainMapCustomTabButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9FBFD2B1635B4004AFF79 /* MainMapCustomTabButtonViewModel.swift */; };
 		37EF0CFB2AB85C2400D77B0A /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */; };
@@ -277,6 +279,8 @@
 		37E8B83B2B31AE40008D0F3D /* CarRouteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarRouteProtocol.swift; sourceTree = "<group>"; };
 		37E8B83D2B31AFA0008D0F3D /* CarRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarRoute.swift; sourceTree = "<group>"; };
 		37E8B83F2B31B192008D0F3D /* CarRouteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarRouteService.swift; sourceTree = "<group>"; };
+		37E8B8412B31E31A008D0F3D /* SearchPlacesConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlacesConstraints.swift; sourceTree = "<group>"; };
+		37E8B8432B31ED72008D0F3D /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		37E9FBFA2B16337D004AFF79 /* MainMapCustomTabButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapCustomTabButtonsView.swift; sourceTree = "<group>"; };
 		37E9FBFD2B1635B4004AFF79 /* MainMapCustomTabButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapCustomTabButtonViewModel.swift; sourceTree = "<group>"; };
 		37EF0CFA2AB85C2400D77B0A /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
@@ -484,6 +488,7 @@
 				37BAF8952A949C4900BD85DC /* Config.xcconfig */,
 				3758F1992A7D007300E2933C /* Info.plist */,
 				3758F1C12A7E741C00E2933C /* TWTW.entitlements */,
+				37E8B8432B31ED72008D0F3D /* Notification.swift */,
 			);
 			path = TWTW;
 			sourceTree = "<group>";
@@ -1257,6 +1262,7 @@
 			children = (
 				37CE1EAE2AE75813009CDA21 /* SearchPlace.swift */,
 				3760CC8E2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift */,
+				37E8B8412B31E31A008D0F3D /* SearchPlacesConstraints.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1613,6 +1619,7 @@
 				37D71E432B2F687B0004188A /* DefaultPlansFromAlertCoordinator.swift in Sources */,
 				3BAA4A192ADC1DEA009D14E7 /* SignUpProtocol.swift in Sources */,
 				3BB85C012B19B4B800F8BBF3 /* FriendService.swift in Sources */,
+				37E8B8442B31ED72008D0F3D /* Notification.swift in Sources */,
 				3788AEBA2B18DD0A007FC2F6 /* PlansViewController.swift in Sources */,
 				3737AE8C2AE93EE600FE7453 /* DefaultSearchPlacesMapCoordinator.swift in Sources */,
 				3737AE8D2AE93EE600FE7453 /* SearchPlacesMapViewModel.swift in Sources */,
@@ -1650,6 +1657,7 @@
 				37E0D8AF2B1809EE002E0CF5 /* ParticipantsCoordinator.swift in Sources */,
 				37C733752B2C4DD300D58224 /* SearchPlaceBottomSheetViewModel.swift in Sources */,
 				37D5D78F2B19EAEB00302EAD /* PlanTableViewCell.swift in Sources */,
+				37E8B8422B31E31A008D0F3D /* SearchPlacesConstraints.swift in Sources */,
 				3788AEBE2B18DF7F007FC2F6 /* DefaultsPlansCoordinator.swift in Sources */,
 				3B274D792AD4584600D79698 /* SignInCoordinatorProtocol.swift in Sources */,
 				3B4A66062B16147600DF9C84 /* GroupProtocol.swift in Sources */,

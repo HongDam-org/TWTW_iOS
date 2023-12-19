@@ -22,6 +22,19 @@ final class DefaultPlansCoordinator: PlanCoordinator {
         
         navigationController.pushViewController(plansViewController, animated: true)
     }
+    //첫 지도화면에서 탭바버튼으로
+    func planStartFromTabBar() {
+        let plansViewModel = PlansViewModel(
+            coordinator: self,
+            caller: .fromTabBar
+        )
+        let plansViewController = PlansViewController(viewModel: plansViewModel)
+        
+        navigationController.pushViewController(plansViewController, animated: false)
+        
+        
+    }
+    
     func startFromAlert() {
         let plansViewModel = PlansViewModel(
             coordinator: self,
@@ -33,13 +46,13 @@ final class DefaultPlansCoordinator: PlanCoordinator {
         
     }
     
-    func moveToPlan() {
-        let partiGetLocationCoordinator = DefaultPlansCoordinator(navigationController: navigationController)
-        partiGetLocationCoordinator.start()
-        childCoordinators.append(partiGetLocationCoordinator)
+    func moveToPlanFromTabBar() {
+        let findRoadCoordinator = DefaultsFindRoadCoordinator(navigationController: navigationController)
+        findRoadCoordinator.start()
+        childCoordinators.append(findRoadCoordinator)
     }
     
-    func moveToPartiSetLocation() {
+    func moveToplansFromAlert() {
         let plansFromAlertCoordinator = DefaultPlansFromAlertCoordinator(navigationController: navigationController)
         plansFromAlertCoordinator.start()
         childCoordinators.append(plansFromAlertCoordinator)

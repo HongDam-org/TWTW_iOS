@@ -36,10 +36,10 @@ final class PlansViewModel {
                 guard let self = self else { return }
                 switch self.caller {
                 case .fromAlert:
-                    coordinator.moveToPartiSetLocation()
+                    coordinator.moveToplansFromAlert()
                 case .fromTabBar:
                     print("탭바에서 호출됨")
-                    coordinator.moveToPartiSetLocation()
+                    coordinator.moveToPlanFromTabBar()
 
                 }
             }.disposed(by: disposeBag)
@@ -47,7 +47,7 @@ final class PlansViewModel {
         input.addPlans
             .bind { [weak self] _ in
                 guard let self = self else { return }
-                coordinator.moveToPartiSetLocation()
+                coordinator.moveToplansFromAlert()
             }.disposed(by: disposeBag)
     }
 }

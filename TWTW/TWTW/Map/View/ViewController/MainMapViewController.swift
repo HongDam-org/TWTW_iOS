@@ -88,6 +88,7 @@ final class MainMapViewController: KakaoMapViewController {
         super.viewDidLoad()
         bind()
         setupUI()
+        setNotificationFromSearchPlace()
     }
     
     /// 지도 그리기
@@ -105,6 +106,16 @@ final class MainMapViewController: KakaoMapViewController {
     }
     
     // MARK: - Set Up
+    private func setNotificationFromSearchPlace() {
+        NotificationCenter.default.addObserver(forName: .didFinishSearchPlaces, object: nil, queue: nil) { [weak self] _ in
+            self?.updateViewState(to: .searchMap)
+
+        }
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     /// Setting UI
     private func setupUI() {
@@ -187,21 +198,23 @@ final class MainMapViewController: KakaoMapViewController {
         self.output = output
     }
     
-    func updateViewState(to newViewState: ViewState, placeName: String, roadAddressName: String) {
+    func updateViewState(to newViewState: ViewState) {
         currentViewType = newViewState
         switch currentViewType {
             case .mainMap:
                 searchPlaceBottomSheet.removeFromSuperview()
             case .searchMap:
-                addSearchPlaceBottomSheet(placeName: placeName, roadAddressName: roadAddressName)
+            addSearchPlaceBottomSheet()
         }
 
         configureUIComponentsFor(currentViewType)
     }
     
-    private func addSearchPlaceBottomSheet(placeName: String, roadAddressName: String) {
+    private func addSearchPlaceBottomSheet() {
         searchPlaceBottomSheet.removeFromSuperview()
         configureConstraintsBottomSheet()
+        let placeName = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.placeName.rawValue) ?? ""
+        let roadAddressName = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.roadAddressName.rawValue) ?? ""
         searchPlaceBottomSheet.setupPlace(name: placeName, address: roadAddressName)
     }
     

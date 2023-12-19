@@ -30,13 +30,13 @@ struct SearchPlace: Codable {
     let placeName: String?
     let distance: Int?
     let placeURL: String?
-    let addressName, roadAddressName, categoryGroupCode: String?
+    let roadAddressName: String?
     let longitude, latitude: Double?
     
     enum CodingKeys: String, CodingKey {
         case placeName, distance
         case placeURL = "placeUrl"
-        case addressName, roadAddressName, categoryGroupCode
+        case roadAddressName
         case longitude = "longitude"
         case latitude = "latitude"
     }
