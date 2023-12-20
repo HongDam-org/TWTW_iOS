@@ -15,7 +15,7 @@ final class PlansViewController: UIViewController {
     /// 친구 검색 버튼
     private lazy var rightItemButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
     
-    /// sample
+    /// sample 내가 속한 계획중 GroudID가 겹치는것만
     let plans: [Plan] = [
         Plan(
             planId: "3b8e94bc-310a-4ee9-b5cc-624d3c794dd4",
@@ -25,13 +25,13 @@ final class PlansViewController: UIViewController {
                 placeName: "서울 여의도공원",
                 placeUrl: "https://example.com/place/1",
                 roadAddressName: "여의도로 123",
-                longitude: 37.5259,
-                latitude: 126.9242
+                longitude: 35.5259,
+                latitude: 129.9242
             ),
             groupInfo: GroupInfo(
                 groupId: "aa977768-a940-4f89-ba24-aa1bf2f71355",
                 leaderId: "8df2b9ac-b424-44ca-9f30-25b245dc75f1",
-                name: "친구와 나들이", groupImage: "aaaaa"
+                name: "친구와 나들이1", groupImage: "aaaaa"
             ),
             members: [
                 Member(
@@ -49,16 +49,16 @@ final class PlansViewController: UIViewController {
             placeId: "91e3045e-f75b-42a5-a5f5-2d63db7e2df8",
             planMakerId: "065c66a2-7d21-47f0-bbfd-4751242d0a78",
             placeDetails: PlaceDetails(
-                placeName: "서울 여의도공원",
+                placeName: "서울 여의도공원2",
                 placeUrl: "https://example.com/place/1",
-                roadAddressName: "여의도로 123",
+                roadAddressName: "여의도로 1233",
                 longitude: 37.5259,
                 latitude: 126.9242
             ),
             groupInfo: GroupInfo(
                 groupId: "aa977768-a940-4f89-ba24-aa1bf2f71355",
                 leaderId: "8df2b9ac-b424-44ca-9f30-25b245dc75f1",
-                name: "친구와 나들이", groupImage: "aaaaa"
+                name: "친구와 나들이2", groupImage: "aaaaa"
             ),
             members: [
                 Member(
@@ -68,6 +68,60 @@ final class PlansViewController: UIViewController {
                 Member(
                     id: "2f6f96bf-4e17-41d7-8e17-15e17d41d7b0",
                     nickname: "친구2"
+                )
+            ]
+        ),
+        Plan(
+            planId: "4b8e94bc-310a-4ee9-b5cc-624d3c794dd4",
+            placeId: "31e3045e-f75b-42a5-a5f5-2d63db7e2df8",
+            planMakerId: "165c66a2-7d21-47f0-bbfd-4751242d0a78",
+            placeDetails: PlaceDetails(
+                placeName: "인천 투썸",
+                placeUrl: "https://example.com/place/2",
+                roadAddressName: "여의도로 1234",
+                longitude: 38.5259,
+                latitude: 127.0242
+            ),
+            groupInfo: GroupInfo(
+                groupId: "ba977768-a940-4f89-ba24-aa1bf2f71355",
+                leaderId: "9df2b9ac-b424-44ca-9f30-25b245dc75f1",
+                name: "그룹이름임", groupImage: "aaaaa"
+            ),
+            members: [
+                Member(
+                    id: "47f64bef-b266-4787-8b53-599b2e0cea3c",
+                    nickname: "친구11"
+                ),
+                Member(
+                    id: "3f6f96bf-4e17-41d7-8e17-15e17d41d7b0",
+                    nickname: "친구12"
+                )
+            ]
+        ),
+        Plan(
+            planId: "4b8e94bc-310a-4ee9-b5cc-624d3c794dd4",
+            placeId: "31e3045e-f75b-42a5-a5f5-2d63db7e2df8",
+            planMakerId: "165c66a2-7d21-47f0-bbfd-4751242d0a78",
+            placeDetails: PlaceDetails(
+                placeName: "인천 투썸2",
+                placeUrl: "https://example.com/place/2",
+                roadAddressName: "여의도로 1234",
+                longitude: 40.5259,
+                latitude: 125.0242
+            ),
+            groupInfo: GroupInfo(
+                groupId: "ba977768-a940-4f89-ba24-aa1bf2f71355",
+                leaderId: "9df2b9ac-b424-44ca-9f30-25b245dc75f1",
+                name: "그룹이름임", groupImage: "aaaaa"
+            ),
+            members: [
+                Member(
+                    id: "47f64bef-b266-4787-8b53-599b2e0cea3c",
+                    nickname: "친구11"
+                ),
+                Member(
+                    id: "3f6f96bf-4e17-41d7-8e17-15e17d41d7b0",
+                    nickname: "친구12"
                 )
             ]
         )

@@ -20,7 +20,6 @@ final class DefaultsFindRoadCoordinator: FindRoadCoordinator {
     }
     
     func start() {
-
         let findRoadViewModel = FindRoadViewModel(coordinator: self)
         let findRoadViewController = FindRoadViewController(viewModel: findRoadViewModel)
         navigationController.pushViewController(findRoadViewController, animated: true)

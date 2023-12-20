@@ -68,5 +68,3 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
         childCoordinators.append(plansCoordinator)
     }
 }
-
-

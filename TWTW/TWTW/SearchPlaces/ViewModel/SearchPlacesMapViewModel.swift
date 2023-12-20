@@ -106,7 +106,6 @@ final class SearchPlacesMapViewModel {
                        if let latitude = selectedPlace.latitude {
                            _ = KeychainWrapper.saveItem(value: "\(latitude)", forKey: SearchPlaceKeyChain.latitude.rawValue)
                        }
-                //self.coordinator?.finishSearchPlaces(searchPlace: selectedPlace)
                 self.coordinator?.finishSearchPlaces()
             })
             .disposed(by: disposeBag)

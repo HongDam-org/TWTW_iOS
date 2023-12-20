@@ -44,15 +44,6 @@ final class SearchPlacesMapViewController: UIViewController {
         hideKeyboard()
         bindViewModel()
     }
-    // MARK: - viewWillDisappear
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        // 제거되는 경우에만 알림을 전송(pop)
-        if self.isMovingFromParent {
-            NotificationCenter.default.post(name: .didFinishSearchPlaces, object: nil)
-        }
-    }
     // MARK: - Set Up
     /// Add  UI - SearchBar
     private func addSubViews() {

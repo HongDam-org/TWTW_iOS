@@ -108,9 +108,22 @@ final class MainMapViewController: KakaoMapViewController {
     // MARK: - Set Up
     private func setNotificationFromSearchPlace() {
         NotificationCenter.default.addObserver(forName: .didFinishSearchPlaces, object: nil, queue: nil) { [weak self] _ in
-            self?.updateViewState(to: .searchMap)
-
+            guard let self = self else { return }
+            updateViewStateAndMoveCamera()
+          
+            
         }
+    }
+        private func updateViewStateAndMoveCamera() {
+            // 키체인에서 위치 정보
+            if let latitude = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.latitude.rawValue),
+               let longitude = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.longitude.rawValue) {
+                let coordinate = CLLocationCoordinate2D(latitude: Double(latitude) ?? 0, longitude: Double(longitude) ?? 0)
+                moveCameraToCoordinate(coordinate)
+                updateViewState(to: .searchMap)
+                addSearchPlaceBottomSheet()
+            }
+
     }
 
     deinit {
@@ -233,7 +246,6 @@ final class MainMapViewController: KakaoMapViewController {
                     self.myloctaionImageView.removeFromSuperview()
                     self.mainMapCustomTabButtonsView.removeFromSuperview()
                 }
-            
         }
     }
     
@@ -242,7 +254,9 @@ final class MainMapViewController: KakaoMapViewController {
         output.myLocatiaonRelay
             .bind { [weak self] location in
                 guard let self = self else {return}
-                moveCameraToCoordinate(location, output)
+                if let output = self.output {
+                    moveCameraToCoordinate(location, output)
+                }
             }
             .disposed(by: disposeBag)
     }
@@ -298,18 +312,20 @@ final class MainMapViewController: KakaoMapViewController {
 extension MainMapViewController {
     
     /// 선택한 좌표로 카메라 옮기기
-    private func moveCameraToCoordinate(_ coordinate: CLLocationCoordinate2D, _ output: MainMapViewModel.Output) {
+    private func moveCameraToCoordinate(_ coordinate: CLLocationCoordinate2D, _ output: MainMapViewModel.Output? = nil) {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
-        mapView.animateCamera(cameraUpdate: CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude,
-                                                                               latitude: coordinate.latitude),
-                                                              zoomLevel: 15,
-                                                              rotation: 1.7,
-                                                              tilt: 0.0,
-                                                              mapView: mapView),
-                              options: CameraAnimationOptions(autoElevation: true,
-                                                              consecutive: true,
-                                                              durationInMillis: 2000),
-                              callback: {self.createPolygonStyleSet(output: output)})
+        let cameraUpdate = CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude, latitude: coordinate.latitude),
+                                             zoomLevel: 15,
+                                             rotation: 1.7,
+                                             tilt: 0.0,
+                                             mapView: mapView)
+        let options = CameraAnimationOptions(autoElevation: true, consecutive: true, durationInMillis: 2000)
+        
+        mapView.animateCamera(cameraUpdate: cameraUpdate, options: options) { [weak self] in
+            if let output = output {
+                self?.createPolygonStyleSet(output: output)
+            }
+        }
     }
     
     // MARK: - Route Functions

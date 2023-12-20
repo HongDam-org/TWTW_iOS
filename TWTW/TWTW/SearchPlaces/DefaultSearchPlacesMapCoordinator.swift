@@ -39,7 +39,7 @@ final class DefaultSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtoco
     
     /// 서치 완료후 :  cLLocation전달 & pop VC
     func finishSearchPlaces() {
-       // delegate?.didSelectPlace()
+        NotificationCenter.default.post(name: .didFinishSearchPlaces, object: nil)
         navigationController.popViewController(animated: true)
     }
 }
