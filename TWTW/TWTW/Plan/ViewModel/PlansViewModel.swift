@@ -40,7 +40,6 @@ final class PlansViewModel {
                 case .fromTabBar:
                     print("탭바에서 호출됨")
                     coordinator.moveToPlanFromTabBar()
-
                 }
             }.disposed(by: disposeBag)
         

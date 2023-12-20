@@ -58,6 +58,10 @@ final class DefaultPlansCoordinator: PlanCoordinator {
         childCoordinators.append(plansFromAlertCoordinator)
     }
     func addPlans() {
-       self.startFromAlert()
+        let plansFromAlertCoordinator = DefaultPlansFromAlertCoordinator(navigationController: navigationController)
+        plansFromAlertCoordinator.startToAddPlan()
+        childCoordinators.append(plansFromAlertCoordinator)
     }
+    //
 }
+

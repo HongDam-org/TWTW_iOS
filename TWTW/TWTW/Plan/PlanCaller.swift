@@ -11,3 +11,8 @@ enum PlanCaller {
       case fromAlert
       case fromTabBar
   }
+
+enum SettingPlanCaller {
+      case forNew
+      case forRevice
+  }

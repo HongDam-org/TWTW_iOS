@@ -15,7 +15,8 @@ final class PlansFromAlertViewModel {
     weak var coordinator: DefaultPlansFromAlertCoordinator?
     // 선택된 친구 목록을 저장하는 Relay
     private let selectedFriendsRelay = BehaviorRelay<[Friend]>(value: [])
-    
+    private let caller: SettingPlanCaller
+
     // 선택된 친구 목록을 외부에 공개하는 Observable
     var selectedFriendsObservable: Observable<[Friend]> {
         return selectedFriendsRelay.asObservable()
@@ -50,10 +51,11 @@ final class PlansFromAlertViewModel {
         // 3.
     }
     // MARK: - Init
-    init(coordinator: DefaultPlansFromAlertCoordinator) {
+    init(coordinator: DefaultPlansFromAlertCoordinator, caller: SettingPlanCaller = .forNew) {
         self.coordinator = coordinator
+        self.caller = caller
     }
-    
+  
     // create Output
     /// - Parameter input: Input Model
     /// - Returns: Output Model

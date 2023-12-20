@@ -53,6 +53,7 @@
 		3760CC8F2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3760CC8E2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift */; };
 		376754472B1C2E3E006DFF6E /* DefaultGroupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376754462B1C2E3E006DFF6E /* DefaultGroupCoordinator.swift */; };
 		3767544C2B1C3AC1006DFF6E /* FriendsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3767544B2B1C3AC1006DFF6E /* FriendsListViewModel.swift */; };
+		376E5B0D2B3306D00008EB5C /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376E5B0C2B3306D00008EB5C /* DatePickerViewController.swift */; };
 		3772041C2B27045E00FE20A9 /* SearchPlaceBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3772041B2B27045E00FE20A9 /* SearchPlaceBottomSheet.swift */; };
 		377CB0592AD8665E003453D6 /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB0582AD8665E003453D6 /* GroupViewModel.swift */; };
 		377CB05B2AD8666F003453D6 /* GroupCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377CB05A2AD8666F003453D6 /* GroupCoordinatorProtocol.swift */; };
@@ -226,6 +227,7 @@
 		3760CC8E2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurroundSearchPlaces.swift; sourceTree = "<group>"; };
 		376754462B1C2E3E006DFF6E /* DefaultGroupCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultGroupCoordinator.swift; sourceTree = "<group>"; };
 		3767544B2B1C3AC1006DFF6E /* FriendsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewModel.swift; sourceTree = "<group>"; };
+		376E5B0C2B3306D00008EB5C /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		3772041B2B27045E00FE20A9 /* SearchPlaceBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceBottomSheet.swift; sourceTree = "<group>"; };
 		377CB0582AD8665E003453D6 /* GroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
 		377CB05A2AD8666F003453D6 /* GroupCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCoordinatorProtocol.swift; sourceTree = "<group>"; };
@@ -887,6 +889,7 @@
 				37D71E442B2F689E0004188A /* PlansFromAlertViewController.swift */,
 				37D71E462B2F68D30004188A /* PlanFromAlertCoordinator.swift */,
 				37D71E482B2F68F70004188A /* PlansFromAlertViewModel.swift */,
+				376E5B0C2B3306D00008EB5C /* DatePickerViewController.swift */,
 			);
 			path = FromAlert;
 			sourceTree = "<group>";
@@ -1687,6 +1690,7 @@
 				3758F1902A7D007200E2933C /* GroupViewController.swift in Sources */,
 				37C35EE32B1CC876008A289D /* MakeNewFriendsListCoordinator.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,
+				376E5B0D2B3306D00008EB5C /* DatePickerViewController.swift in Sources */,
 				37BB02F92B230EA8006B2BEB /* ParticipantsViewModel.swift in Sources */,
 				3BB85C092B19D39200F8BBF3 /* FriendSearchCoordinatorProtocol.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,

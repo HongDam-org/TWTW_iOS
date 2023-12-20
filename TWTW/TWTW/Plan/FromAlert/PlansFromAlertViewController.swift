@@ -13,16 +13,15 @@ import UIKit
 final class PlansFromAlertViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var viewModel: PlansFromAlertViewModel
-    private var tableViewHeightConstraint: Constraint?
+    private let datePickerViewController = DatePickerViewController()
 
     private lazy var selectedFriendsTableView: UITableView = {
-           let tableView = UITableView()
+        let tableView = UITableView()
         tableView.register(FriendListTableViewCell.self, forCellReuseIdentifier: CellIdentifier.friendListTableViewCell.rawValue)
         tableView.rowHeight = 100
         tableView.isScrollEnabled = false
-        tableView.backgroundColor = .blue
-           return tableView
-       }()
+        return tableView
+    }()
     private lazy var originalMeetingNameLabel: UILabel = {
         let label = UILabel()
         label.text = "약속 명 (수정가능)"
@@ -48,11 +47,16 @@ final class PlansFromAlertViewController: UIViewController {
         
         return button
     }()
-    
+    private lazy var confirmUIView: UIView = {
+        let uiView = UIView()
+        uiView.backgroundColor = .white
+        
+        return uiView
+    }()
     private lazy var confirmButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("변경", for: .normal)
-
+        button.setTitle("수정완료", for: .normal)
+        button.tintColor = .black
         return button
     }()
     
@@ -65,6 +69,12 @@ final class PlansFromAlertViewController: UIViewController {
     private lazy var selectedDateLabel: UILabel = {
         let label = UILabel()
         label.text = "선택한 날짜"
+        
+        return label
+    }()
+    private lazy var selectedTimeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "선택한 시간"
         
         return label
     }()
@@ -96,11 +106,13 @@ final class PlansFromAlertViewController: UIViewController {
         setupBindings()
         bind()
         bindTableView()
-
+        
     }
-  
+    
     private func addSubeViews() {
         view.addSubview(scrollView)
+        view.addSubview(confirmUIView)
+        confirmUIView.addSubview(confirmButton)
         scrollView.addSubview(contentView)
         // 원래 위치 레이블
         contentView.addSubview(originalPlaceNameLabel)
@@ -111,11 +123,12 @@ final class PlansFromAlertViewController: UIViewController {
         
         contentView.addSubview(selectedFriendsTableView)
         // 확인 버튼
-        contentView.addSubview(confirmButton)
         // 날짜 선택 버튼
         contentView.addSubview(datePickerButton)
         // 선택된 날짜 레이블
         contentView.addSubview(selectedDateLabel)
+        contentView.addSubview(selectedTimeLabel)
+        
         configureConstraints()
     }
     
@@ -145,20 +158,28 @@ final class PlansFromAlertViewController: UIViewController {
         selectedFriendsTableView.snp.makeConstraints { make in
             make.top.equalTo(addParticipantsButton.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(100)
-        }
-        confirmButton.snp.makeConstraints { make in
-            make.top.equalTo(selectedFriendsTableView.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
+            make.height.equalTo(0)
         }
         datePickerButton.snp.makeConstraints { make in
-            make.top.equalTo(confirmButton.snp.bottom).offset(10)
+            make.top.equalTo(selectedFriendsTableView.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
         }
         selectedDateLabel.snp.makeConstraints { make in
             make.top.equalTo(datePickerButton.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
+        }
+        selectedTimeLabel.snp.makeConstraints { make in
+            make.top.equalTo(selectedDateLabel.snp.bottom).offset(10)
+            make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().inset(20)
+        }
+        confirmUIView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalTo(view.snp.width).multipliedBy(0.3)
+        }
+        confirmButton.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
     }
     
@@ -169,32 +190,30 @@ final class PlansFromAlertViewController: UIViewController {
         let output = viewModel.createOutput(input: input)
         
         viewModel.newPlaceName
-                   .bind(to: newPlaceNameLabel.rx.text)
-                   .disposed(by: disposeBag)
+            .bind(to: newPlaceNameLabel.rx.text)
+            .disposed(by: disposeBag)
     }
     private func bindTableView() {
-           viewModel.selectedFriendsObservable
+        viewModel.selectedFriendsObservable
             .do(onNext: { [weak self] friends in
                 self?.updateTableViewHeight(friends.count)
             })
-
+        
             .bind(to: selectedFriendsTableView.rx
-                   .items(cellIdentifier: CellIdentifier.friendListTableViewCell.rawValue, 
-                          cellType: FriendListTableViewCell.self)) { index, friend, cell in
-                       cell.inputData(info: friend)
-                   }.disposed(by: disposeBag)
-       }
+                .items(cellIdentifier: CellIdentifier.friendListTableViewCell.rawValue,
+                       cellType: FriendListTableViewCell.self)) { index, friend, cell in
+                cell.inputData(info: friend)
+            }.disposed(by: disposeBag)
+    }
     
     private func updateTableViewHeight(_ count: Int) {
-          let rowHeight = selectedFriendsTableView.rowHeight
-          let totalHeight = rowHeight * CGFloat(count)
+        let rowHeight = selectedFriendsTableView.rowHeight
+        let totalHeight = rowHeight * CGFloat(count)
         selectedFriendsTableView.snp.updateConstraints { make in
             make.height.equalTo(totalHeight)
         }
         view.layoutIfNeeded()
     }
-    
-    
     private func setupBindings() {
         datePickerButton.rx.tap
             .bind { [weak self] in
@@ -203,28 +222,25 @@ final class PlansFromAlertViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     private func presentDatePicker() {
-        let alertController = UIAlertController(title: "\n\n\n", message: nil, preferredStyle: .actionSheet)
-        alertController.view.addSubview(datePicker)
+        datePickerViewController.modalPresentationStyle = .formSheet
+        datePickerViewController.modalTransitionStyle = .flipHorizontal
         
-        datePicker.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(alertController.view)
-            make.width.equalTo(alertController.view)
-        }
-        let selectAction = UIAlertAction(title: "선택", style: .default) { [weak self] _ in
-            self?.selectedDateLabel.text = self?.formattedDate(self?.datePicker.date)
-        }
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-
-        alertController.addAction(selectAction)
-        alertController.addAction(cancelAction)
-        present(alertController, animated: true, completion: nil)
-    
-    }
-    private func formattedDate(_ date: Date?) -> String {
-        guard let date = date else { return "" }
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: date)
+        datePickerViewController.selectedDate
+            .subscribe(onNext: { [weak self] selectedDate in
+                guard let selectedDate = selectedDate else { return }
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let formattedDate = dateFormatter.string(from: selectedDate)
+                
+                let timeFormatter = DateFormatter()
+                timeFormatter.dateFormat = "HH:mm"
+                let formattedTime = timeFormatter.string(from: selectedDate)
+                
+                self?.selectedDateLabel.text = formattedDate
+                self?.selectedTimeLabel.text = formattedTime
+            })
+            .disposed(by: disposeBag)
+        
+        present(datePickerViewController, animated: true, completion: nil)
     }
 }

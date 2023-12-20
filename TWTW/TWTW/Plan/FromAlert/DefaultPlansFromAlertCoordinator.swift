@@ -22,7 +22,14 @@ final class DefaultPlansFromAlertCoordinator: PlanFromAlertCoordinator {
     }
     
     func start() {
-        let viewModel = PlansFromAlertViewModel(coordinator: self)
+        let viewModel = PlansFromAlertViewModel(coordinator: self, caller: .forRevice)
+        self.plansFromAlertViewModel = viewModel
+        let plansFromAlertViewController = PlansFromAlertViewController(viewModel: viewModel)
+        navigationController.pushViewController(plansFromAlertViewController, animated: false)
+    }
+    
+    func startToAddPlan() {
+        let viewModel = PlansFromAlertViewModel(coordinator: self, caller: .forNew)
         self.plansFromAlertViewModel = viewModel
         let plansFromAlertViewController = PlansFromAlertViewController(viewModel: viewModel)
         navigationController.pushViewController(plansFromAlertViewController, animated: false)
