@@ -25,4 +25,6 @@ enum CellIdentifier: String {
     case groupTableViewCell = "GroupTableViewCell"
     
     case friendListTableViewCell = "FriendListTableViewCell"
+    
+    case notificationTableViewCell = "NotificationTableViewCell"
 }

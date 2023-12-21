@@ -17,7 +17,8 @@ final class DefaultNotificationCoordinator: NotificationCoordinator {
     }
     
     func start() {
-        let notificationViewController = NotificationViewController()
-        navigationController.pushViewController(notificationViewController, animated: true)
+        let notificationViewModel = NotificationViewModel(coordinator: self)
+        let notificationViewController = NotificationViewController(viewModel: notificationViewModel)
+        navigationController.viewControllers = [notificationViewController]
     }
 }

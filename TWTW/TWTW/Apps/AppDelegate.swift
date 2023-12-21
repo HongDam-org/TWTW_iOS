@@ -99,22 +99,22 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             print("messageId = \(messageId)")
         }
         
-        let meetingID = userInfo["MEETING_ID"] as! String
-        let userID = userInfo["USER_ID"] as! String
+//        let meetingID = userInfo["MEETING_ID"] as! String
+//        let userID = userInfo["USER_ID"] as! String
         
         // Perform the task associated with the action
-        switch response.actionIdentifier {
-        case "ACCEPT_ACTION":
-            print("\(userID)님이 \(meetingID) 미팅을 수락하셨습니다")
-        case "DECLINE_ACTION":
-            print("\(userID)님이 \(meetingID) 미팅을 거부하셨습니다")
-        case UNNotificationDefaultActionIdentifier:
-            print("그냥 액션 정의 안했고 알림 탭 해서 앱 실행시킨 경우")
-        case UNNotificationDismissActionIdentifier:
-            print("알림 dismiss 시켜버린 경우")
-        default:
-            break
-        }
+//        switch response.actionIdentifier {
+//        case "ACCEPT_ACTION":
+//            print("\(userID)님이 \(meetingID) 미팅을 수락하셨습니다")
+//        case "DECLINE_ACTION":
+//            print("\(userID)님이 \(meetingID) 미팅을 거부하셨습니다")
+//        case UNNotificationDefaultActionIdentifier:
+//            print("그냥 액션 정의 안했고 알림 탭 해서 앱 실행시킨 경우")
+//        case UNNotificationDismissActionIdentifier:
+//            print("알림 dismiss 시켜버린 경우")
+//        default:
+//            break
+//        }
         
         print("END😡")
         print(#function)
