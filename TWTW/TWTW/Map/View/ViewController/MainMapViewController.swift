@@ -201,7 +201,7 @@ final class MainMapViewController: KakaoMapViewController {
     }
     
     private func bind() {
-        let input = MainMapViewModel.Input(screenTouchEvents: kMViewContainer?.rx.anyGesture(.tap()).when(.recognized).asObservable(),
+        let input = MainMapViewModel.Input(screenTouchEvents: mapContainer?.rx.anyGesture(.tap()).when(.recognized).asObservable(),
                                            searchBarTouchEvents: searchBar.rx.tapGesture().when(.recognized).asObservable(),
                                            cLLocationCoordinate2DEvents: Observable.just(configureLocationManager()),
                                            myLocationTappedEvents: myloctaionImageView.rx.anyGesture(.tap())

@@ -11,7 +11,7 @@ import UIKit
 class KakaoMapViewController: UIViewController, MapControllerDelegate {
     
     var mapController: KMController?
-    var kMViewContainer: KMViewContainer?
+    var mapContainer: KMViewContainer?
     var observerAdded: Bool?
     var auth: Bool?
     var appear: Bool?
@@ -47,7 +47,7 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
         
         guard let kmController = KMController(viewContainer: mapView) else {return}
         mapController = kmController
-        kMViewContainer = mapView
+        mapContainer = mapView
         mapController?.delegate = self
         
         mapController?.initEngine() // 엔진 초기화. 엔진 내부 객체 생성 및 초기화가 진행된다.
@@ -81,13 +81,9 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
     
     private func set() {
         view.addSubview(mapView)
-        
-        NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(equalTo: view.topAnchor),
-            mapView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            mapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        mapView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     /// 인증 성공시 delegate 호출.

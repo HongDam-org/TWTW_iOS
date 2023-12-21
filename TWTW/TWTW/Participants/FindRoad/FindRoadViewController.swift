@@ -24,7 +24,7 @@ final class FindRoadViewController: KakaoMapViewController {
     
     private lazy var myLocationLabel: UILabel = {
         let label = UILabel()
-        label.text = "내 위치: 실제 위치"
+        label.text = "출발지: 실제 위치"
         return label
     }()
     
@@ -47,7 +47,12 @@ final class FindRoadViewController: KakaoMapViewController {
         button.backgroundColor = .green
         return button
     }()
-    
+    private lazy var   moveToRouteButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("로드맵보기", for: .normal)
+        button.backgroundColor = .green
+        return button
+    }()
     private let viewModel: FindRoadViewModel
     private let disposeBag = DisposeBag()
     
@@ -80,15 +85,21 @@ final class FindRoadViewController: KakaoMapViewController {
             .subscribe(onNext: { [weak self] _ in
                 print("인도 길 보기")
                 self?.drawWalkRoute()
-                
+            })
+            .disposed(by: disposeBag)
+        
+        moveToRouteButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                print("로드맵 보기")
+                self?.navigationController?.pushViewController(RoadViewController(), animated: true) //Test
             })
             .disposed(by: disposeBag)
     }
-    
     // MARK: - Setup UI
     
     private func setupUI() {
         view.addSubview(infoView)
+        view.addSubview(moveToRouteButton)
         infoView.addSubview(myLocationLabel)
         infoView.addSubview(destinationLabel)
         infoView.addSubview(carRouteButton)
@@ -122,6 +133,11 @@ final class FindRoadViewController: KakaoMapViewController {
             make.leading.equalTo(carRouteButton.snp.trailing).offset(10)
             make.width.equalTo(carRouteButton.snp.width)
         }
+        moveToRouteButton.snp.makeConstraints { make in
+            make.top.equalTo(infoView.snp.bottom).offset(10)
+            make.trailing.equalToSuperview().offset(10)
+            make.height.width.equalTo(100)
+        }
     }
     
     private func setupLocationManager() {
@@ -142,7 +158,7 @@ extension FindRoadViewController {
         let manager = mapView.getRouteManager()
         manager.removeRouteLayer(layerID: layerID)
     }
-    
+    /// 차 경로 그리기
     private func drawCarRoute() {
         removeRouteLayer(layerID: "CarRouteLayer")
         removeRouteLayer(layerID: "WalkRouteLayer")
@@ -168,7 +184,7 @@ extension FindRoadViewController {
         let route = layer?.addRoute(option: options)
         route?.show()
     }
-    
+    /// MARK: 보도 경로 그리기
     private func drawWalkRoute() {
         removeRouteLayer(layerID: "CarRouteLayer")
         removeRouteLayer(layerID: "WalkRouteLayer")
@@ -259,10 +275,8 @@ extension FindRoadViewController: CLLocationManagerDelegate {
             currentLocation = newCoordinate
         }
         
-        // Update UI with current location
         myLocationLabel.text = "내 위치: \(newCoordinate.latitude), \(newCoordinate.longitude)"
         
-        // Move camera to new location
         moveCameraToCoordinate(newCoordinate)
     }
     

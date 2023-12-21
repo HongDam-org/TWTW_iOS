@@ -22,7 +22,7 @@ final class DefaultPlansCoordinator: PlanCoordinator {
         
         navigationController.pushViewController(plansViewController, animated: true)
     }
-    //첫 지도화면에서 탭바버튼으로
+    // 첫 지도화면에서 탭바버튼으로
     func planStartFromTabBar() {
         let plansViewModel = PlansViewModel(
             coordinator: self,

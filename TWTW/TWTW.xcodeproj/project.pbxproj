@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3701086D2B3430B700F08128 /* RoadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3701086C2B3430B700F08128 /* RoadViewController.swift */; };
+		3701086F2B34414E00F08128 /* RoadViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3701086E2B34414E00F08128 /* RoadViewCoordinator.swift */; };
+		370108712B34415500F08128 /* DefaultsRoadViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370108702B34415500F08128 /* DefaultsRoadViewCoordinator.swift */; };
+		370108732B34419B00F08128 /* RoadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370108722B34419B00F08128 /* RoadViewModel.swift */; };
 		370AB45A2ADD12E000951562 /* DefaultMainMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB4592ADD12E000951562 /* DefaultMainMapCoordinator.swift */; };
 		371C1D2D2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D2C2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift */; };
 		371C1D2F2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371C1D2E2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift */; };
@@ -183,6 +187,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3701086C2B3430B700F08128 /* RoadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoadViewController.swift; sourceTree = "<group>"; };
+		3701086E2B34414E00F08128 /* RoadViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoadViewCoordinator.swift; sourceTree = "<group>"; };
+		370108702B34415500F08128 /* DefaultsRoadViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsRoadViewCoordinator.swift; sourceTree = "<group>"; };
+		370108722B34419B00F08128 /* RoadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoadViewModel.swift; sourceTree = "<group>"; };
 		370AB4592ADD12E000951562 /* DefaultMainMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMainMapCoordinator.swift; sourceTree = "<group>"; };
 		371C1D2C2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNotificationCoordinator.swift; sourceTree = "<group>"; };
 		371C1D2E2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFriendsListCoordinator.swift; sourceTree = "<group>"; };
@@ -376,6 +384,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3701086B2B34309600F08128 /* RoadView */ = {
+			isa = PBXGroup;
+			children = (
+				3701086C2B3430B700F08128 /* RoadViewController.swift */,
+				3701086E2B34414E00F08128 /* RoadViewCoordinator.swift */,
+				370108702B34415500F08128 /* DefaultsRoadViewCoordinator.swift */,
+				370108722B34419B00F08128 /* RoadViewModel.swift */,
+			);
+			path = RoadView;
+			sourceTree = "<group>";
+		};
 		372109F52B0CE70700B0946C /* SearchPlaces */ = {
 			isa = PBXGroup;
 			children = (
@@ -897,6 +916,7 @@
 		37D71E612B30601B0004188A /* FindRoad */ = {
 			isa = PBXGroup;
 			children = (
+				3701086B2B34309600F08128 /* RoadView */,
 				37E8B83F2B31B192008D0F3D /* CarRouteService.swift */,
 				37D71E5D2B3060030004188A /* FindRoadCoordinator.swift */,
 				37D71E592B305FD90004188A /* FindRoadViewController.swift */,
@@ -1676,6 +1696,7 @@
 				371C1D312ADBAFF300B30DC5 /* DefaultPreviousAppointmentsCoordinator.swift in Sources */,
 				3B9693DE2B176DED001DDAE8 /* FriendListTableViewCell.swift in Sources */,
 				37D71E452B2F689E0004188A /* PlansFromAlertViewController.swift in Sources */,
+				3701086F2B34414E00F08128 /* RoadViewCoordinator.swift in Sources */,
 				37E9FBFE2B1635B4004AFF79 /* MainMapCustomTabButtonViewModel.swift in Sources */,
 				3B20E1E62AE41E97009572AA /* FriendsListCoordinatorProtocol.swift in Sources */,
 				37F903A82AF9BD88008120B6 /* Header.swift in Sources */,
@@ -1684,8 +1705,10 @@
 				374DB4632B247C8800AF648C /* DefaultMyPageCoordinator.swift in Sources */,
 				3B267B9B2A87B81A00F3949A /* MainMapViewModel.swift in Sources */,
 				3799E5052A99D6DC00E06218 /* PreviousAppointmentsViewController.swift in Sources */,
+				370108712B34415500F08128 /* DefaultsRoadViewCoordinator.swift in Sources */,
 				37E9FBFB2B16337D004AFF79 /* MainMapCustomTabButtonsView.swift in Sources */,
 				3BF9EFB12AB1DEDB0014855E /* UIImage+Ext.swift in Sources */,
+				3701086D2B3430B700F08128 /* RoadViewController.swift in Sources */,
 				374EAEA62B25D4E500BAA897 /* TabBarController.swift in Sources */,
 				3758F1902A7D007200E2933C /* GroupViewController.swift in Sources */,
 				37C35EE32B1CC876008A289D /* MakeNewFriendsListCoordinator.swift in Sources */,
@@ -1713,6 +1736,7 @@
 				3B274D6D2AD3F6F400D79698 /* Coordinator.swift in Sources */,
 				3B9693D82B175346001DDAE8 /* DefaultCreateGroupCoordinator.swift in Sources */,
 				3737AE982AE983F600FE7453 /* SearchPlacesMapService.swift in Sources */,
+				370108732B34419B00F08128 /* RoadViewModel.swift in Sources */,
 				37D71E5E2B3060030004188A /* FindRoadCoordinator.swift in Sources */,
 				3754BB702A9B455100522420 /* Color+Ext.swift in Sources */,
 				37F903A62AF9BD2F008120B6 /* EncodedQuery.swift in Sources */,

@@ -12,4 +12,3 @@ import Foundation
 protocol SearchPlacesMapCoordDelegate: AnyObject {
     func didSelectPlace(searchPlace: SearchPlace)
 }
-
