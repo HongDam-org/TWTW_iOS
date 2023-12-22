@@ -87,6 +87,15 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let userInfo = response.notification.request.content.userInfo
         
         print("STart😡")
+        
+        if response.notification.request.content.title == "알림" {
+            NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 2])
+        }
+        
+        if response.notification.request.content.title == "목적지 변경" {
+            NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 2])
+        }
+        
         userInfo.forEach { (key: AnyHashable, value: Any) in
             print(key, value)
         }

@@ -15,6 +15,7 @@ final class TabBarController: UITabBarController {
         super.viewDidLoad()
         setUI()
         setupTabs()
+        NotificationCenter.default.addObserver(self, selector: #selector(showAlertPage(_:)), name: NSNotification.Name("showPage"), object: nil)
     }
     /// 탭바 UI 속성
     private func setUI() {
@@ -50,6 +51,16 @@ final class TabBarController: UITabBarController {
             
             coordinator.coordinator.navigationController.tabBarItem = tabBarItem
             return coordinator.coordinator.navigationController
+        }
+    }
+    
+    /// 알림 페이지로 넘어가는 함수
+    @objc
+    private func showAlertPage(_ notification: Notification) {
+        if let userInfo = notification.userInfo {
+            if let index = userInfo["index"] as? Int {
+                self.selectedIndex = index
+            }
         }
     }
 }

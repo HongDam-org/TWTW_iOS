@@ -36,7 +36,7 @@ final class NotificationViewModel {
         return output
     }
     
-    /// binding notifiaction List
+    /// Binding Notifiaction List
     private func bindNotificationListRelay(output: Output) {
         let list = ["aaaa",
                     "bbbb",

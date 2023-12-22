@@ -23,12 +23,13 @@ final class NotificationTableViewCell: UITableViewCell {
     private lazy var timeLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
+        label.textAlignment = .left
         return label
     }()
     
     /// 오른쪽 뷰
     private lazy var rightImage: UIImageView = {
-        let view = UIImageView(image: UIImage(systemName: "chevron.right")?.resize(newWidth: 30))
+        let view = UIImageView(image: UIImage(systemName: "chevron.right")?.resize(newWidth: 10))
         return view
     }()
     
@@ -56,18 +57,18 @@ final class NotificationTableViewCell: UITableViewCell {
     private func constraints() {
         titleLabel.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
-            make.leading.equalToSuperview().offset(10)
+            make.leading.equalToSuperview().offset(20)
         }
         
         timeLabel.snp.makeConstraints { make in
             make.centerY.equalTo(titleLabel.snp.centerY)
             make.leading.equalTo(titleLabel.snp.trailing).offset(10)
-            make.trailing.equalTo(rightImage.snp.leading)
+            make.trailing.equalTo(rightImage.snp.leading).offset(-20)
         }
         
         rightImage.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-10)
+            make.verticalEdges.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().offset(-20)
         }
     }
     
@@ -75,5 +76,6 @@ final class NotificationTableViewCell: UITableViewCell {
     /// - Parameter title: title
     func inputData(title: String) {
         titleLabel.text = title
+        timeLabel.text = title
     }
 }
