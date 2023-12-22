@@ -11,6 +11,8 @@ import Foundation
 /// Request 저장 변수
 struct SearchPlacesMapState {
     var pageNum: Int = 1
+    var isLastPage: Bool = false
+
 }
 
 /// 보내는 장소명 text

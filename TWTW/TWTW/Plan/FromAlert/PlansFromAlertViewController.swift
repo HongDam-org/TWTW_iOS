@@ -11,6 +11,8 @@ import SnapKit
 import UIKit
 
 final class PlansFromAlertViewController: UIViewController {
+    private var currentViewType: SettingPlanCaller = .forNew
+
     private let disposeBag = DisposeBag()
     private var viewModel: PlansFromAlertViewModel
     private let datePickerViewController = DatePickerViewController()
@@ -79,7 +81,7 @@ final class PlansFromAlertViewController: UIViewController {
     }()
     private lazy var confirmButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("수정완료", for: .normal)
+        button.setTitle("완료", for: .normal)
         button.tintColor = .black
         return button
     }()
@@ -131,9 +133,8 @@ final class PlansFromAlertViewController: UIViewController {
         addSubeViews()
         bind()
         bindTableView()
-        
     }
-    
+
     private func addSubeViews() {
         view.addSubview(scrollView)
         view.addSubview(confirmUIView)
@@ -148,9 +149,7 @@ final class PlansFromAlertViewController: UIViewController {
         placeNameStackView.addArrangedSubview(placeChangeImage)
         placeNameStackView.addArrangedSubview(newPlaceNameLabel)
         // 원래 위치 레이블
-        //        contentView.addSubview(originalPlaceNameLabel)
-        //        // 새 위치 레이블
-        //        contentView.addSubview(newPlaceNameLabel)
+
         // 참여 인원 추가 버튼
         contentView.addSubview(addParticipantsButton)
         
@@ -189,14 +188,6 @@ final class PlansFromAlertViewController: UIViewController {
             make.top.equalTo(originalMeetingNameLabel.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
         }
-        //        originalPlaceNameLabel.snp.makeConstraints { make in
-        //            make.top.equalTo(originalMeetingNameLabel.snp.bottom).offset(10)
-        //            make.centerX.equalToSuperview()
-        //        }
-        //        newPlaceNameLabel.snp.makeConstraints { make in
-        //            make.top.equalTo(originalPlaceNameLabel.snp.bottom).offset(10)
-        //            make.centerX.equalToSuperview()
-        //        }
         // 달력버튼
         datePickerButton.snp.makeConstraints { make in
             make.top.equalTo(placeNameStackView.snp.bottom).offset(10)
@@ -235,15 +226,19 @@ final class PlansFromAlertViewController: UIViewController {
     }
     
     private func bind() {
-        let input = PlansFromAlertViewModel.Input(clickedAddParticipantsEvents: addParticipantsButton.rx.tap,
-                                                  clickedConfirmEvents: confirmButton.rx.tap)
+        let input = PlansFromAlertViewModel.Input(
+            clickedAddParticipantsEvents: addParticipantsButton.rx.tap,
+            clickedConfirmEvents: confirmButton.rx.tap)
         
         let output = viewModel.createOutput(input: input)
         
-        viewModel.newPlaceName
-            .bind(to: newPlaceNameLabel.rx.text)
-            .disposed(by: disposeBag)
+        output.newPlaceName
+                    .bind(to: newPlaceNameLabel.rx.text)
+                    .disposed(by: disposeBag)
+
+        updateViewState(from: output.callerState)
     }
+    
     private func bindTableView() {
         viewModel.selectedFriendsObservable
             .do(onNext: { [weak self] friends in
@@ -255,7 +250,6 @@ final class PlansFromAlertViewController: UIViewController {
                        cellType: FriendListTableViewCell.self)) { index, friend, cell in
                 cell.inputData(info: friend)
             }.disposed(by: disposeBag)
-        
         
         // alert 창 터치 이벤트 vc에서 진행함.
         
@@ -271,7 +265,6 @@ final class PlansFromAlertViewController: UIViewController {
                 self?.showEditAlert()
             })
             .disposed(by: disposeBag)
-        
     }
     
     private func updateTableViewHeight(_ count: Int) {
@@ -282,7 +275,21 @@ final class PlansFromAlertViewController: UIViewController {
         }
         view.layoutIfNeeded()
     }
-    
+    private func updateViewState(from newViewState: SettingPlanCaller) {
+        currentViewType = newViewState
+        switch currentViewType {
+        case .forNew:
+            originalPlaceNameLabel.removeFromSuperview()
+            placeChangeImage.removeFromSuperview()
+            originalPlaceNameLabel.isHidden = true
+            placeChangeImage.isHidden = true
+
+        case .forRevice:
+            originalPlaceNameLabel.isHidden = false
+            placeChangeImage.isHidden = false
+            
+        }
+    }
     
     private func showEditAlert() {
         let alertController = UIAlertController(title: "약속 명 변경", message: nil, preferredStyle: .alert)

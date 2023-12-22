@@ -112,13 +112,14 @@ final class SearchPlacesMapViewModel {
         
         return output
     }
-    
+
     /// 데이터 로드
     private func loadData(output: Output) {
         state.pageNum = 1
         searchPlacesServices?.searchPlaceService(request: PlacesRequest(searchText: output.searchText.value,
                                                                         pageNum: state.pageNum))
-        .subscribe(onNext: { placeResponse in
+        .subscribe(onNext: { [weak self] placeResponse in
+            self?.state.isLastPage = placeResponse.isLast ?? false
             output.filteredPlaces.accept(placeResponse.results)
         })
         .disposed(by: disposeBag)
@@ -126,6 +127,7 @@ final class SearchPlacesMapViewModel {
     
     /// 추가 데이터 로드
     private func loadMoreData(output: Output) {
+        guard !state.isLastPage else { return }
         state.pageNum += 1
         searchPlacesServices?.searchPlaceService(request: PlacesRequest(searchText: output.searchText.value,
                                                                         pageNum: state.pageNum))
@@ -136,4 +138,5 @@ final class SearchPlacesMapViewModel {
         })
         .disposed(by: disposeBag)
     }
+    
 }

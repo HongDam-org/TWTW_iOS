@@ -141,8 +141,27 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
         if mapController?.addView(mapviewInfo) == Result.OK {
             print("OK") // 추가 성공. 성공시 추가적으로 수행할 작업을 진행한다.
         }
+        addRoadView()
     }
-    
+    private func addRoadView() {
+          let roadviewInfo = RoadviewInfo(viewName: "roadview", viewInfoName: "roadview", enabled: true)
+          if mapController?.addView(roadviewInfo) == Result.OK {
+              configureRoadview()
+          }
+      }
+
+      private func configureRoadview() {
+          guard let roadview = mapController?.getView("roadview") as? Roadview else {
+              print("Failed to retrieve Roadview.")
+              return
+          }
+
+          // Roadview 설정...
+          let defaultPosition = MapPoint(longitude: 126.978365, latitude: 37.566691)
+          let lookAt = RoadviewLookAt(pan: 0.5, tilt: 0.2)
+          let markers = [PanoramaMarker(pan: 0.5, tilt: 0.2)]
+          roadview.requestRoadview(position: defaultPosition, panoID: nil, markers: markers, lookAt: lookAt)
+      }
     // Container 뷰가 리사이즈 되었을때 호출된다. 변경된 크기에 맞게 ViewBase들의 크기를 조절할 필요가 있는 경우 여기에서 수행한다.
     func containerDidResized(_ size: CGSize) {
         let mapView: KakaoMap? = mapController?.getView("mapview") as? KakaoMap

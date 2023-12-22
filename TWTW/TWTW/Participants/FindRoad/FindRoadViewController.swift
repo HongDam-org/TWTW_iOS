@@ -47,7 +47,7 @@ final class FindRoadViewController: KakaoMapViewController {
         button.backgroundColor = .green
         return button
     }()
-    private lazy var   moveToRouteButton: UIButton = {
+    private lazy var  moveToRouteButton: UIButton = {
         let button = UIButton()
         button.setTitle("로드맵보기", for: .normal)
         button.backgroundColor = .green

@@ -120,7 +120,7 @@ final class MainMapViewController: KakaoMapViewController {
                let longitude = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.longitude.rawValue) {
                 let coordinate = CLLocationCoordinate2D(latitude: Double(latitude) ?? 0, longitude: Double(longitude) ?? 0)
                 moveCameraToCoordinate(coordinate)
-                updateViewState(to: .searchMap)
+                updateViewState(from: .searchMap)
                 addSearchPlaceBottomSheet()
             }
 
@@ -136,7 +136,7 @@ final class MainMapViewController: KakaoMapViewController {
         addSubViewsMyloctaionImageView()
         addSubViewsMainMapCusomTabButtonView()
         view.backgroundColor = .white
-        configureUIComponentsFor(currentViewType)
+        updateViewState(from: currentViewType)
     }
     
     
@@ -211,16 +211,20 @@ final class MainMapViewController: KakaoMapViewController {
         self.output = output
     }
     
-    func updateViewState(to newViewState: ViewState) {
+    private func updateViewState(from newViewState: ViewState) {
         currentViewType = newViewState
         switch currentViewType {
-            case .mainMap:
-                searchPlaceBottomSheet.removeFromSuperview()
-            case .searchMap:
-            addSearchPlaceBottomSheet()
+        case .mainMap:
+            self.navigationItem.titleView = self.searchBar
+            self.searchBar.isHidden = false
+            self.myloctaionImageView.isHidden = false
+            self.mainMapCustomTabButtonsView.isHidden = false
+            self.searchPlaceBottomSheet.removeFromSuperview()
+            
+        case .searchMap:
+            self.myloctaionImageView.removeFromSuperview()
+            self.mainMapCustomTabButtonsView.removeFromSuperview()
         }
-
-        configureUIComponentsFor(currentViewType)
     }
     
     private func addSearchPlaceBottomSheet() {
@@ -229,24 +233,6 @@ final class MainMapViewController: KakaoMapViewController {
         let placeName = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.placeName.rawValue) ?? ""
         let roadAddressName = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.roadAddressName.rawValue) ?? ""
         searchPlaceBottomSheet.setupPlace(name: placeName, address: roadAddressName)
-    }
-    
-    private func configureUIComponentsFor(_ viewType: ViewState) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            switch viewType {
-                case .mainMap:
-                    self.navigationItem.titleView = self.searchBar
-                    self.searchBar.isHidden = false
-                    self.myloctaionImageView.isHidden = false
-                    self.mainMapCustomTabButtonsView.isHidden = false
-                    self.searchPlaceBottomSheet.removeFromSuperview()
-                    
-                case .searchMap:
-                    self.myloctaionImageView.removeFromSuperview()
-                    self.mainMapCustomTabButtonsView.removeFromSuperview()
-                }
-        }
     }
     
     /// 내 위치 binding

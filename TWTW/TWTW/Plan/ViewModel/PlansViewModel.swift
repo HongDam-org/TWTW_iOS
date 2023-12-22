@@ -46,7 +46,7 @@ final class PlansViewModel {
         input.addPlans
             .bind { [weak self] _ in
                 guard let self = self else { return }
-                coordinator.moveToplansFromAlert()
+                coordinator.moveToAddPlans()
             }.disposed(by: disposeBag)
     }
 }

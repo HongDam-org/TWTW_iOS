@@ -50,12 +50,6 @@ final class DefaultPlansFromAlertCoordinator: PlanFromAlertCoordinator {
         childCoordinators.append(mainMapCoordinator)
         //navigationController.popToRootViewController(animated: true)
     }
-    /// 길찾기
-//    func moveToFindRoad() {
-//        let findRoadCoordinator = DefaultsFindRoadCoordinator(navigationController: navigationController)
-//        childCoordinators.append(findRoadCoordinator)
-//        findRoadCoordinator.start()
-//    }
 }
 
 extension DefaultPlansFromAlertCoordinator: FriendsSendListCoordinatorDelegate {

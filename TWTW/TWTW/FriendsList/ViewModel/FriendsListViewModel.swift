@@ -73,8 +73,6 @@ final class FriendsListViewModel {
                 guard let self = self else { return }
                 switch self.caller {
                 case .fromPartiSetLocation:
-                    // PartiSetLocation에서 호출된 경우의 동작
-//                    print("Selected friends: \(output.selectedFriendRelay.value)")
                     coordinator.navigateBackWithSelectedFriends(output.selectedFriendRelay.value)
 
                 case .fromTabBar:
