@@ -46,9 +46,10 @@ final class DefaultPlansFromAlertCoordinator: PlanFromAlertCoordinator {
     func moveToMain() {
         childCoordinators.removeAll()
         let mainMapCoordinator = DefaultMainMapCoordinator(navigationController: navigationController)
-        mainMapCoordinator.start()
+        mainMapCoordinator.startWithNaviInit()
+        
         childCoordinators.append(mainMapCoordinator)
-        //navigationController.popToRootViewController(animated: true)
+
     }
 }
 

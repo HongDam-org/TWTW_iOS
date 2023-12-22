@@ -47,12 +47,7 @@ final class FindRoadViewController: KakaoMapViewController {
         button.backgroundColor = .green
         return button
     }()
-    private lazy var  moveToRouteButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("로드맵보기", for: .normal)
-        button.backgroundColor = .green
-        return button
-    }()
+ 
     private let viewModel: FindRoadViewModel
     private let disposeBag = DisposeBag()
     
@@ -87,19 +82,27 @@ final class FindRoadViewController: KakaoMapViewController {
                 self?.drawWalkRoute()
             })
             .disposed(by: disposeBag)
-        
-        moveToRouteButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                print("로드맵 보기")
-                self?.navigationController?.pushViewController(RoadViewController(), animated: true) //Test
-            })
-            .disposed(by: disposeBag)
+      
     }
+    
+    override func addViews() {
+        let defaultPosition: MapPoint = MapPoint(longitude: 126.733529, latitude: 37.3401906)
+        let mapviewInfo: MapviewInfo = MapviewInfo(viewName: "mapview", viewInfoName: "map", defaultPosition: defaultPosition)
+        
+        if mapController?.addView(mapviewInfo) == Result.OK {
+            print("OK")
+           
+        }
+        createLabelLayer()
+        createPoiStyle()
+        createPois()
+    }
+    
+
     // MARK: - Setup UI
     
     private func setupUI() {
         view.addSubview(infoView)
-        view.addSubview(moveToRouteButton)
         infoView.addSubview(myLocationLabel)
         infoView.addSubview(destinationLabel)
         infoView.addSubview(carRouteButton)
@@ -133,11 +136,6 @@ final class FindRoadViewController: KakaoMapViewController {
             make.leading.equalTo(carRouteButton.snp.trailing).offset(10)
             make.width.equalTo(carRouteButton.snp.width)
         }
-        moveToRouteButton.snp.makeConstraints { make in
-            make.top.equalTo(infoView.snp.bottom).offset(10)
-            make.trailing.equalToSuperview().offset(10)
-            make.height.width.equalTo(100)
-        }
     }
     
     private func setupLocationManager() {
@@ -149,7 +147,89 @@ final class FindRoadViewController: KakaoMapViewController {
     
 }
 
+// 마커 // 37.3401906, 126.733529
+extension FindRoadViewController {
 
+    func createLabelLayer() {
+        let view = mapController?.getView("mapview") as? KakaoMap
+        let manager = view?.getLabelManager()
+        let layerOption = LabelLayerOptions(layerID: "PoiLayer", competitionType: .none, competitionUnit: .symbolFirst, orderType: .rank, zOrder: 10001)
+        let _ = manager?.addLabelLayer(option: layerOption)
+    }
+    
+    func createPoiStyle() {
+        let view = mapController?.getView("mapview") as? KakaoMap
+        let manager = view?.getLabelManager()
+        
+        let badge1 = PoiBadge(badgeID: "badge1", image: UIImage(named: "noti.png"), offset: CGPoint(x: 0.9, y: 0.1), zOrder: 0)
+        let iconStyle1 = PoiIconStyle(symbol: UIImage(named: "pin_green.png"), anchorPoint: CGPoint(x: 0.0, y: 0.5), badges: [badge1])
+        let text1 = PoiTextLineStyle(textStyle: TextStyle(fontSize: 30, fontColor: UIColor.white, strokeThickness: 2, strokeColor: UIColor.green))
+        let textStyle1 = PoiTextStyle(textLineStyles: [text1])
+        textStyle1.textLayouts = [PoiTextLayout.center]
+        let poiStyle1 = PoiStyle(styleID: "customStyle1", styles: [
+            PerLevelPoiStyle(iconStyle: iconStyle1, textStyle: textStyle1, level: 0)
+        ])
+        
+        let badge2 = PoiBadge(badgeID: "badge2", image: UIImage(named: "noti2.png"), offset: CGPoint(x: 0.9, y: 0.1), zOrder: 0)
+        let iconStyle2 = PoiIconStyle(symbol: UIImage(named: "pin_red.png"), anchorPoint: CGPoint(x: 0.0, y: 0.5), badges: [badge2])
+        let text2 = PoiTextLineStyle(textStyle: TextStyle(fontSize: 30, fontColor: UIColor.white, strokeThickness: 2, strokeColor: UIColor.red))
+        let textStyle2 = PoiTextStyle(textLineStyles: [text2])
+        textStyle2.textLayouts = [PoiTextLayout.center]
+        let poiStyle2 = PoiStyle(styleID: "customStyle2", styles: [
+            PerLevelPoiStyle(iconStyle: iconStyle2, textStyle: textStyle2, level: 0)
+        ])
+        
+        manager?.addPoiStyle(poiStyle1)
+        manager?.addPoiStyle(poiStyle2)
+    }
+    
+    func createPois() {
+        let view = mapController?.getView("mapview") as? KakaoMap
+        let manager = view?.getLabelManager()
+        let layer = manager?.getLabelLayer(layerID: "PoiLayer")
+        let poiOption = PoiOptions(styleID: "customStyle1", poiID: "poi1")
+        poiOption.rank = 0
+        poiOption.addText(PoiText(text: "출발", styleIndex: 0))
+        
+        let poi1 = layer?.addPoi(option: poiOption, at: MapPoint(longitude: 126.7335, latitude: 37.3402))
+        poi1?.show()
+    }
+}
+// MARK: 마커
+extension FindRoadViewController {
+    
+//    func createLabelLayer() {
+//        let view = mapController?.getView("mapview") as? KakaoMap
+//        let manager = view?.getLabelManager()
+//        let layerOption = LabelLayerOptions(layerID: "PoiLayer", competitionType: .none, competitionUnit: .symbolFirst, orderType: .rank, zOrder: 10001)
+//        let _ = manager?.addLabelLayer(option: layerOption)
+//    }
+    //    func createPoiStyle() {
+    //        let view = mapController?.getView("mapview") as? KakaoMap
+    //        let manager = view?.getLabelManager()
+    //        let iconStyle = PoiIconStyle(symbol: UIImage(named: "pin_green.png"), anchorPoint: CGPoint(x: 0.0, y: 0.5))
+    //        let perLevelStyle = PerLevelPoiStyle(iconStyle: iconStyle, level: 0)
+    //        let poiStyle = PoiStyle(styleID: "customStyle1", styles: [perLevelStyle])
+    //        manager?.addPoiStyle(poiStyle)
+    //    }
+    //
+    //    func createPois() {
+    //        let view = mapController?.getView("mapview") as? KakaoMap
+    //        let manager = view?.getLabelManager()
+    //        let layer = manager?.getLabelLayer(layerID: "PoiLayer")
+    //        let poiOption = PoiOptions(styleID: "customStyle1")
+    //        poiOption.rank = 0
+    //
+    //        let poi1 = layer?.addPoi(option:poiOption, at: MapPoint(longitude: 126.733529, latitude: 37.3401906))
+    //        // PoiBadge를 생성하여 POI에 추가한다.
+    //        let badge = PoiBadge(badgeID: "noti", image: UIImage(named: "noti.png"), offset: CGPoint(x: 0.1, y: 0.1), zOrder: 1)
+    //        poi1?.addBadge(badge)
+    //        poi1?.show()
+    //        poi1?.showBadge(badgeID: "noti")
+    //    }
+    //
+    //
+}
 extension FindRoadViewController {
     
     // 경로 레이어 제거 함수
@@ -184,6 +264,7 @@ extension FindRoadViewController {
         let route = layer?.addRoute(option: options)
         route?.show()
     }
+    
     /// MARK: 보도 경로 그리기
     private func drawWalkRoute() {
         removeRouteLayer(layerID: "CarRouteLayer")

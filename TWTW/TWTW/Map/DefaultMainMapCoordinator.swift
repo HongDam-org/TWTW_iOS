@@ -67,4 +67,12 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
         plansCoordinator.planStartFromTabBar()
         childCoordinators.append(plansCoordinator)
     }
+    func startWithNaviInit() {
+        guard let mainMapViewModel = mainMapViewModel else { return }
+        let mainMapViewController = MainMapViewController(viewModel: mainMapViewModel, coordinator: self)
+        self.navigationController.pushViewController(mainMapViewController, animated: true)
+        print(navigationController.viewControllers)
+        navigationController.setViewControllers([mainMapViewController], animated: true)
+    }
+
 }
