@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol MakeNewFriendsListCoordinatorProtocol: BaseTabBarCoodinator {
+protocol MakeNewFriendsListCoordinatorProtocol: Coordinator {
        
     func navigateBack()
 }

@@ -7,4 +7,6 @@
 
 import UIKit
 
-protocol NotificationCoordinator: Coordinator {}
+protocol NotificationCoordinator: Coordinator {
+    func returnViewController() -> UIViewController? 
+}
