@@ -30,9 +30,7 @@ final class DefaultPlansCoordinator: PlanCoordinator {
         )
         let plansViewController = PlansViewController(viewModel: plansViewModel)
         
-        navigationController.pushViewController(plansViewController, animated: false)
-        
-        
+        navigationController.pushViewController(plansViewController, animated: true)
     }
     
     func startFromAlert() {

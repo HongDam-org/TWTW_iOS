@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxCocoa
 import RxSwift
 import UIKit
 
@@ -13,12 +14,23 @@ final class FindRoadViewModel {
     private let disposeBag = DisposeBag()
     weak var coordinator: DefaultsFindRoadCoordinator?
     
+    struct Input {
+        let myLocationTap: Observable<Void>
+    }
+
     // MARK: - Init
     init(coordinator: DefaultsFindRoadCoordinator) {
         self.coordinator = coordinator
     }
     
-    func moveToGetLocationViewController() {
-        print("get")
+    ///  bind
+    func bind(input: Input) {
+        input.myLocationTap
+            .subscribe(onNext: {[weak self] in
+                guard let self = self else { return }
+                coordinator?.moveToStartSearchPlace()
+            })
+            .disposed(by: disposeBag)
+   
     }
 }

@@ -19,7 +19,7 @@ final class SearchPlacesMapViewModel {
     private let searchPlacesServices: SearchPlaceProtocol?
     private let surroundSearchServices: SurroundSearchProtocol?
     private var state = SearchPlacesMapState()
-    
+    private let caller: StartCaller
     struct Input {
         /// searchbar 글자변경 감지
         let searchText: Observable<String?>
@@ -42,10 +42,12 @@ final class SearchPlacesMapViewModel {
     // MARK: - init
     init(coordinator: SearchPlacesMapCoordinatorProtocol?,
          searchPlacesServices: SearchPlaceProtocol?,
-         surroundSearchServices: SurroundSearchProtocol?) {
+         surroundSearchServices: SurroundSearchProtocol?,
+         caller: StartCaller = .defaults) {
         self.coordinator = coordinator
         self.searchPlacesServices = searchPlacesServices
         self.surroundSearchServices = surroundSearchServices
+        self.caller = caller
     }
     
     ///  bind
@@ -82,31 +84,36 @@ final class SearchPlacesMapViewModel {
         input.selectedPlace
             .bind(onNext: { [weak self] selectedPlace in
                 guard let self = self else { return }
-                // 장소 이름 저장
-                       if let placeName = selectedPlace.placeName {
-                           _ = KeychainWrapper.saveItem(value: placeName, forKey: SearchPlaceKeyChain.placeName.rawValue)
-                       }
-
-                       // 장소 URL 저장
-                       if let placeURL = selectedPlace.placeURL {
-                           _ = KeychainWrapper.saveItem(value: placeURL, forKey: SearchPlaceKeyChain.placeURL.rawValue)
-                       }
-
-                       // 도로명 주소 저장
-                       if let roadAddressName = selectedPlace.roadAddressName {
-                           _ = KeychainWrapper.saveItem(value: roadAddressName, forKey: SearchPlaceKeyChain.roadAddressName.rawValue)
-                       }
-
-                       // 경도 저장
-                       if let longitude = selectedPlace.longitude {
-                           _ = KeychainWrapper.saveItem(value: "\(longitude)", forKey: SearchPlaceKeyChain.longitude.rawValue)
-                       }
-
-                       // 위도 저장
-                       if let latitude = selectedPlace.latitude {
-                           _ = KeychainWrapper.saveItem(value: "\(latitude)", forKey: SearchPlaceKeyChain.latitude.rawValue)
-                       }
-                self.coordinator?.finishSearchPlaces()
+                switch self.caller {
+                case .forStartCaller:
+                    print("내위치 선택")
+                case .defaults:
+                    // 장소 이름 저장
+                    if let placeName = selectedPlace.placeName {
+                        _ = KeychainWrapper.saveItem(value: placeName, forKey: SearchPlaceKeyChain.placeName.rawValue)
+                    }
+                    
+                    // 장소 URL 저장
+                    if let placeURL = selectedPlace.placeURL {
+                        _ = KeychainWrapper.saveItem(value: placeURL, forKey: SearchPlaceKeyChain.placeURL.rawValue)
+                    }
+                    
+                    // 도로명 주소 저장
+                    if let roadAddressName = selectedPlace.roadAddressName {
+                        _ = KeychainWrapper.saveItem(value: roadAddressName, forKey: SearchPlaceKeyChain.roadAddressName.rawValue)
+                    }
+                    
+                    // 경도 저장
+                    if let longitude = selectedPlace.longitude {
+                        _ = KeychainWrapper.saveItem(value: "\(longitude)", forKey: SearchPlaceKeyChain.longitude.rawValue)
+                    }
+                    
+                    // 위도 저장
+                    if let latitude = selectedPlace.latitude {
+                        _ = KeychainWrapper.saveItem(value: "\(latitude)", forKey: SearchPlaceKeyChain.latitude.rawValue)
+                    }
+                    self.coordinator?.finishSearchPlaces()
+                }
             })
             .disposed(by: disposeBag)
         

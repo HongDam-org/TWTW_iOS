@@ -21,6 +21,12 @@ final class FindRoadViewController: KakaoMapViewController {
         view.backgroundColor = .white
         return view
     }()
+    /// 내 위치
+    private lazy var myLocationView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
+    }()
     
     private lazy var myLocationLabel: UILabel = {
         let label = UILabel()
@@ -28,6 +34,12 @@ final class FindRoadViewController: KakaoMapViewController {
         return label
     }()
     
+    /// 목적지 위치
+    private lazy var destinationView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
+    }()
     private lazy var destinationLabel: UILabel = {
         let label = UILabel()
         label.text = "목적지: 인천광역시 남동구 논현동 633-8"
@@ -68,7 +80,7 @@ final class FindRoadViewController: KakaoMapViewController {
         super.viewDidLoad()
         setupUI()
         setupLocationManager()
-        
+        bind()
         carRouteButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 print("차 길 보기")
@@ -84,6 +96,19 @@ final class FindRoadViewController: KakaoMapViewController {
             .disposed(by: disposeBag)
       
     }
+    /// binding
+    private func bind() {
+        myLocationLabel.isUserInteractionEnabled = true
+
+        let myLocationLabelTap = myLocationLabel.rx.tapGesture()
+            .when(.recognized)
+            .map { _ in }
+            .asObservable()
+
+        let input = FindRoadViewModel.Input(myLocationTap: myLocationLabelTap)
+
+        viewModel.bind(input: input)
+    }
     
     override func addViews() {
         let defaultPosition: MapPoint = MapPoint(longitude: 126.733529, latitude: 37.3401906)
@@ -96,6 +121,7 @@ final class FindRoadViewController: KakaoMapViewController {
         createLabelLayer()
         createPoiStyle()
         createPois()
+        showBasicGUIs()
     }
     
 
@@ -126,13 +152,13 @@ final class FindRoadViewController: KakaoMapViewController {
         carRouteButton.snp.makeConstraints { make in
             make.top.equalTo(destinationLabel.snp.bottom).offset(20)
             make.leading.equalTo(infoView.snp.leading).offset(10)
-            make.height.equalTo(50)
+            make.height.equalTo(30)
         }
         
         walkRouteButton.snp.makeConstraints { make in
             make.top.equalTo(destinationLabel.snp.bottom).offset(20)
             make.trailing.equalTo(infoView.snp.trailing).offset(-10)
-            make.height.equalTo(50)
+            make.height.equalTo(30)
             make.leading.equalTo(carRouteButton.snp.trailing).offset(10)
             make.width.equalTo(carRouteButton.snp.width)
         }
@@ -161,74 +187,70 @@ extension FindRoadViewController {
         let view = mapController?.getView("mapview") as? KakaoMap
         let manager = view?.getLabelManager()
         
-        let badge1 = PoiBadge(badgeID: "badge1", image: UIImage(named: "noti.png"), offset: CGPoint(x: 0.9, y: 0.1), zOrder: 0)
-        let iconStyle1 = PoiIconStyle(symbol: UIImage(named: "pin_green.png"), anchorPoint: CGPoint(x: 0.0, y: 0.5), badges: [badge1])
-        let text1 = PoiTextLineStyle(textStyle: TextStyle(fontSize: 30, fontColor: UIColor.white, strokeThickness: 2, strokeColor: UIColor.green))
-        let textStyle1 = PoiTextStyle(textLineStyles: [text1])
-        textStyle1.textLayouts = [PoiTextLayout.center]
-        let poiStyle1 = PoiStyle(styleID: "customStyle1", styles: [
-            PerLevelPoiStyle(iconStyle: iconStyle1, textStyle: textStyle1, level: 0)
+        let startPinIcon = PoiIconStyle(symbol: UIImage(named: "pin_green.png"), anchorPoint: CGPoint(x: 0.5, y: 0.5))
+        let startText = PoiTextLineStyle(textStyle: TextStyle(fontSize: 25, fontColor: UIColor.white, strokeThickness: 0))
+        let startTextStyle = PoiTextStyle(textLineStyles: [startText])
+        startTextStyle.textLayouts = [PoiTextLayout.center]
+        let startPoiStyle = PoiStyle(styleID: "customStyle1", styles: [
+            PerLevelPoiStyle(iconStyle: startPinIcon, textStyle: startTextStyle, level: 0)
         ])
         
-        let badge2 = PoiBadge(badgeID: "badge2", image: UIImage(named: "noti2.png"), offset: CGPoint(x: 0.9, y: 0.1), zOrder: 0)
-        let iconStyle2 = PoiIconStyle(symbol: UIImage(named: "pin_red.png"), anchorPoint: CGPoint(x: 0.0, y: 0.5), badges: [badge2])
-        let text2 = PoiTextLineStyle(textStyle: TextStyle(fontSize: 30, fontColor: UIColor.white, strokeThickness: 2, strokeColor: UIColor.red))
-        let textStyle2 = PoiTextStyle(textLineStyles: [text2])
-        textStyle2.textLayouts = [PoiTextLayout.center]
-        let poiStyle2 = PoiStyle(styleID: "customStyle2", styles: [
-            PerLevelPoiStyle(iconStyle: iconStyle2, textStyle: textStyle2, level: 0)
+        
+        let endPinIcon = PoiIconStyle(symbol: UIImage(named: "pin_red.png"), anchorPoint: CGPoint(x: 0.5, y: 0.5))
+        
+        let endText = PoiTextLineStyle(textStyle: TextStyle(fontSize: 25, fontColor: UIColor.white, strokeThickness: 0))
+        let endTextStyle = PoiTextStyle(textLineStyles: [endText])
+        endTextStyle.textLayouts = [PoiTextLayout.center]
+        let endPoiStyle = PoiStyle(styleID: "customStyle2", styles: [
+            PerLevelPoiStyle(iconStyle: endPinIcon, textStyle: endTextStyle, level: 0)
         ])
         
-        manager?.addPoiStyle(poiStyle1)
-        manager?.addPoiStyle(poiStyle2)
+        manager?.addPoiStyle(startPoiStyle)
+        manager?.addPoiStyle(endPoiStyle)
     }
     
     func createPois() {
         let view = mapController?.getView("mapview") as? KakaoMap
         let manager = view?.getLabelManager()
-        let layer = manager?.getLabelLayer(layerID: "PoiLayer")
+        let trackingManager = view?.getTrackingManager()
+        
+        /// 출발
+        let positionLayer = manager?.getLabelLayer(layerID: "PoiLayer")
         let poiOption = PoiOptions(styleID: "customStyle1", poiID: "poi1")
-        poiOption.rank = 0
+        poiOption.rank = 1
+        poiOption.transformType = .decal
         poiOption.addText(PoiText(text: "출발", styleIndex: 0))
         
-        let poi1 = layer?.addPoi(option: poiOption, at: MapPoint(longitude: 126.7335, latitude: 37.3402))
-        poi1?.show()
+        /// 도착
+        let endPositionLayer = manager?.getLabelLayer(layerID: "PoiLayer")
+        let endPoiOption = PoiOptions(styleID: "customStyle2", poiID: "poi2")
+        endPoiOption.rank = 1
+        endPoiOption.transformType = .decal
+        endPoiOption.addText(PoiText(text: "도착", styleIndex: 0))
+        
+        if let startPoi = positionLayer?.addPoi(option: poiOption, at: MapPoint(longitude: 126.73570807, latitude: 37.3977149815)) {
+            startPoi.show()
+            trackingManager?.startTrackingPoi(startPoi)
+        }
+        if let endPoi = endPositionLayer?.addPoi(option: endPoiOption, at: MapPoint(longitude: 126.79570807, latitude: 37.3977149815)) {
+            endPoi.show()
+            trackingManager?.startTrackingPoi(endPoi)
+        }
     }
+    
 }
-// MARK: 마커
+
 extension FindRoadViewController {
     
-//    func createLabelLayer() {
-//        let view = mapController?.getView("mapview") as? KakaoMap
-//        let manager = view?.getLabelManager()
-//        let layerOption = LabelLayerOptions(layerID: "PoiLayer", competitionType: .none, competitionUnit: .symbolFirst, orderType: .rank, zOrder: 10001)
-//        let _ = manager?.addLabelLayer(option: layerOption)
-//    }
-    //    func createPoiStyle() {
-    //        let view = mapController?.getView("mapview") as? KakaoMap
-    //        let manager = view?.getLabelManager()
-    //        let iconStyle = PoiIconStyle(symbol: UIImage(named: "pin_green.png"), anchorPoint: CGPoint(x: 0.0, y: 0.5))
-    //        let perLevelStyle = PerLevelPoiStyle(iconStyle: iconStyle, level: 0)
-    //        let poiStyle = PoiStyle(styleID: "customStyle1", styles: [perLevelStyle])
-    //        manager?.addPoiStyle(poiStyle)
-    //    }
-    //
-    //    func createPois() {
-    //        let view = mapController?.getView("mapview") as? KakaoMap
-    //        let manager = view?.getLabelManager()
-    //        let layer = manager?.getLabelLayer(layerID: "PoiLayer")
-    //        let poiOption = PoiOptions(styleID: "customStyle1")
-    //        poiOption.rank = 0
-    //
-    //        let poi1 = layer?.addPoi(option:poiOption, at: MapPoint(longitude: 126.733529, latitude: 37.3401906))
-    //        // PoiBadge를 생성하여 POI에 추가한다.
-    //        let badge = PoiBadge(badgeID: "noti", image: UIImage(named: "noti.png"), offset: CGPoint(x: 0.1, y: 0.1), zOrder: 1)
-    //        poi1?.addBadge(badge)
-    //        poi1?.show()
-    //        poi1?.showBadge(badgeID: "noti")
-    //    }
-    //
-    //
+    func showBasicGUIs() {
+        let view = mapController?.getView("mapview") as? KakaoMap
+        guard let view = view else { return }
+        view.setCompassPosition(origin: GuiAlignment(vAlign: .bottom, hAlign: .left), position: CGPoint(x: 10.0, y: 10.0))
+        view.showCompass()
+      
+        view.setScaleBarPosition(origin: GuiAlignment(vAlign: .bottom, hAlign: .right), position: CGPoint(x: 10.0, y: 10.0))
+        view.showScaleBar()
+        view.setScaleBarFadeInOutOption(FadeInOutOptions(fadeInTime: 2, fadeOutTime: 2, retentionTime: 3))    }
 }
 extension FindRoadViewController {
     
@@ -254,7 +276,7 @@ extension FindRoadViewController {
             print("현재 위치 정보가 없습니다.")
             return
         }
-        let destination = CLLocationCoordinate2D(latitude: 39.403419311975, longitude: 125.72003443712)
+        let destination = CLLocationCoordinate2D(latitude: 37.3977149815, longitude: 126.79570807)
         let startMapPoint = MapPoint(longitude: currentLocation.longitude, latitude: currentLocation.latitude)
         let endMapPoint = MapPoint(longitude: destination.longitude, latitude: destination.latitude)
         let segment = RouteSegment(points: [startMapPoint, endMapPoint], styleIndex: 0)
@@ -284,7 +306,7 @@ extension FindRoadViewController {
             print("현재 위치 정보가 없습니다.")
             return
         }
-        let destination = CLLocationCoordinate2D(latitude: 38.403419311975, longitude: 126.72003443712)
+        let destination = CLLocationCoordinate2D(latitude: 37.3977149815, longitude: 126.79570807)
         let startMapPoint = MapPoint(longitude: currentLocation.longitude, latitude: currentLocation.latitude)
         let endMapPoint = MapPoint(longitude: destination.longitude, latitude: destination.latitude)
         let segment = RouteSegment(points: [startMapPoint, endMapPoint], styleIndex: 0)
@@ -312,7 +334,6 @@ extension FindRoadViewController {
     }
     
     // MARK: - Route Functions
-
     /// 길찾기 표시
     private func createRouteStyleSet() {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
@@ -357,7 +378,6 @@ extension FindRoadViewController: CLLocationManagerDelegate {
         }
         
         myLocationLabel.text = "내 위치: \(newCoordinate.latitude), \(newCoordinate.longitude)"
-        
         moveCameraToCoordinate(newCoordinate)
     }
     
@@ -377,7 +397,7 @@ extension FindRoadViewController: CLLocationManagerDelegate {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
         mapView.animateCamera(cameraUpdate: CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude,
                                                                                latitude: coordinate.latitude),
-                                                              zoomLevel: 15,
+                                                              zoomLevel: 10,
                                                               rotation: 1.7,
                                                               tilt: 0.0,
                                                               mapView: mapView), options: .init())

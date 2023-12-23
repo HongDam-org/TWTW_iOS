@@ -38,7 +38,7 @@ final class DefaultPlansFromAlertCoordinator: PlanFromAlertCoordinator {
     /// 친구추가 화면으로 이동
     func addParticipants() {
         let friendsListCoordinator = DefaultFriendsListCoordinator(navigationController: navigationController)
-        friendsListCoordinator.delegate = self 
+        friendsListCoordinator.delegate = self
         childCoordinators.append(friendsListCoordinator)
         friendsListCoordinator.startFromPartiSetLocation()
     }

@@ -6,10 +6,10 @@
 //
 
 import UIKit
-import RxCocoa
 import RxSwift
+import RxCocoa
 
-class DatePickerViewController: UIViewController {
+final class DatePickerViewController: UIViewController {
     private let datePicker = UIDatePicker()
     let selectedDate = PublishSubject<Date?>()
     private let disposeBag = DisposeBag()

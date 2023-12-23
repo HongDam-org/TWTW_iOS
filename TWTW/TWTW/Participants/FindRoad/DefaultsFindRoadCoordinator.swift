@@ -12,7 +12,7 @@ final class DefaultsFindRoadCoordinator: FindRoadCoordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     private var findRoadViewModel: FindRoadViewModel?
-
+    
     // MARK: - Init
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -23,6 +23,12 @@ final class DefaultsFindRoadCoordinator: FindRoadCoordinator {
         let findRoadViewModel = FindRoadViewModel(coordinator: self)
         let findRoadViewController = FindRoadViewController(viewModel: findRoadViewModel)
         navigationController.pushViewController(findRoadViewController, animated: true)
-
-     }
+        
+    }
+    /// searchPlace로 이동 - 출발지
+    func moveToStartSearchPlace() {
+        let searchPlaceMapCoordinator = DefaultSearchPlacesMapCoordinator(navigationController: navigationController)
+        searchPlaceMapCoordinator.moveToStartSearchPlace()
+        childCoordinators.append(searchPlaceMapCoordinator)
+    }
 }
