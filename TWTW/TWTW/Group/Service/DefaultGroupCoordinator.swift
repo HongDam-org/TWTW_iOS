@@ -15,12 +15,15 @@ final class DefaultGroupCoordinator: GroupCoordinatorProtocol {
     // MARK: - Init
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(showMainPage(_:)),
+                                               name: NSNotification.Name("moveMain"), object: nil)
     }
     
     func start() {
-        let meetingListViewModel = GroupViewModel(coordinator: self, service: GroupService())
-        let meetingListViewController = GroupViewController(viewModel: meetingListViewModel)
-        navigationController.pushViewController(meetingListViewController, animated: true)
+        let groupViewModel = GroupViewModel(coordinator: self, service: GroupService())
+        let groupViewController = GroupViewController(viewModel: groupViewModel)
+        navigationController.pushViewController(groupViewController, animated: true)
     }
     
     /// 메인 지도 화면으로 이동
@@ -33,9 +36,15 @@ final class DefaultGroupCoordinator: GroupCoordinatorProtocol {
     /// 그룹 생성 화면으로 이동
     func moveCreateGroup() {
         let defaultCreateGroupCoordinator = DefaultCreateGroupCoordinator(navigationController: navigationController)
-        
         childCoordinators.append(defaultCreateGroupCoordinator)
         defaultCreateGroupCoordinator.start()
+    }
+    
+    /// 알림 페이지로 넘어가는 함수
+    @objc
+    private func showMainPage(_ notification: Notification) {
+        print("show Main Paeg🪡")
+        moveMainMap()
     }
 
 }

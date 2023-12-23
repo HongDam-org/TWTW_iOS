@@ -56,20 +56,17 @@ final class GroupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setupNavigationBar()
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.navigationBar.alpha = 0.5
         addSubViews()
         bind()
     }
-    /// 네비게이션 바 설정
-        private func setupNavigationBar() {
-            let alertBarButtonItem = UIBarButtonItem(customView: alertBarButton)
-            let createGroupBarButtonItem = UIBarButtonItem(customView: createGroupBarButton)
 
-            navigationItem.rightBarButtonItems = [createGroupBarButtonItem, alertBarButtonItem]
-        }
     /// Add UI
     private func addSubViews() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: createGroupBarButton)
         view.addSubview(groupListTableView)
+        
         constraints()
     }
     

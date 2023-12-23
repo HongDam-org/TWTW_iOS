@@ -13,13 +13,14 @@ final class DefaultTabBarCoordinator: TabBarCoordinator {
     var tabBarController: UITabBarController
     var navigationController: UINavigationController
     var childCoordinators: [Coordinator] = []
-//    var type: CoordinatorType
 
-    required init(_ navigationController: UINavigationController) {
-        self.navigationController = navigationController
-//        self.type = CoordinatorType.tab
-        // 탭바 생성
+    init(navigationController: UINavigationController) {
         self.tabBarController = UITabBarController()
+        self.navigationController = navigationController
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(showAlertPage(_:)),
+                                               name: NSNotification.Name("showPage"), object: nil)
+        print(#function)
     }
     
     /// 탭바 설정 함수들의 흐름 조정
@@ -43,13 +44,13 @@ final class DefaultTabBarCoordinator: TabBarCoordinator {
     /// 탭바 스타일 지정 및 초기화
     private func configureTabBarController(tabNavigationControllers: [UIViewController]) {
         // TabBar의 VC 지정
-        self.tabBarController.setViewControllers(tabNavigationControllers, animated: false)
+        tabBarController.setViewControllers(tabNavigationControllers, animated: false)
         // home의 index로 TabBar Index 세팅
-        self.tabBarController.selectedIndex = TabBarItemType.home.toInt()
+        tabBarController.selectedIndex = TabBarItemType.home.toInt()
         // TabBar 스타일 지정
-        self.tabBarController.view.backgroundColor = .systemBackground
-        self.tabBarController.tabBar.backgroundColor = .systemBackground
-        self.tabBarController.tabBar.tintColor = UIColor.black
+        tabBarController.view.backgroundColor = .white
+        tabBarController.tabBar.backgroundColor = .clear
+        tabBarController.tabBar.tintColor = UIColor.black
     }
     
     private func addTabBarController() {
@@ -69,9 +70,8 @@ final class DefaultTabBarCoordinator: TabBarCoordinator {
     /// 탭바 페이지대로 탭바 생성
     private func createTabNavigationController(tabBarItem: UITabBarItem) -> UINavigationController {
         let tabNavigationController = UINavigationController()
-        
-        tabNavigationController.setNavigationBarHidden(false, animated: false)
-        tabNavigationController.navigationBar.topItem?.title = TabBarItemType(index: tabBarItem.tag)?.toKrName()
+        tabNavigationController.setNavigationBarHidden(true, animated: true)
+//        tabNavigationController.navigationBar.topItem?.title = TabBarItemType(index: tabBarItem.tag)?.toKrName()
         tabNavigationController.tabBarItem = tabBarItem
 
         return tabNavigationController
@@ -85,21 +85,44 @@ final class DefaultTabBarCoordinator: TabBarCoordinator {
         // 코디네이터 생성 및 실행
         switch tabBarItemType {
         case .home:
-            let homeCoordinator = DefaultGroupCoordinator(navigationController: tabNavigationController)
-            self.childCoordinators.append(homeCoordinator)
-            homeCoordinator.start()
+            let groupCoordinator = DefaultGroupCoordinator(navigationController: tabNavigationController)
+            childCoordinators.append(groupCoordinator)
+            groupCoordinator.start()
         case .friends:
             let friendCoordinator = DefaultFriendsListCoordinator(navigationController: tabNavigationController)
-            self.childCoordinators.append(friendCoordinator)
+            childCoordinators.append(friendCoordinator)
             friendCoordinator.start()
         case .notification:
             let notificationCoordinator = DefaultNotificationCoordinator(navigationController: tabNavigationController)
-            self.childCoordinators.append(notificationCoordinator)
+            childCoordinators.append(notificationCoordinator)
             notificationCoordinator.start()
         case .myPage:
             let myPageCoordinator = DefaultMyPageCoordinator(navigationController: tabNavigationController)
-            self.childCoordinators.append(myPageCoordinator)
+            childCoordinators.append(myPageCoordinator)
             myPageCoordinator.start()
         }
     }
+    
+    /// 알림 페이지로 넘어가는 함수
+    @objc
+    private func showAlertPage(_ notification: Notification) {
+        print(#function, "😃")
+        if let userInfo = notification.userInfo {
+            if let index = userInfo["index"] as? Int {
+                print("TabBarItemType.home.toInt() \(TabBarItemType.home.toInt())")
+                switch index {
+                case TabBarItemType.home.toInt():
+                    tabBarController.selectedIndex = TabBarItemType.home.toInt()
+                    print("OHOHHOHOHOOHOHHHOHOHOHOH")
+                    NotificationCenter.default.post(name: Notification.Name("moveMain"), object: nil)
+                    
+                case TabBarItemType.notification.toInt():
+                    tabBarController.selectedIndex = TabBarItemType.notification.toInt()
+                default:
+                    print("wrong")
+                }
+            }
+        }
+    }
+    
 }

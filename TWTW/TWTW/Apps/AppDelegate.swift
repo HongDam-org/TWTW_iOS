@@ -92,9 +92,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 2])
         }
         
-        if response.notification.request.content.title == "목적지 변경" {
-            NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 2])
-        }
+//        if response.notification.request.content.title == "목적지 변경" {
+//            print("called")
+//            NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 0])
+//        }
         
         userInfo.forEach { (key: AnyHashable, value: Any) in
             print(key, value)
