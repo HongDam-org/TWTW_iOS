@@ -11,7 +11,8 @@ import UIKit
 
 ///  PlanViewController - 일정
 final class PlansViewController: UIViewController {
-    
+    private var currentViewType: PlanCaller = .fromTabBar
+
     /// 친구 검색 버튼
     private lazy var rightItemButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
     
@@ -34,12 +35,12 @@ final class PlansViewController: UIViewController {
                 name: "친구와 나들이1", groupImage: "aaaaa"
             ),
             members: [
-                Member(
-                    id: "37f64bef-b266-4787-8b53-599b2e0cea3c",
+                Friend(
+                    memberId: "37f64bef-b266-4787-8b53-599b2e0cea3c",
                     nickname: "친구1"
                 ),
-                Member(
-                    id: "2f6f96bf-4e17-41d7-8e17-15e17d41d7b0",
+                Friend(
+                    memberId: "2f6f96bf-4e17-41d7-8e17-15e17d41d7b0",
                     nickname: "친구2"
                 )
             ]
@@ -61,12 +62,12 @@ final class PlansViewController: UIViewController {
                 name: "친구와 나들이2", groupImage: "aaaaa"
             ),
             members: [
-                Member(
-                    id: "37f64bef-b266-4787-8b53-599b2e0cea3c",
+                Friend(
+                    memberId: "37f64bef-b266-4787-8b53-599b2e0cea3c",
                     nickname: "친구1"
                 ),
-                Member(
-                    id: "2f6f96bf-4e17-41d7-8e17-15e17d41d7b0",
+                Friend(
+                    memberId: "2f6f96bf-4e17-41d7-8e17-15e17d41d7b0",
                     nickname: "친구2"
                 )
             ]
@@ -88,39 +89,12 @@ final class PlansViewController: UIViewController {
                 name: "그룹이름임", groupImage: "aaaaa"
             ),
             members: [
-                Member(
-                    id: "47f64bef-b266-4787-8b53-599b2e0cea3c",
+                Friend(
+                    memberId: "47f64bef-b266-4787-8b53-599b2e0cea3c",
                     nickname: "친구11"
                 ),
-                Member(
-                    id: "3f6f96bf-4e17-41d7-8e17-15e17d41d7b0",
-                    nickname: "친구12"
-                )
-            ]
-        ),
-        Plan(
-            planId: "4b8e94bc-310a-4ee9-b5cc-624d3c794dd4",
-            placeId: "31e3045e-f75b-42a5-a5f5-2d63db7e2df8",
-            planMakerId: "165c66a2-7d21-47f0-bbfd-4751242d0a78",
-            placeDetails: PlaceDetails(
-                placeName: "인천 투썸2",
-                placeUrl: "https://example.com/place/2",
-                roadAddressName: "여의도로 1234",
-                longitude: 40.5259,
-                latitude: 125.0242
-            ),
-            groupInfo: GroupInfo(
-                groupId: "ba977768-a940-4f89-ba24-aa1bf2f71355",
-                leaderId: "9df2b9ac-b424-44ca-9f30-25b245dc75f1",
-                name: "그룹이름임", groupImage: "aaaaa"
-            ),
-            members: [
-                Member(
-                    id: "47f64bef-b266-4787-8b53-599b2e0cea3c",
-                    nickname: "친구11"
-                ),
-                Member(
-                    id: "3f6f96bf-4e17-41d7-8e17-15e17d41d7b0",
+                Friend(
+                    memberId: "3f6f96bf-4e17-41d7-8e17-15e17d41d7b0",
                     nickname: "친구12"
                 )
             ]
@@ -142,7 +116,6 @@ final class PlansViewController: UIViewController {
     init(viewModel: PlansViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        setupCallerBinding()
     }
     
     @available(*, unavailable)
@@ -163,18 +136,29 @@ final class PlansViewController: UIViewController {
     
     // MARK: Function
     /// setupTableView - table addSubView, register
-    private func setupCallerBinding() {
-        viewModel.callerObservable
-            .bind { [weak self] caller in
-                guard let self = self else { return }
-                if caller == .fromTabBar {
-                    self.navigationItem.rightBarButtonItem = nil
-                } else if caller == .fromAlert {
-                    self.navigationItem.rightBarButtonItem = self.rightItemButton
-                }
-            }
-            .disposed(by: disposeBag)
+//    private func setupCallerBinding() {
+//        viewModel.callerObservable
+//            .bind { [weak self] caller in
+//                guard let self = self else { return }
+//                if caller == .fromTabBar {
+//                    self.navigationItem.rightBarButtonItem = nil
+//                } else if caller == .fromAlert {
+//                    self.navigationItem.rightBarButtonItem = self.rightItemButton
+//                }
+//            }
+//            .disposed(by: disposeBag)
+//    }
+    private func updateViewState(from newViewState: PlanCaller) {
+        currentViewType = newViewState
+        switch currentViewType {
+        case .fromTabBar:
+            self.navigationItem.rightBarButtonItem = nil
+
+        case .fromAlert:
+            self.navigationItem.rightBarButtonItem = self.rightItemButton
+        }
     }
+    
     private func setupTableView() {
         view.addSubview(planTableView)
         planTableView.register(PlanTableViewCell.self, forCellReuseIdentifier: CellIdentifier.planTableViewCell.rawValue)
@@ -197,7 +181,7 @@ final class PlansViewController: UIViewController {
             addPlans: rightItemButton.rx.tap.asObservable()
         )
         let output = viewModel.bind(input: input)
-        // bindTableView()
+        updateViewState(from: output.callerState)
     }
     
     /// bindTableView - touchEvent with rx
@@ -213,5 +197,6 @@ final class PlansViewController: UIViewController {
                     cell.configure(plan: plan)
                 }
     }
+    
 
 }

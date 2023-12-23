@@ -23,6 +23,9 @@ final class PlansViewModel {
         let selectedPlansList: Observable<IndexPath>
         let addPlans: Observable<Void>
     }
+    struct Output {
+        let callerState: PlanCaller
+    }
     
     // MARK: - Init
     init(coordinator: DefaultPlansCoordinator, caller: PlanCaller = .fromTabBar) {
@@ -30,7 +33,7 @@ final class PlansViewModel {
         self.caller = caller
     }
     
-    func bind(input: Input) {
+    func bind(input: Input) -> Output {
         input.selectedPlansList
             .bind { [weak self] _ in
                 guard let self = self else { return }
@@ -48,5 +51,9 @@ final class PlansViewModel {
                 guard let self = self else { return }
                 coordinator.moveToAddPlans()
             }.disposed(by: disposeBag)
+        
+        let output = Output(callerState: caller)
+        
+        return output
     }
 }

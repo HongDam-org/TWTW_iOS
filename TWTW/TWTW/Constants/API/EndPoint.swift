@@ -25,13 +25,24 @@ enum RoutePath: String {
 }
 
 enum GroupPath: String {
-    case group = "/group"
+    case group = "/group" // 그룹생성
     case invite = "/group/invite"
     case join = "/group/join"
+    case lookUpGroup = "/group/GROUPID" // 그룹 단건조회
 }
 
 enum FriendPath: String {
     case all = "/friends/all"
     case search = "/friends/search?nickname=NAME"
     case request = "/friends/request"
+}
+
+enum ParticipantsPath: String {
+    case all = "/plans/PLANID" // 그룹 모든 친구, 그룹 + plan
+    case not = "/plans/"// 그룹 + !plan 조회
+    case request = "/plans/yet" // 그룹 + !plan 요청
+}
+
+enum PlanPath: String {
+    case all = "/plans/PLANID" // Plan 단건 조회
 }

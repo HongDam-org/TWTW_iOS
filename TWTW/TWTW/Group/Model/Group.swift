@@ -14,3 +14,9 @@ struct Group: Codable {
     let name: String?
     let groupImage: String?
 }
+
+/// 그룹단건조회
+struct GroupLookUpRequest: Codable {
+    let groupId: String?
+}
+
