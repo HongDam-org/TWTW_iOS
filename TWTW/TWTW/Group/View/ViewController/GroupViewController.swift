@@ -61,6 +61,11 @@ final class GroupViewController: UIViewController {
         addSubViews()
         bind()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.tabBarController?.tabBar.isHidden = false
+    }
 
     /// Add UI
     private func addSubViews() {

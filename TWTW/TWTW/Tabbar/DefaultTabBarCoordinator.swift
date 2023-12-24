@@ -75,7 +75,6 @@ final class DefaultTabBarCoordinator: TabBarCoordinator {
     private func createTabNavigationController(tabBarItem: UITabBarItem) -> UINavigationController {
         let tabNavigationController = UINavigationController()
         tabNavigationController.setNavigationBarHidden(true, animated: true)
-//        tabNavigationController.navigationBar.topItem?.title = TabBarItemType(index: tabBarItem.tag)?.toKrName()
         tabNavigationController.tabBarItem = tabBarItem
 
         return tabNavigationController

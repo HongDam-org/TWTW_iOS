@@ -45,6 +45,7 @@ final class DefaultGroupCoordinator: GroupCoordinatorProtocol {
     private func showMainPage(_ notification: Notification) {
         print("show Main Paeg🪡")
         moveMainMap()
+        NotificationCenter.default.post(name: Notification.Name("moveToParticipantsList"), object: nil)
     }
 
 }

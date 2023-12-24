@@ -21,13 +21,17 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         mainMapViewModel = MainMapViewModel(coordinator: self, routeService: RouteService())
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(moveToParticipantsList(_:)),
+                                               name: NSNotification.Name("moveToParticipantsList"), object: nil)
     }
     
     // MARK: - Fuctions
     
     func start() {
         guard let mainMapViewModel = mainMapViewModel else { return }
-        
+        navigationController.tabBarController?.tabBar.isHidden = true
         let mainMapViewController = MainMapViewController(viewModel: mainMapViewModel, coordinator: self)
         self.navigationController.pushViewController(mainMapViewController, animated: true)
     }
@@ -54,6 +58,13 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
         plansCoordinator.start()
         childCoordinators.append(plansCoordinator)
     }
+    
+    /// 알림 페이지로 넘어가는 함수
+    @objc
+    private func moveToParticipantsList(_ notification: Notification) {
+        print("show moveToParticipantsList🪡")
+        moveToParticipantsList()
+    }
 }
 
 // MARK: - SearchPlacesCoordinator에서 좌표 받는 함수
@@ -68,4 +79,5 @@ extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate {
         }
     }
 }
+
 

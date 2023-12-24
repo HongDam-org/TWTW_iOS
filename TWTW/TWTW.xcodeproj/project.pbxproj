@@ -377,9 +377,9 @@
 			isa = PBXGroup;
 			children = (
 				374EAEAF2B260D1A00BAA897 /* Coordinator */,
+				3BA2F82C2B38688000828F31 /* View */,
 				374EAEAD2B260D0400BAA897 /* Model */,
 				374DB4602B24752800AF648C /* DefaultTabBarCoordinator.swift */,
-				3BA2F82A2B38621600828F31 /* TabBarController.swift */,
 			);
 			path = Tabbar;
 			sourceTree = "<group>";
@@ -1301,6 +1301,14 @@
 				3B9FD1002AE758C100D81328 /* CLLocationManagerMock.swift */,
 			);
 			path = Mock;
+			sourceTree = "<group>";
+		};
+		3BA2F82C2B38688000828F31 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3BA2F82A2B38621600828F31 /* TabBarController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		3BAA4A1A2ADCCFEB009D14E7 /* SignIn */ = {
