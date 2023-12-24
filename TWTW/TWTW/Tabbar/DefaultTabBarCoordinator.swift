@@ -15,12 +15,14 @@ final class DefaultTabBarCoordinator: TabBarCoordinator {
     var childCoordinators: [Coordinator] = []
 
     init(navigationController: UINavigationController) {
-        self.tabBarController = UITabBarController()
+        self.tabBarController = TabBarController()
         self.navigationController = navigationController
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(showAlertPage(_:)),
-                                               name: NSNotification.Name("showPage"), object: nil)
+      
         print(#function)
+    }
+    
+    deinit {
+        print("deinit DafaultTabBar")
     }
     
     /// 탭바 설정 함수들의 흐름 조정
@@ -37,6 +39,8 @@ final class DefaultTabBarCoordinator: TabBarCoordinator {
         configureTabBarController(tabNavigationControllers: controllers)
         // 6. 탭바 화면에 붙이기
         addTabBarController()
+        
+        print(#function, "start")
     }
 
     // MARK: - TabBarController 설정 메소드
@@ -103,26 +107,6 @@ final class DefaultTabBarCoordinator: TabBarCoordinator {
         }
     }
     
-    /// 알림 페이지로 넘어가는 함수
-    @objc
-    private func showAlertPage(_ notification: Notification) {
-        print(#function, "😃")
-        if let userInfo = notification.userInfo {
-            if let index = userInfo["index"] as? Int {
-                print("TabBarItemType.home.toInt() \(TabBarItemType.home.toInt())")
-                switch index {
-                case TabBarItemType.home.toInt():
-                    tabBarController.selectedIndex = TabBarItemType.home.toInt()
-                    print("OHOHHOHOHOOHOHHHOHOHOHOH")
-                    NotificationCenter.default.post(name: Notification.Name("moveMain"), object: nil)
-                    
-                case TabBarItemType.notification.toInt():
-                    tabBarController.selectedIndex = TabBarItemType.notification.toInt()
-                default:
-                    print("wrong")
-                }
-            }
-        }
-    }
+   
     
 }

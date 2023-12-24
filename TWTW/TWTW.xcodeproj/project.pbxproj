@@ -130,6 +130,7 @@
 		3B9693DE2B176DED001DDAE8 /* FriendListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9693DD2B176DED001DDAE8 /* FriendListTableViewCell.swift */; };
 		3B9FD0FF2AE7418F00D81328 /* MainMapViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FD0FE2AE7418F00D81328 /* MainMapViewModelUnitTests.swift */; };
 		3B9FD1012AE758C100D81328 /* CLLocationManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FD1002AE758C100D81328 /* CLLocationManagerMock.swift */; };
+		3BA2F82B2B38621600828F31 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA2F82A2B38621600828F31 /* TabBarController.swift */; };
 		3BAA4A192ADC1DEA009D14E7 /* SignUpProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA4A182ADC1DEA009D14E7 /* SignUpProtocol.swift */; };
 		3BAA4A1F2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA4A1E2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift */; };
 		3BAA4A222ADCD0C8009D14E7 /* MockSignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA4A212ADCD0C8009D14E7 /* MockSignUpService.swift */; };
@@ -296,6 +297,7 @@
 		3B9693DD2B176DED001DDAE8 /* FriendListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListTableViewCell.swift; sourceTree = "<group>"; };
 		3B9FD0FE2AE7418F00D81328 /* MainMapViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModelUnitTests.swift; sourceTree = "<group>"; };
 		3B9FD1002AE758C100D81328 /* CLLocationManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationManagerMock.swift; sourceTree = "<group>"; };
+		3BA2F82A2B38621600828F31 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		3BAA4A182ADC1DEA009D14E7 /* SignUpProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpProtocol.swift; sourceTree = "<group>"; };
 		3BAA4A1E2ADCD04B009D14E7 /* SignUpViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelUnitTests.swift; sourceTree = "<group>"; };
 		3BAA4A212ADCD0C8009D14E7 /* MockSignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSignUpService.swift; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 				374EAEAF2B260D1A00BAA897 /* Coordinator */,
 				374EAEAD2B260D0400BAA897 /* Model */,
 				374DB4602B24752800AF648C /* DefaultTabBarCoordinator.swift */,
+				3BA2F82A2B38621600828F31 /* TabBarController.swift */,
 			);
 			path = Tabbar;
 			sourceTree = "<group>";
@@ -1603,6 +1606,7 @@
 				3B0D6AA92ABBD1A900B08CAB /* LoginConstants.swift in Sources */,
 				374DB4682B247CC800AF648C /* MyPageViewController.swift in Sources */,
 				37D5D7872B19CEA100302EAD /* Participants.swift in Sources */,
+				3BA2F82B2B38621600828F31 /* TabBarController.swift in Sources */,
 				371C1D312ADBAFF300B30DC5 /* DefaultPreviousAppointmentsCoordinator.swift in Sources */,
 				3B9693DE2B176DED001DDAE8 /* FriendListTableViewCell.swift in Sources */,
 				37E9FBFE2B1635B4004AFF79 /* MainMapCustomTabButtonViewModel.swift in Sources */,
