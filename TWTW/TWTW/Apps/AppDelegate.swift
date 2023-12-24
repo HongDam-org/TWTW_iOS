@@ -90,12 +90,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         print(response.notification.request.content.title, response.notification.request.content.body)
         if response.notification.request.content.title == "알림" {
-            print("called title ")
             NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 2])
         }
         
         if response.notification.request.content.title == "목적지 변경" {
-            print("called")
             NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 0])
         }
         
@@ -130,8 +128,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         print("END😡")
         print(#function)
-        print(center)
-        print(response)
         completionHandler()
     }
 }

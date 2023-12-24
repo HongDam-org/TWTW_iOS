@@ -96,7 +96,7 @@ final class NotificationViewController: UIViewController {
     
     /// Bind
     private func bind() {
-        let input = NotificationViewModel.Input()
+        let input = NotificationViewModel.Input(selectedCellEvents: listTableView.rx.itemSelected)
         
         let output = viewModel.createOutput(input: input)
         

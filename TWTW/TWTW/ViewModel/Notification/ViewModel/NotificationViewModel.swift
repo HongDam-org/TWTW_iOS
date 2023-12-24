@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxCocoa
 import RxRelay
 import RxSwift
 
@@ -19,6 +20,7 @@ final class NotificationViewModel {
     }
     
     struct Input {
+        let selectedCellEvents: ControlEvent<IndexPath>?
         
     }
     
@@ -31,6 +33,12 @@ final class NotificationViewModel {
     /// - Returns: Output
     func createOutput(input: Input) -> Output {
         let output = Output()
+        
+        input.selectedCellEvents?
+            .bind { indexPath in
+                
+            }
+            .disposed(by: disposeBag)
         
         bindNotificationListRelay(output: output)
         return output
