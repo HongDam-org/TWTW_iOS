@@ -17,10 +17,12 @@ struct SearchPlacesMapState {
 
 /// 보내는 장소명 text
 struct PlacesRequest: Codable {
-    let searchText: String?
+    var searchText: String?
     let pageNum: Int
+    mutating func encodeSearchPlaceDetails() {
+        searchText = EncodedQueryConfig.encodedQuery(encodeRequest: searchText).getEncodedQuery()
+    }
 }
-
 /// 검색 결과 리스트
 struct PlaceResponse: Codable {
     let results: [SearchPlace]

@@ -8,9 +8,9 @@
 import UIKit
 
 struct PlaceDetails: Codable {
-    let placeName: String
+    var placeName: String
     let placeUrl: String
-    let roadAddressName: String
+    var roadAddressName: String
     let longitude: Double
     let latitude: Double
 }
@@ -43,4 +43,20 @@ struct GroupLookUpInfo: Codable {
     let name: String
     let groupImage: String
     let groupMembers: [Friend]
+}
+
+/// 그룹 저장
+struct PlanSaveRequest: Codable {
+    let groupId: String
+    let planDay: String
+    var placeDetails: PlaceDetails
+    
+    mutating func encodePlaceDetails() {
+         placeDetails.placeName = EncodedQueryConfig.encodedQuery(encodeRequest: placeDetails.placeName).getEncodedQuery()
+         placeDetails.roadAddressName = EncodedQueryConfig.encodedQuery(encodeRequest: placeDetails.roadAddressName).getEncodedQuery()
+     }
+}
+struct PlanSaveResponse: Codable {
+    let planId: String
+    let groupId: String
 }

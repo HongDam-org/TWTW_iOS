@@ -12,4 +12,6 @@ protocol PlanProtocol {
     /// - Parameter request: 서버에 보내는 planID
     /// - Returns: Plan단건조회
     func getPlanService(request: String) -> Observable<Plan>
+    /// 계획 저장
+    func savePlanService(request: PlanSaveRequest) -> Observable<PlanSaveResponse>
 }

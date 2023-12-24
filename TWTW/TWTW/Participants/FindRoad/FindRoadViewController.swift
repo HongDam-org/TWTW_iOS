@@ -10,11 +10,29 @@ import KakaoMapsSDK
 import RxSwift
 import UIKit
 
+enum Mode: Int {
+    case hidden = 0,
+         show,
+         tracking
+}
 final class FindRoadViewController: KakaoMapViewController {
-    private var destinationCoordinate = CLLocationCoordinate2D(latitude: 37.403419311975, longitude: 126.72003443712)
-    private var locationManager = CLLocationManager()
+    var timer: Timer?
+    var currentPositionPoi: Poi?
+    var currentDirectionArrowPoi: Poi?
+    var currentDirectionPoi: Poi?
+    var currentHeading: Double
+    var currentPosition: GeoCoordinate
+    var mode: Mode
+    var moveOnce: Bool
+    var locationManager: CLLocationManager
+    var locationServiceAuthorized: CLAuthorizationStatus
+    
+    
+    private let startCoordinate = CLLocationCoordinate2D(latitude: 37.3977149815, longitude: 126.73570807)
+    private let destinationCoordinate = CLLocationCoordinate2D(latitude: 37.3977149815, longitude: 126.79570807)
     
     private var currentLocation: CLLocationCoordinate2D?
+    
     
     private lazy var infoView: UIView = {
         let view = UIView()
@@ -59,14 +77,24 @@ final class FindRoadViewController: KakaoMapViewController {
         button.backgroundColor = .green
         return button
     }()
- 
+    
     private let viewModel: FindRoadViewModel
     private let disposeBag = DisposeBag()
     
     // MARK: - Init
     init(viewModel: FindRoadViewModel) {
         self.viewModel = viewModel
+        locationServiceAuthorized = CLAuthorizationStatus.notDetermined
+        locationManager = CLLocationManager()
+        locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.headingFilter = kCLHeadingFilterNone
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        currentHeading = 0
+        currentPosition = GeoCoordinate()
+        mode = .hidden
+        moveOnce = false
         super.init()
+        locationManager.delegate = self
     }
     
     @available(*, unavailable)
@@ -94,37 +122,42 @@ final class FindRoadViewController: KakaoMapViewController {
                 self?.drawWalkRoute()
             })
             .disposed(by: disposeBag)
-      
+        
     }
     /// binding
     private func bind() {
         myLocationLabel.isUserInteractionEnabled = true
-
+        
         let myLocationLabelTap = myLocationLabel.rx.tapGesture()
             .when(.recognized)
             .map { _ in }
             .asObservable()
-
+        
         let input = FindRoadViewModel.Input(myLocationTap: myLocationLabelTap)
-
+        
         viewModel.bind(input: input)
     }
     
     override func addViews() {
-        let defaultPosition: MapPoint = MapPoint(longitude: 126.733529, latitude: 37.3401906)
-        let mapviewInfo: MapviewInfo = MapviewInfo(viewName: "mapview", viewInfoName: "map", defaultPosition: defaultPosition)
+        let mapviewInfo: MapviewInfo = MapviewInfo(viewName: "mapview", viewInfoName: "map", defaultPosition: Map.DEFAULTPOSITION)
         
         if mapController?.addView(mapviewInfo) == Result.OK {
             print("OK")
-           
+            createLabelLayer()
+            createPoiStyle()
+            createPois()
+            showBasicGUIs()
+            
+            createSpriteGUI()
+            //            createLabelLayer()
+            //            createPoiStyle()
+            //            createPois()
+            createWaveShape()
+            
         }
-        createLabelLayer()
-        createPoiStyle()
-        createPois()
-        showBasicGUIs()
     }
     
-
+    
     // MARK: - Setup UI
     
     private func setupUI() {
@@ -169,18 +202,24 @@ final class FindRoadViewController: KakaoMapViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
+        
     }
     
 }
-
-// 마커 // 37.3401906, 126.733529
 extension FindRoadViewController {
-
+    
     func createLabelLayer() {
         let view = mapController?.getView("mapview") as? KakaoMap
         let manager = view?.getLabelManager()
         let layerOption = LabelLayerOptions(layerID: "PoiLayer", competitionType: .none, competitionUnit: .symbolFirst, orderType: .rank, zOrder: 10001)
         let _ = manager?.addLabelLayer(option: layerOption)
+        //
+        let positionLayerOption = LabelLayerOptions(layerID: "myPositionPoiLayer", competitionType: .none, competitionUnit: .symbolFirst, orderType: .rank, zOrder: 0)
+        let _ = manager?.addLabelLayer(option: positionLayerOption)
+        let directionLayerOption = LabelLayerOptions(layerID: "myDirectionPoiLayer", competitionType: .none, competitionUnit: .symbolFirst, orderType: .rank, zOrder: 10)
+        let _ = manager?.addLabelLayer(option: directionLayerOption)
+ 
     }
     
     func createPoiStyle() {
@@ -207,12 +246,28 @@ extension FindRoadViewController {
         
         manager?.addPoiStyle(startPoiStyle)
         manager?.addPoiStyle(endPoiStyle)
+        
+        //
+        let myLocationMarker = PoiIconStyle(symbol: UIImage(named: "map_ico_marker.png"))
+        let myLocationPerLevelStyle1 = PerLevelPoiStyle(iconStyle: myLocationMarker, level: 0)
+        let  myLocationPoiStyle1 = PoiStyle(styleID: "myPositionPoiStyle", styles: [myLocationPerLevelStyle1])
+        manager?.addPoiStyle(myLocationPoiStyle1)
+        
+        let direction = PoiIconStyle(symbol: UIImage(named: "map_ico_marker_direction.png"), anchorPoint: CGPoint(x: 0.5, y: 0.995))
+        let myLocationPerLevelStyle2 = PerLevelPoiStyle(iconStyle: direction, level: 0)
+        let myLocationPoiStyle2 = PoiStyle(styleID: "myDirectionArrowPoiStyle", styles: [myLocationPerLevelStyle2])
+        manager?.addPoiStyle(myLocationPoiStyle2)
+        
+        let area = PoiIconStyle(symbol: UIImage(named: "map_ico_direction_area.png"), anchorPoint: CGPoint(x: 0.5, y: 0.995))
+        let myLocationPerLevelStyle3 = PerLevelPoiStyle(iconStyle: area, level: 0)
+        let myLocationPoiStyle3 = PoiStyle(styleID: "myDirectionPoiStyle", styles: [myLocationPerLevelStyle3])
+        manager?.addPoiStyle(myLocationPoiStyle3)
     }
     
     func createPois() {
         let view = mapController?.getView("mapview") as? KakaoMap
         let manager = view?.getLabelManager()
-        let trackingManager = view?.getTrackingManager()
+         let trackingManager = view?.getTrackingManager()
         
         /// 출발
         let positionLayer = manager?.getLabelLayer(layerID: "PoiLayer")
@@ -230,14 +285,102 @@ extension FindRoadViewController {
         
         if let startPoi = positionLayer?.addPoi(option: poiOption, at: MapPoint(longitude: 126.73570807, latitude: 37.3977149815)) {
             startPoi.show()
-            trackingManager?.startTrackingPoi(startPoi)
+             trackingManager?.startTrackingPoi(startPoi)
         }
         if let endPoi = endPositionLayer?.addPoi(option: endPoiOption, at: MapPoint(longitude: 126.79570807, latitude: 37.3977149815)) {
             endPoi.show()
-            trackingManager?.startTrackingPoi(endPoi)
+             trackingManager?.startTrackingPoi(endPoi)
         }
+        
+        //
+        let myPositionLayer = manager?.getLabelLayer(layerID: "myPositionPoiLayer")
+        let myDirectionLayer = manager?.getLabelLayer(layerID: "myDirectionPoiLayer")
+        
+        // 현위치마커의 몸통에 해당하는 POI
+        let myLocationPoiOption = PoiOptions(styleID: "myPositionPoiStyle", poiID: "myPositionPOI")
+        myLocationPoiOption.rank = 1
+        myLocationPoiOption.transformType = .decal    // 화면이 기울여졌을 때, 지도를 따라 기울어져서 그려지도록 한다.
+        let myLocationPosition: MapPoint = MapPoint(longitude: 127.108678, latitude: 37.402001)
+        
+        currentPositionPoi = myPositionLayer?.addPoi(option: myLocationPoiOption, at: myLocationPosition)
+        
+        // 현위치마커의 방향표시 화살표에 해당하는 POI
+        let myLocationPoiOption2 = PoiOptions(styleID: "myDirectionArrowPoiStyle", poiID: "myDirectionArrowPOI")
+        myLocationPoiOption2.rank = 3
+        myLocationPoiOption2.transformType = .absoluteRotationDecal
+        
+        currentDirectionArrowPoi = myPositionLayer?.addPoi(option: myLocationPoiOption2, at: myLocationPosition)
+        
+        // 현위치마커의 부채꼴모양 방향표시에 해당하는 POI
+        let myLocationPoiOption3 = PoiOptions(styleID: "myDirectionPoiStyle", poiID: "myDirectionPOI")
+        myLocationPoiOption3.rank = 2
+        myLocationPoiOption3.transformType = .decal
+        
+        currentDirectionPoi = myDirectionLayer?.addPoi(option: myLocationPoiOption3, at: myLocationPosition)
+        
+        currentPositionPoi?.shareTransformWithPoi(currentDirectionArrowPoi!)  //몸통이 방향표시와 위치 및 방향을 공유하도록 지정한다. 몸통 POI의 위치가 변경되면 방향표시 POI의 위치도 변경된다. 반대는 변경안됨.
+        currentDirectionArrowPoi?.shareTransformWithPoi(currentDirectionPoi!) //방향표시가 부채꼴모양과 위치 및 방향을 공유하도록 지정한다.
+    }
+    // 현위치 마커에 원형 물결효과를 주기 위해 원형 Polygon을 추가한다.
+    func createWaveShape() {
+        let view = mapController?.getView("mapview") as? KakaoMap
+        let manager = view?.getShapeManager()
+        let layer = manager?.addShapeLayer(layerID: "shapeLayer", zOrder: 10001, passType: .route)
+        
+        let shapeStyle = PolygonStyle(styles: [
+            PerLevelPolygonStyle(color: UIColor(red: 0.3, green: 0.7, blue: 0.9, alpha: 1.0), level: 0)
+        ])
+        let shapeStyleSet = PolygonStyleSet(styleSetID: "shapeLevelStyle")
+        shapeStyleSet.addStyle(shapeStyle)
+        manager?.addPolygonStyleSet(shapeStyleSet)
+        
+        let options = PolygonShapeOptions(shapeID: "waveShape", styleID: "shapeLevelStyle", zOrder: 1)
+        let points = Primitives.getCirclePoints(radius: 10.0, numPoints: 90, cw: true)
+        let polygon = Polygon(exteriorRing: points, hole: nil, styleIndex: 0)
+        
+        options.polygons.append(polygon)
+        options.basePosition = MapPoint(longitude: 0, latitude: 0)
+        
+        let shape = layer?.addPolygonShape(options)
+        currentDirectionPoi?.shareTransformWithShape(shape!)   // 현위치마커 몸통이 Polygon이 위치 및 방향을 공유하도록 지정한다.
     }
     
+    func createAndStartWaveAnimation() {
+        let mapView: KakaoMap? = mapController?.getView("mapview") as? KakaoMap
+        let manager = mapView?.getShapeManager()
+        let layer = manager?.getShapeLayer(layerID: "shapeLayer")
+        let shape = layer?.getPolygonShape(shapeID: "waveShape")
+        let waveEffect = WaveAnimationEffect(datas: [
+            WaveAnimationData(startAlpha: 0.8, endAlpha: 0.0, startRadius: 10.0, endRadius: 100.0, level: 0)
+        ])
+        waveEffect.hideAtStop = true
+        waveEffect.interpolation = AnimationInterpolation(duration: 1000, method: .cubicOut)
+        waveEffect.playCount = 5
+        
+        let animator = manager?.addShapeAnimator(animatorID: "circleWave", effect: waveEffect)
+        animator?.addPolygonShape(shape!)
+        animator?.start()
+    }
+    // 현위치마커 버튼 GUI
+    func createSpriteGUI() {
+        let mapView = mapController?.getView("mapview") as? KakaoMap
+        let spriteLayer = mapView?.getGuiManager().spriteGuiLayer
+        let spriteGui = SpriteGui("ButtonGui")
+        
+        spriteGui.arrangement = .horizontal
+        spriteGui.bgColor = UIColor.clear
+        spriteGui.splitLineColor = UIColor.white
+        spriteGui.origin = GuiAlignment(vAlign: .bottom, hAlign: .right)
+        
+        let button = GuiButton("CPB")
+        button.image = UIImage(named: "track_location_btn.png")
+        
+        spriteGui.addChild(button)
+        
+        spriteLayer?.addSpriteGui(spriteGui)
+        spriteGui.delegate = self
+        spriteGui.show()
+    }
 }
 
 extension FindRoadViewController {
@@ -247,7 +390,7 @@ extension FindRoadViewController {
         guard let view = view else { return }
         view.setCompassPosition(origin: GuiAlignment(vAlign: .bottom, hAlign: .left), position: CGPoint(x: 10.0, y: 10.0))
         view.showCompass()
-      
+        
         view.setScaleBarPosition(origin: GuiAlignment(vAlign: .bottom, hAlign: .right), position: CGPoint(x: 10.0, y: 10.0))
         view.showScaleBar()
         view.setScaleBarFadeInOutOption(FadeInOutOptions(fadeInTime: 2, fadeOutTime: 2, retentionTime: 3))    }
@@ -269,18 +412,18 @@ extension FindRoadViewController {
         let manager = mapView.getRouteManager()
         
         let layer = manager.addRouteLayer(layerID: "CarRouteLayer", zOrder: 0)
-
+        
         createRouteStyleSet()
-    
+        
         guard let currentLocation = currentLocation else {
             print("현재 위치 정보가 없습니다.")
             return
         }
-        let destination = CLLocationCoordinate2D(latitude: 37.3977149815, longitude: 126.79570807)
-        let startMapPoint = MapPoint(longitude: currentLocation.longitude, latitude: currentLocation.latitude)
-        let endMapPoint = MapPoint(longitude: destination.longitude, latitude: destination.latitude)
+        
+        let startMapPoint = MapPoint(longitude: startCoordinate.longitude, latitude: startCoordinate.latitude)
+        let endMapPoint = MapPoint(longitude: destinationCoordinate.longitude, latitude: destinationCoordinate.latitude)
         let segment = RouteSegment(points: [startMapPoint, endMapPoint], styleIndex: 0)
-  
+        
         let options = RouteOptions(routeID: "CarRoute", styleID: "routeStyleSet1", zOrder: 0)
         options.segments = [segment]
         let route = layer?.addRoute(option: options)
@@ -306,9 +449,8 @@ extension FindRoadViewController {
             print("현재 위치 정보가 없습니다.")
             return
         }
-        let destination = CLLocationCoordinate2D(latitude: 37.3977149815, longitude: 126.79570807)
         let startMapPoint = MapPoint(longitude: currentLocation.longitude, latitude: currentLocation.latitude)
-        let endMapPoint = MapPoint(longitude: destination.longitude, latitude: destination.latitude)
+        let endMapPoint = MapPoint(longitude: destinationCoordinate.longitude, latitude: destinationCoordinate.latitude)
         let segment = RouteSegment(points: [startMapPoint, endMapPoint], styleIndex: 0)
         
         // 4 Route 추가
@@ -318,20 +460,6 @@ extension FindRoadViewController {
         route?.show()
     }
     
-    /// 선택한 좌표로 카메라 옮기기
-    private func moveCameraToCoordinate(_ coordinate: CLLocationCoordinate2D, _ output: MainMapViewModel.Output) {
-        guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
-        mapView.animateCamera(cameraUpdate: CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude,
-                                                                               latitude: coordinate.latitude),
-                                                              zoomLevel: 15,
-                                                              rotation: 1.7,
-                                                              tilt: 0.0,
-                                                              mapView: mapView),
-                              options: CameraAnimationOptions(autoElevation: true,
-                                                              consecutive: true,
-                                                              durationInMillis: 2000),
-                              callback: { })
-    }
     
     // MARK: - Route Functions
     /// 길찾기 표시
@@ -368,38 +496,126 @@ extension FindRoadViewController {
 }
 // MARK: - CLLocationManagerDelegate
 extension FindRoadViewController: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        let newCoordinate = location.coordinate
-        
-        if currentLocation == nil {
-            currentLocation = newCoordinate
-        }
-        
-        myLocationLabel.text = "내 위치: \(newCoordinate.latitude), \(newCoordinate.longitude)"
-        moveCameraToCoordinate(newCoordinate)
-    }
+    //    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    //        guard let location = locations.last else { return }
+    //        let newCoordinate = location.coordinate
+    //
+    //        if currentLocation == nil {
+    //            currentLocation = newCoordinate
+    //            moveCameraToCoordinate(newCoordinate)
+    //        }
+    //    }
     
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .authorizedWhenInUse, .authorizedAlways:
+        locationServiceAuthorized = status
+        if locationServiceAuthorized == .authorizedWhenInUse && (mode == .show || mode == .tracking) {
             locationManager.startUpdatingLocation()
-        default:
-            // 위치 서비스 권한 처리
-            break
+            locationManager.startUpdatingHeading()
         }
     }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        currentPosition.longitude = locations[0].coordinate.longitude
+        currentPosition.latitude = locations[0].coordinate.latitude
+        guard let location = locations.last else { return }
+        let newCoordinate = location.coordinate
+        if currentLocation == nil {
+            currentLocation = newCoordinate
+            moveCameraToCoordinate(newCoordinate)
+        }
+        //        let mapView: KakaoMap? = mapController?.getView("mapview") as? KakaoMap
+        //        let manager = mapView?.getMapMovablePoiManager()
+        //        let poi = manager?.getMovablePoi("me")
+        //        poi?.updatePosition(_currentPosition)
+        //        manager?.animateMovablePois(pois: [poi!], duration: 1000)
+        
+        //        NSLog("CurrentLocation: %f, %f", locations[0].coordinate.longitude, locations[0].coordinate.latitude)
+    }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        currentHeading = newHeading.trueHeading * Double.pi / 180.0
+    }
+}
+// MARK: - 지도 관련 함수
+extension FindRoadViewController {
+    
+    /// 선택한 좌표로 카메라 옮기기
     private func moveCameraToCoordinate(_ coordinate: CLLocationCoordinate2D) {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
         mapView.animateCamera(cameraUpdate: CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude,
-                                                                               latitude: coordinate.latitude),
-                                                              zoomLevel: 10,
-                                                              rotation: 1.7,
-                                                              tilt: 0.0,
-                                                              mapView: mapView), options: .init())
+                                                                               latitude: coordinate.latitude), mapView: mapView), options: CameraAnimationOptions(autoElevation: false, consecutive: true, durationInMillis: 1000))
+        
     }
 }
+extension FindRoadViewController: GuiEventDelegate {
+    func guiDidTapped(_ gui: KakaoMapsSDK.GuiBase, componentName: String) {
+        //        let mapView = mapController?.getView("mapview") as! KakaoMap
+        let button = gui.getChild(componentName) as? GuiButton
+        switch mode {
+        case .hidden:
+            mode = .show   // 현위치마커 표시
+            button?.image = UIImage(named: "track_location_btn_pressed.png")
+            timer = Timer.init(timeInterval: 0.3, target: self, selector: #selector(self.updateCurrentPositionPOI), userInfo: nil, repeats: true)
+            RunLoop.current.add(timer!, forMode: RunLoop.Mode.common)
+            startUpdateLocation()
+            currentPositionPoi?.show()
+            currentDirectionArrowPoi?.show()
+            createAndStartWaveAnimation()
+            moveOnce = true
+            break;
+        case .show:
+            mode = .tracking   // 현위치마커 추적모드
+            button?.image = UIImage(named: "track_location_btn_compass_on.png")
+            let mapView = mapController?.getView("mapview") as? KakaoMap
+            let trackingManager = mapView?.getTrackingManager()
+                            trackingManager?.startTrackingPoi(currentDirectionArrowPoi!)
+                                trackingManager?.isTrackingRoll = true
+            currentDirectionArrowPoi?.hide()
+            currentDirectionPoi?.show()
+            break;
+        case .tracking:
+            mode = .hidden     //현위치마커 숨김
+            button?.image = UIImage(named: "track_location_btn.png")
+            timer?.invalidate()
+            timer = nil
+            stopUpdateLocation()
+            currentPositionPoi?.hide()
+            currentDirectionPoi?.hide()
+            let mapView = mapController?.getView("mapview") as? KakaoMap
+            let trackingManager = mapView?.getTrackingManager()
+            trackingManager?.stopTracking()
+        }
+        gui.updateGui()
+    }
+    @objc func updateCurrentPositionPOI() {
+        currentPositionPoi?.moveAt(MapPoint(longitude: currentPosition.longitude, latitude: currentPosition.latitude), duration: 150)
+        currentDirectionArrowPoi?.rotateAt(currentHeading, duration: 150)
+        
+        if moveOnce {
+            let mapView: KakaoMap = ((mapController?.getView("mapview") as? KakaoMap)!)
+            mapView.moveCamera(CameraUpdate.make(target: MapPoint(longitude: currentPosition.longitude, latitude: currentPosition.latitude), mapView: mapView))
+            moveOnce = false
+        }
+        //        let mapView: KakaoMap? = mapController?.getView("mapview") as? KakaoMap
+        //        let manager = mapView?.getShapeManager()
+        //        let layer = manager?.getShapeLayer("shapeLayer")
+        //        let shape = layer?.getShape("waveShape")
+    }
+    
+    func startUpdateLocation() {
+        if locationServiceAuthorized != .authorizedWhenInUse {
+            locationManager.requestWhenInUseAuthorization()
+        }
+        else {
+            locationManager.startUpdatingLocation()
+            locationManager.startUpdatingHeading()
+        }
+    }
+    
+    func stopUpdateLocation() {
+        locationManager.stopUpdatingHeading()
+        locationManager.stopUpdatingLocation()
+    }
+}
+
