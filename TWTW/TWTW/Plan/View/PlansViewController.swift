@@ -37,11 +37,13 @@ final class PlansViewController: UIViewController {
             members: [
                 Friend(
                     memberId: "37f64bef-b266-4787-8b53-599b2e0cea3c",
-                    nickname: "친구1"
+                    nickname: "친구1",
+                    participantsImage: ""
                 ),
                 Friend(
                     memberId: "2f6f96bf-4e17-41d7-8e17-15e17d41d7b0",
-                    nickname: "친구2"
+                    nickname: "친구2",
+                    participantsImage: ""
                 )
             ]
         ),
@@ -64,11 +66,13 @@ final class PlansViewController: UIViewController {
             members: [
                 Friend(
                     memberId: "37f64bef-b266-4787-8b53-599b2e0cea3c",
-                    nickname: "친구1"
+                    nickname: "친구1",
+                    participantsImage: ""
                 ),
                 Friend(
                     memberId: "2f6f96bf-4e17-41d7-8e17-15e17d41d7b0",
-                    nickname: "친구2"
+                    nickname: "친구2",
+                    participantsImage: ""
                 )
             ]
         ),
@@ -91,11 +95,13 @@ final class PlansViewController: UIViewController {
             members: [
                 Friend(
                     memberId: "47f64bef-b266-4787-8b53-599b2e0cea3c",
-                    nickname: "친구11"
+                    nickname: "친구11",
+                    participantsImage: ""
                 ),
                 Friend(
                     memberId: "3f6f96bf-4e17-41d7-8e17-15e17d41d7b0",
-                    nickname: "친구12"
+                    nickname: "친구12",
+                    participantsImage: ""
                 )
             ]
         )

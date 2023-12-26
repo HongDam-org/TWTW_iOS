@@ -7,12 +7,6 @@
 
 import UIKit
 
-struct Participant {
-    let participantsimage: UIImage?
-    let name: String
-    let callImage: UIImage?
-    let locationImage: UIImage?
-}
 struct PlanResponse: Codable {
     let planId: String
     let placeId: String

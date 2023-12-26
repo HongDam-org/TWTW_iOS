@@ -12,7 +12,13 @@ import UIKit
 final class ParticipantsTableViewCell: UITableViewCell {
     lazy var disposeBag = DisposeBag()
     let participantImageView = UIImageView()
-    let nameLabel = UILabel()
+    
+    private lazy var nameLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.backgroundColor = .clear
+        return label
+    }()
     
     private lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView()
@@ -21,13 +27,17 @@ final class ParticipantsTableViewCell: UITableViewCell {
         stackView.spacing = 10
         return stackView
     }()
+    
     private lazy var callButton: UIButton = {
         let btn = UIButton()
+        btn.setImage(UIImage(systemName: "phone"), for: .normal)
         btn.tintColor = .black
         return btn
     }()
+    
     private lazy var locationButton: UIButton = {
         let btn = UIButton()
+        btn.setImage(UIImage(systemName: "map"), for: .normal)
         btn.tintColor = .black
         return btn
     }()
@@ -73,8 +83,8 @@ final class ParticipantsTableViewCell: UITableViewCell {
             make.leading.equalToSuperview().inset(10)
             make.top.bottom.equalToSuperview().inset(10)
             make.width.equalTo(participantImageView.snp.height)
-            
         }
+        
         nameLabel.snp.makeConstraints { make in
             make.leading.equalTo(participantImageView.snp.trailing).offset(10)
             make.centerY.equalToSuperview()
@@ -85,22 +95,11 @@ final class ParticipantsTableViewCell: UITableViewCell {
             make.top.bottom.equalToSuperview().inset(10)
             make.width.equalTo(buttonStackView.snp.height).multipliedBy(2)
         }
-        callButton.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.width.equalTo(callButton.snp.height)
-        }
-        
-        locationButton.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.width.equalTo(callButton.snp.height)
-        }
     }
     
     /// configure
-    func configure(participant: Participant) {
-            self.participantImageView.image = participant.participantsimage
-            self.nameLabel.text = participant.name
-            self.callButton.setImage(participant.callImage, for: .normal)
-            self.locationButton.setImage(participant.locationImage, for: .normal)
-        }
+    func configure(participant: Friend) {
+//        participantImageView.image = participant.participantsimage
+        nameLabel.text = participant.nickname
+    }
 }

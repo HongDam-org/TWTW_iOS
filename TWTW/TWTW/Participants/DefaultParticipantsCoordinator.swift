@@ -11,6 +11,7 @@ import UIKit
 final class DefaultsParticipantsCoordinator: ParticipantsCoordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
+    var output: ParticipantsViewModel.Output?
     
     // MARK: - Init
     init(navigationController: UINavigationController) {
@@ -29,4 +30,21 @@ final class DefaultsParticipantsCoordinator: ParticipantsCoordinator {
         changeLocationCoordinator.start()
         childCoordinators.append(changeLocationCoordinator)
     }
+    
+    /// Add New Friends In Group
+    func moveAddNewFriends(output: ParticipantsViewModel.Output) {
+        let defaultFriendSearchCoordinator = DefaultFriendSearchCoordinator(navigationController: navigationController)
+        defaultFriendSearchCoordinator.start()
+        defaultFriendSearchCoordinator.delegate = self
+        self.output = output
+        childCoordinators.append(defaultFriendSearchCoordinator)
+    }
+}
+
+extension DefaultsParticipantsCoordinator: FriendSearchDelegate {
+    func sendData(selectedList: [Friend]) {
+        output?.participantsRelay.accept(selectedList)
+        navigationController.popViewController(animated: true)
+    }
+    
 }
