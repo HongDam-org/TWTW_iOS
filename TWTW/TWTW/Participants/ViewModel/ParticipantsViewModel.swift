@@ -23,6 +23,7 @@ final class ParticipantsViewModel {
     
     struct Output {
         var participantsRelay: BehaviorRelay<[Friend]> = BehaviorRelay(value: [])
+        var myLocationRelay: BehaviorRelay<SearchPlace?> = BehaviorRelay(value: nil)
     }
     
     // MARK: - Init
@@ -46,6 +47,8 @@ final class ParticipantsViewModel {
             }
             .disposed(by: disposeBag)
         
+       
+        changeMyLocation(output: output)
         dummyData(output: output)
         return output
     }
@@ -70,5 +73,18 @@ final class ParticipantsViewModel {
                      Friend(memberId: "1", nickname: "aa", participantsImage: "")]
         
         output.participantsRelay.accept(list)
+    }
+    
+    // MARK: - API CONNECT
+    
+    /// 내위치 변경하기
+    private func changeMyLocation(output: Output) {
+        output.myLocationRelay
+            .bind { [weak self] searchPlace in
+                guard let self = self, let searchPlace = searchPlace else { return }
+                /// TODO
+                ///  내위치 변경 API 연결
+            }
+            .disposed(by: disposeBag)
     }
 }

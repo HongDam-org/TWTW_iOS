@@ -62,6 +62,8 @@ final class MainMapViewModel {
         var destinationPathRelay: BehaviorRelay<[[Double]]> = BehaviorRelay(value: [[]])
         
         var moveSearchCoordinator: PublishSubject<Bool> = PublishSubject()
+        
+        var finishSearchCoordinator: BehaviorSubject<Bool> = BehaviorSubject(value: false)
     }
 
     // MARK: - init

@@ -88,7 +88,6 @@ final class MainMapViewController: KakaoMapViewController {
         super.viewDidLoad()
         bind()
         setupUI()
-        setNotificationFromSearchPlace()
     }
     
     /// 지도 그리기
@@ -106,24 +105,27 @@ final class MainMapViewController: KakaoMapViewController {
     }
     
     // MARK: - Set Up
-    private func setNotificationFromSearchPlace() {
-        NotificationCenter.default.addObserver(forName: .didFinishSearchPlaces, object: nil, queue: nil) { [weak self] _ in
-            guard let self = self else { return }
-            updateViewStateAndMoveCamera()
-          
-            
-        }
-    }
-        private func updateViewStateAndMoveCamera() {
-            // 키체인에서 위치 정보
-            if let latitude = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.latitude.rawValue),
-               let longitude = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.longitude.rawValue) {
-                let coordinate = CLLocationCoordinate2D(latitude: Double(latitude) ?? 0, longitude: Double(longitude) ?? 0)
-                moveCameraToCoordinate(coordinate)
-                updateViewState(from: .searchMap)
-                addSearchPlaceBottomSheet()
+    private func setNotificationFromSearchPlace(output: MainMapViewModel.Output) {
+        output.finishSearchCoordinator
+            .bind { [weak self] check in
+                if check {
+                    self?.updateViewStateAndMoveCamera()
+                }
             }
-
+            .disposed(by: disposeBag)
+        
+    }
+    
+    private func updateViewStateAndMoveCamera() {
+        // 키체인에서 위치 정보
+        if let latitude = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.latitude.rawValue),
+           let longitude = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.longitude.rawValue) {
+            let coordinate = CLLocationCoordinate2D(latitude: Double(latitude) ?? 0, longitude: Double(longitude) ?? 0)
+            moveCameraToCoordinate(coordinate)
+            updateViewState(from: .searchMap)
+            addSearchPlaceBottomSheet()
+        }
+        
     }
 
     deinit {
@@ -209,6 +211,7 @@ final class MainMapViewController: KakaoMapViewController {
                                            surroundSelectedTouchEvnets: nearbyPlacesCollectionView.rx.itemSelected.asObservable())
         let output = viewModel.bind(input: input)
         self.output = output
+        setNotificationFromSearchPlace(output: output)
     }
     
     private func updateViewState(from newViewState: ViewState) {

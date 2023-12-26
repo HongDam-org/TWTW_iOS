@@ -77,6 +77,7 @@ final class ParticipantsViewController: UIViewController {
                 cellType: ParticipantsTableViewCell.self)) { (_, participant, cell) in
                     cell.configure(participant: participant)
                     cell.backgroundColor = .clear
+                    cell.selectionStyle = .none
                     /// 전화 버튼 탭 이벤트 구독
                     cell.callBtnTapObservable
                         .subscribe(onNext: {

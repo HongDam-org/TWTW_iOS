@@ -39,6 +39,7 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
         _ = KeychainWrapper.saveItem(value: "\(output.myLocatiaonRelay.value.latitude)", forKey: "latitude")
         _ = KeychainWrapper.saveItem(value: "\(output.myLocatiaonRelay.value.longitude)", forKey: "longitude")
         searchPlacesMapCoordinator.start()
+        searchPlacesMapCoordinator.delegate = self
         childCoordinators.append(searchPlacesMapCoordinator)
     }
     ///  친구 목록 화면으로 이동
@@ -75,4 +76,10 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
         navigationController.setViewControllers([mainMapViewController], animated: true)
     }
 
+}
+
+extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate {
+    func didSelectPlace(searchPlace: SearchPlace?) {
+        mainMapViewModelOutput?.finishSearchCoordinator.onNext(true)
+    }
 }

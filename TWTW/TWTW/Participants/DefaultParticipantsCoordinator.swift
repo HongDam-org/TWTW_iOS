@@ -26,9 +26,10 @@ final class DefaultsParticipantsCoordinator: ParticipantsCoordinator {
     
     /// 선택한 사람 장소 바꾸기
     func moveToChangeLocation() {
-        let changeLocationCoordinator = DefaultChangeLocationCoordinator(navigationController: navigationController)
-        changeLocationCoordinator.start()
-        childCoordinators.append(changeLocationCoordinator)
+        let defaultSearchPlacesMapCoordinator = DefaultSearchPlacesMapCoordinator(navigationController: navigationController)
+        defaultSearchPlacesMapCoordinator.moveByGroupMemberList()
+        defaultSearchPlacesMapCoordinator.delegate = self
+        childCoordinators.append(defaultSearchPlacesMapCoordinator)
     }
     
     /// Add New Friends In Group
@@ -47,4 +48,11 @@ extension DefaultsParticipantsCoordinator: FriendSearchDelegate {
         navigationController.popViewController(animated: true)
     }
     
+}
+
+extension DefaultsParticipantsCoordinator: SearchPlacesMapCoordDelegate {
+    func didSelectPlace(searchPlace: SearchPlace?) {
+        guard let searchPlace = searchPlace else { return }
+        output?.myLocationRelay.accept(searchPlace)
+    }
 }
