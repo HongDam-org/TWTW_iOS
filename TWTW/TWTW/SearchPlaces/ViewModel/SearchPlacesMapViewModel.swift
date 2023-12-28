@@ -112,18 +112,9 @@ final class SearchPlacesMapViewModel {
                     if let latitude = selectedPlace.latitude {
                         _ = KeychainWrapper.saveItem(value: "\(latitude)", forKey: SearchPlaceKeyChain.latitude.rawValue)
                     }
-                    self.coordinator?.finishSearchPlaces()
+                    coordinator?.finishSearchPlaces(searchPlace: nil)
                 case .groupMemberList:
-                    // 경도 저장
-                    if let longitude = selectedPlace.longitude {
-                        _ = KeychainWrapper.saveItem(value: "\(longitude)", forKey: SearchPlaceKeyChain.longitude.rawValue)
-                    }
-                    
-                    // 위도 저장
-                    if let latitude = selectedPlace.latitude {
-                        _ = KeychainWrapper.saveItem(value: "\(latitude)", forKey: SearchPlaceKeyChain.latitude.rawValue)
-                    }
-                    self.coordinator?.finishSearchPlaces()
+                    coordinator?.finishSearchPlaces(searchPlace: selectedPlace)
                 }
             })
             .disposed(by: disposeBag)

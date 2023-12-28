@@ -75,9 +75,9 @@ final class ParticipantsService: ParticipantsProtocol {
         print(#function, url)
         
         let body: Parameters = [
-              "groupId" : groupId,
-              "longitude" : longitude,
-              "latitude" : latitude
+              "groupId": groupId,
+              "longitude": longitude,
+              "latitude": latitude
         ]
         return Observable.create { observer in
             AF.request(url,
@@ -87,7 +87,7 @@ final class ParticipantsService: ParticipantsProtocol {
                        headers: header)
             .response { response in
                 switch response.result {
-                case .success(_):
+                case .success((_)):
                     observer.onNext(())
                 case .failure(let error):
                     observer.onError(error)
