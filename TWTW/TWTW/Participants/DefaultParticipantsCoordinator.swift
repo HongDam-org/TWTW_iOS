@@ -19,7 +19,7 @@ final class DefaultsParticipantsCoordinator: ParticipantsCoordinator {
     }
     
     func start() {
-        let participantsViewModel = ParticipantsViewModel(coordinator: self)
+        let participantsViewModel = ParticipantsViewModel(coordinator: self, service: ParticipantsService())
         let participantsVC = ParticipantsViewController(viewModel: participantsViewModel)
         navigationController.pushViewController(participantsVC, animated: false)
     }

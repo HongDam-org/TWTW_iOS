@@ -14,7 +14,7 @@ import UIKit
 final class ParticipantsViewModel {
     private let disposeBag = DisposeBag()
     weak var coordinator: DefaultsParticipantsCoordinator?
-    
+    private let service: ParticipantsProtocol
     /// Input
     struct Input {
         let changeLocationButtonTapped: ControlEvent<IndexPath>?
@@ -27,8 +27,9 @@ final class ParticipantsViewModel {
     }
     
     // MARK: - Init
-    init(coordinator: DefaultsParticipantsCoordinator) {
+    init(coordinator: DefaultsParticipantsCoordinator, service: ParticipantsProtocol) {
         self.coordinator = coordinator
+        self.service = service
     }
     
     /// bind
@@ -81,9 +82,14 @@ final class ParticipantsViewModel {
     private func changeMyLocation(output: Output) {
         output.myLocationRelay
             .bind { [weak self] searchPlace in
-                guard let self = self, let searchPlace = searchPlace else { return }
-                /// TODO
-                ///  내위치 변경 API 연결
+                guard let self = self, let latitude = searchPlace?.latitude, let longitude = searchPlace?.longitude else { return }
+                
+                // 내위치 변경 API
+                service.changeMyLocation(latitude: latitude, longitude: longitude)
+                    .subscribe(onError: { error in
+                        print(#function, error)
+                    })
+                    .disposed(by: disposeBag)
             }
             .disposed(by: disposeBag)
     }

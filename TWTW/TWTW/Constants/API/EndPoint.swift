@@ -29,6 +29,7 @@ enum GroupPath: String {
     case invite = "/group/invite"
     case join = "/group/join"
     case lookUpGroup = "/group/GROUPID" // 그룹 단건조회
+    case changeMyLocation = "/group/location"
 }
 
 enum FriendPath: String {

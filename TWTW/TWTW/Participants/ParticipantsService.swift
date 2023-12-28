@@ -37,43 +37,78 @@ final class ParticipantsService: ParticipantsProtocol {
             return Disposables.create()
         }
     }
-        /// plan 내 사람
-        /// - Parameter word: planID
-        /// - Returns: plan내 Friends
-        func getParticipants(request: String) -> RxSwift.Observable<[Friend]> {
-            let planID = "plan 셀로 들어올때 ID KeyChain에 저장"
-            
-            let header = Header.header.getHeader()
-            
-            return Observable.create { observer in
-                let url = Domain.RESTAPI + ParticipantsPath.all.rawValue
-                    .replacingOccurrences(of: "PLANID", with: planID)
-                AF.request(url,
-                           method: .get,
-                           headers: header)
-                .responseDecodable(of: Plan.self) { response in
-                    switch response.result {
-                    case .success(let data):
-                        observer.onNext(data.members)  
-                    case .failure(let error):
-                        observer.onError(error)
-                    }
+    /// plan 내 사람
+    /// - Parameter word: planID
+    /// - Returns: plan내 Friends
+    func getParticipants(request: String) -> RxSwift.Observable<[Friend]> {
+        let planID = "plan 셀로 들어올때 ID KeyChain에 저장"
+        
+        let header = Header.header.getHeader()
+        
+        return Observable.create { observer in
+            let url = Domain.RESTAPI + ParticipantsPath.all.rawValue
+                .replacingOccurrences(of: "PLANID", with: planID)
+            AF.request(url,
+                       method: .get,
+                       headers: header)
+            .responseDecodable(of: Plan.self) { response in
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data.members)
+                case .failure(let error):
+                    observer.onError(error)
                 }
-                return Disposables.create()
             }
+            return Disposables.create()
         }
+    }
+    
+    /// 내 위치 변경
+    /// - Parameters:
+    ///   - latitude: 위도
+    ///   - longitude: 경도
+    /// - Returns: 성공 여부
+    func changeMyLocation(latitude: Double, longitude: Double) -> Observable<Void> {
+        let url = Domain.RESTAPI + GroupPath.changeMyLocation.rawValue
+        let header = Header.header.getHeader()
+        let groupId = KeychainWrapper.loadItem(forKey: "GroupId") ?? ""
+        print(#function, url)
+        
+        let body: Parameters = [
+              "groupId" : groupId,
+              "longitude" : longitude,
+              "latitude" : latitude
+        ]
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .post,
+                       parameters: body,
+                       encoding: JSONEncoding.default,
+                       headers: header)
+            .response { response in
+                switch response.result {
+                case .success(_):
+                    observer.onNext(())
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
     
     // MARK: - 아직 서버 미구현 부분
     /// Description:  group이지만 참여하지 않은 친구 조회
     /// - Parameter word: <#word description#>
     /// - Returns: <#description#>
-//    func getNotYetParticipants(request word: String) -> RxSwift.Observable<[Friend]> {
-//        
-//    }
-//    
-//    /// Description:  group이지만 참여하지 않은 친구 초대요청
-//    /// - Parameter memberId: <#memberId description#>
-//    /// - Returns: <#description#>
-//    func requestNotYetParticipants(request memberId: String) -> RxSwift.Observable<Void> {
-//    }
+    //    func getNotYetParticipants(request word: String) -> RxSwift.Observable<[Friend]> {
+    //
+    //    }
+    //
+    //    /// Description:  group이지만 참여하지 않은 친구 초대요청
+    //    /// - Parameter memberId: <#memberId description#>
+    //    /// - Returns: <#description#>
+    //    func requestNotYetParticipants(request memberId: String) -> RxSwift.Observable<Void> {
+    //    }
 }
