@@ -22,6 +22,7 @@ enum LoginPath: String {
 
 enum RoutePath: String {
     case car = "/paths/search/car"
+    case ped = "/paths/search/ped"
 }
 
 enum GroupPath: String {
@@ -46,5 +47,5 @@ enum ParticipantsPath: String {
 
 enum PlanPath: String {
     case all = "/plans/PLANID" // Plan 단건 조회
-    case save = "/plans" //plan 저장
+    case save = "/plans" // plan 저장
 }

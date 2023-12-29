@@ -71,7 +71,7 @@ final class FindRoadViewController: KakaoMapViewController {
         return button
     }()
     
-    private lazy var walkRouteButton: UIButton = {
+    private lazy var pedRouteButton: UIButton = {
         let button = UIButton()
         button.setTitle("인도", for: .normal)
         button.backgroundColor = .green
@@ -110,20 +110,6 @@ final class FindRoadViewController: KakaoMapViewController {
         setupUI()
         setupLocationManager()
         bind()
-//        carRouteButton.rx.tap
-//            .subscribe(onNext: { [weak self] _ in
-//                print("차 길 보기")
-//               // self?.drawCarRoute(pathList: <#[[Double]]#>)
-//                
-//            })
-//            .disposed(by: disposeBag)
-        walkRouteButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                print("인도 길 보기")
-                self?.drawWalkRoute()
-            })
-            .disposed(by: disposeBag)
-        
     }
     /// binding
     private func bind() {
@@ -132,8 +118,9 @@ final class FindRoadViewController: KakaoMapViewController {
             .map { _ in }
             .asObservable()
         let carRouteButtonTap = carRouteButton.rx.tap.asObservable()
-        
-        let input = FindRoadViewModel.Input(myLocationTap: myLocationLabelTap, carRouteButtonTap: carRouteButtonTap)
+        let pedRouteButtonTap = pedRouteButton.rx.tap.asObservable()
+
+        let input = FindRoadViewModel.Input(myLocationTap: myLocationLabelTap, carRouteButtonTap: carRouteButtonTap, pedRouteButtonTap: pedRouteButtonTap)
         
         let output = viewModel.bind(input: input)
         self.output = output
@@ -141,12 +128,10 @@ final class FindRoadViewController: KakaoMapViewController {
         myLocationLabel.isUserInteractionEnabled = true
         viewModel.bind(input: input)
  
-
            // carRouteButtonTap 이벤트에 대한 구독
         carRouteButtonTap
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                print("aa")
                 let pathList = output.destinationCarPathRelay.value
                 // 경로 리스트가 비어있지 않은지 확인
                 if !pathList.isEmpty && !pathList.contains(where: { $0.isEmpty }) {
@@ -154,6 +139,15 @@ final class FindRoadViewController: KakaoMapViewController {
                 }
             })
             .disposed(by: disposeBag)
+        
+        pedRouteButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                print("인도 길 보기")
+                let features = output.destinationPedPathRelay.value
+                self?.drawPedRoute(features: features)
+            })
+            .disposed(by: disposeBag)
+
     }
     
     override func addViews() {
@@ -169,9 +163,6 @@ final class FindRoadViewController: KakaoMapViewController {
             createSpriteGUI()
             createWaveShape()
             
-            if let output = output {
-              //  bindDestinationPathRelay(output: output)
-            }
         }
     }
     
@@ -183,7 +174,7 @@ final class FindRoadViewController: KakaoMapViewController {
         infoView.addSubview(myLocationLabel)
         infoView.addSubview(destinationLabel)
         infoView.addSubview(carRouteButton)
-        infoView.addSubview(walkRouteButton)
+        infoView.addSubview(pedRouteButton)
         
         infoView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(0)
@@ -206,7 +197,7 @@ final class FindRoadViewController: KakaoMapViewController {
             make.height.equalTo(30)
         }
         
-        walkRouteButton.snp.makeConstraints { make in
+        pedRouteButton.snp.makeConstraints { make in
             make.top.equalTo(destinationLabel.snp.bottom).offset(20)
             make.trailing.equalTo(infoView.snp.trailing).offset(-10)
             make.height.equalTo(30)
@@ -428,35 +419,15 @@ extension FindRoadViewController {
         }
         removeRouteLayer(layerID: "CarRouteLayer")
         removeRouteLayer(layerID: "WalkRouteLayer")
-//        
-//        guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
-//        let manager = mapView.getRouteManager()
-//        
-//        let layer = manager.addRouteLayer(layerID: "CarRouteLayer", zOrder: 0)
-//        
-//        createRouteStyleSet()
-//        var segments: [RouteSegment] = []
-//        for path in pathList {
-//            var points: [MapPoint] = []
-//            // 각 경로에 대해 경도와 위도가 번갈아 나오는 것을 가정
-//            for index in stride(from: 0, to: path.count, by: 2) {
-//                let longitude = path[index]
-//                let latitude = path[index + 1]
-//                let point = MapPoint(longitude: longitude, latitude: latitude)
-//                points.append(point)
-//            }
-//            let segment = RouteSegment(points: points, styleIndex: 0)
-//            segments.append(segment)
-//        }
-//
-//           let options = RouteOptions(routeID: "CarRouteLayer", styleID: "routeStyleSet1", zOrder: 0)
-//           options.segments = segments
-//           let route = layer?.addRoute(option: options)
-//           route?.show()
+
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
         let manager = mapView.getRouteManager()
-        let layer = manager.addRouteLayer(layerID: "RouteLayer", zOrder: 0)
         
+        /// RouteLayer 생성
+        let layer = manager.addRouteLayer(layerID: "CarRouteLayer", zOrder: 0)
+        
+        // RouteStyleSet 생성
+        createRouteStyleSet()
         let segmentPoints = routeSegmentPoints(pathList: pathList)
         
         var segments: [RouteSegment] = [RouteSegment]()
@@ -477,35 +448,38 @@ extension FindRoadViewController {
         mapView.moveCamera(CameraUpdate.make(target: pnt, zoomLevel: 15, mapView: mapView))
     }
     
-    /// MARK: 보도 경로 그리기
-    private func drawWalkRoute() {
+    /// 보도 경로 그리기
+    private func drawPedRoute(features: [Feature]) {
         removeRouteLayer(layerID: "CarRouteLayer")
         removeRouteLayer(layerID: "WalkRouteLayer")
-        
+
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
         let manager = mapView.getRouteManager()
-        
-        // 1 RouteLayer 생성
+
+        /// RouteLayer 생성
         let layer = manager.addRouteLayer(layerID: "WalkRouteLayer", zOrder: 0)
-        
-        // 2 RouteStyleSet 생성
+
+        // RouteStyleSet 생성
         createRouteStyleSet()
-        
-        // 3 RouteSegment 생성
-        guard let currentLocation = currentLocation else {
-            print("현재 위치 정보가 없습니다.")
-            return
+
+        // RouteSegment 생성 및 추가
+        var segments: [RouteSegment] = []
+        for feature in features {
+            if feature.geometry.type == "LineString" {
+                let points = feature.geometry.coordinates.map { MapPoint(longitude: $0[0], latitude: $0[1]) }
+                let segment = RouteSegment(points: points, styleIndex: 0)
+                segments.append(segment)
+            }
         }
-        let startMapPoint = MapPoint(longitude: currentLocation.longitude, latitude: currentLocation.latitude)
-        let endMapPoint = MapPoint(longitude: destinationCoordinate.longitude, latitude: destinationCoordinate.latitude)
-        let segment = RouteSegment(points: [startMapPoint, endMapPoint], styleIndex: 0)
-        
-        // 4 Route 추가
-        let options = RouteOptions(routeID: "walkRoute", styleID: "routeStyleSet1", zOrder: 0)
-        options.segments = [segment]
+
+        // Route 추가
+        let options = RouteOptions(routeID: "WalkRouteLayer", styleID: "routeStyleSet1", zOrder: 0)
+        options.segments = segments
         let route = layer?.addRoute(option: options)
         route?.show()
     }
+
+    /// 위도 경도로 point
     func routeSegmentPoints(pathList: [[Double]]) -> [[MapPoint]] {
         var segments = [[MapPoint]]()
         
@@ -555,16 +529,6 @@ extension FindRoadViewController {
 }
 // MARK: - CLLocationManagerDelegate
 extension FindRoadViewController: CLLocationManagerDelegate {
-    //    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    //        guard let location = locations.last else { return }
-    //        let newCoordinate = location.coordinate
-    //
-    //        if currentLocation == nil {
-    //            currentLocation = newCoordinate
-    //            moveCameraToCoordinate(newCoordinate)
-    //        }
-    //    }
-    
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         locationServiceAuthorized = status
@@ -583,13 +547,6 @@ extension FindRoadViewController: CLLocationManagerDelegate {
             currentLocation = newCoordinate
             moveCameraToCoordinate(newCoordinate)
         }
-        //        let mapView: KakaoMap? = mapController?.getView("mapview") as? KakaoMap
-        //        let manager = mapView?.getMapMovablePoiManager()
-        //        let poi = manager?.getMovablePoi("me")
-        //        poi?.updatePosition(_currentPosition)
-        //        manager?.animateMovablePois(pois: [poi!], duration: 1000)
-        
-        //        NSLog("CurrentLocation: %f, %f", locations[0].coordinate.longitude, locations[0].coordinate.latitude)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
@@ -622,7 +579,7 @@ extension FindRoadViewController: GuiEventDelegate {
             currentDirectionArrowPoi?.show()
             createAndStartWaveAnimation()
             moveOnce = true
-            break;
+
         case .show:
             mode = .tracking   // 현위치마커 추적모드
             button?.image = UIImage(named: "track_location_btn_compass_on.png")
@@ -632,7 +589,7 @@ extension FindRoadViewController: GuiEventDelegate {
                                 trackingManager?.isTrackingRoll = true
             currentDirectionArrowPoi?.hide()
             currentDirectionPoi?.show()
-            break;
+
         case .tracking:
             mode = .hidden     //현위치마커 숨김
             button?.image = UIImage(named: "track_location_btn.png")
@@ -656,17 +613,12 @@ extension FindRoadViewController: GuiEventDelegate {
             mapView.moveCamera(CameraUpdate.make(target: MapPoint(longitude: currentPosition.longitude, latitude: currentPosition.latitude), mapView: mapView))
             moveOnce = false
         }
-        //        let mapView: KakaoMap? = mapController?.getView("mapview") as? KakaoMap
-        //        let manager = mapView?.getShapeManager()
-        //        let layer = manager?.getShapeLayer("shapeLayer")
-        //        let shape = layer?.getShape("waveShape")
     }
     
     func startUpdateLocation() {
         if locationServiceAuthorized != .authorizedWhenInUse {
             locationManager.requestWhenInUseAuthorization()
-        }
-        else {
+        } else {
             locationManager.startUpdatingLocation()
             locationManager.startUpdatingHeading()
         }
@@ -677,4 +629,3 @@ extension FindRoadViewController: GuiEventDelegate {
         locationManager.stopUpdatingLocation()
     }
 }
-

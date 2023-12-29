@@ -26,6 +26,7 @@
 		371ECB8B2B2EFE09005174FF /* FriendsListCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371ECB8A2B2EFE09005174FF /* FriendsListCoordinatorDelegate.swift */; };
 		372109F82B0CE74B00B0946C /* SearchPlaceMapViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372109F72B0CE74B00B0946C /* SearchPlaceMapViewModelUnitTests.swift */; };
 		372109FC2B0CE7DD00B0946C /* MockSearchPlacesMapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372109FB2B0CE7DD00B0946C /* MockSearchPlacesMapService.swift */; };
+		373484C32B3ECCC200C30380 /* PedRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373484C22B3ECCC200C30380 /* PedRoute.swift */; };
 		3737AE8C2AE93EE600FE7453 /* DefaultSearchPlacesMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3737AE862AE93EE600FE7453 /* DefaultSearchPlacesMapCoordinator.swift */; };
 		3737AE8D2AE93EE600FE7453 /* SearchPlacesMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3737AE872AE93EE600FE7453 /* SearchPlacesMapViewModel.swift */; };
 		3737AE8E2AE93EE600FE7453 /* SearchPlacesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3737AE882AE93EE600FE7453 /* SearchPlacesTableViewCell.swift */; };
@@ -340,6 +341,7 @@
 		371ECB8A2B2EFE09005174FF /* FriendsListCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		372109F72B0CE74B00B0946C /* SearchPlaceMapViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceMapViewModelUnitTests.swift; sourceTree = "<group>"; };
 		372109FB2B0CE7DD00B0946C /* MockSearchPlacesMapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchPlacesMapService.swift; sourceTree = "<group>"; };
+		373484C22B3ECCC200C30380 /* PedRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PedRoute.swift; sourceTree = "<group>"; };
 		3737AE862AE93EE600FE7453 /* DefaultSearchPlacesMapCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultSearchPlacesMapCoordinator.swift; sourceTree = "<group>"; };
 		3737AE872AE93EE600FE7453 /* SearchPlacesMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPlacesMapViewModel.swift; sourceTree = "<group>"; };
 		3737AE882AE93EE600FE7453 /* SearchPlacesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPlacesTableViewCell.swift; sourceTree = "<group>"; };
@@ -655,10 +657,11 @@
 		3701086B2B34309600F08128 /* RoadView */ = {
 			isa = PBXGroup;
 			children = (
+				373484C42B3ECCD200C30380 /* Model */,
+				370108722B34419B00F08128 /* RoadViewModel.swift */,
 				3701086C2B3430B700F08128 /* RoadViewController.swift */,
 				3701086E2B34414E00F08128 /* RoadViewCoordinator.swift */,
 				370108702B34415500F08128 /* DefaultsRoadViewCoordinator.swift */,
-				370108722B34419B00F08128 /* RoadViewModel.swift */,
 			);
 			path = RoadView;
 			sourceTree = "<group>";
@@ -688,6 +691,15 @@
 				37D3AFE22B0F3E67006FB449 /* MockSearchPlacesMapCoordinator.swift */,
 			);
 			path = Mock;
+			sourceTree = "<group>";
+		};
+		373484C42B3ECCD200C30380 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				373484C22B3ECCC200C30380 /* PedRoute.swift */,
+				37E8B83D2B31AFA0008D0F3D /* CarRoute.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		374DB45D2B24745B00AF648C /* Tabbar */ = {
@@ -1886,7 +1898,6 @@
 			isa = PBXGroup;
 			children = (
 				37C07E9C2B281C7D00253438 /* ViewState.swift */,
-				37E8B83D2B31AFA0008D0F3D /* CarRoute.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2293,6 +2304,7 @@
 				37BB02F92B230EA8006B2BEB /* ParticipantsViewModel.swift in Sources */,
 				3BB85C092B19D39200F8BBF3 /* FriendSearchCoordinatorProtocol.swift in Sources */,
 				3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */,
+				373484C32B3ECCC200C30380 /* PedRoute.swift in Sources */,
 				3788AEB82B18DCF4007FC2F6 /* PlanCoordinator.swift in Sources */,
 				37EF0CFB2AB85C2400D77B0A /* UIViewController+Ext.swift in Sources */,
 				37E0D8AD2B180804002E0CF5 /* ParticipantsViewController.swift in Sources */,
