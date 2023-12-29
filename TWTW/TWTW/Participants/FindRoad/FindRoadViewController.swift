@@ -80,7 +80,8 @@ final class FindRoadViewController: KakaoMapViewController {
     
     private let viewModel: FindRoadViewModel
     private let disposeBag = DisposeBag()
-    
+    private var output: FindRoadViewModel.Output?
+
     // MARK: - Init
     init(viewModel: FindRoadViewModel) {
         self.viewModel = viewModel
@@ -109,13 +110,13 @@ final class FindRoadViewController: KakaoMapViewController {
         setupUI()
         setupLocationManager()
         bind()
-        carRouteButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                print("차 길 보기")
-                self?.drawCarRoute()
-                
-            })
-            .disposed(by: disposeBag)
+//        carRouteButton.rx.tap
+//            .subscribe(onNext: { [weak self] _ in
+//                print("차 길 보기")
+//               // self?.drawCarRoute(pathList: <#[[Double]]#>)
+//                
+//            })
+//            .disposed(by: disposeBag)
         walkRouteButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 print("인도 길 보기")
@@ -126,16 +127,33 @@ final class FindRoadViewController: KakaoMapViewController {
     }
     /// binding
     private func bind() {
-        myLocationLabel.isUserInteractionEnabled = true
-        
         let myLocationLabelTap = myLocationLabel.rx.tapGesture()
             .when(.recognized)
             .map { _ in }
             .asObservable()
+        let carRouteButtonTap = carRouteButton.rx.tap.asObservable()
         
-        let input = FindRoadViewModel.Input(myLocationTap: myLocationLabelTap)
+        let input = FindRoadViewModel.Input(myLocationTap: myLocationLabelTap, carRouteButtonTap: carRouteButtonTap)
         
+        let output = viewModel.bind(input: input)
+        self.output = output
+        
+        myLocationLabel.isUserInteractionEnabled = true
         viewModel.bind(input: input)
+ 
+
+           // carRouteButtonTap 이벤트에 대한 구독
+        carRouteButtonTap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                print("aa")
+                let pathList = output.destinationCarPathRelay.value
+                // 경로 리스트가 비어있지 않은지 확인
+                if !pathList.isEmpty && !pathList.contains(where: { $0.isEmpty }) {
+                    self.drawCarRoute(pathList: pathList)
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     override func addViews() {
@@ -149,11 +167,11 @@ final class FindRoadViewController: KakaoMapViewController {
             showBasicGUIs()
             
             createSpriteGUI()
-            //            createLabelLayer()
-            //            createPoiStyle()
-            //            createPois()
             createWaveShape()
             
+            if let output = output {
+              //  bindDestinationPathRelay(output: output)
+            }
         }
     }
     
@@ -292,7 +310,6 @@ extension FindRoadViewController {
              trackingManager?.startTrackingPoi(endPoi)
         }
         
-        //
         let myPositionLayer = manager?.getLabelLayer(layerID: "myPositionPoiLayer")
         let myDirectionLayer = manager?.getLabelLayer(layerID: "myDirectionPoiLayer")
         
@@ -404,30 +421,60 @@ extension FindRoadViewController {
         manager.removeRouteLayer(layerID: layerID)
     }
     /// 차 경로 그리기
-    private func drawCarRoute() {
-        removeRouteLayer(layerID: "CarRouteLayer")
-        removeRouteLayer(layerID: "WalkRouteLayer")
-        
-        guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
-        let manager = mapView.getRouteManager()
-        
-        let layer = manager.addRouteLayer(layerID: "CarRouteLayer", zOrder: 0)
-        
-        createRouteStyleSet()
-        
-        guard let currentLocation = currentLocation else {
-            print("현재 위치 정보가 없습니다.")
+    private func drawCarRoute(pathList: [[Double]]) {
+        guard !pathList.isEmpty else {
+            print("경로 데이터가 없습니다.")
             return
         }
+        removeRouteLayer(layerID: "CarRouteLayer")
+        removeRouteLayer(layerID: "WalkRouteLayer")
+//        
+//        guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
+//        let manager = mapView.getRouteManager()
+//        
+//        let layer = manager.addRouteLayer(layerID: "CarRouteLayer", zOrder: 0)
+//        
+//        createRouteStyleSet()
+//        var segments: [RouteSegment] = []
+//        for path in pathList {
+//            var points: [MapPoint] = []
+//            // 각 경로에 대해 경도와 위도가 번갈아 나오는 것을 가정
+//            for index in stride(from: 0, to: path.count, by: 2) {
+//                let longitude = path[index]
+//                let latitude = path[index + 1]
+//                let point = MapPoint(longitude: longitude, latitude: latitude)
+//                points.append(point)
+//            }
+//            let segment = RouteSegment(points: points, styleIndex: 0)
+//            segments.append(segment)
+//        }
+//
+//           let options = RouteOptions(routeID: "CarRouteLayer", styleID: "routeStyleSet1", zOrder: 0)
+//           options.segments = segments
+//           let route = layer?.addRoute(option: options)
+//           route?.show()
+        guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
+        let manager = mapView.getRouteManager()
+        let layer = manager.addRouteLayer(layerID: "RouteLayer", zOrder: 0)
         
-        let startMapPoint = MapPoint(longitude: startCoordinate.longitude, latitude: startCoordinate.latitude)
-        let endMapPoint = MapPoint(longitude: destinationCoordinate.longitude, latitude: destinationCoordinate.latitude)
-        let segment = RouteSegment(points: [startMapPoint, endMapPoint], styleIndex: 0)
+        let segmentPoints = routeSegmentPoints(pathList: pathList)
         
-        let options = RouteOptions(routeID: "CarRoute", styleID: "routeStyleSet1", zOrder: 0)
-        options.segments = [segment]
+        var segments: [RouteSegment] = [RouteSegment]()
+        var styleIndex: UInt = 0
+        for points in segmentPoints {
+            // 경로 포인트로 RouteSegment 생성. 사용할 스타일 인덱스도 지정한다.
+            let seg = RouteSegment(points: points, styleIndex: styleIndex)
+            segments.append(seg)
+            styleIndex = (styleIndex + 1) % 4
+        }
+        
+        let options = RouteOptions(routeID: "CarRouteLayer", styleID: "routeStyleSet1", zOrder: 0)
+        options.segments = segments
         let route = layer?.addRoute(option: options)
         route?.show()
+        
+        let pnt = segments[0].points[0]
+        mapView.moveCamera(CameraUpdate.make(target: pnt, zoomLevel: 15, mapView: mapView))
     }
     
     /// MARK: 보도 경로 그리기
@@ -459,7 +506,19 @@ extension FindRoadViewController {
         let route = layer?.addRoute(option: options)
         route?.show()
     }
-    
+    func routeSegmentPoints(pathList: [[Double]]) -> [[MapPoint]] {
+        var segments = [[MapPoint]]()
+        
+        var points = [MapPoint]()
+        
+        _ = pathList.map { point in
+            points.append(MapPoint(longitude: point[0], latitude: point[1]))
+        }
+        
+        segments.append(points)
+      
+        return segments
+    }
     
     // MARK: - Route Functions
     /// 길찾기 표시

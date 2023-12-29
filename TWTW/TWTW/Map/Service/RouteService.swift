@@ -13,7 +13,7 @@ final class RouteService: RouteProtocol {
     /// 자동차 경로 찾기
     /// - Parameter request: CarRouteRequest Model
     /// - Returns: CarRoute
-    func carRoute(request: CarRouteRequest1) -> Observable<CarRoute1> {
+    func carRoute(request: CarRouteRequest) -> Observable<CarRoute> {
         let url = Domain.RESTAPI + RoutePath.car.rawValue
         let headers = Header.header.getHeader()
         
@@ -23,7 +23,7 @@ final class RouteService: RouteProtocol {
                        parameters: request,
                        encoder: JSONParameterEncoder.default,
                        headers: headers)
-            .responseDecodable(of: CarRoute1.self) { response in
+            .responseDecodable(of: CarRoute.self) { response in
                 switch response.result {
                 case .success(let data):
                     observer.onNext(data)
@@ -36,9 +36,9 @@ final class RouteService: RouteProtocol {
     }
 }
 protocol RouteProtocol {
-    func carRoute(request: CarRouteRequest1) -> Observable<CarRoute1>
+    func carRoute(request: CarRouteRequest) -> Observable<CarRoute>
 }
-struct CarRoute1: Codable {
+struct CarRoute: Codable {
     let code: Int?
     let message, currentDateTime: String?
     let route: Route?

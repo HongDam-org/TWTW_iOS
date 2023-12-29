@@ -16,11 +16,11 @@ final class DefaultsFindRoadCoordinator: FindRoadCoordinator {
     // MARK: - Init
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        findRoadViewModel = FindRoadViewModel(coordinator: self)
+        findRoadViewModel = FindRoadViewModel(coordinator: self, routeService: RouteService())
     }
     
     func start() {
-        let findRoadViewModel = FindRoadViewModel(coordinator: self)
+        guard let findRoadViewModel = findRoadViewModel else { return }
         let findRoadViewController = FindRoadViewController(viewModel: findRoadViewModel)
         navigationController.pushViewController(findRoadViewController, animated: true)
         
