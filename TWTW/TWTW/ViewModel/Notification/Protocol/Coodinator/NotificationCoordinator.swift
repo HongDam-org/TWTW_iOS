@@ -8,5 +8,5 @@
 import UIKit
 
 protocol NotificationCoordinator: Coordinator {
-    func returnViewController() -> UIViewController? 
+    func returnViewController() -> UIViewController?
 }

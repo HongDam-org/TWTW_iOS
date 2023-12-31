@@ -60,6 +60,15 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
     
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        var token: String = ""
+        for index in 0..<deviceToken.count {
+            token += String(format: "%02.2hhx", deviceToken[index] as CVarArg)
+        }
+        print("DevieToken: ", token)
+        _ = KeychainWrapper.saveItem(value: token, forKey: "DeviceToken")
+    }
+    
 }
 
 extension AppDelegate: MessagingDelegate {
