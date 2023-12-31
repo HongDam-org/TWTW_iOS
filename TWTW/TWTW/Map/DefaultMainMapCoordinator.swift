@@ -27,7 +27,7 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     
     func start() {
         guard let mainMapViewModel = mainMapViewModel else { return }
-        
+        navigationController.tabBarController?.tabBar.isHidden = true
         let mainMapViewController = MainMapViewController(viewModel: mainMapViewModel, coordinator: self)
         self.navigationController.pushViewController(mainMapViewController, animated: true)
     }

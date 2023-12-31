@@ -120,9 +120,11 @@ final class SignUpViewModel {
         
         let identifier = KeychainWrapper.loadItem(forKey: SignInSaveKeyChain.identifier.rawValue) ?? ""
         let authType = KeychainWrapper.loadItem(forKey: SignInSaveKeyChain.authType.rawValue) ?? ""
+        let deviceToken = KeychainWrapper.loadItem(forKey: "DeviceToken")
         
         let loginRequest = LoginRequest(nickname: nickName,
                                         profileImage: "!!!!!",
+                                        deviceToken: deviceToken,
                                         oauthRequest: OAuthRequest(token: "\(identifier)",
                                                                    authType: "\(authType)"))
         print(#function)

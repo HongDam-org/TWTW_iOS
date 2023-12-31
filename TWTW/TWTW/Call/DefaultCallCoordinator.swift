@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class DefaultCallCoordinator: CallCoordinator {
+final class DefaultCallCoordinator: CallCoordinator {
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
@@ -17,14 +17,9 @@ class DefaultCallCoordinator: CallCoordinator {
     }
     
     func start() {
-    }
-    
-    /// Create Controller
-    /// - Returns: NavigationController
-    func startPush() -> UINavigationController {
         let callViewController = CallViewController()
         navigationController.pushViewController(callViewController, animated: true)
-        return navigationController
     }
+   
     
 }

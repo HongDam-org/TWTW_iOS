@@ -9,7 +9,5 @@ import Foundation
 import UIKit
 
 protocol CallCoordinator: Coordinator {
-    /// Create Controller
-    /// - Returns: NavigationController
-    func startPush() -> UINavigationController
+
 }

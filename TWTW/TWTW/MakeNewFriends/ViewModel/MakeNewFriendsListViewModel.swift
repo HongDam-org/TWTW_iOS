@@ -98,26 +98,11 @@ final class MakeNewFriendsListViewModel {
     /// - Parameter output: output
     private func searchMakeNewFriends(searchText: String) -> Observable<[Friend]> {
         
-        //        // Real API Call
-        //        if searchText.isEmpty {
-        //            return Observable.just([])
-        //        }
-        //        return friendService.searchingFriends(word: searchText)
-        //            .catchAndReturn([])
-        
-        let list = [Friend(memberId: "aasd1", nickname: "1", participantsImage: ""),
-                    Friend(memberId: "aasd2", nickname: "2", participantsImage: ""),
-                    Friend(memberId: "aasd3", nickname: "3", participantsImage: ""),
-                    Friend(memberId: "aasd4", nickname: "4", participantsImage: ""),
-                    Friend(memberId: "aasd5", nickname: "5", participantsImage: ""),
-                    Friend(memberId: "aasd6", nickname: "6", participantsImage: ""),
-                    Friend(memberId: "aasd7", nickname: "7", participantsImage: ""),
-                    Friend(memberId: "aasd8", nickname: "8", participantsImage: ""),
-                    Friend(memberId: "aasd9", nickname: "9", participantsImage: ""),
-                    Friend(memberId: "aasd10", nickname: "10", participantsImage: ""),
-                    Friend(memberId: "aasd11", nickname: "11", participantsImage: ""),
-                    Friend(memberId: "aasd12", nickname: "12", participantsImage: "")
-        ]
-        return Observable.just(list.filter {$0.nickname?.contains(searchText) ?? false })
+        // Real API Call
+        if searchText.isEmpty {
+            return Observable.just([])
+        }
+        return friendService.searchingFriends(word: searchText)
+            .catchAndReturn([])
     }
 }
