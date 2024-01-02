@@ -39,11 +39,9 @@ final class MakeNewFriendsListViewModel {
         let output = Output()
         
         input.searchBarEvents?
-            .flatMapLatest { word -> Observable<[Friend]> in
-                if word.isEmpty {
-                    return Observable.just([])
-                }
-                return self.searchMakeNewFriends(searchText: word)
+            .flatMapLatest { [weak self] word -> Observable<[Friend]> in
+                guard let self = self, !word.isEmpty else { return Observable.just([]) }
+                return searchMakeNewFriends(searchText: word)
             }
             .observe(on: MainScheduler.asyncInstance)
             .bind(to: output.filteringFriendListRelay)
@@ -98,11 +96,6 @@ final class MakeNewFriendsListViewModel {
     /// - Parameter output: output
     private func searchMakeNewFriends(searchText: String) -> Observable<[Friend]> {
         
-        // Real API Call
-        if searchText.isEmpty {
-            return Observable.just([])
-        }
-        return friendService.searchingFriends(word: searchText)
-            .catchAndReturn([])
+        return friendService.searchNotFriends(nickName: searchText)
     }
 }

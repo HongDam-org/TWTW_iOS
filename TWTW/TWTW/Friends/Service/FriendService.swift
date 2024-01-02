@@ -80,4 +80,26 @@ final class FriendService: FriendProtocol {
             return Disposables.create()
         }
     }
+    
+    /// 친구가 아닌 친구에게 친구 신청
+    func searchNotFriends(nickName: String) -> Observable<[Friend]> {
+        let url = Domain.RESTAPI + FriendPath.notFriendSearch.rawValue
+            .replacingOccurrences(of: "NAME", with: nickName)
+        let header = Header.header.getHeader()
+        print(url)
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .get,
+                       headers: header)
+            .responseDecodable(of: [Friend].self) { response in
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
 }
