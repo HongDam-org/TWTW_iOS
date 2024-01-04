@@ -12,7 +12,7 @@ import UIKit
 ///  PlanViewController - 일정
 final class PlansViewController: UIViewController {
     private var currentViewType: PlanCaller = .fromTabBar
-
+    
     /// 친구 검색 버튼
     private lazy var rightItemButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
     
@@ -136,30 +136,17 @@ final class PlansViewController: UIViewController {
         
         setupTableView()
         addSubviews()
-        bindTableView()
         bind()
     }
     
     // MARK: Function
-    /// setupTableView - table addSubView, register
-//    private func setupCallerBinding() {
-//        viewModel.callerObservable
-//            .bind { [weak self] caller in
-//                guard let self = self else { return }
-//                if caller == .fromTabBar {
-//                    self.navigationItem.rightBarButtonItem = nil
-//                } else if caller == .fromAlert {
-//                    self.navigationItem.rightBarButtonItem = self.rightItemButton
-//                }
-//            }
-//            .disposed(by: disposeBag)
-//    }
+    
     private func updateViewState(from newViewState: PlanCaller) {
         currentViewType = newViewState
         switch currentViewType {
         case .fromTabBar:
             self.navigationItem.rightBarButtonItem = nil
-
+            
         case .fromAlert:
             self.navigationItem.rightBarButtonItem = self.rightItemButton
         }
@@ -188,21 +175,23 @@ final class PlansViewController: UIViewController {
         )
         let output = viewModel.bind(input: input)
         updateViewState(from: output.callerState)
-    }
-    
-    /// bindTableView - touchEvent with rx
-    private func bindTableView() {
-        Observable.just(plans)
-            .bind(to: planTableView.rx.items(
-                cellIdentifier: CellIdentifier.planTableViewCell.rawValue,
-                cellType: PlanTableViewCell.self)) {
-                    (row, plan, cell) in
-                    let placeName = plan.placeDetails.placeName
-                    let groupName = plan.groupInfo.name
-                    
-                    cell.configure(plan: plan)
-                }
+        bindTableView(output: output)
     }
     
 
+        /// binding TableView
+        /// - Parameter output: Output
+        private func bindTableView(output: PlansViewModel.Output) {
+            output.planListRelay
+                .bind(to: planTableView.rx
+                    .items(cellIdentifier: CellIdentifier.planTableViewCell.rawValue,
+                           cellType: PlanTableViewCell.self)) { _, element, cell in
+                    cell.inputData(plan: element)
+                    cell.backgroundColor = .clear
+                    cell.selectionStyle = .none
+                }
+                           .disposed(by: disposeBag)
+            
+        }
+    
 }

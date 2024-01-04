@@ -17,19 +17,18 @@ final class DefaultPlansFromAlertCoordinator: PlanFromAlertCoordinator {
     // MARK: - Init
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        plansFromAlertViewModel = PlansFromAlertViewModel(coordinator: self)
-        
+        plansFromAlertViewModel = PlansFromAlertViewModel(coordinator: self, service: PlanService())
     }
     
     func start() {
-        let viewModel = PlansFromAlertViewModel(coordinator: self, caller: .forRevice)
+        let viewModel = PlansFromAlertViewModel(coordinator: self, service: PlanService(), caller: .forRevice)
         self.plansFromAlertViewModel = viewModel
         let plansFromAlertViewController = PlansFromAlertViewController(viewModel: viewModel)
         navigationController.pushViewController(plansFromAlertViewController, animated: false)
     }
     
     func startToAddPlan() {
-        let viewModel = PlansFromAlertViewModel(coordinator: self, caller: .forNew)
+        let viewModel = PlansFromAlertViewModel(coordinator: self, service: PlanService(), caller: .forNew)
         self.plansFromAlertViewModel = viewModel
         let plansFromAlertViewController = PlansFromAlertViewController(viewModel: viewModel)
         navigationController.pushViewController(plansFromAlertViewController, animated: false)
@@ -49,7 +48,6 @@ final class DefaultPlansFromAlertCoordinator: PlanFromAlertCoordinator {
         mainMapCoordinator.startWithNaviInit()
         
         childCoordinators.append(mainMapCoordinator)
-
     }
 }
 

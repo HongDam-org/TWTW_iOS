@@ -68,9 +68,8 @@ final class PlanTableViewCell: UITableViewCell {
     }
     
     /// configure
-    func configure(plan: Plan) {
+    func inputData(plan: Plan) {
         self.planName.text = plan.placeDetails.placeName
         self.groupName.text = plan.groupInfo.name
     }
-    
 }

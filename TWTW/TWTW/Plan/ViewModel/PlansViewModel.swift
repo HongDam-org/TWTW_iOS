@@ -5,12 +5,13 @@
 //  Created by 박다미 on 2023/12/17.
 //
 
+import RxRelay
 import RxSwift
 import UIKit
 
 final class PlansViewModel {
     var coordinator: DefaultPlansCoordinator
-    
+    private let planService: PlanService
     /// 입력이 아닌 뷰모델의 상태를 나타내는 출력 값 Input 밖에서
     var callerObservable: Observable<PlanCaller> {
             return Observable.just(caller)
@@ -25,11 +26,14 @@ final class PlansViewModel {
     }
     struct Output {
         let callerState: PlanCaller
+        var planListRelay: BehaviorRelay<[Plan]> = BehaviorRelay(value: [])
+
     }
     
     // MARK: - Init
-    init(coordinator: DefaultPlansCoordinator, caller: PlanCaller = .fromTabBar) {
+    init(coordinator: DefaultPlansCoordinator, service: PlanService, caller: PlanCaller = .fromTabBar) {
         self.coordinator = coordinator
+        planService = service
         self.caller = caller
     }
     
@@ -53,8 +57,17 @@ final class PlansViewModel {
             }.disposed(by: disposeBag)
         
         let output = Output(callerState: caller)
+        planList(output: output)
         
         return output
     }
-    
+    private func planList(output: Output) {
+        planService.getPlanLookupService()
+            .subscribe(onNext: { list in
+                output.planListRelay.accept(list)
+            }, onError: { error in
+                print(error)
+            })
+            .disposed(by: disposeBag)
+    }
 }

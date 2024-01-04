@@ -75,6 +75,7 @@
 		3799E5052A99D6DC00E06218 /* PreviousAppointmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5042A99D6DC00E06218 /* PreviousAppointmentsViewController.swift */; };
 		3799E5072A99D70500E06218 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5062A99D70500E06218 /* FriendsListViewController.swift */; };
 		3799E5092A99D72D00E06218 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799E5082A99D72D00E06218 /* NotificationViewController.swift */; };
+		379E23762B4178C700373BFA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 379E23752B4178C700373BFA /* GoogleService-Info.plist */; };
 		37BB02F92B230EA8006B2BEB /* ParticipantsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB02F82B230EA8006B2BEB /* ParticipantsViewModel.swift */; };
 		37BB02FF2B23117E006B2BEB /* ChangeLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB02FE2B23117E006B2BEB /* ChangeLocationViewModel.swift */; };
 		37BB03012B231188006B2BEB /* ChangeLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BB03002B231188006B2BEB /* ChangeLocationModel.swift */; };
@@ -268,7 +269,6 @@
 		3B274D802AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D7F2AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift */; };
 		3B274D822AD4D40700D79698 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D812AD4D40700D79698 /* AppCoordinator.swift */; };
 		3B274D842AD5207100D79698 /* SignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D832AD5207100D79698 /* SignUpService.swift */; };
-		3B4230002B41522300D0B038 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B422FFF2B41522300D0B038 /* GoogleService-Info.plist */; };
 		3B44EFA62B36CE6000715ADD /* TabBarItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44EFA52B36CE6000715ADD /* TabBarItemType.swift */; };
 		3B4A66012B1609F000DF9C84 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4A66002B1609F000DF9C84 /* GroupTableViewCell.swift */; };
 		3B4A66042B160C7900DF9C84 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4A66032B160C7900DF9C84 /* Group.swift */; };
@@ -397,6 +397,7 @@
 		3799E5042A99D6DC00E06218 /* PreviousAppointmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousAppointmentsViewController.swift; sourceTree = "<group>"; };
 		3799E5062A99D70500E06218 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
 		3799E5082A99D72D00E06218 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		379E23752B4178C700373BFA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		37BAF8952A949C4900BD85DC /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		37BB02F82B230EA8006B2BEB /* ParticipantsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsViewModel.swift; sourceTree = "<group>"; };
 		37BB02FE2B23117E006B2BEB /* ChangeLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLocationViewModel.swift; sourceTree = "<group>"; };
@@ -596,7 +597,6 @@
 		3B274D7F2AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		3B274D812AD4D40700D79698 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		3B274D832AD5207100D79698 /* SignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpService.swift; sourceTree = "<group>"; };
-		3B422FFF2B41522300D0B038 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3B44EFA52B36CE6000715ADD /* TabBarItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemType.swift; sourceTree = "<group>"; };
 		3B4A66002B1609F000DF9C84 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
 		3B4A66032B160C7900DF9C84 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
@@ -808,7 +808,7 @@
 				3758F1962A7D007300E2933C /* LaunchScreen.storyboard */,
 				37BAF8952A949C4900BD85DC /* Config.xcconfig */,
 				3758F1992A7D007300E2933C /* Info.plist */,
-				3B422FFF2B41522300D0B038 /* GoogleService-Info.plist */,
+				379E23752B4178C700373BFA /* GoogleService-Info.plist */,
 				3758F1C12A7E741C00E2933C /* TWTW.entitlements */,
 				37E8B8432B31ED72008D0F3D /* Notification.swift */,
 			);
@@ -2106,6 +2106,7 @@
 				37CCAC1E2B35AE12006F4BF8 /* mapbusico_yellow_2_lv.png in Resources */,
 				37CCAC1D2B35AE12006F4BF8 /* 2.txt in Resources */,
 				37CCABD42B35AE11006F4BF8 /* Profile_default_10.png in Resources */,
+				379E23762B4178C700373BFA /* GoogleService-Info.plist in Resources */,
 				37CCABFD2B35AE11006F4BF8 /* 16.txt in Resources */,
 				37CCABBA2B35AE11006F4BF8 /* hillShading.png in Resources */,
 				37CCABE72B35AE11006F4BF8 /* road_30.json in Resources */,
@@ -2115,7 +2116,6 @@
 				37CCAC382B35AE12006F4BF8 /* pin_green.png in Resources */,
 				37CCABEF2B35AE11006F4BF8 /* mapIcoBookmark_01.png in Resources */,
 				37CCAC0F2B35AE12006F4BF8 /* mapbusico_blue_2_lv.png in Resources */,
-				3B4230002B41522300D0B038 /* GoogleService-Info.plist in Resources */,
 				3758F1982A7D007300E2933C /* LaunchScreen.storyboard in Resources */,
 				37CCABF62B35AE11006F4BF8 /* mapIcoBookmark_03.png in Resources */,
 				37CCAC2E2B35AE12006F4BF8 /* mapbusico_airport_1_lv.png in Resources */,
@@ -2334,7 +2334,6 @@
 				37E9FBFB2B16337D004AFF79 /* MainMapCustomTabButtonsView.swift in Sources */,
 				3BF9EFB12AB1DEDB0014855E /* UIImage+Ext.swift in Sources */,
 				3701086D2B3430B700F08128 /* RoadViewController.swift in Sources */,
-				374EAEA62B25D4E500BAA897 /* TabBarController.swift in Sources */,
 				3758F1902A7D007200E2933C /* GroupViewController.swift in Sources */,
 				37C35EE32B1CC876008A289D /* MakeNewFriendsListCoordinator.swift in Sources */,
 				3758F1B72A7DFB6200E2933C /* Bundle+Ext.swift in Sources */,

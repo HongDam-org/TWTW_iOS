@@ -17,7 +17,7 @@ final class DefaultPlansCoordinator: PlanCoordinator {
     }
     
     func start() {
-        let plansViewModel = PlansViewModel(coordinator: self)
+        let plansViewModel = PlansViewModel(coordinator: self, service: PlanService())
         let plansViewController = PlansViewController(viewModel: plansViewModel)
         
         navigationController.pushViewController(plansViewController, animated: true)
@@ -26,6 +26,8 @@ final class DefaultPlansCoordinator: PlanCoordinator {
     func planStartFromTabBar() {
         let plansViewModel = PlansViewModel(
             coordinator: self,
+            service: PlanService(),
+            
             caller: .fromTabBar
         )
         let plansViewController = PlansViewController(viewModel: plansViewModel)
@@ -35,7 +37,7 @@ final class DefaultPlansCoordinator: PlanCoordinator {
     
     func startFromAlert() {
         let plansViewModel = PlansViewModel(
-            coordinator: self,
+            coordinator: self, service: PlanService(),
             caller: .fromAlert
         )
         let plansViewController = PlansViewController(viewModel: plansViewModel)

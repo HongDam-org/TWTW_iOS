@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 protocol PlanProtocol {
     /// 계획 불러오는 페이지
+    //func getPlanLookupService() -> Observable<Plan>
     /// - Parameter request: 서버에 보내는 planID
     /// - Returns: Plan단건조회
     func getPlanService(request: String) -> Observable<Plan>

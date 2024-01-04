@@ -12,6 +12,7 @@ import UIKit
 
 final class PlansFromAlertViewModel {
     private let disposeBag = DisposeBag()
+    private let planService: PlanService
     weak var coordinator: DefaultPlansFromAlertCoordinator?
 
     // 선택된 친구 목록을 저장하는 Relay
@@ -43,8 +44,10 @@ final class PlansFromAlertViewModel {
         let callerState: SettingPlanCaller
     }
     // MARK: - Init
-    init(coordinator: DefaultPlansFromAlertCoordinator, caller: SettingPlanCaller = .forNew) {
+    init(coordinator: DefaultPlansFromAlertCoordinator, service: PlanService,
+         caller: SettingPlanCaller = .forNew) {
         self.coordinator = coordinator
+        planService = service
         self.caller = caller
     }
   
@@ -71,6 +74,7 @@ final class PlansFromAlertViewModel {
                 moveAddPrticipants()
             }
             .disposed(by: disposeBag)
+        
         /// 확인버튼
         input.clickedConfirmEvents?
             .bind { [weak self] in
@@ -88,6 +92,16 @@ final class PlansFromAlertViewModel {
     }
     /// 초기화면으로
     func moveToMain() {
+//        planService.savePlanService(request: planSaveRequest)
+//                    .subscribe(onNext: { [weak self] response in
+//                        // Handle success response
+//                        print("Plan saved successfully.")
+//                        self?.coordinator?.moveToMain()
+//                    }, onError: { error in
+//                        // Handle error
+//                        print("Error saving plan: \(error)")
+//                    })
+//                    .disposed(by: disposeBag)
         coordinator?.moveToMain()
     }
     // 선택된 친구 목록을 업데이트하는 메서드
