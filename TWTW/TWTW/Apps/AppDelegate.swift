@@ -40,8 +40,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         Messaging.messaging().token { token, error in
             if let error = error {
                 print("Error fetching FCM registration token: \(error)")
-            }
-            else if let token = token {
+            } else if let token = token {
                 print("FCM registration token: \(token)")
             }
         }
@@ -59,50 +58,44 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-    
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        var token: String = ""
-        for index in 0..<deviceToken.count {
-            token += String(format: "%02.2hhx", deviceToken[index] as CVarArg)
-        }
-        print("DevieToken: ", token)
-        _ = KeychainWrapper.saveItem(value: token, forKey: "DeviceToken")
-    }
-    
 }
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        print(messaging)
-        print("파이어베이스 토큰: \(fcmToken)")
+        print("파이어베이스 토큰: \(fcmToken ?? "")")
+        guard let fcmToken = fcmToken else { return }
+        _ = KeychainWrapper.saveItem(value: fcmToken, forKey: "DeviceToken")
     }
+    
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-
+    
     // 푸시알림이 수신되었을 때 수행되는 메소드
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         print("메시지 수신 \(#function)")
         print(notification, center)
-        completionHandler([.badge, .sound])
+        completionHandler([.badge, .sound, .banner, .list])
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("STart😡")
+        print(response.notification.request.content.title, response.notification.request.content.body)
         
         let userInfo = response.notification.request.content.userInfo
+        let type = "\(response.notification.request.content.body.split(separator: " ")[0])"
+        let id = userInfo.filter { "\($0.key)" == "id" }
         
-        print("STart😡")
-        
-        print(response.notification.request.content.title, response.notification.request.content.body)
-        if response.notification.request.content.title == "알림" {
-            NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 2])
-        }
-        
-        if response.notification.request.content.title == "목적지 변경" {
+        print("type: \(type)")
+        if type == "친구명:" || type == "계획명:" || type == "그룹명:" {
+            guard let value = id.first?.value else { return }
+            print("value \(value)")
+            NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 2, "id": value])
+        } else if type == "장소명:" {
             NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 0])
         }
         
@@ -110,33 +103,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             print(key, value)
         }
         
-        if let gameId = userInfo["gameId"] as? String {
-            print("gameId = \(gameId)")
-        }
-        
-        if let messageId = userInfo["messageId"] as? String {
-            print("messageId = \(messageId)")
-        }
-        
-//        let meetingID = userInfo["MEETING_ID"] as! String
-//        let userID = userInfo["USER_ID"] as! String
-        
-        // Perform the task associated with the action
-//        switch response.actionIdentifier {
-//        case "ACCEPT_ACTION":
-//            print("\(userID)님이 \(meetingID) 미팅을 수락하셨습니다")
-//        case "DECLINE_ACTION":
-//            print("\(userID)님이 \(meetingID) 미팅을 거부하셨습니다")
-//        case UNNotificationDefaultActionIdentifier:
-//            print("그냥 액션 정의 안했고 알림 탭 해서 앱 실행시킨 경우")
-//        case UNNotificationDismissActionIdentifier:
-//            print("알림 dismiss 시켜버린 경우")
-//        default:
-//            break
-//        }
         
         print("END😡")
-        print(#function)
         completionHandler()
     }
 }

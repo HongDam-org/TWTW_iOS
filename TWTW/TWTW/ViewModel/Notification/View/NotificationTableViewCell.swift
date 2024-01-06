@@ -73,9 +73,9 @@ final class NotificationTableViewCell: UITableViewCell {
     }
     
     /// Input Data
-    /// - Parameter title: title
-    func inputData(title: String) {
-        titleLabel.text = title
-        timeLabel.text = title
+    /// - Parameter info: info
+    func inputData(info: Notifications) {
+        titleLabel.text = info.name
+        timeLabel.text = info.type
     }
 }

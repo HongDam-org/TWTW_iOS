@@ -129,6 +129,7 @@
 		3B9693DA2B1753AD001DDAE8 /* CreateGroupCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9693D92B1753AD001DDAE8 /* CreateGroupCoordinatorProtocol.swift */; };
 		3B9693DC2B176BC3001DDAE8 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9693DB2B176BC3001DDAE8 /* Friend.swift */; };
 		3B9693DE2B176DED001DDAE8 /* FriendListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9693DD2B176DED001DDAE8 /* FriendListTableViewCell.swift */; };
+		3B9C89CE2B49B84D0083CF44 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9C89CD2B49B84D0083CF44 /* Notifications.swift */; };
 		3B9FD0FF2AE7418F00D81328 /* MainMapViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FD0FE2AE7418F00D81328 /* MainMapViewModelUnitTests.swift */; };
 		3B9FD1012AE758C100D81328 /* CLLocationManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FD1002AE758C100D81328 /* CLLocationManagerMock.swift */; };
 		3BA2F82B2B38621600828F31 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA2F82A2B38621600828F31 /* TabBarController.swift */; };
@@ -296,6 +297,7 @@
 		3B9693D92B1753AD001DDAE8 /* CreateGroupCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		3B9693DB2B176BC3001DDAE8 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		3B9693DD2B176DED001DDAE8 /* FriendListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListTableViewCell.swift; sourceTree = "<group>"; };
+		3B9C89CD2B49B84D0083CF44 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		3B9FD0FE2AE7418F00D81328 /* MainMapViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModelUnitTests.swift; sourceTree = "<group>"; };
 		3B9FD1002AE758C100D81328 /* CLLocationManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationManagerMock.swift; sourceTree = "<group>"; };
 		3BA2F82A2B38621600828F31 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -579,6 +581,7 @@
 				3B20E1E72AE41ED7009572AA /* Protocol */,
 				3B76F0902AF9D01600B2BD1D /* View */,
 				3B0F46BC2B34B3F400F695A7 /* ViewModel */,
+				3B9C89CC2B49B82A0083CF44 /* Model */,
 				371C1D2C2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift */,
 			);
 			name = Notification;
@@ -1294,6 +1297,14 @@
 			path = Delegate;
 			sourceTree = "<group>";
 		};
+		3B9C89CC2B49B82A0083CF44 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3B9C89CD2B49B84D0083CF44 /* Notifications.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3B9FD0FA2AE7412000D81328 /* MainMap */ = {
 			isa = PBXGroup;
 			children = (
@@ -1682,6 +1693,7 @@
 				371C1D2F2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift in Sources */,
 				37CE1EAF2AE75813009CDA21 /* SearchPlace.swift in Sources */,
 				3737AE8E2AE93EE600FE7453 /* SearchPlacesTableViewCell.swift in Sources */,
+				3B9C89CE2B49B84D0083CF44 /* Notifications.swift in Sources */,
 				3B6CF3D72ADAC80200325D05 /* SignInProtocol.swift in Sources */,
 				375916372A7EB36000C21E1F /* SignInService.swift in Sources */,
 				3BF9EFA42AB1AE790014855E /* KakaoMapViewController.swift in Sources */,

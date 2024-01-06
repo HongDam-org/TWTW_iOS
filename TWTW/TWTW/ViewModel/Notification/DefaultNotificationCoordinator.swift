@@ -23,8 +23,4 @@ final class DefaultNotificationCoordinator: NotificationCoordinator {
         self.notificationViewController = notificationViewController
         navigationController.viewControllers = [notificationViewController]
     }
-    
-    func returnViewController() -> UIViewController? {
-        return notificationViewController
-    }
 }

@@ -69,7 +69,7 @@ final class FriendService: FriendProtocol {
                        parameters: parameters,
                        encoding: JSONEncoding.default,
                        headers: header)
-            .responseDecodable(of: [Friend].self) {response in
+            .response { response in
                 switch response.result {
                 case .success:
                     observer.onCompleted()
