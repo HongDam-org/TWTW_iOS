@@ -23,6 +23,7 @@ final class TabBarController: UITabBarController {
     /// 알림 페이지로 넘어가는 함수
     @objc
     private func showAlertPage(_ notification: Notification) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
         if let userInfo = notification.userInfo {
             if let type = userInfo["type"] as? String,
                let title = userInfo["title"] as? String,
@@ -51,7 +52,6 @@ final class TabBarController: UITabBarController {
 
         sheet.addAction(UIAlertAction(title: "승인", style: .default, handler: { [weak self] _ in
             guard let self = self else { return }
-            // TODO: 타입별로 승인요청 전송
             switch type {
             case "친구명:":
                 let service = FriendService()
@@ -64,6 +64,7 @@ final class TabBarController: UITabBarController {
                     .disposed(by: disposeBag)
                 print("invite")
             case "계획명":
+                // TODO: 타입별로 승인요청 전송
                 print("plan invite")
             case "그룹명":
                 let service = GroupService()
