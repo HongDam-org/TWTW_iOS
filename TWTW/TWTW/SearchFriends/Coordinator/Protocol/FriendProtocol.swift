@@ -25,4 +25,7 @@ protocol FriendProtocol {
     
     /// 친구가 아닌 친구에게 친구 신청
     func searchNotFriends(nickName: String) -> Observable<[Friend]>
+    
+    /// 친구가 아닌 친구에게 친구 신청
+    func statusFriend(memberId: String, status: String) -> Observable<Void>
 }

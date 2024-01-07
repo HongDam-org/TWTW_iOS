@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import RxSwift
 import UIKit
 
 final class TabBarController: UITabBarController {
+    
+    private let disposeBag = DisposeBag()
     
     // MARK: - View Did Load
     override func viewDidLoad() {
@@ -21,17 +24,70 @@ final class TabBarController: UITabBarController {
     @objc
     private func showAlertPage(_ notification: Notification) {
         if let userInfo = notification.userInfo {
-            if let index = userInfo["index"] as? Int {
-                switch index {
-                case TabBarItemType.home.toInt():
-                    selectedIndex = TabBarItemType.home.toInt()
+            if let type = userInfo["type"] as? String,
+               let title = userInfo["title"] as? String,
+               let body = userInfo["body"] as? String,
+               let id = userInfo["id"] as? String{
+                selectedIndex = TabBarItemType.home.toInt()
+                
+                switch type {
+                case "친구명:", "계획명:", "그룹명:":
+                    showAlert(type: type, title: title, body: body, id: id)
+                    print("invite")
+                case "장소명:":
                     NotificationCenter.default.post(name: Notification.Name("moveMain"), object: nil)
-                case TabBarItemType.notification.toInt():
-                    selectedIndex = TabBarItemType.notification.toInt()
                 default:
                     print("wrong")
                 }
             }
+            
         }
+    }
+    
+    /// 전송받은 알림 표시
+    private func showAlert(type: String, title: String, body: String, id: String) {
+        
+        let sheet = UIAlertController(title: title, message: body, preferredStyle: .alert)
+
+        sheet.addAction(UIAlertAction(title: "승인", style: .default, handler: { [weak self] _ in
+            guard let self = self else { return }
+            // TODO: 타입별로 승인요청 전송
+            switch type {
+            case "친구명:":
+                let service = FriendService()
+                service.statusFriend(memberId: id, status: "ACCEPTED")
+                    .subscribe(onNext: {
+                        print("accepted friend")
+                    }, onError: { error in
+                        print(#function, error)
+                    })
+                    .disposed(by: disposeBag)
+                print("invite")
+            case "계획명":
+                print("plan invite")
+            case "그룹명":
+                let service = GroupService()
+                service.joinGroup(groupId: id)
+                    .subscribe(onNext: { _ in
+                        print("accepted join group")
+                    }, onError: { error in
+                        print(#function, error)
+                    })
+                    .disposed(by: disposeBag)
+                print("invite")
+            default:
+                print("wrong")
+            }
+            
+        }))
+
+        sheet.addAction(UIAlertAction(title: "거절", style: .destructive, handler: { _ in print("초대 거절") }))
+
+        present(sheet, animated: true)
+    }
+    
+    ///
+    private func confirmInviteFriend(id: String) {
+        
     }
 }

@@ -91,13 +91,18 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let id = userInfo.filter { "\($0.key)" == "id" }
         
         print("type: \(type)")
-        if type == "친구명:" || type == "계획명:" || type == "그룹명:" {
+//        if type == "친구명:" || type == "계획명:" || type == "그룹명:" {
             guard let value = id.first?.value else { return }
             print("value \(value)")
-            NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 2, "id": value])
-        } else if type == "장소명:" {
-            NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 0])
-        }
+//            NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 2, "id": value])
+        NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 0,
+                                                                                                     "id" : value,
+                                                                                                     "type": type,
+                                                                                                     "title": response.notification.request.content.title,
+                                                                                                     "body": response.notification.request.content.body])
+//        } else if type == "장소명:" {
+//            NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 0])
+//        }
         
         userInfo.forEach { (key: AnyHashable, value: Any) in
             print(key, value)
