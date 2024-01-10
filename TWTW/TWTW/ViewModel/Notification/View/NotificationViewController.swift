@@ -64,6 +64,9 @@ final class NotificationViewController: UIViewController {
         
         addSubViews()
         bind()
+        
+        // 알림 제거
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
     /// Add UI
@@ -109,7 +112,7 @@ final class NotificationViewController: UIViewController {
             .bind(to: listTableView.rx
                 .items(cellIdentifier: CellIdentifier.notificationTableViewCell.rawValue,
                        cellType: NotificationTableViewCell.self)) { _, element, cell in
-                cell.inputData(title: element)
+                cell.inputData(info: element)
                 cell.backgroundColor = .clear
                 cell.selectionStyle = .none
             }

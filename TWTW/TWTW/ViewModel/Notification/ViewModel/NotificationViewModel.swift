@@ -25,7 +25,7 @@ final class NotificationViewModel {
     }
     
     struct Output {
-        let notificationListRelay: BehaviorRelay<[String]> = BehaviorRelay(value: [])
+        let notificationListRelay: BehaviorRelay<[Notifications]> = BehaviorRelay(value: [])
     }
     
     /// Create Output
@@ -46,10 +46,10 @@ final class NotificationViewModel {
     
     /// Binding Notifiaction List
     private func bindNotificationListRelay(output: Output) {
-        let list = ["aaaa",
-                    "bbbb",
-                    "cccc",
-                    "dddd"]
+        let list = [Notifications(type: "친구", id: "member2", name: "JJ1"),
+                    Notifications(type: "친구", id: "member3", name: "JJ2"),
+                    Notifications(type: "친구", id: "member4", name: "JJ3"),
+                    Notifications(type: "친구", id: "member5", name: "JJ4")]
         
         output.notificationListRelay.accept(list)
     }

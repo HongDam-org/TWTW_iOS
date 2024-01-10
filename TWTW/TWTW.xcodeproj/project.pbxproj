@@ -269,6 +269,7 @@
 		3B274D802AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D7F2AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift */; };
 		3B274D822AD4D40700D79698 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D812AD4D40700D79698 /* AppCoordinator.swift */; };
 		3B274D842AD5207100D79698 /* SignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B274D832AD5207100D79698 /* SignUpService.swift */; };
+		3B4230232B418A6500D0B038 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B4230222B418A6400D0B038 /* GoogleService-Info.plist */; };
 		3B44EFA62B36CE6000715ADD /* TabBarItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44EFA52B36CE6000715ADD /* TabBarItemType.swift */; };
 		3B4A66012B1609F000DF9C84 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4A66002B1609F000DF9C84 /* GroupTableViewCell.swift */; };
 		3B4A66042B160C7900DF9C84 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4A66032B160C7900DF9C84 /* Group.swift */; };
@@ -287,6 +288,7 @@
 		3B9693DA2B1753AD001DDAE8 /* CreateGroupCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9693D92B1753AD001DDAE8 /* CreateGroupCoordinatorProtocol.swift */; };
 		3B9693DC2B176BC3001DDAE8 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9693DB2B176BC3001DDAE8 /* Friend.swift */; };
 		3B9693DE2B176DED001DDAE8 /* FriendListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9693DD2B176DED001DDAE8 /* FriendListTableViewCell.swift */; };
+		3B9C89CE2B49B84D0083CF44 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9C89CD2B49B84D0083CF44 /* Notifications.swift */; };
 		3B9FD0FF2AE7418F00D81328 /* MainMapViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FD0FE2AE7418F00D81328 /* MainMapViewModelUnitTests.swift */; };
 		3B9FD1012AE758C100D81328 /* CLLocationManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FD1002AE758C100D81328 /* CLLocationManagerMock.swift */; };
 		3BA2F82B2B38621600828F31 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA2F82A2B38621600828F31 /* TabBarController.swift */; };
@@ -597,6 +599,7 @@
 		3B274D7F2AD4D2E200D79698 /* SignUpCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		3B274D812AD4D40700D79698 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		3B274D832AD5207100D79698 /* SignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpService.swift; sourceTree = "<group>"; };
+		3B4230222B418A6400D0B038 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3B44EFA52B36CE6000715ADD /* TabBarItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItemType.swift; sourceTree = "<group>"; };
 		3B4A66002B1609F000DF9C84 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
 		3B4A66032B160C7900DF9C84 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
@@ -615,6 +618,7 @@
 		3B9693D92B1753AD001DDAE8 /* CreateGroupCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		3B9693DB2B176BC3001DDAE8 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		3B9693DD2B176DED001DDAE8 /* FriendListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListTableViewCell.swift; sourceTree = "<group>"; };
+		3B9C89CD2B49B84D0083CF44 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		3B9FD0FE2AE7418F00D81328 /* MainMapViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModelUnitTests.swift; sourceTree = "<group>"; };
 		3B9FD1002AE758C100D81328 /* CLLocationManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationManagerMock.swift; sourceTree = "<group>"; };
 		3BA2F82A2B38621600828F31 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -808,6 +812,7 @@
 				3758F1962A7D007300E2933C /* LaunchScreen.storyboard */,
 				37BAF8952A949C4900BD85DC /* Config.xcconfig */,
 				3758F1992A7D007300E2933C /* Info.plist */,
+				3B4230222B418A6400D0B038 /* GoogleService-Info.plist */,
 				379E23752B4178C700373BFA /* GoogleService-Info.plist */,
 				3758F1C12A7E741C00E2933C /* TWTW.entitlements */,
 				37E8B8432B31ED72008D0F3D /* Notification.swift */,
@@ -935,6 +940,7 @@
 				3B20E1E72AE41ED7009572AA /* Protocol */,
 				3B76F0902AF9D01600B2BD1D /* View */,
 				3B0F46BC2B34B3F400F695A7 /* ViewModel */,
+				3B9C89CC2B49B82A0083CF44 /* Model */,
 				371C1D2C2ADBAFA900B30DC5 /* DefaultNotificationCoordinator.swift */,
 			);
 			name = Notification;
@@ -1316,8 +1322,8 @@
 				37C35EE02B1CC823008A289D /* Protocol */,
 				37CCCC3C2B1C905B003710DB /* ViewModel */,
 				37CCCC3A2B1C904C003710DB /* View */,
-				37CCCC382B1C8FB3003710DB /* MakeNewFriendsListViewController.swift */,
 				37C35EE42B1CC8A6008A289D /* DefaultMakeNewFriendsListCoordinator.swift */,
+				3B4230242B41962E00D0B038 /* Model */,
 			);
 			path = MakeNewFriends;
 			sourceTree = "<group>";
@@ -1325,6 +1331,7 @@
 		37CCCC3A2B1C904C003710DB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				37CCCC382B1C8FB3003710DB /* MakeNewFriendsListViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1600,6 +1607,13 @@
 			path = Delegate;
 			sourceTree = "<group>";
 		};
+		3B4230242B41962E00D0B038 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3B4A65FF2B15FF2600DF9C84 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -1846,6 +1860,14 @@
 			path = Delegate;
 			sourceTree = "<group>";
 		};
+		3B9C89CC2B49B82A0083CF44 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3B9C89CD2B49B84D0083CF44 /* Notifications.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3B9FD0FA2AE7412000D81328 /* MainMap */ = {
 			isa = PBXGroup;
 			children = (
@@ -2084,6 +2106,7 @@
 				37CCABD32B35AE11006F4BF8 /* Sharemap_marker_me_badge_big.png in Resources */,
 				37CCABBD2B35AE11006F4BF8 /* mapBtnCadastralNormal@2x.png in Resources */,
 				3BE038C92AFB0BE70039B4FD /* .swiftlint.yml in Resources */,
+				3B4230232B418A6500D0B038 /* GoogleService-Info.plist in Resources */,
 				37CCAC332B35AE12006F4BF8 /* map_ico_marker_direction.png in Resources */,
 				37CCABC32B35AE11006F4BF8 /* white_black_round10.png in Resources */,
 				37CCAC202B35AE12006F4BF8 /* 20.txt in Resources */,
@@ -2389,6 +2412,7 @@
 				371C1D2F2ADBAFCC00B30DC5 /* DefaultFriendsListCoordinator.swift in Sources */,
 				37CE1EAF2AE75813009CDA21 /* SearchPlace.swift in Sources */,
 				3737AE8E2AE93EE600FE7453 /* SearchPlacesTableViewCell.swift in Sources */,
+				3B9C89CE2B49B84D0083CF44 /* Notifications.swift in Sources */,
 				3B6CF3D72ADAC80200325D05 /* SignInProtocol.swift in Sources */,
 				375916372A7EB36000C21E1F /* SignInService.swift in Sources */,
 				3BF9EFA42AB1AE790014855E /* KakaoMapViewController.swift in Sources */,

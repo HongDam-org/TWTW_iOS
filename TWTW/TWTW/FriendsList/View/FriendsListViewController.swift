@@ -50,9 +50,9 @@ final class FriendsListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        navigationController?.setNavigationBarHidden(false, animated: true)
         bind()
         addSubviews()
-
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)

@@ -11,11 +11,5 @@ import UIKit
 struct Friend: Codable, Equatable {
     let memberId: String?
     let nickname: String?
-    let participantsImage: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case memberId
-        case nickname
-        case participantsImage = "profileImage"
-    }
+    let profileImage: String?
 }

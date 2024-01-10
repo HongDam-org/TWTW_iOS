@@ -69,7 +69,7 @@ final class FriendService: FriendProtocol {
                        parameters: parameters,
                        encoding: JSONEncoding.default,
                        headers: header)
-            .responseDecodable(of: [Friend].self) {response in
+            .response { response in
                 switch response.result {
                 case .success:
                     observer.onCompleted()
@@ -77,6 +77,58 @@ final class FriendService: FriendProtocol {
                     observer.onError(error)
                 }
             }
+            return Disposables.create()
+        }
+    }
+    
+    /// 친구가 아닌 친구에게 친구 신청
+    func searchNotFriends(nickName: String) -> Observable<[Friend]> {
+        let url = Domain.RESTAPI + FriendPath.notFriendSearch.rawValue
+            .replacingOccurrences(of: "NAME", with: nickName)
+        let header = Header.header.getHeader()
+        print(url)
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .get,
+                       headers: header)
+            .responseDecodable(of: [Friend].self) { response in
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data)
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    /// 친구가 아닌 친구에게 친구 신청
+    func statusFriend(memberId: String, status: String) -> Observable<Void> {
+        let url = Domain.RESTAPI + FriendPath.status.rawValue
+        let header = Header.header.getHeader()
+        let body: Parameters = [
+            "memberId" : memberId,
+            "friendStatus" : status
+        ]
+        print(#function)
+        print(url)
+        print(body)
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .post,
+                       parameters: body,
+                       encoding: JSONEncoding.default,
+                       headers: header)
+            .response { response in
+                switch response.result {
+                case .success(_):
+                    observer.onNext(())
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            
             return Disposables.create()
         }
     }
