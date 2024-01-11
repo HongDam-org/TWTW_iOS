@@ -226,18 +226,25 @@ final class PlansFromAlertViewController: UIViewController {
     
     private func bind() {
         let input = PlansFromAlertViewModel.Input(
-            clickedAddParticipantsEvents: addParticipantsButton.rx.tap,
-            clickedConfirmEvents: confirmButton.rx.tap)
-        
-        let output = viewModel.createOutput(input: input)
-        
-        output.newPlaceName
-                    .bind(to: newPlaceNameLabel.rx.text)
-                    .disposed(by: disposeBag)
+                   clickedAddParticipantsEvents: addParticipantsButton.rx.tap,
+                   clickedConfirmEvents: confirmButton.rx.tap,
+                   meetingName: Observable.just(originalMeetingNameLabel.text ?? ""),
+                   newPlaceName: newPlaceNameLabel.rx.observe(String.self, "text").map { $0 ?? "" },
+                   selectedDate: datePicker.rx.date.asObservable(), 
+                   selectedFriends: viewModel.selectedFriendsObservable)
 
+        let output = viewModel.createOutput(input: input)
+
+        output.newPlaceName
+            .bind(to: newPlaceNameLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        if let placeName = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.placeName.rawValue) as? String {
+            newPlaceNameLabel.text = placeName
+        }
         updateViewState(from: output.callerState)
     }
-    
+
     private func bindTableView() {
         viewModel.selectedFriendsObservable
             .do(onNext: { [weak self] friends in
