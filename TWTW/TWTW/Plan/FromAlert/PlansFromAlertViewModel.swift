@@ -24,25 +24,24 @@ final class PlansFromAlertViewModel {
         return selectedFriendsRelay.asObservable()
     }
 
-    
     struct Input {
-        // 1.달력버튼 클릭
-        
-        // 2. 친구추가 버튼 클릭
         let clickedAddParticipantsEvents: ControlEvent<Void>?
-        // 3.저장 버튼 클릭
-         let clickedConfirmEvents: ControlEvent<Void>?
+        let clickedConfirmEvents: ControlEvent<Void>?
+        // 약속명
+        let meetingName: Observable<String>
+        // 장소관련
+        let placeDetails: Observable<PlaceDetails>
+        // 날짜,시간
+        let selectedDate: Observable<Date>
+        // 친구
+        let selectedFriends: Observable<[Friend]>
     }
     
     struct Output {
-        // 1.
-        
-        // 2.코디네이터로 친구코디네이터 이동
-        
-        // 3.caller상태에 따른 뷰 로드 수정/ 새plan 생성시 이전 data자리 빽
         let newPlaceName: Observable<String>
         let callerState: SettingPlanCaller
     }
+    
     // MARK: - Init
     init(coordinator: DefaultPlansFromAlertCoordinator, service: PlanService,
          caller: SettingPlanCaller = .forNew) {
@@ -79,7 +78,7 @@ final class PlansFromAlertViewModel {
         input.clickedConfirmEvents?
             .bind { [weak self] in
                 guard let self = self else {return }
-                moveToMain()
+                moveToMain(input: input)
             }
             .disposed(by: disposeBag)
         
@@ -90,20 +89,33 @@ final class PlansFromAlertViewModel {
     func moveAddPrticipants() {
         coordinator?.addParticipants()
     }
+    
     /// 초기화면으로
-    func moveToMain() {
-//        planService.savePlanService(request: planSaveRequest)
-//                    .subscribe(onNext: { [weak self] response in
-//                        // Handle success response
-//                        print("Plan saved successfully.")
-//                        self?.coordinator?.moveToMain()
-//                    }, onError: { error in
-//                        // Handle error
-//                        print("Error saving plan: \(error)")
-//                    })
-//                    .disposed(by: disposeBag)
+        func moveToMain() {
+        planService.savePlanService(request: planSaveRequest)
+                    .subscribe(onNext: { [weak self] response in
+                        // Handle success response
+                        print("Plan save ")
+                        self?.coordinator?.moveToMain()
+                    }, onError: { error in
+                        // Handle error
+                        print(" \(error)")
+                    })
+                    .disposed(by: disposeBag)
         coordinator?.moveToMain()
     }
+
+       private func savePlan(request: PlanSaveRequest) {
+           planService.savePlanService(request: request)
+               .subscribe(onNext: { [weak self] response in
+                   print("Plan saved: \(response)")
+                   self?.coordinator?.moveToMain()
+               }, onError: { error in
+                   print("Error saving plan: \(error)")
+               })
+               .disposed(by: disposeBag)
+       }
+
     // 선택된 친구 목록을 업데이트하는 메서드
     func updateSelectedFriends(_ friends: [Friend]) {
         selectedFriendsRelay.accept(friends)

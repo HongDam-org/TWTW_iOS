@@ -50,7 +50,7 @@ final class ParticipantsViewModel {
         
        
         changeMyLocation(output: output)
-        dummyData(output: output)
+        //dummyData(output: output)
         return output
     }
     
@@ -65,17 +65,17 @@ final class ParticipantsViewModel {
     }
     
     /// Create Dummy
-    private func dummyData(output: Output) {
-        let list = [ Friend(memberId: "1", nickname: "aa", participantsImage: ""),
-                     Friend(memberId: "1", nickname: "aa", participantsImage: ""),
-                     Friend(memberId: "1", nickname: "aa", participantsImage: ""),
-                     Friend(memberId: "1", nickname: "aa", participantsImage: ""),
-                     Friend(memberId: "1", nickname: "aa", participantsImage: ""),
-                     Friend(memberId: "1", nickname: "aa", participantsImage: "")]
-        
-        output.participantsRelay.accept(list)
-    }
-    
+//    private func dummyData(output: Output) {
+//        let list = [ Friend(memberId: "1", nickname: "aa", participantsImage: ""),
+//                     Friend(memberId: "1", nickname: "aa", participantsImage: ""),
+//                     Friend(memberId: "1", nickname: "aa", participantsImage: ""),
+//                     Friend(memberId: "1", nickname: "aa", participantsImage: ""),
+//                     Friend(memberId: "1", nickname: "aa", participantsImage: ""),
+//                     Friend(memberId: "1", nickname: "aa", participantsImage: "")]
+//        
+//        output.participantsRelay.accept(list)
+//    }
+//    
     // MARK: - API CONNECT
     
     /// 내위치 변경하기

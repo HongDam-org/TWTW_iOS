@@ -872,7 +872,6 @@
 			children = (
 				371DDD752B37572D007BAECC /* Service */,
 				37D71E3F2B2F43C00004188A /* FromAlert */,
-				37D71E3E2B2F43B50004188A /* FromTabBar */,
 				3788AEB22B18DC66007FC2F6 /* Protocol */,
 				3788AEB42B18DC79007FC2F6 /* View */,
 				3788AEB62B18DC94007FC2F6 /* Model */,
@@ -1033,7 +1032,6 @@
 				37BB030C2B2329A6006B2BEB /* Coordinator */,
 				3B79E21A2B1A4C43000790A2 /* Delegate */,
 				3BB85C062B19D37500F8BBF3 /* DefaultFriendSearchCoordinator.swift */,
-				37BB030A2B232998006B2BEB /* Model */,
 				37BB03092B232991006B2BEB /* ViewModel */,
 				37BB03082B232989006B2BEB /* ViewController */,
 			);
@@ -1054,13 +1052,6 @@
 				3B4A66102B1634C900DF9C84 /* FriendSearchViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		37BB030A2B232998006B2BEB /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		37BB030B2B2329A0006B2BEB /* Protocol */ = {
@@ -1323,7 +1314,6 @@
 				37CCCC3C2B1C905B003710DB /* ViewModel */,
 				37CCCC3A2B1C904C003710DB /* View */,
 				37C35EE42B1CC8A6008A289D /* DefaultMakeNewFriendsListCoordinator.swift */,
-				3B4230242B41962E00D0B038 /* Model */,
 			);
 			path = MakeNewFriends;
 			sourceTree = "<group>";
@@ -1362,13 +1352,6 @@
 				37BB03022B231198006B2BEB /* DefaultChangeLocationCoordinator.swift */,
 			);
 			path = ChangeLocation;
-			sourceTree = "<group>";
-		};
-		37D71E3E2B2F43B50004188A /* FromTabBar */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = FromTabBar;
 			sourceTree = "<group>";
 		};
 		37D71E3F2B2F43C00004188A /* FromAlert */ = {
@@ -1605,13 +1588,6 @@
 				3B274D7A2AD4CFDA00D79698 /* SignUpCoordinatorFinishDelegate.swift */,
 			);
 			path = Delegate;
-			sourceTree = "<group>";
-		};
-		3B4230242B41962E00D0B038 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		3B4A65FF2B15FF2600DF9C84 /* Service */ = {

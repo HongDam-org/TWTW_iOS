@@ -32,6 +32,7 @@ final class PlanService: PlanProtocol {
                return Disposables.create()
            }
        }
+    
     //plan정보조회
     func getPlanService(request: String) -> RxSwift.Observable<Plan> {
         let planID = "plan 셀로 들어올때 ID KeyChain에 저장"
