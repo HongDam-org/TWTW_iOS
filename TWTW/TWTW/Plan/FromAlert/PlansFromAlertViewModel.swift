@@ -33,6 +33,7 @@ final class PlansFromAlertViewModel {
         let selectedDate: Observable<Date>
         // 친구
         let selectedFriends: Observable<[Friend]>
+        
     }
     
     struct Output {
@@ -81,30 +82,26 @@ final class PlansFromAlertViewModel {
         input.clickedConfirmEvents?
             .bind { [weak self] in
                 guard let self = self else { return }
-                var meetingName: String?
-                var selectedDate: String?
-                var placeDetails: PlaceDetails?
+               
                 
                 input.meetingName
                     .subscribe(onNext: { value in
-                        meetingName = value
                     })
                     .disposed(by: self.disposeBag)
                 
                 input.selectedDate
                     .subscribe(onNext: { value in
-                        selectedDate = value.toString()
                     })
                     .disposed(by: self.disposeBag)
                 
                 input.newPlaceName
                     .subscribe(onNext: { value in
-                        placeDetails?.placeName = value
+                        
                     })
                     .disposed(by: self.disposeBag)
                 print("저장")
                 // 저장된 데이터로 Plan 저장
-                self.savePlan(meetingName: meetingName, selectedDate: selectedDate, placeDetails: placeDetails)
+                self.savePlan(meetingName: "meetingName", selectedDate: "selectedDate", placeDetails: placeDetails)
             }
             .disposed(by: disposeBag)
         
@@ -126,10 +123,10 @@ final class PlansFromAlertViewModel {
             planDay: selectedDate,
             placeDetails: placeDetails
         )
+        print(planSaveRequest)
         
         planService.savePlanService(request: planSaveRequest)
             .subscribe(onNext: { [weak self] response in
-
                 print("Plan saved: \(response)")
                 self?.coordinator?.moveToMain()
             }, onError: { error in

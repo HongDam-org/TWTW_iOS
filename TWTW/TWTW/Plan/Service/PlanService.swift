@@ -72,6 +72,7 @@ final class PlanService: PlanProtocol {
                     switch response.result {
                     case .success(let data):
                         observer.onNext(data)
+                        print(data)
                     case .failure(let error):
                         observer.onError(error)
                     }
