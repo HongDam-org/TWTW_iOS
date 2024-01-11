@@ -28,7 +28,7 @@ final class TabBarController: UITabBarController {
             if let type = userInfo["type"] as? String,
                let title = userInfo["title"] as? String,
                let body = userInfo["body"] as? String,
-               let id = userInfo["id"] as? String{
+               let id = userInfo["id"] as? String {
                 selectedIndex = TabBarItemType.home.toInt()
                 
                 switch type {

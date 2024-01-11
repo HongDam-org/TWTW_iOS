@@ -8,15 +8,14 @@
 import Foundation
 
 enum TabBarItemType: String, CaseIterable {
-    case home, friends, notification, myPage
+    case friends, home, myPage
     
     // Int형에 맞춰 초기화
     init?(index: Int) {
         switch index {
-        case 0: self = .home
-        case 1: self = .friends
-        case 2: self = .notification
-        case 3: self = .myPage
+        case 0: self = .friends
+        case 1: self = .home
+        case 2: self = .myPage
         default: return nil
         }
     }
@@ -24,19 +23,17 @@ enum TabBarItemType: String, CaseIterable {
     /// TabBarPage 형을 매칭되는 Int형으로 반환
     func toInt() -> Int {
         switch self {
-        case .home: return 0
-        case .friends: return 1
-        case .notification: return 2
-        case .myPage: return 3
+        case .friends: return 0
+        case .home: return 1
+        case .myPage: return 2
         }
     }
     
     /// TabBarPage 형을 매칭되는 한글명으로 변환
     func toKrName() -> String {
         switch self {
-        case .home: return "홈"
         case .friends: return "친구 목록"
-        case .notification: return "알림"
+        case .home: return "홈"
         case .myPage: return "마이페이지"
         }
     }
@@ -44,9 +41,8 @@ enum TabBarItemType: String, CaseIterable {
     /// TabBarPage 형을 매칭되는 아이콘명으로 변환
     func toIconName() -> String {
         switch self {
-        case .home: return "house"
         case .friends: return "person.2"
-        case .notification: return "bell"
+        case .home: return "house"
         case .myPage: return "person"
         }
     }

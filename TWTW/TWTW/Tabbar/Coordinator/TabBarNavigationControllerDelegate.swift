@@ -13,7 +13,6 @@ final class TabBarNavigationControllerDelegate: NSObject, UINavigationController
         // 메인 탭 화면 중 하나이면 탭 바 표시, 그 외에는 숨김
         if viewController is GroupViewController ||
             viewController is FriendsListViewController ||
-            viewController is NotificationViewController ||
             viewController is MyPageViewController {
             navigationController.tabBarController?.tabBar.isHidden = false
         } else {

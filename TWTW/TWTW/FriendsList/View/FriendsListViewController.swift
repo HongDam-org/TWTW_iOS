@@ -22,6 +22,7 @@ final class FriendsListViewController: UIViewController {
         searchBar.placeholder = "친구 검색"
         searchBar.showsCancelButton = false
         searchBar.backgroundImage = UIImage()
+        searchBar.backgroundColor = .clear
         return searchBar
     }()
     
@@ -29,6 +30,7 @@ final class FriendsListViewController: UIViewController {
     private lazy var friendsTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(FriendListTableViewCell.self, forCellReuseIdentifier: CellIdentifier.friendListTableViewCell.rawValue)
+        tableView.backgroundColor = .clear
         return tableView
     }()
     

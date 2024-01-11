@@ -87,25 +87,18 @@ final class DefaultTabBarCoordinator: TabBarCoordinator {
         
         // 코디네이터 생성 및 실행
         switch tabBarItemType {
-        case .home:
-            let groupCoordinator = DefaultGroupCoordinator(navigationController: tabNavigationController)
-            childCoordinators.append(groupCoordinator)
-            groupCoordinator.start()
         case .friends:
             let friendCoordinator = DefaultFriendsListCoordinator(navigationController: tabNavigationController)
             childCoordinators.append(friendCoordinator)
             friendCoordinator.start()
-        case .notification:
-            let notificationCoordinator = DefaultNotificationCoordinator(navigationController: tabNavigationController)
-            childCoordinators.append(notificationCoordinator)
-            notificationCoordinator.start()
+        case .home:
+            let groupCoordinator = DefaultGroupCoordinator(navigationController: tabNavigationController)
+            childCoordinators.append(groupCoordinator)
+            groupCoordinator.start()
         case .myPage:
             let myPageCoordinator = DefaultMyPageCoordinator(navigationController: tabNavigationController)
             childCoordinators.append(myPageCoordinator)
             myPageCoordinator.start()
         }
     }
-    
-   
-    
 }
