@@ -30,7 +30,7 @@ final class PlansFromAlertViewModel {
         // 장소명
         let newPlaceName: Observable<String>
         // 날짜,시간
-        let selectedDate: Observable<Date>
+        let selectedDate: Observable<String>
         // 친구
         let selectedFriends: Observable<[Friend]>
         
@@ -69,62 +69,86 @@ final class PlansFromAlertViewModel {
             .map { placeName in
                 return placeName
             }
-        
         let output = Output(newPlaceName: newPlaceNameObservable, callerState: caller)
-        
+
         input.clickedAddParticipantsEvents?
             .bind { [weak self] in
                 guard let self = self else { return }
                 self.coordinator?.addParticipants()
             }
             .disposed(by: disposeBag)
-        
+
+
         input.clickedConfirmEvents?
             .bind { [weak self] in
                 guard let self = self else { return }
-               
-                
-                input.meetingName
-                    .subscribe(onNext: { value in
-                    })
-                    .disposed(by: self.disposeBag)
-                
-                input.selectedDate
-                    .subscribe(onNext: { value in
-                    })
-                    .disposed(by: self.disposeBag)
-                
-                input.newPlaceName
-                    .subscribe(onNext: { value in
+
+                Observable.combineLatest(input.meetingName, input.selectedDate, input.selectedFriends)
+                    .take(1)
+                    .subscribe(onNext: { [weak self] (meetingName: String, selectedDateTime: String, selectedFriends: [Friend]) in
+                        guard let self = self else { return }
                         
+                        let groupId = (KeychainWrapper.loadItem(forKey: "GroupId"))
+                        let placeDetails = self.createPlaceDetailsFromKeychain()
+
+                        let memberIds = selectedFriends.compactMap { $0.memberId }
+
+                        let planSaveRequest = PlanSaveRequest(
+                            name: meetingName,
+                            groupId: groupId ?? "",
+                            planDay: selectedDateTime,
+                            placeDetails: placeDetails,
+                            memberIds: memberIds
+                        )
+
+                        self.savePlan(request: planSaveRequest)
                     })
                     .disposed(by: self.disposeBag)
-                print("저장")
-                // 저장된 데이터로 Plan 저장
-                self.savePlan(meetingName: "meetingName", selectedDate: "selectedDate", placeDetails: placeDetails)
             }
             .disposed(by: disposeBag)
+
         
         return output
     }
     
+    private func createPlaceDetailsFromKeychain() -> PlaceDetails {
+         let placeName = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.placeName.rawValue) ?? ""
+         let placeUrl = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.placeURL.rawValue) ?? ""
+         let roadAddressName = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.roadAddressName.rawValue) ?? ""
+         let longitude = Double(KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.longitude.rawValue) ?? "0") ?? 0.0
+         let latitude = Double(KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.latitude.rawValue) ?? "0") ?? 0.0
+
+         return PlaceDetails(placeName: placeName, 
+                             placeUrl: placeUrl,
+                             roadAddressName: roadAddressName,
+                             longitude: longitude,
+                             latitude: latitude)
+     }
     func moveAddPrticipants() {
         coordinator?.addParticipants()
     }
     
-    private func savePlan(meetingName: String?, selectedDate: String?, placeDetails: PlaceDetails?) {
-        guard let meetingName = meetingName, let selectedDate = selectedDate, let placeDetails = placeDetails else {
-            print("nil")
-            return
-        }
+    private func savePlan(request: PlanSaveRequest) {
+        guard let groupID = request.groupId,
+                  let meetingName = request.name,
+                  let selectedDate = request.planDay else {
+                print("Error: One or more fields are nil")
+                return
+            }
+        let placeDetails = request.placeDetails
+            let memberIds = request.memberIds.compactMap { $0 }
         
-        let planSaveRequest = PlanSaveRequest(
-            groupId: meetingName,
-            planDay: selectedDate,
-            placeDetails: placeDetails
-        )
-        print(planSaveRequest)
-        
+           let planSaveRequest = PlanSaveRequest(
+               name: meetingName,
+               groupId: groupID,
+               planDay: selectedDate,
+               placeDetails: placeDetails,
+               memberIds: request.memberIds
+           )
+//           print(planSaveRequest)
+//        
+//        print("PlanSaveRequest(name: \"\(meetingName)\", groupId: \"\(groupID)\", planDay: \"\(selectedDate)\", placeDetails: \(placeDetails), memberIds: \(memberIds))")
+
         planService.savePlanService(request: planSaveRequest)
             .subscribe(onNext: { [weak self] response in
                 print("Plan saved: \(response)")

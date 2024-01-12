@@ -114,7 +114,8 @@ final class PlansFromAlertViewController: UIViewController {
     }()
     private let scrollView = UIScrollView()
     private let contentView = UIView()
-    
+    private let meetingNameSubject = BehaviorSubject<String>(value: "약속 명")
+
     // MARK: - Init
     init(viewModel: PlansFromAlertViewModel) {
         self.viewModel = viewModel
@@ -225,13 +226,32 @@ final class PlansFromAlertViewController: UIViewController {
     }
     
     private func bind() {
+        meetingNameEditButton.rx.tap
+              .subscribe(onNext: { [weak self] _ in
+                  self?.showEditAlert()
+              })
+              .disposed(by: disposeBag)
+        
+        let newPlaceNameObservable = newPlaceNameLabel.rx.observe(String.self, "text").map { $0 ?? "" }
+
+        // 날짜와 시간 결합
+        let selectedDateTimeObservable = Observable.combineLatest(
+            selectedDateLabel.rx.observe(String.self, "text"),
+            selectedTimeLabel.rx.observe(String.self, "text")
+        )
+        .map { date, time in
+            return "\(date ?? "") \(time ?? "")"
+        }
+        .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
+
         let input = PlansFromAlertViewModel.Input(
-                   clickedAddParticipantsEvents: addParticipantsButton.rx.tap,
-                   clickedConfirmEvents: confirmButton.rx.tap,
-                   meetingName: Observable.just(originalMeetingNameLabel.text ?? ""),
-                   newPlaceName: newPlaceNameLabel.rx.observe(String.self, "text").map { $0 ?? "" },
-                   selectedDate: datePicker.rx.date.asObservable(), 
-                   selectedFriends: viewModel.selectedFriendsObservable)
+            clickedAddParticipantsEvents: addParticipantsButton.rx.tap,
+            clickedConfirmEvents: confirmButton.rx.tap,
+            meetingName: meetingNameSubject.asObservable(),
+            newPlaceName: newPlaceNameObservable,
+            selectedDate: selectedDateTimeObservable,
+            selectedFriends: viewModel.selectedFriendsObservable
+        )
 
         let output = viewModel.createOutput(input: input)
 
@@ -258,7 +278,6 @@ final class PlansFromAlertViewController: UIViewController {
             }.disposed(by: disposeBag)
         
         // alert 창 터치 이벤트 vc에서 진행함.
-        
         datePickerButton.rx.tap
             .bind { [weak self] in
                 self?.presentDatePicker()
@@ -299,20 +318,21 @@ final class PlansFromAlertViewController: UIViewController {
     
     private func showEditAlert() {
         let alertController = UIAlertController(title: "약속 명 변경", message: nil, preferredStyle: .alert)
-        alertController.addTextField { textField in
-            textField.placeholder = "새 약속 명을 입력하세요"
-        }
-        let confirmAction = UIAlertAction(title: "확인", style: .default) { [weak self, unowned alertController] _ in
-            if let newName = alertController.textFields?.first?.text, !newName.isEmpty {
-                self?.originalMeetingNameLabel.text = newName
-            }
-        }
+         alertController.addTextField { textField in
+             textField.placeholder = "새 약속 명을 입력하세요"
+         }
+         let confirmAction = UIAlertAction(title: "확인", style: .default) { [weak self, unowned alertController] _ in
+             if let newName = alertController.textFields?.first?.text, !newName.isEmpty {
+                 self?.originalMeetingNameLabel.text = newName
+                 self?.meetingNameSubject.onNext(newName)
+             }
+         }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
         self.present(alertController, animated: true, completion: nil)
     }
-    
+
     
     private func presentDatePicker() {
         datePickerViewController.modalPresentationStyle = .formSheet

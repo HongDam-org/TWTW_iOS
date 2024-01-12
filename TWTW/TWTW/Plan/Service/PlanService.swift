@@ -16,22 +16,22 @@ import UIKit
 final class PlanService: PlanProtocol {
     /// 단건조회
     func getPlanLookupService() -> RxSwift.Observable<[Plan]> {
-           let header = Header.header.getHeader()
-           
-           return Observable.create { observer in
-               let url = Domain.RESTAPI + PlanPath.all.rawValue
-               AF.request(url, method: .get, headers: header)
-                   .responseDecodable(of: [Plan].self) { response in
-                       switch response.result {
-                       case .success(let data):
-                           observer.onNext(data)
-                       case .failure(let error):
-                           observer.onError(error)
-                       }
-                   }
-               return Disposables.create()
-           }
-       }
+        let header = Header.header.getHeader()
+        
+        return Observable.create { observer in
+            let url = Domain.RESTAPI + PlanPath.all.rawValue
+            AF.request(url, method: .get, headers: header)
+                .responseDecodable(of: [Plan].self) { response in
+                    switch response.result {
+                    case .success(let data):
+                        observer.onNext(data)
+                    case .failure(let error):
+                        observer.onError(error)
+                    }
+                }
+            return Disposables.create()
+        }
+    }
     
     /// plan정보조회
     func getPlanService(request: String) -> RxSwift.Observable<Plan> {
@@ -57,26 +57,42 @@ final class PlanService: PlanProtocol {
     }
     
     /// 계획 저장 savePlanService
-    func savePlanService(request: PlanSaveRequest) -> RxSwift.Observable<PlanSaveResponse> {
-        
+    func savePlanService(request: PlanSaveRequest) -> Observable<PlanSaveResponse> {
+        let url = Domain.RESTAPI + PlanPath.save.rawValue
         let header = Header.header.getHeader()
         
+        // 들어갈 JSON 데이터
+        let placeDetailsJson: [String: Any] = [
+            "placeName": request.placeDetails.placeName,
+            "placeUrl": request.placeDetails.placeUrl,
+            "roadAddressName": request.placeDetails.roadAddressName,
+            "longitude": request.placeDetails.longitude,
+            "latitude": request.placeDetails.latitude
+        ]
+        
+        let parameters: [String: Any] = [
+            "name": request.name ?? "",
+            "groupId": request.groupId ?? "",
+            "planDay": request.planDay ?? "",
+            "placeDetails": placeDetailsJson,
+            "memberIds": request.memberIds.compactMap { $0 }
+        ]
+        print(parameters)
         return Observable.create { observer in
-            var encodedRequest = request
-                  encodedRequest.encodePlaceDetails()
-            
-            let url = Domain.RESTAPI + PlanPath.save.rawValue
-            AF.request(url, method: .post, parameters: encodedRequest, encoder: JSONParameterEncoder.default, headers: header)
-                .validate(statusCode: 200..<201)
-                .responseDecodable(of: PlanSaveResponse.self) { response in
-                    switch response.result {
-                    case .success(let data):
-                        observer.onNext(data)
-                        print(data)
-                    case .failure(let error):
-                        observer.onError(error)
-                    }
+            AF.request(url,
+                       method: .post,
+                       parameters: parameters,
+                       encoding: JSONEncoding.default,
+                       headers: header)
+            .responseDecodable(of: PlanSaveResponse.self) { response in
+               
+                switch response.result {
+                case .success(let data):
+                    observer.onNext(data)
+                case .failure(let error):
+                    observer.onError(error)
                 }
+            }
             return Disposables.create()
         }
     }

@@ -47,9 +47,11 @@ struct GroupLookUpInfo: Codable {
 
 /// 그룹 저장
 struct PlanSaveRequest: Codable {
-    let groupId: String
-    let planDay: String
+    let name: String?
+    let groupId: String?
+    let planDay: String?
     var placeDetails: PlaceDetails
+    let memberIds: [String?]
     
     mutating func encodePlaceDetails() {
          placeDetails.placeName = EncodedQueryConfig.encodedQuery(encodeRequest: placeDetails.placeName).getEncodedQuery()
