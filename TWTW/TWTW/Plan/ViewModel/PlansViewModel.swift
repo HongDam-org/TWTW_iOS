@@ -10,6 +10,7 @@ import RxSwift
 import UIKit
 
 final class PlansViewModel {
+    
     var coordinator: DefaultPlansCoordinator
     private let planService: PlanService
     /// 입력이 아닌 뷰모델의 상태를 나타내는 출력 값 Input 밖에서
@@ -24,10 +25,10 @@ final class PlansViewModel {
         let selectedPlansList: Observable<IndexPath>
         let addPlans: Observable<Void>
     }
+    
     struct Output {
         let callerState: PlanCaller
         var planListRelay: BehaviorRelay<[Plan]> = BehaviorRelay(value: [])
-
     }
     
     // MARK: - Init
@@ -41,7 +42,7 @@ final class PlansViewModel {
         input.selectedPlansList
             .bind { [weak self] _ in
                 guard let self = self else { return }
-                switch self.caller {
+                switch caller {
                 case .fromAlert:
                     coordinator.moveToplansFromAlert()
                 case .fromTabBar:

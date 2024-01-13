@@ -22,10 +22,6 @@ struct GroupInfo: Codable {
     let groupImage: String
 }
 
-struct Member: Codable {
-    let id: String
-    let nickname: String
-}
 /// 계획 단건 조회
 struct Plan: Codable {
     let planId: String
@@ -38,11 +34,13 @@ struct Plan: Codable {
 
 /// 그룹 단건 조회
 struct GroupLookUpInfo: Codable {
-    let groupId: String
-    let leaderId: String
-    let name: String
-    let groupImage: String
+    let groupId: String?
+    let leaderId: String?
+    let name: String?
+    let groupImage: String?
     let groupMembers: [Friend]
+    let members: [Friend]
+    let notJoinedMembers: [Friend]
 }
 
 /// 그룹 저장
@@ -58,7 +56,8 @@ struct PlanSaveRequest: Codable {
          placeDetails.roadAddressName = EncodedQueryConfig.encodedQuery(encodeRequest: placeDetails.roadAddressName).getEncodedQuery()
      }
 }
+
 struct PlanSaveResponse: Codable {
-    let planId: String
-    let groupId: String
+    let planId: String?
+    let groupId: String?
 }

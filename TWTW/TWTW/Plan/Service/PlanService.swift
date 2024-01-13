@@ -17,9 +17,11 @@ final class PlanService: PlanProtocol {
     /// 단건조회
     func getPlanLookupService() -> RxSwift.Observable<[Plan]> {
         let header = Header.header.getHeader()
+        let groupId = KeychainWrapper.loadItem(forKey: "GroupId") ?? ""
         
         return Observable.create { observer in
-            let url = Domain.RESTAPI + PlanPath.all.rawValue
+            let url = Domain.RESTAPI + PlanPath.all.rawValue.replacingOccurrences(of: "GROUPID", with: groupId)
+            
             AF.request(url, method: .get, headers: header)
                 .responseDecodable(of: [Plan].self) { response in
                     switch response.result {
