@@ -18,6 +18,7 @@ enum LoginPath: String {
     case updateToken = "/auth/refresh"
     case checkValidation = "/auth/validate"
     case checkOverlapId = "/member/duplicate/Id"
+    case fcmDeviceToken = "/auth/device"
 }
 
 enum RoutePath: String {

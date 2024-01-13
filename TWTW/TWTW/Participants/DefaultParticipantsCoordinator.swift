@@ -37,14 +37,14 @@ final class DefaultsParticipantsCoordinator: ParticipantsCoordinator {
         let defaultFriendSearchCoordinator = DefaultFriendSearchCoordinator(navigationController: navigationController)
         defaultFriendSearchCoordinator.start()
         defaultFriendSearchCoordinator.delegate = self
-        self.output = output
+//        self.output = output
         childCoordinators.append(defaultFriendSearchCoordinator)
     }
 }
 
 extension DefaultsParticipantsCoordinator: FriendSearchDelegate {
     func sendData(selectedList: [Friend]) {
-        output?.participantsRelay.accept(selectedList)
+//        output?.participantsRelay.accept(selectedList)
         navigationController.popViewController(animated: true)
     }
     
