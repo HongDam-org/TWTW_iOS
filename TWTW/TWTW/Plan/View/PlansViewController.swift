@@ -15,9 +15,7 @@ final class PlansViewController: UIViewController {
     
     /// 친구 검색 버튼
     private lazy var rightItemButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
-    
-    /// sample 내가 속한 계획중 GroudID가 겹치는것만
-    
+        
     // MARK: Properties
     /// planTableView
     private lazy var planTableView: UITableView = {
@@ -68,6 +66,7 @@ final class PlansViewController: UIViewController {
         planTableView.register(PlanTableViewCell.self, forCellReuseIdentifier: CellIdentifier.planTableViewCell.rawValue)
         
     }
+    
     private func addSubviews() {
         constraintsTableView()
     }
@@ -78,6 +77,7 @@ final class PlansViewController: UIViewController {
             make.edges.equalToSuperview()
         }
     }
+    
     /// binding
     private func bind() {
         let input = PlansViewModel.Input(
@@ -89,7 +89,6 @@ final class PlansViewController: UIViewController {
         bindTableView(output: output)
     }
     
-
         /// binding TableView
         /// - Parameter output: Output
         private func bindTableView(output: PlansViewModel.Output) {
@@ -102,7 +101,5 @@ final class PlansViewController: UIViewController {
                     cell.selectionStyle = .none
                 }
                            .disposed(by: disposeBag)
-            
         }
-    
 }

@@ -11,8 +11,8 @@ import SnapKit
 import UIKit
 
 final class PlansFromAlertViewController: UIViewController {
+    
     private var currentViewType: SettingPlanCaller = .forNew
-
     private let disposeBag = DisposeBag()
     private var viewModel: PlansFromAlertViewModel
     private let datePickerViewController = DatePickerViewController()
@@ -300,6 +300,7 @@ final class PlansFromAlertViewController: UIViewController {
         }
         view.layoutIfNeeded()
     }
+    
     private func updateViewState(from newViewState: SettingPlanCaller) {
         currentViewType = newViewState
         switch currentViewType {
@@ -312,7 +313,6 @@ final class PlansFromAlertViewController: UIViewController {
         case .forRevice:
             originalPlaceNameLabel.isHidden = false
             placeChangeImage.isHidden = false
-            
         }
     }
     
@@ -332,7 +332,6 @@ final class PlansFromAlertViewController: UIViewController {
         alertController.addAction(cancelAction)
         self.present(alertController, animated: true, completion: nil)
     }
-
     
     private func presentDatePicker() {
         datePickerViewController.modalPresentationStyle = .formSheet

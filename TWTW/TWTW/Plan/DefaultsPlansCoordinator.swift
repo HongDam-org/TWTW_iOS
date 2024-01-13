@@ -43,7 +43,6 @@ final class DefaultPlansCoordinator: PlanCoordinator {
         let plansViewController = PlansViewController(viewModel: plansViewModel)
         
         navigationController.pushViewController(plansViewController, animated: false)
-        
     }
     
     func moveToPlanFromTabBar() {

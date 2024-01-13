@@ -20,7 +20,6 @@
 		371DDD722B372003007BAECC /* ParticipantsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371DDD712B372002007BAECC /* ParticipantsService.swift */; };
 		371DDD742B374284007BAECC /* ParticipantsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371DDD732B374284007BAECC /* ParticipantsProtocol.swift */; };
 		371DDD772B37574D007BAECC /* PlanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371DDD762B37574D007BAECC /* PlanService.swift */; };
-		371DDD792B3757E6007BAECC /* RevicePlanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371DDD782B3757E6007BAECC /* RevicePlanService.swift */; };
 		371DDD7B2B375808007BAECC /* PlanProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371DDD7A2B375808007BAECC /* PlanProtocol.swift */; };
 		371ECB892B2EF20D005174FF /* FriendListCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371ECB882B2EF20D005174FF /* FriendListCaller.swift */; };
 		371ECB8B2B2EFE09005174FF /* FriendsListCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371ECB8A2B2EFE09005174FF /* FriendsListCoordinatorDelegate.swift */; };
@@ -346,7 +345,6 @@
 		371DDD712B372002007BAECC /* ParticipantsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsService.swift; sourceTree = "<group>"; };
 		371DDD732B374284007BAECC /* ParticipantsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsProtocol.swift; sourceTree = "<group>"; };
 		371DDD762B37574D007BAECC /* PlanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanService.swift; sourceTree = "<group>"; };
-		371DDD782B3757E6007BAECC /* RevicePlanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevicePlanService.swift; sourceTree = "<group>"; };
 		371DDD7A2B375808007BAECC /* PlanProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanProtocol.swift; sourceTree = "<group>"; };
 		371ECB882B2EF20D005174FF /* FriendListCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListCaller.swift; sourceTree = "<group>"; };
 		371ECB8A2B2EFE09005174FF /* FriendsListCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListCoordinatorDelegate.swift; sourceTree = "<group>"; };
@@ -691,7 +689,6 @@
 		371DDD752B37572D007BAECC /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				371DDD782B3757E6007BAECC /* RevicePlanService.swift */,
 				371DDD762B37574D007BAECC /* PlanService.swift */,
 			);
 			path = Service;
@@ -2255,7 +2252,6 @@
 				37D5D78A2B19CF2800302EAD /* ParticipantsTableViewCell.swift in Sources */,
 				37D5D7912B19ECF300302EAD /* Plan.swift in Sources */,
 				3B1850AE2AB5C781001945EE /* EndPoint.swift in Sources */,
-				371DDD792B3757E6007BAECC /* RevicePlanService.swift in Sources */,
 				3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */,
 				3B4A66042B160C7900DF9C84 /* Group.swift in Sources */,
 				371DDD722B372003007BAECC /* ParticipantsService.swift in Sources */,

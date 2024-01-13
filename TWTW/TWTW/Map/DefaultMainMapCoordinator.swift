@@ -61,13 +61,7 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
         plansCoordinator.start()
         childCoordinators.append(plansCoordinator)
     }
-    /// 알림 화면으로 이동
-    func moveToPlansFromTabBar() {
-        
-        let plansCoordinator = DefaultPlansCoordinator(navigationController: navigationController)
-        plansCoordinator.planStartFromTabBar()
-        childCoordinators.append(plansCoordinator)
-    }
+
     func startWithNaviInit() {
         guard let mainMapViewModel = mainMapViewModel else { return }
         let mainMapViewController = MainMapViewController(viewModel: mainMapViewModel, coordinator: self)
@@ -75,7 +69,6 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
         print(navigationController.viewControllers)
         navigationController.setViewControllers([mainMapViewController], animated: true)
     }
-
 }
 
 extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate {
