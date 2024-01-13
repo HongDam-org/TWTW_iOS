@@ -28,7 +28,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             .setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -UIScreen.main.bounds.width, vertical: 0), for: .default)
         
         FirebaseApp.configure()
-                
+        
         // For iOS 10 display notification (sent via APNS)
         UNUserNotificationCenter.current().delegate = self
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
@@ -54,8 +54,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      configurationForConnecting connectingSceneSession: UISceneSession,
                      options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 }
@@ -82,7 +80,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         print(notification, center)
         completionHandler([.badge, .sound, .banner, .list])
     }
-
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -94,23 +92,20 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let id = userInfo.filter { "\($0.key)" == "id" }
         
         print("type: \(type)")
-//        if type == "친구명:" || type == "계획명:" || type == "그룹명:" {
-            guard let value = id.first?.value else { return }
-            print("value \(value)")
-//            NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 2, "id": value])
-        NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 0,
-                                                                                                     "id" : value,
-                                                                                                     "type": type,
-                                                                                                     "title": response.notification.request.content.title,
-                                                                                                     "body": response.notification.request.content.body])
-//        } else if type == "장소명:" {
-//            NotificationCenter.default.post(name: Notification.Name("showPage"), object: nil, userInfo: ["index": 0])
-//        }
+        
+        guard let value = id.first?.value else { return }
+        print("value \(value)")
+        NotificationCenter.default.post(name: Notification.Name("showPage"),
+                                        object: nil,
+                                        userInfo: ["index": 1, "id": value, "type": type,
+                                                   "title": response.notification
+                                                                .request.content.title,
+                                                   "body": response.notification
+                                                                .request.content.body])
         
         userInfo.forEach { (key: AnyHashable, value: Any) in
             print(key, value)
         }
-        
         
         print("END😡")
         completionHandler()

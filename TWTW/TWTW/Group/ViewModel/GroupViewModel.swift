@@ -17,7 +17,6 @@ final class GroupViewModel {
     private let groupService: GroupProtocol
     
     struct Input {
-        let clickedAlertEvenets: ControlEvent<Void>?
         let clickedCreateGroupEvents: ControlEvent<Void>?
         let clickedTableViewItemEvents: ControlEvent<IndexPath>?
     }
@@ -42,12 +41,6 @@ final class GroupViewModel {
     func createOutput(input: Input) -> Output {
         let output = Output()
         
-        input.clickedAlertEvenets?
-            .bind {
-                print("clicked Alert")
-            }
-            .disposed(by: disposeBag)
-        
         input.clickedCreateGroupEvents?
             .bind { [weak self] in
                 guard let self = self else { return }
@@ -60,12 +53,17 @@ final class GroupViewModel {
             .bind { [weak self] indexPath in
                 guard let self = self else { return }
                 _ = KeychainWrapper.saveItem(value: output.groupListRelay.value[indexPath.row].groupId ?? "", forKey: "GroupId")
+                print("GroupId🏘️ \(KeychainWrapper.loadItem(forKey: "GroupId"))")
                 moveMainMap()
             }
             .disposed(by: disposeBag)
         
         myGroupList(output: output)
         return output
+    }
+    
+    func reloadGroupList(output: Output) {
+        myGroupList(output: output)
     }
     
     /// move mainMap
@@ -84,6 +82,7 @@ final class GroupViewModel {
     private func myGroupList(output: Output) {
         groupService.groupList()
             .subscribe(onNext: { list in
+                print(list)
                 output.groupListRelay.accept(list)
             }, onError: { error in
                 print(error)

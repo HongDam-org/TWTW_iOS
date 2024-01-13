@@ -17,6 +17,7 @@ final class FriendSearchViewController: UIViewController {
         let btn = UIButton()
         btn.setTitle("추가", for: .normal)
         btn.setTitleColor(.black, for: .normal)
+        btn.backgroundColor = .clear
         return btn
     }()
     
@@ -25,6 +26,7 @@ final class FriendSearchViewController: UIViewController {
         let searchBar = UISearchBar()
         searchBar.placeholder = "Searching Friends"
         searchBar.showsCancelButton = false
+        searchBar.backgroundColor = .clear
         searchBar.backgroundImage = UIImage()
         searchBar.tintColor = .black
         return searchBar

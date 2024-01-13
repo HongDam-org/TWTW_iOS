@@ -39,7 +39,8 @@ final class GroupViewController: UIViewController {
     }()
     
     var viewModel: GroupViewModel
-    private let disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
+    private var output: GroupViewModel.Output?
     
     // MARK: - Init
     init(viewModel: GroupViewModel) {
@@ -65,6 +66,7 @@ final class GroupViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.tabBarController?.tabBar.isHidden = false
+        viewModel.reloadGroupList(output: output ?? GroupViewModel.Output())
     }
 
     /// Add UI
@@ -84,11 +86,11 @@ final class GroupViewController: UIViewController {
     
     /// bind
     private func bind() {
-        let input = GroupViewModel.Input(clickedAlertEvenets: alertBarButton.rx.tap,
-                                         clickedCreateGroupEvents: createGroupBarButton.rx.tap,
+        let input = GroupViewModel.Input(clickedCreateGroupEvents: createGroupBarButton.rx.tap,
                                          clickedTableViewItemEvents: groupListTableView.rx.itemSelected)
         
         let output = viewModel.createOutput(input: input)
+        self.output = output
         bindTableView(output: output)
     }
     

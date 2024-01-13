@@ -13,15 +13,15 @@ final class ParticipantsService: ParticipantsProtocol {
     /// 그룹사람
     /// - 처음 지도화면들어갔을땐 plan에대한 정보가 없다
     /// - Group을 통해 Group참여자들 모두 조회
-    /// - 이후에 plan을 통해 이 화면으로 돌아온 경우 참여자만 보여줄지 상의 필요
-    
     /// - Returns: Group내 모든 친구 조회
-    func getGroupFriends(request: String) -> Observable<[Friend]> {
-        let groupID = "처음에 group셀로 들어올때 groupID KeyChain에 저장"
+    func getGroupFriends() -> Observable<[Friend]> {
+        let groupID = KeychainWrapper.loadItem(forKey: "GroupId") ?? ""
         let url = Domain.RESTAPI + GroupPath.lookUpGroup.rawValue
-            .replacingOccurrences(of: "GROUPID", with: "groupID")
+            .replacingOccurrences(of: "GROUPID", with: groupID)
         let header = Header.header.getHeader()
         
+        print(url)
+        print("header \(header)")
         return Observable.create { observer in
             AF.request(url,
                        method: .get,
@@ -29,7 +29,7 @@ final class ParticipantsService: ParticipantsProtocol {
             .responseDecodable(of: GroupLookUpInfo.self) { response in
                 switch response.result {
                 case .success(let data):
-                    observer.onNext(data.groupMembers)
+                    observer.onNext(data.groupMembers ?? [])
                 case .failure(let error):
                     observer.onError(error)
                 }

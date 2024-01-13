@@ -50,7 +50,7 @@ final class ParticipantsViewModel {
         
        
         changeMyLocation(output: output)
-        //dummyData(output: output)
+        getGroupMemberList(output: output)
         return output
     }
     
@@ -63,19 +63,7 @@ final class ParticipantsViewModel {
     private func moveAddFriends(output: Output) {
         coordinator?.moveAddNewFriends(output: output)
     }
-    
-    /// Create Dummy
-//    private func dummyData(output: Output) {
-//        let list = [ Friend(memberId: "1", nickname: "aa", participantsImage: ""),
-//                     Friend(memberId: "1", nickname: "aa", participantsImage: ""),
-//                     Friend(memberId: "1", nickname: "aa", participantsImage: ""),
-//                     Friend(memberId: "1", nickname: "aa", participantsImage: ""),
-//                     Friend(memberId: "1", nickname: "aa", participantsImage: ""),
-//                     Friend(memberId: "1", nickname: "aa", participantsImage: "")]
-//        
-//        output.participantsRelay.accept(list)
-//    }
-//    
+
     // MARK: - API CONNECT
     
     /// 내위치 변경하기
@@ -91,6 +79,20 @@ final class ParticipantsViewModel {
                     })
                     .disposed(by: disposeBag)
             }
+            .disposed(by: disposeBag)
+    }
+    
+    
+    /// 그룹 참여자들 불러오기
+    /// - Parameter output: Output
+    private func getGroupMemberList(output: Output) {
+        service.getGroupFriends()
+            .subscribe(onNext: { data in
+                print(data)
+                output.participantsRelay.accept(data)
+            }, onError: { error in
+                print(#function, error)
+            })
             .disposed(by: disposeBag)
     }
 }

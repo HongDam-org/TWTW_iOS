@@ -28,7 +28,7 @@ final class TabBarController: UITabBarController {
             if let type = userInfo["type"] as? String,
                let title = userInfo["title"] as? String,
                let body = userInfo["body"] as? String,
-               let id = userInfo["id"] as? String{
+               let id = userInfo["id"] as? String {
                 selectedIndex = TabBarItemType.home.toInt()
                 
                 switch type {
@@ -64,7 +64,6 @@ final class TabBarController: UITabBarController {
                     .disposed(by: disposeBag)
                 print("invite")
             case "계획명":
-                // TODO: 타입별로 승인요청 전송
                 let service = PlanService()
                 service.joinPlanService(planId: id)
                     .subscribe(onNext: { _ in
