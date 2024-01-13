@@ -23,6 +23,9 @@ final class MakeNewFriendsListViewController: UIViewController {
         let searchBar = UISearchBar()
         searchBar.placeholder = "친구 검색"
         searchBar.showsCancelButton = false
+        searchBar.backgroundColor = .clear
+        searchBar.barTintColor = .clear
+        searchBar.searchTextField.backgroundColor = .clear
         searchBar.backgroundImage = UIImage()
         return searchBar
     }()
@@ -30,6 +33,7 @@ final class MakeNewFriendsListViewController: UIViewController {
     /// 검색된 친구테이블
     private lazy var friendsTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = .clear
         return tableView
     }()
     private lazy var addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
