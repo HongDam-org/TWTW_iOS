@@ -21,6 +21,9 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         mainMapViewModel = MainMapViewModel(coordinator: self)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(showPlanPage(_:)),
+                                               name: NSNotification.Name("moveToPlans"), object: nil)
     }
     
     // MARK: - Fuctions
@@ -69,6 +72,18 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
         print(navigationController.viewControllers)
         navigationController.setViewControllers([mainMapViewController], animated: true)
     }
+    
+    /// 알림 페이지로 넘어가는 함수
+    @objc
+    private func showPlanPage(_ notification: Notification) {
+        print("show moveToPlans🪡")
+        moveToPlans()
+        // TODO: 목적지 변경시 이동하는 코드
+        // 약속장소 화면으로 이동하는 Notification 등록해야함
+        // DefaultPlansCoordinator에서 Notification 등록해야함
+        NotificationCenter.default.post(name: Notification.Name("moveTo약속장소"), object: nil)
+    }
+
 }
 
 extension DefaultMainMapCoordinator: SearchPlacesMapCoordDelegate {

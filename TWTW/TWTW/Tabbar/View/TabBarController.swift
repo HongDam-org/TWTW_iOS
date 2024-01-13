@@ -65,6 +65,14 @@ final class TabBarController: UITabBarController {
                 print("invite")
             case "계획명":
                 // TODO: 타입별로 승인요청 전송
+                let service = PlanService()
+                service.joinPlanService(planId: id)
+                    .subscribe(onNext: { _ in
+                        print("accepted join group")
+                    }, onError: { error in
+                        print(#function, error)
+                    })
+                    .disposed(by: disposeBag)
                 print("plan invite")
             case "그룹명":
                 let service = GroupService()

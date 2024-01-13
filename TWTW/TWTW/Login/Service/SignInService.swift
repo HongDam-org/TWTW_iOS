@@ -143,4 +143,36 @@ final class SignInService: SignInProtocol {
         
     }
     
+    
+    /// update FCM Device Token
+    /// - Parameter fcmToken: FCM Token
+    func updateFCMDeviceToken(fcmToken: String) -> Observable<Void> {
+        let url = Domain.RESTAPI + LoginPath.updateToken.rawValue
+        let header = Header.header.getHeader()
+        let body: Parameters = [
+            "deviceToken": fcmToken
+        ]
+        
+        print(#function)
+        print(url)
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .post,
+                       parameters: body,
+                       encoding: JSONEncoding.default,
+                       headers: header)
+            .validate(statusCode: 204..<205)
+            .response { res in
+                switch res.result {
+                case .success:
+                    observer.onNext(())
+                case .failure(let error):
+                    print(#function)
+                    print(error)
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
 }

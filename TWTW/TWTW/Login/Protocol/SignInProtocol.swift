@@ -30,4 +30,8 @@ protocol SignInProtocol {
     /// Access Token 유효성 검사
     /// - Returns: true: AccessToken 유효, false: 만료
     func checkAccessTokenValidation() -> Observable<Void>
+    
+    /// update FCM Device Token
+    /// - Parameter fcmToken: FCM Token
+    func updateFCMDeviceToken(fcmToken: String) -> Observable<Void>
 }
