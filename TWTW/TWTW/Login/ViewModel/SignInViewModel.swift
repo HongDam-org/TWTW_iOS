@@ -40,13 +40,10 @@ final class SignInViewModel {
     
     /// 저장된 토큰 확인
     func checkSavingTokens(output: Output) {
-<<<<<<< Updated upstream
-//        _ = KeychainWrapper.delete(key: SignIn.accessToken.rawValue)
-//        _ = KeychainWrapper.delete(key: SignIn.refreshToken.rawValue)
-=======
+
         _ = KeychainWrapper.delete(key: SignIn.accessToken.rawValue)
          _ = KeychainWrapper.delete(key: SignIn.refreshToken.rawValue)
->>>>>>> Stashed changes
+
         
         if KeychainWrapper.loadItem(forKey: SignIn.accessToken.rawValue) != nil,
            KeychainWrapper.loadItem(forKey: SignIn.refreshToken.rawValue) != nil {
