@@ -16,7 +16,7 @@ final class DefaultGroupCoordinator: GroupCoordinatorProtocol {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(showPlanPage(_:)),
+                                               selector: #selector(showMainPage(_:)),
                                                name: NSNotification.Name("moveMain"), object: nil)
     }
     
