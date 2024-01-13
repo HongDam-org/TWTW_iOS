@@ -375,7 +375,7 @@
 		375E8B012A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlacesCollectionViewCell.swift; sourceTree = "<group>"; };
 		3760CC8B2AE2C0E800CFC2D5 /* SurroundSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurroundSearchService.swift; sourceTree = "<group>"; };
 		3760CC8E2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurroundSearchPlaces.swift; sourceTree = "<group>"; };
-		376754462B1C2E3E006DFF6E /* DefaultGroupCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultGroupCoordinator.swift; sourceTree = "<group>"; };
+		376754462B1C2E3E006DFF6E /* DefaultGroupCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DefaultGroupCoordinator.swift; path = Service/DefaultGroupCoordinator.swift; sourceTree = "<group>"; };
 		3767544B2B1C3AC1006DFF6E /* FriendsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewModel.swift; sourceTree = "<group>"; };
 		376E5B0C2B3306D00008EB5C /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		3772041B2B27045E00FE20A9 /* SearchPlaceBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceBottomSheet.swift; sourceTree = "<group>"; };
@@ -821,6 +821,7 @@
 				3B4A66022B160C5500DF9C84 /* Model */,
 				3B4A65FF2B15FF2600DF9C84 /* Service */,
 				3B9693D72B175346001DDAE8 /* DefaultCreateGroupCoordinator.swift */,
+				376754462B1C2E3E006DFF6E /* DefaultGroupCoordinator.swift */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -1540,7 +1541,6 @@
 		3B4A65FF2B15FF2600DF9C84 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				376754462B1C2E3E006DFF6E /* DefaultGroupCoordinator.swift */,
 				3B4A66072B16148C00DF9C84 /* GroupService.swift */,
 			);
 			path = Service;

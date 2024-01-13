@@ -12,7 +12,7 @@ protocol ParticipantsProtocol {
 
 /// - Group 친구
 /// 그룹 전체 참여자 목록 받아옴
-    func getGroupFriends(request: String) -> Observable<[Friend]>
+    func getGroupFriends() -> Observable<[Friend]>
 
 ///  - Plan 참여자 친구
 /// 그룹 내 특정 plan 참여자 목록

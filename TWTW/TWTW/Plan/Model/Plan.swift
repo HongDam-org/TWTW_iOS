@@ -38,11 +38,11 @@ struct Plan: Codable {
 
 /// 그룹 단건 조회
 struct GroupLookUpInfo: Codable {
-    let groupId: String
-    let leaderId: String
-    let name: String
-    let groupImage: String
-    let groupMembers: [Friend]
+    let groupId: String?
+    let leaderId: String?
+    let name: String?
+    let groupImage: String?
+    let groupMembers: [Friend]?
 }
 
 /// 그룹 저장

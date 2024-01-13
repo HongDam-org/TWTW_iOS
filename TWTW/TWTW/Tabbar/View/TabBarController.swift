@@ -64,7 +64,6 @@ final class TabBarController: UITabBarController {
                     .disposed(by: disposeBag)
                 print("invite")
             case "계획명":
-                // TODO: 타입별로 승인요청 전송
                 let service = PlanService()
                 service.joinPlanService(planId: id)
                     .subscribe(onNext: { _ in
