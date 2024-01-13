@@ -61,3 +61,8 @@ struct PlanSaveResponse: Codable {
     let planId: String?
     let groupId: String?
 }
+
+/// 그룹 단건조회
+struct PlanLookupResponse: Codable {
+    let plans: [PlanResponse]
+}

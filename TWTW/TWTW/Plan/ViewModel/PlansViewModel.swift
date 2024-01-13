@@ -39,6 +39,7 @@ final class PlansViewModel {
     }
     
     func bind(input: Input) -> Output {
+        
         input.selectedPlansList
             .bind { [weak self] _ in
                 guard let self = self else { return }
@@ -51,6 +52,7 @@ final class PlansViewModel {
                 }
             }.disposed(by: disposeBag)
         
+        
         input.addPlans
             .bind { [weak self] _ in
                 guard let self = self else { return }
@@ -62,6 +64,7 @@ final class PlansViewModel {
         
         return output
     }
+    
     private func planList(output: Output) {
         planService.getPlanLookupService()
             .subscribe(onNext: { list in

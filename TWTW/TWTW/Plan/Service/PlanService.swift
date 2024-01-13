@@ -20,7 +20,7 @@ final class PlanService: PlanProtocol {
         let groupId = KeychainWrapper.loadItem(forKey: "GroupId") ?? ""
         
         return Observable.create { observer in
-            let url = Domain.RESTAPI + PlanPath.all.rawValue.replacingOccurrences(of: "GROUPID", with: groupId)
+            let url = Domain.RESTAPI + PlanPath.lookup.rawValue.replacingOccurrences(of: "GROUPID", with: groupId)
             
             AF.request(url, method: .get, headers: header)
                 .responseDecodable(of: [Plan].self) { response in

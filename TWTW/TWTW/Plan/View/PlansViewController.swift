@@ -64,7 +64,6 @@ final class PlansViewController: UIViewController {
     private func setupTableView() {
         view.addSubview(planTableView)
         planTableView.register(PlanTableViewCell.self, forCellReuseIdentifier: CellIdentifier.planTableViewCell.rawValue)
-        
     }
     
     private func addSubviews() {
@@ -85,6 +84,7 @@ final class PlansViewController: UIViewController {
             addPlans: rightItemButton.rx.tap.asObservable()
         )
         let output = viewModel.bind(input: input)
+        
         updateViewState(from: output.callerState)
         bindTableView(output: output)
     }
