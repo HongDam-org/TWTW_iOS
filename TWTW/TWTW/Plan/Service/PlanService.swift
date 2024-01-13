@@ -96,4 +96,30 @@ final class PlanService: PlanProtocol {
             return Disposables.create()
         }
     }
+    
+    /// 계획 참여
+    /// - Parameter planId: 참여할 Plan 아이디
+    func joinPlanService(planId: String) -> Observable<Void> {
+        let url = Domain.RESTAPI + PlanPath.join.rawValue
+        let header = Header.header.getHeader()
+        let parameters: Parameters = [
+            "planId": planId
+        ]
+        return Observable.create { observer in
+            AF.request(url,
+                       method: .post,
+                       parameters: parameters,
+                       encoding: JSONEncoding.default,
+                       headers: header)
+            .response { response in
+                switch response.result {
+                case .success((_)):
+                    observer.onNext(())
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
 }

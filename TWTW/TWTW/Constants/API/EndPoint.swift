@@ -50,4 +50,5 @@ enum ParticipantsPath: String {
 enum PlanPath: String {
     case all = "/plans/PLANID" // Plan 단건 조회
     case save = "/plans" // plan 저장
+    case join = "/plans/join" // pln 참여
 }
