@@ -16,7 +16,7 @@ final class DefaultGroupCoordinator: GroupCoordinatorProtocol {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(showMainPage(_:)),
+                                               selector: #selector(showPlanPage(_:)),
                                                name: NSNotification.Name("moveMain"), object: nil)
     }
     
@@ -45,7 +45,7 @@ final class DefaultGroupCoordinator: GroupCoordinatorProtocol {
     private func showMainPage(_ notification: Notification) {
         print("show Main Paeg🪡")
         moveMainMap()
-        NotificationCenter.default.post(name: Notification.Name("moveToParticipantsList"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name("moveToPlans"), object: nil)
     }
 
 }
