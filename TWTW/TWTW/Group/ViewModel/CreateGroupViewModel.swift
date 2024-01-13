@@ -84,7 +84,8 @@ final class CreateGroupViewModel {
         groupService.createGroup(info: Group(groupId: nil,
                                              leaderId: nil,
                                              name: title,
-                                             groupImage: "??"))
+                                             groupImage: "??",
+                                             groupMembers: nil))
         .subscribe(onNext: { [weak self] group in
             guard let self = self else { return }
             output.doneCreateGroupSubject.onNext(true)

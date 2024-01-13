@@ -24,6 +24,7 @@ final class ParticipantsViewModel {
     struct Output {
         var participantsRelay: BehaviorRelay<[Friend]> = BehaviorRelay(value: [])
         var myLocationRelay: BehaviorRelay<SearchPlace?> = BehaviorRelay(value: nil)
+        var inviteFriendRelay: BehaviorRelay<[Friend]> = BehaviorRelay(value: [])
     }
     
     // MARK: - Init
@@ -48,7 +49,13 @@ final class ParticipantsViewModel {
             }
             .disposed(by: disposeBag)
         
-       
+        output.inviteFriendRelay
+            .bind { [weak self] friendList in
+                guard let self = self else {return}
+                inviteFriends(output: output, inviteFriends: friendList)
+            }
+            .disposed(by: disposeBag)
+        
         changeMyLocation(output: output)
         getGroupMemberList(output: output)
         return output
@@ -90,6 +97,24 @@ final class ParticipantsViewModel {
             .subscribe(onNext: { data in
                 print(data)
                 output.participantsRelay.accept(data)
+            }, onError: { error in
+                print(#function, error)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    
+    /// InviteFriend
+    /// - Parameters:
+    ///   - output: Output
+    ///   - inviteFriends: 초대되는 친구들
+    private func inviteFriends(output: Output, inviteFriends: [Friend]) {
+        let groupService = GroupService()
+        let groupId = KeychainWrapper.loadItem(forKey: "GroupId") ?? ""
+        let members = inviteFriends.map { $0.memberId ?? "" }
+        groupService.inviteGroup(inviteMembers: members, groupId: groupId)
+            .subscribe(onNext: { group in
+                print(group)
             }, onError: { error in
                 print(#function, error)
             })

@@ -23,7 +23,6 @@ final class TabBarController: UITabBarController {
     /// 알림 페이지로 넘어가는 함수
     @objc
     private func showAlertPage(_ notification: Notification) {
-        UIApplication.shared.applicationIconBadgeNumber = 0
         if let userInfo = notification.userInfo {
             if let type = userInfo["type"] as? String,
                let title = userInfo["title"] as? String,

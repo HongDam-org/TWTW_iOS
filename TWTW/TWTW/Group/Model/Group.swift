@@ -13,6 +13,7 @@ struct Group: Codable {
     let leaderId: String?
     let name: String?
     let groupImage: String?
+    let groupMembers: [Friend]?
 }
 
 /// 그룹단건조회

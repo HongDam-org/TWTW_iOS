@@ -38,7 +38,7 @@ struct GroupLookUpInfo: Codable {
     let leaderId: String?
     let name: String?
     let groupImage: String?
-    let groupMembers: [Friend]
+    let groupMembers: [Friend]?
     let members: [Friend]
     let notJoinedMembers: [Friend]
 }

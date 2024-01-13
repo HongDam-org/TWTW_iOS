@@ -20,6 +20,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
         let navigationController = UINavigationController()
         window?.rootViewController = navigationController
+        UIApplication.shared.applicationIconBadgeNumber = 0
         coordinator = DefaultAppCoordinator(navigationController: navigationController)
         coordinator?.start()
         window?.makeKeyAndVisible()

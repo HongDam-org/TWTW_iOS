@@ -96,19 +96,4 @@ final class ParticipantsService: ParticipantsProtocol {
             return Disposables.create()
         }
     }
-    
-    
-    // MARK: - 아직 서버 미구현 부분
-    /// Description:  group이지만 참여하지 않은 친구 조회
-    /// - Parameter word: <#word description#>
-    /// - Returns: <#description#>
-    //    func getNotYetParticipants(request word: String) -> RxSwift.Observable<[Friend]> {
-    //
-    //    }
-    //
-    //    /// Description:  group이지만 참여하지 않은 친구 초대요청
-    //    /// - Parameter memberId: <#memberId description#>
-    //    /// - Returns: <#description#>
-    //    func requestNotYetParticipants(request memberId: String) -> RxSwift.Observable<Void> {
-    //    }
 }
