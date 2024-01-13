@@ -108,8 +108,8 @@ final class FriendService: FriendProtocol {
         let url = Domain.RESTAPI + FriendPath.status.rawValue
         let header = Header.header.getHeader()
         let body: Parameters = [
-            "memberId" : memberId,
-            "friendStatus" : status
+            "memberId": memberId,
+            "friendStatus": status
         ]
         print(#function)
         print(url)
@@ -122,7 +122,7 @@ final class FriendService: FriendProtocol {
                        headers: header)
             .response { response in
                 switch response.result {
-                case .success(_):
+                case .success((_)):
                     observer.onNext(())
                 case .failure(let error):
                     observer.onError(error)

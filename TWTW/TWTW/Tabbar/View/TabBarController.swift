@@ -62,7 +62,7 @@ final class TabBarController: UITabBarController {
                     })
                     .disposed(by: disposeBag)
                 print("invite")
-            case "계획명":
+            case "계획명:":
                 let service = PlanService()
                 service.joinPlanService(planId: id)
                     .subscribe(onNext: { _ in
@@ -72,7 +72,7 @@ final class TabBarController: UITabBarController {
                     })
                     .disposed(by: disposeBag)
                 print("plan invite")
-            case "그룹명":
+            case "그룹명:":
                 let service = GroupService()
                 service.joinGroup(groupId: id)
                     .subscribe(onNext: { _ in
@@ -91,10 +91,5 @@ final class TabBarController: UITabBarController {
         sheet.addAction(UIAlertAction(title: "거절", style: .destructive, handler: { _ in print("초대 거절") }))
 
         present(sheet, animated: true)
-    }
-    
-    ///
-    private func confirmInviteFriend(id: String) {
-        
     }
 }
