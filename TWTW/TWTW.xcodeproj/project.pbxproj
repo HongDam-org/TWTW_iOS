@@ -39,9 +39,6 @@
 		374DB4682B247CC800AF648C /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374DB4672B247CC800AF648C /* MyPageViewController.swift */; };
 		374EAEAA2B2600B400BAA897 /* TabBarNavigationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374EAEA92B2600B400BAA897 /* TabBarNavigationControllerDelegate.swift */; };
 		374EAEAC2B260BA900BAA897 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374EAEAB2B260BA900BAA897 /* TabBarCoordinator.swift */; };
-		3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8402A8D23EE00D63A16 /* SnapKit */; };
-		3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8432A8D242C00D63A16 /* Alamofire */; };
-		3751E8472A8D246A00D63A16 /* RxKakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 3751E8462A8D246A00D63A16 /* RxKakaoSDK */; };
 		3754BB702A9B455100522420 /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3754BB6F2A9B455100522420 /* Color+Ext.swift */; };
 		37571BFC2A8619CB0069AC65 /* MainMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37571BFB2A8619CB0069AC65 /* MainMapViewController.swift */; };
 		3758F18C2A7D007200E2933C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3758F18B2A7D007200E2933C /* AppDelegate.swift */; };
@@ -55,7 +52,6 @@
 		3759165E2A80AEE000C21E1F /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3759165D2A80AEE000C21E1F /* KeychainWrapper.swift */; };
 		375CB2C12AF88D8C00119DF1 /* CellIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375CB2C02AF88D8C00119DF1 /* CellIdentifiers.swift */; };
 		375E8B022A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375E8B012A95FCB000F8DE42 /* NearbyPlacesCollectionViewCell.swift */; };
-		375E8B052A96187800F8DE42 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 375E8B042A96187800F8DE42 /* RxGesture */; };
 		3760CC8C2AE2C0E800CFC2D5 /* SurroundSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3760CC8B2AE2C0E800CFC2D5 /* SurroundSearchService.swift */; };
 		3760CC8F2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3760CC8E2AE2CB7800CFC2D5 /* SurroundSearchPlaces.swift */; };
 		376754472B1C2E3E006DFF6E /* DefaultGroupCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376754462B1C2E3E006DFF6E /* DefaultGroupCoordinator.swift */; };
@@ -293,26 +289,13 @@
 		3BB85C052B19D33400F8BBF3 /* FriendSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB85C042B19D33400F8BBF3 /* FriendSearchViewController.swift */; };
 		3BB85C072B19D37500F8BBF3 /* DefaultFriendSearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB85C062B19D37500F8BBF3 /* DefaultFriendSearchCoordinator.swift */; };
 		3BB85C092B19D39200F8BBF3 /* FriendSearchCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB85C082B19D39200F8BBF3 /* FriendSearchCoordinatorProtocol.swift */; };
-		3BBBB7902B308FA0002D57DC /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3BBBB78F2B308FA0002D57DC /* FirebaseAnalytics */; };
-		3BBBB7922B308FA0002D57DC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3BBBB7912B308FA0002D57DC /* FirebaseAuth */; };
-		3BBBB7942B308FA0002D57DC /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 3BBBB7932B308FA0002D57DC /* FirebaseDatabase */; };
-		3BBBB7962B308FA0002D57DC /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BBBB7952B308FA0002D57DC /* FirebaseDatabaseSwift */; };
-		3BBBB7982B308FA0002D57DC /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 3BBBB7972B308FA0002D57DC /* FirebaseMessaging */; };
-		3BBBB79A2B308FA0002D57DC /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3BBBB7992B308FA0002D57DC /* FirebaseStorage */; };
-		3BC1D2702AE0D15D00A7D0CC /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D26F2AE0D15D00A7D0CC /* RxCocoa */; };
-		3BC1D2722AE0D15D00A7D0CC /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D2712AE0D15D00A7D0CC /* RxRelay */; };
-		3BC1D2742AE0D15D00A7D0CC /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D2732AE0D15D00A7D0CC /* RxSwift */; };
-		3BC1D2782AE0D26B00A7D0CC /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D2772AE0D26B00A7D0CC /* Alamofire */; };
-		3BC1D27A2AE0D27200A7D0CC /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D2792AE0D27200A7D0CC /* RxSwift */; };
-		3BC1D27C2AE0D27600A7D0CC /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D27B2AE0D27600A7D0CC /* RxTest */; };
-		3BC1D27E2AE0D27F00A7D0CC /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC1D27D2AE0D27F00A7D0CC /* RxCocoa */; };
 		3BC8D6A22B0F0F0A00BE22EF /* RouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC8D6A12B0F0F0A00BE22EF /* RouteService.swift */; };
-		3BC8D6AA2B0F520C00BE22EF /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC8D6A92B0F520C00BE22EF /* Kingfisher */; };
 		3BE034982AD83AC800953498 /* SignInViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */; };
 		3BE038C92AFB0BE70039B4FD /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 3BE038C82AFB0BE70039B4FD /* .swiftlint.yml */; };
-		3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */; };
 		3BF9EFA42AB1AE790014855E /* KakaoMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */; };
 		3BF9EFB12AB1DEDB0014855E /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF9EFB02AB1DEDB0014855E /* UIImage+Ext.swift */; };
+		EB4D8D3F84A62849C4C57437 /* Pods_TWTWUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69FE5FF23C43E995C11B9B89 /* Pods_TWTWUnitTests.framework */; };
+		F28CDA3CD1FD09E8922C59F1 /* Pods_TWTW.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBAD0E8C3EC8A37E6DC1105E /* Pods_TWTW.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -326,6 +309,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		091A90BC3FD155AA61616A92 /* Pods-TWTW.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWTW.release.xcconfig"; path = "Target Support Files/Pods-TWTW/Pods-TWTW.release.xcconfig"; sourceTree = "<group>"; };
+		1E2C41CAF933FB723F1DAFB2 /* Pods-TWTWUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWTWUnitTests.release.xcconfig"; path = "Target Support Files/Pods-TWTWUnitTests/Pods-TWTWUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		3701086C2B3430B700F08128 /* RoadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoadViewController.swift; sourceTree = "<group>"; };
 		3701086E2B34414E00F08128 /* RoadViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoadViewCoordinator.swift; sourceTree = "<group>"; };
 		370108702B34415500F08128 /* DefaultsRoadViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsRoadViewCoordinator.swift; sourceTree = "<group>"; };
@@ -548,11 +533,6 @@
 		37D71E5B2B305FF90004188A /* FindRoadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindRoadViewModel.swift; sourceTree = "<group>"; };
 		37D71E5D2B3060030004188A /* FindRoadCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindRoadCoordinator.swift; sourceTree = "<group>"; };
 		37D71E5F2B30600F0004188A /* DefaultsFindRoadCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsFindRoadCoordinator.swift; sourceTree = "<group>"; };
-		37D71F2D2B3188620004188A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		37D71F2F2B31888F0004188A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		37D71F312B3188970004188A /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		37D71F332B31889F0004188A /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
-		37D71F352B3188A70004188A /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		37E0D8AC2B180804002E0CF5 /* ParticipantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsViewController.swift; sourceTree = "<group>"; };
 		37E0D8AE2B1809EE002E0CF5 /* ParticipantsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsCoordinator.swift; sourceTree = "<group>"; };
 		37E0D8B32B180A68002E0CF5 /* DefaultParticipantsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultParticipantsCoordinator.swift; sourceTree = "<group>"; };
@@ -623,6 +603,10 @@
 		3BF9EF9F2AB1AE220014855E /* TWTW.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWTW.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BF9EFA32AB1AE790014855E /* KakaoMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMapViewController.swift; sourceTree = "<group>"; };
 		3BF9EFB02AB1DEDB0014855E /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
+		69FE5FF23C43E995C11B9B89 /* Pods_TWTWUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TWTWUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A22AA8334408B2C83ED11EFE /* Pods-TWTWUnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWTWUnitTests.debug.xcconfig"; path = "Target Support Files/Pods-TWTWUnitTests/Pods-TWTWUnitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		EBAD0E8C3EC8A37E6DC1105E /* Pods_TWTW.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TWTW.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F96A49BB55B5BEA9308F339D /* Pods-TWTW.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWTW.debug.xcconfig"; path = "Target Support Files/Pods-TWTW/Pods-TWTW.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -630,21 +614,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BC1D2742AE0D15D00A7D0CC /* RxSwift in Frameworks */,
-				3BF9EFA22AB1AE4A0014855E /* KakaoMapsSDK_SPM in Frameworks */,
-				3BBBB7982B308FA0002D57DC /* FirebaseMessaging in Frameworks */,
-				375E8B052A96187800F8DE42 /* RxGesture in Frameworks */,
-				3BC8D6AA2B0F520C00BE22EF /* Kingfisher in Frameworks */,
-				3BC1D2702AE0D15D00A7D0CC /* RxCocoa in Frameworks */,
-				3751E8412A8D23EE00D63A16 /* SnapKit in Frameworks */,
-				3BBBB7962B308FA0002D57DC /* FirebaseDatabaseSwift in Frameworks */,
-				3BBBB79A2B308FA0002D57DC /* FirebaseStorage in Frameworks */,
-				3BBBB7942B308FA0002D57DC /* FirebaseDatabase in Frameworks */,
-				3751E8442A8D242C00D63A16 /* Alamofire in Frameworks */,
-				3BBBB7922B308FA0002D57DC /* FirebaseAuth in Frameworks */,
-				3BC1D2722AE0D15D00A7D0CC /* RxRelay in Frameworks */,
-				3BBBB7902B308FA0002D57DC /* FirebaseAnalytics in Frameworks */,
-				3751E8472A8D246A00D63A16 /* RxKakaoSDK in Frameworks */,
+				F28CDA3CD1FD09E8922C59F1 /* Pods_TWTW.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,16 +622,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BC1D27A2AE0D27200A7D0CC /* RxSwift in Frameworks */,
-				3BC1D27C2AE0D27600A7D0CC /* RxTest in Frameworks */,
-				3BC1D27E2AE0D27F00A7D0CC /* RxCocoa in Frameworks */,
-				3BC1D2782AE0D26B00A7D0CC /* Alamofire in Frameworks */,
+				EB4D8D3F84A62849C4C57437 /* Pods_TWTWUnitTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		33E42A912F10C9C41A2259E0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F96A49BB55B5BEA9308F339D /* Pods-TWTW.debug.xcconfig */,
+				091A90BC3FD155AA61616A92 /* Pods-TWTW.release.xcconfig */,
+				A22AA8334408B2C83ED11EFE /* Pods-TWTWUnitTests.debug.xcconfig */,
+				1E2C41CAF933FB723F1DAFB2 /* Pods-TWTWUnitTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		3701086B2B34309600F08128 /* RoadView */ = {
 			isa = PBXGroup;
 			children = (
@@ -761,8 +739,9 @@
 				3758F18A2A7D007200E2933C /* TWTW */,
 				3BF9EF9F2AB1AE220014855E /* TWTW.app */,
 				3BE034962AD83AC800953498 /* TWTWServiceUnitTests */,
-				3B6CF3BB2ADAC1A400325D05 /* Frameworks */,
 				3BC1D27F2AE0D58600A7D0CC /* TWTWUnitTests.xctest */,
+				33E42A912F10C9C41A2259E0 /* Pods */,
+				3FF3170F48234719A3E3FE03 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1581,18 +1560,6 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
-		3B6CF3BB2ADAC1A400325D05 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				37D71F352B3188A70004188A /* libsqlite3.tbd */,
-				37D71F332B31889F0004188A /* libxml2.tbd */,
-				37D71F312B3188970004188A /* libc++.tbd */,
-				37D71F2F2B31888F0004188A /* QuartzCore.framework */,
-				37D71F2D2B3188620004188A /* OpenGLES.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		3B6CF3D32ADAC3FE00325D05 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
@@ -1878,6 +1845,15 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		3FF3170F48234719A3E3FE03 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EBAD0E8C3EC8A37E6DC1105E /* Pods_TWTW.framework */,
+				69FE5FF23C43E995C11B9B89 /* Pods_TWTWUnitTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1885,33 +1861,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3758F19C2A7D007300E2933C /* Build configuration list for PBXNativeTarget "TWTW" */;
 			buildPhases = (
-				3BE038C62AFB0A0C0039B4FD /* SwiftLint Script */,
+				8FF26E950BBA6BD637DA1FAE /* [CP] Check Pods Manifest.lock */,
 				3758F1842A7D007100E2933C /* Sources */,
 				3758F1852A7D007100E2933C /* Frameworks */,
 				3758F1862A7D007100E2933C /* Resources */,
+				33200116D370E911EFF644BA /* [CP] Embed Pods Frameworks */,
+				D8B3B88017DE3AD80A769044 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = TWTW;
-			packageProductDependencies = (
-				3751E8402A8D23EE00D63A16 /* SnapKit */,
-				3751E8432A8D242C00D63A16 /* Alamofire */,
-				3751E8462A8D246A00D63A16 /* RxKakaoSDK */,
-				375E8B042A96187800F8DE42 /* RxGesture */,
-				3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */,
-				3BC1D26F2AE0D15D00A7D0CC /* RxCocoa */,
-				3BC1D2712AE0D15D00A7D0CC /* RxRelay */,
-				3BC1D2732AE0D15D00A7D0CC /* RxSwift */,
-				3BC8D6A92B0F520C00BE22EF /* Kingfisher */,
-				3BBBB78F2B308FA0002D57DC /* FirebaseAnalytics */,
-				3BBBB7912B308FA0002D57DC /* FirebaseAuth */,
-				3BBBB7932B308FA0002D57DC /* FirebaseDatabase */,
-				3BBBB7952B308FA0002D57DC /* FirebaseDatabaseSwift */,
-				3BBBB7972B308FA0002D57DC /* FirebaseMessaging */,
-				3BBBB7992B308FA0002D57DC /* FirebaseStorage */,
-			);
 			productName = TWTW;
 			productReference = 3BF9EF9F2AB1AE220014855E /* TWTW.app */;
 			productType = "com.apple.product-type.application";
@@ -1920,9 +1881,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3BE0349B2AD83AC800953498 /* Build configuration list for PBXNativeTarget "TWTWUnitTests" */;
 			buildPhases = (
+				6DFDB97C94CE47466C849CDF /* [CP] Check Pods Manifest.lock */,
 				3BE034912AD83AC800953498 /* Sources */,
 				3BE034922AD83AC800953498 /* Frameworks */,
 				3BE034932AD83AC800953498 /* Resources */,
+				D79449A1844770DFCEE776AE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1930,12 +1893,6 @@
 				3BE0349A2AD83AC800953498 /* PBXTargetDependency */,
 			);
 			name = TWTWUnitTests;
-			packageProductDependencies = (
-				3BC1D2772AE0D26B00A7D0CC /* Alamofire */,
-				3BC1D2792AE0D27200A7D0CC /* RxSwift */,
-				3BC1D27B2AE0D27600A7D0CC /* RxTest */,
-				3BC1D27D2AE0D27F00A7D0CC /* RxCocoa */,
-			);
 			productName = TWTWUnitTests;
 			productReference = 3BC1D27F2AE0D58600A7D0CC /* TWTWUnitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -1968,16 +1925,6 @@
 				Base,
 			);
 			mainGroup = 3758F17F2A7D007100E2933C;
-			packageReferences = (
-				3751E83F2A8D23EE00D63A16 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				3751E8422A8D242C00D63A16 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				3751E8452A8D246A00D63A16 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
-				375E8B032A96187800F8DE42 /* XCRemoteSwiftPackageReference "RxGesture" */,
-				3BF9EFA02AB1AE4A0014855E /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
-				3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */,
-				3BC8D6A82B0F520B00BE22EF /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				3BBBB78E2B308FA0002D57DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-			);
 			productRefGroup = 3758F17F2A7D007100E2933C;
 			projectDirPath = "";
 			projectRoot = "";
@@ -2139,24 +2086,100 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3BE038C62AFB0A0C0039B4FD /* SwiftLint Script */ = {
+		33200116D370E911EFF644BA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 12;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TWTW/Pods-TWTW-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TWTW/Pods-TWTW-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TWTW/Pods-TWTW-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6DFDB97C94CE47466C849CDF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "SwiftLint Script";
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TWTWUnitTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\" autocorrect\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8FF26E950BBA6BD637DA1FAE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TWTW-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D79449A1844770DFCEE776AE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TWTWUnitTests/Pods-TWTWUnitTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TWTWUnitTests/Pods-TWTWUnitTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TWTWUnitTests/Pods-TWTWUnitTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D8B3B88017DE3AD80A769044 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TWTW/Pods-TWTW-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TWTW/Pods-TWTW-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TWTW/Pods-TWTW-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2353,7 +2376,7 @@
 /* Begin XCBuildConfiguration section */
 		3758F19A2A7D007300E2933C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 37BAF8952A949C4900BD85DC /* Config.xcconfig */;
+			baseConfigurationReference = F96A49BB55B5BEA9308F339D /* Pods-TWTW.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2415,7 +2438,7 @@
 		};
 		3758F19B2A7D007300E2933C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 37BAF8952A949C4900BD85DC /* Config.xcconfig */;
+			baseConfigurationReference = 091A90BC3FD155AA61616A92 /* Pods-TWTW.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2472,7 +2495,7 @@
 		};
 		3758F19D2A7D007300E2933C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 37BAF8952A949C4900BD85DC /* Config.xcconfig */;
+			baseConfigurationReference = F96A49BB55B5BEA9308F339D /* Pods-TWTW.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -2514,7 +2537,7 @@
 		};
 		3758F19E2A7D007300E2933C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 37BAF8952A949C4900BD85DC /* Config.xcconfig */;
+			baseConfigurationReference = 091A90BC3FD155AA61616A92 /* Pods-TWTW.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -2556,6 +2579,7 @@
 		};
 		3BE0349C2AD83AC800953498 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A22AA8334408B2C83ED11EFE /* Pods-TWTWUnitTests.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -2583,6 +2607,7 @@
 		};
 		3BE0349D2AD83AC800953498 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E2C41CAF933FB723F1DAFB2 /* Pods-TWTWUnitTests.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -2638,171 +2663,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		3751E83F2A8D23EE00D63A16 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		3751E8422A8D242C00D63A16 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		3751E8452A8D246A00D63A16 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kakao/kakao-ios-sdk-rx";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-		375E8B032A96187800F8DE42 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
-		};
-		3BBBB78E2B308FA0002D57DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.19.1;
-			};
-		};
-		3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.6.0;
-			};
-		};
-		3BC8D6A82B0F520B00BE22EF /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.10.0;
-			};
-		};
-		3BF9EFA02AB1AE4A0014855E /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kakao-mapsSDK/KakaoMapsSDK-SPM.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		3751E8402A8D23EE00D63A16 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3751E83F2A8D23EE00D63A16 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		3751E8432A8D242C00D63A16 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3751E8422A8D242C00D63A16 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-		3751E8462A8D246A00D63A16 /* RxKakaoSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3751E8452A8D246A00D63A16 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
-			productName = RxKakaoSDK;
-		};
-		375E8B042A96187800F8DE42 /* RxGesture */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 375E8B032A96187800F8DE42 /* XCRemoteSwiftPackageReference "RxGesture" */;
-			productName = RxGesture;
-		};
-		3BBBB78F2B308FA0002D57DC /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BBBB78E2B308FA0002D57DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		3BBBB7912B308FA0002D57DC /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BBBB78E2B308FA0002D57DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		3BBBB7932B308FA0002D57DC /* FirebaseDatabase */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BBBB78E2B308FA0002D57DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabase;
-		};
-		3BBBB7952B308FA0002D57DC /* FirebaseDatabaseSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BBBB78E2B308FA0002D57DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabaseSwift;
-		};
-		3BBBB7972B308FA0002D57DC /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BBBB78E2B308FA0002D57DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
-		};
-		3BBBB7992B308FA0002D57DC /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BBBB78E2B308FA0002D57DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
-		};
-		3BC1D26F2AE0D15D00A7D0CC /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-		3BC1D2712AE0D15D00A7D0CC /* RxRelay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxRelay;
-		};
-		3BC1D2732AE0D15D00A7D0CC /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
-		};
-		3BC1D2772AE0D26B00A7D0CC /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3751E8422A8D242C00D63A16 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-		3BC1D2792AE0D27200A7D0CC /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
-		};
-		3BC1D27B2AE0D27600A7D0CC /* RxTest */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxTest;
-		};
-		3BC1D27D2AE0D27F00A7D0CC /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BC1D26C2AE0D15D00A7D0CC /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-		3BC8D6A92B0F520C00BE22EF /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BC8D6A82B0F520B00BE22EF /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
-		3BF9EFA12AB1AE4A0014855E /* KakaoMapsSDK_SPM */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BF9EFA02AB1AE4A0014855E /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */;
-			productName = KakaoMapsSDK_SPM;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3758F1802A7D007100E2933C /* Project object */;
 }
