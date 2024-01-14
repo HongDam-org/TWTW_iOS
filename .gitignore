@@ -113,3 +113,7 @@ TWTW/TWTW/Config.xcconfig
 
 
 TWTW/TWTW/GoogleService-Info.plist
+
+TWTW/DebugConfig.xcconfig
+
+TWTW/ReleaseConfig.xcconfig

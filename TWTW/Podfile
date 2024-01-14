@@ -31,7 +31,7 @@ target 'TWTW' do
   target 'TWTWUnitTests' do
     inherit! :search_paths
     # Pods for testing
-    pod 'RxTest', '6.6.0'
+ pod 'RxTest', '6.6.0'
   end
 
 end

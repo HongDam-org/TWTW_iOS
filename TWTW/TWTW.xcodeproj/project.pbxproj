@@ -375,7 +375,7 @@
 		3799E5042A99D6DC00E06218 /* PreviousAppointmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousAppointmentsViewController.swift; sourceTree = "<group>"; };
 		3799E5062A99D70500E06218 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
 		379E23752B4178C700373BFA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		37BAF8952A949C4900BD85DC /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		37BAF8952A949C4900BD85DC /* DebugConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DebugConfig.xcconfig; sourceTree = "<group>"; };
 		37BB02F82B230EA8006B2BEB /* ParticipantsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsViewModel.swift; sourceTree = "<group>"; };
 		37BB02FE2B23117E006B2BEB /* ChangeLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLocationViewModel.swift; sourceTree = "<group>"; };
 		37BB03002B231188006B2BEB /* ChangeLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLocationModel.swift; sourceTree = "<group>"; };
@@ -597,6 +597,7 @@
 		3BB85C062B19D37500F8BBF3 /* DefaultFriendSearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFriendSearchCoordinator.swift; sourceTree = "<group>"; };
 		3BB85C082B19D39200F8BBF3 /* FriendSearchCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		3BC1D27F2AE0D58600A7D0CC /* TWTWUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TWTWUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BC312282B54629C00170D07 /* ReleaseConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ReleaseConfig.xcconfig; sourceTree = "<group>"; };
 		3BC8D6A12B0F0F0A00BE22EF /* RouteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteService.swift; sourceTree = "<group>"; };
 		3BE034972AD83AC800953498 /* SignInViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelUnitTests.swift; sourceTree = "<group>"; };
 		3BE038C82AFB0BE70039B4FD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -740,6 +741,8 @@
 				3BF9EF9F2AB1AE220014855E /* TWTW.app */,
 				3BE034962AD83AC800953498 /* TWTWServiceUnitTests */,
 				3BC1D27F2AE0D58600A7D0CC /* TWTWUnitTests.xctest */,
+				37BAF8952A949C4900BD85DC /* DebugConfig.xcconfig */,
+				3BC312282B54629C00170D07 /* ReleaseConfig.xcconfig */,
 				33E42A912F10C9C41A2259E0 /* Pods */,
 				3FF3170F48234719A3E3FE03 /* Frameworks */,
 			);
@@ -773,7 +776,6 @@
 				3758F1942A7D007300E2933C /* Assets.xcassets */,
 				3BE038C82AFB0BE70039B4FD /* .swiftlint.yml */,
 				3758F1962A7D007300E2933C /* LaunchScreen.storyboard */,
-				37BAF8952A949C4900BD85DC /* Config.xcconfig */,
 				3758F1992A7D007300E2933C /* Info.plist */,
 				3B4230222B418A6400D0B038 /* GoogleService-Info.plist */,
 				379E23752B4178C700373BFA /* GoogleService-Info.plist */,
@@ -1885,7 +1887,7 @@
 				3BE034912AD83AC800953498 /* Sources */,
 				3BE034922AD83AC800953498 /* Frameworks */,
 				3BE034932AD83AC800953498 /* Resources */,
-				D79449A1844770DFCEE776AE /* [CP] Embed Pods Frameworks */,
+				21C8203D598E37C76E42F546 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2086,6 +2088,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		21C8203D598E37C76E42F546 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TWTWUnitTests/Pods-TWTWUnitTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TWTWUnitTests/Pods-TWTWUnitTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TWTWUnitTests/Pods-TWTWUnitTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		33200116D370E911EFF644BA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2145,23 +2164,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D79449A1844770DFCEE776AE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TWTWUnitTests/Pods-TWTWUnitTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TWTWUnitTests/Pods-TWTWUnitTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TWTWUnitTests/Pods-TWTWUnitTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D8B3B88017DE3AD80A769044 /* [CP] Copy Pods Resources */ = {
@@ -2376,7 +2378,7 @@
 /* Begin XCBuildConfiguration section */
 		3758F19A2A7D007300E2933C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F96A49BB55B5BEA9308F339D /* Pods-TWTW.debug.xcconfig */;
+			baseConfigurationReference = 37BAF8952A949C4900BD85DC /* DebugConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2438,7 +2440,7 @@
 		};
 		3758F19B2A7D007300E2933C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 091A90BC3FD155AA61616A92 /* Pods-TWTW.release.xcconfig */;
+			baseConfigurationReference = 3BC312282B54629C00170D07 /* ReleaseConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -2495,7 +2497,7 @@
 		};
 		3758F19D2A7D007300E2933C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F96A49BB55B5BEA9308F339D /* Pods-TWTW.debug.xcconfig */;
+			baseConfigurationReference = 37BAF8952A949C4900BD85DC /* DebugConfig.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -2537,7 +2539,7 @@
 		};
 		3758F19E2A7D007300E2933C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 091A90BC3FD155AA61616A92 /* Pods-TWTW.release.xcconfig */;
+			baseConfigurationReference = 3BC312282B54629C00170D07 /* ReleaseConfig.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
