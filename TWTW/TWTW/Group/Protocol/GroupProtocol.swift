@@ -23,4 +23,11 @@ protocol GroupProtocol {
     ///   - groupId: Group Id
     /// - Returns: Group Id
     func joinGroup(groupId: String) -> Observable<Group>
+    
+    /// 그룹에 친구 초대
+    /// - Parameters:
+    ///   - inviteMembers: Member Array
+    ///   - groupId: Group Id
+    /// - Returns: Group Info
+    func inviteGroup(inviteMembers: [String], groupId: String) -> Observable<Group>
 }

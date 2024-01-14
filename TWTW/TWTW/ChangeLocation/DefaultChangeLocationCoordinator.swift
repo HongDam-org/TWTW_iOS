@@ -20,8 +20,6 @@ final class DefaultChangeLocationCoordinator: ChangeLocationCoordinator {
     }
     
     func start() {
-         let changeLocationVC = ChangeLocationViewController()
-         let modalNavigationController = UINavigationController(rootViewController: changeLocationVC)
-         navigationController.present(modalNavigationController, animated: true, completion: nil)
+       
      }
 }

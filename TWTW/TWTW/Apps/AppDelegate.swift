@@ -63,6 +63,9 @@ extension AppDelegate: MessagingDelegate {
         print("파이어베이스 토큰: \(fcmToken ?? "")")
         guard let fcmToken = fcmToken else { return }
         _ = KeychainWrapper.saveItem(value: fcmToken, forKey: "DeviceToken")
+        
+        let loginService = SignInService()
+        _ = loginService.updateFCMDeviceToken(fcmToken: fcmToken)
     }
     
 }

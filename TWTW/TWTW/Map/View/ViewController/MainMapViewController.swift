@@ -16,7 +16,6 @@ import UIKit
 /// MainMapViewController - 지도화면
 final class MainMapViewController: KakaoMapViewController {
     private var currentViewType: ViewState = .mainMap
-    private var searchPlaceBottomSheet: SearchPlaceBottomSheet?
     
     // MARK: - UI Property
     
@@ -64,13 +63,17 @@ final class MainMapViewController: KakaoMapViewController {
     private let viewModel: MainMapViewModel
     private var output: MainMapViewModel.Output?
     private let mainMapCustomTabButtonsView: MainMapCustomTabButtonsView
-    
+    private var searchPlaceBottomSheet: SearchPlaceBottomSheet
+
     // MARK: - init
     
     init(viewModel: MainMapViewModel, coordinator: DefaultMainMapCoordinator) {
         self.viewModel = viewModel
         let tabViewModel = MainMapCustomTabButtonViewModel(coordinator: coordinator)
+        let bottomSheetViewwModel = SearchPlaceBottomSheetViewModel(coordinator: coordinator)
+
         self.mainMapCustomTabButtonsView = MainMapCustomTabButtonsView(frame: .zero, viewModel: tabViewModel)
+        self.searchPlaceBottomSheet = SearchPlaceBottomSheet(frame: .zero, viewModel: bottomSheetViewwModel)
         super.init()
     }
     
@@ -102,14 +105,40 @@ final class MainMapViewController: KakaoMapViewController {
     }
     
     // MARK: - Set Up
+    private func setNotificationFromSearchPlace(output: MainMapViewModel.Output) {
+        output.finishSearchCoordinator
+            .bind { [weak self] check in
+                if check {
+                    self?.updateViewStateAndMoveCamera()
+                }
+            }
+            .disposed(by: disposeBag)
+        
+    }
+    
+    private func updateViewStateAndMoveCamera() {
+        // 키체인에서 위치 정보
+        if let latitude = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.latitude.rawValue),
+           let longitude = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.longitude.rawValue) {
+            let coordinate = CLLocationCoordinate2D(latitude: Double(latitude) ?? 0, longitude: Double(longitude) ?? 0)
+            moveCameraToCoordinate(coordinate)
+            updateViewState(from: .searchMap)
+            addSearchPlaceBottomSheet()
+        }
+        
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     /// Setting UI
     private func setupUI() {
         addSubViewsSearchBar()
         addSubViewsMyloctaionImageView()
-        configureConstraintsMainMapCusomTabButtonView()
+        addSubViewsMainMapCusomTabButtonView()
         view.backgroundColor = .white
-        configureUIComponentsFor(currentViewType)
+        updateViewState(from: currentViewType)
     }
     
     
@@ -123,7 +152,7 @@ final class MainMapViewController: KakaoMapViewController {
     }
     private func addSubViewsMainMapCusomTabButtonView() {
         view.addSubview(mainMapCustomTabButtonsView)
-        configureConstraintsMainMapCusomTabButtonView()
+        configureConstraintCustomTabButtonView()
     }
     
     /// Add  UI -  MyloctaionImageView
@@ -131,9 +160,10 @@ final class MainMapViewController: KakaoMapViewController {
         view.addSubview(myloctaionImageView)
         configureConstraintsMyloctaionImageView()
     }
-    private func configureConstraintsMainMapCusomTabButtonView() {
-        view.addSubview(mainMapCustomTabButtonsView)
-        configureConstraintCsusomTabButtonView()
+
+    private func configureConstraintsBottomSheet() {
+        view.addSubview(searchPlaceBottomSheet)
+        configureConstraintBottomSheet()
     }
     // MARK: - Constraints
     
@@ -141,12 +171,18 @@ final class MainMapViewController: KakaoMapViewController {
     private func configureConstraintsSearchBar() {
         navigationItem.titleView = searchBar
     }
-    private func configureConstraintCsusomTabButtonView() {
+    private func configureConstraintCustomTabButtonView() {
         mainMapCustomTabButtonsView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.35)
             make.height.equalTo(mainMapCustomTabButtonsView.snp.width).multipliedBy(0.35)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(3)
+        }
+    }
+    private func configureConstraintBottomSheet() {
+        searchPlaceBottomSheet.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.3)
         }
     }
     
@@ -167,7 +203,7 @@ final class MainMapViewController: KakaoMapViewController {
     }
     
     private func bind() {
-        let input = MainMapViewModel.Input(screenTouchEvents: kMViewContainer?.rx.anyGesture(.tap()).when(.recognized).asObservable(),
+        let input = MainMapViewModel.Input(screenTouchEvents: mapContainer?.rx.anyGesture(.tap()).when(.recognized).asObservable(),
                                            searchBarTouchEvents: searchBar.rx.tapGesture().when(.recognized).asObservable(),
                                            cLLocationCoordinate2DEvents: Observable.just(configureLocationManager()),
                                            myLocationTappedEvents: myloctaionImageView.rx.anyGesture(.tap())
@@ -175,64 +211,41 @@ final class MainMapViewController: KakaoMapViewController {
                                            surroundSelectedTouchEvnets: nearbyPlacesCollectionView.rx.itemSelected.asObservable())
         let output = viewModel.bind(input: input)
         self.output = output
+        setNotificationFromSearchPlace(output: output)
     }
     
-    func updateViewState(to newViewState: ViewState, placeName: String, roadAddressName: String) {
+    private func updateViewState(from newViewState: ViewState) {
         currentViewType = newViewState
         switch currentViewType {
-            case .mainMap:
-                searchPlaceBottomSheet?.removeFromSuperview()
-            case .searchMap:
-                addSearchPlaceBottomSheet(placeName: placeName, roadAddressName: roadAddressName)
-        }
-
-        configureUIComponentsFor(currentViewType)
-    }
-
-
-    
-    private func addSearchPlaceBottomSheet(placeName: String, roadAddressName: String) {
-        searchPlaceBottomSheet?.removeFromSuperview()
-        searchPlaceBottomSheet = nil
-        
-        let bottomSheet = SearchPlaceBottomSheet()
-        bottomSheet.setupPlace(name: placeName, address: roadAddressName)
-        self.view.addSubview(bottomSheet)
-        bottomSheet.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.3)
-        }
-        searchPlaceBottomSheet = bottomSheet
-    }
-    
-    private func configureUIComponentsFor(_ viewType: ViewState) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            switch viewType {
-                case .mainMap:
-                    self.navigationItem.titleView = self.searchBar
-                    self.searchBar.isHidden = false
-                    self.myloctaionImageView.isHidden = false
-                    self.mainMapCustomTabButtonsView.isHidden = false
-                    self.searchPlaceBottomSheet?.removeFromSuperview()
-                    self.searchPlaceBottomSheet = nil
-                    
-                case .searchMap:
-                    self.myloctaionImageView.removeFromSuperview()
-                    self.mainMapCustomTabButtonsView.removeFromSuperview()
-                }
+        case .mainMap:
+            self.navigationItem.titleView = self.searchBar
+            self.searchBar.isHidden = false
+            self.myloctaionImageView.isHidden = false
+            self.mainMapCustomTabButtonsView.isHidden = false
+            self.searchPlaceBottomSheet.removeFromSuperview()
             
+        case .searchMap:
+            self.myloctaionImageView.removeFromSuperview()
+            self.mainMapCustomTabButtonsView.removeFromSuperview()
         }
     }
     
-
+    private func addSearchPlaceBottomSheet() {
+        searchPlaceBottomSheet.removeFromSuperview()
+        configureConstraintsBottomSheet()
+        let placeName = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.placeName.rawValue) ?? ""
+        let roadAddressName = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.roadAddressName.rawValue) ?? ""
+        searchPlaceBottomSheet.setupPlace(name: placeName, address: roadAddressName)
+    }
     
     /// 내 위치 binding
     private func bindMyLocation(output: MainMapViewModel.Output) {
         output.myLocatiaonRelay
             .bind { [weak self] location in
                 guard let self = self else {return}
-                moveCameraToCoordinate(location, output)
+                if let output = self.output {
+                    moveCameraToCoordinate(location, output)
+                }
             }
             .disposed(by: disposeBag)
     }
@@ -288,18 +301,20 @@ final class MainMapViewController: KakaoMapViewController {
 extension MainMapViewController {
     
     /// 선택한 좌표로 카메라 옮기기
-    private func moveCameraToCoordinate(_ coordinate: CLLocationCoordinate2D, _ output: MainMapViewModel.Output) {
+    private func moveCameraToCoordinate(_ coordinate: CLLocationCoordinate2D, _ output: MainMapViewModel.Output? = nil) {
         guard let mapView = mapController?.getView("mapview") as? KakaoMap else { return }
-        mapView.animateCamera(cameraUpdate: CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude,
-                                                                               latitude: coordinate.latitude),
-                                                              zoomLevel: 15,
-                                                              rotation: 1.7,
-                                                              tilt: 0.0,
-                                                              mapView: mapView),
-                              options: CameraAnimationOptions(autoElevation: true,
-                                                              consecutive: true,
-                                                              durationInMillis: 2000),
-                              callback: {self.createPolygonStyleSet(output: output)})
+        let cameraUpdate = CameraUpdate.make(target: MapPoint(longitude: coordinate.longitude, latitude: coordinate.latitude),
+                                             zoomLevel: 15,
+                                             rotation: 1.7,
+                                             tilt: 0.0,
+                                             mapView: mapView)
+        let options = CameraAnimationOptions(autoElevation: true, consecutive: true, durationInMillis: 2000)
+        
+        mapView.animateCamera(cameraUpdate: cameraUpdate, options: options) { [weak self] in
+            if let output = output {
+                self?.createPolygonStyleSet(output: output)
+            }
+        }
     }
     
     // MARK: - Route Functions

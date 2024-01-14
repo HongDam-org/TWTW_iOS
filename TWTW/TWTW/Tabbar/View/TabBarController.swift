@@ -23,7 +23,6 @@ final class TabBarController: UITabBarController {
     /// 알림 페이지로 넘어가는 함수
     @objc
     private func showAlertPage(_ notification: Notification) {
-        UIApplication.shared.applicationIconBadgeNumber = 0
         if let userInfo = notification.userInfo {
             if let type = userInfo["type"] as? String,
                let title = userInfo["title"] as? String,
@@ -63,10 +62,17 @@ final class TabBarController: UITabBarController {
                     })
                     .disposed(by: disposeBag)
                 print("invite")
-            case "계획명":
-                // TODO: 타입별로 승인요청 전송
+            case "계획명:":
+                let service = PlanService()
+                service.joinPlanService(planId: id)
+                    .subscribe(onNext: { _ in
+                        print("accepted join group")
+                    }, onError: { error in
+                        print(#function, error)
+                    })
+                    .disposed(by: disposeBag)
                 print("plan invite")
-            case "그룹명":
+            case "그룹명:":
                 let service = GroupService()
                 service.joinGroup(groupId: id)
                     .subscribe(onNext: { _ in
@@ -85,10 +91,5 @@ final class TabBarController: UITabBarController {
         sheet.addAction(UIAlertAction(title: "거절", style: .destructive, handler: { _ in print("초대 거절") }))
 
         present(sheet, animated: true)
-    }
-    
-    ///
-    private func confirmInviteFriend(id: String) {
-        
     }
 }

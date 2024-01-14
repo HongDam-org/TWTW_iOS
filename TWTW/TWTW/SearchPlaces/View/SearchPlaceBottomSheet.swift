@@ -5,20 +5,26 @@
 //  Created by 박다미 on 2023/12/11.
 //
 
-import UIKit
 import RxCocoa
 import RxSwift
 import SnapKit
+import UIKit
 
 final class SearchPlaceBottomSheet: UIView {
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let actionButton = UIButton()
     private let disposeBag = DisposeBag()
+    private var viewModel: SearchPlaceBottomSheetViewModel?
+    private let participantsButtonTappedSubject = PublishSubject<Void>()
+
     
-    override init(frame: CGRect) {
+    // MARK: - Init
+    init(frame: CGRect, viewModel: SearchPlaceBottomSheetViewModel) {
+        self.viewModel = viewModel
         super.init(frame: frame)
-        setupUI()
+        addSubViews()
+        bindViewModel()
         setupBindings()
     }
     
@@ -27,7 +33,7 @@ final class SearchPlaceBottomSheet: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupUI() {
+    private func addSubViews() {
         backgroundColor = .white
         
         titleLabel.text = "목적지명"
@@ -57,6 +63,13 @@ final class SearchPlaceBottomSheet: UIView {
             make.height.equalTo(40)
         }
     }
+    private func bindViewModel() {
+          guard let viewModel = viewModel else { return }
+          let input = SearchPlaceBottomSheetViewModel.Input(
+              participantsButtonTapped: participantsButtonTappedSubject.asObservable()
+          )
+          viewModel.bind(input: input)
+      }
     
     private func setupBindings() {
         actionButton.rx.tap
@@ -66,27 +79,18 @@ final class SearchPlaceBottomSheet: UIView {
             }
             .disposed(by: disposeBag)
     }
-    func setupPlace(name: String, address: String) {
-        titleLabel.text = name
-        descriptionLabel.text = address
-    }
+
     private func showAlert() {
-        let alert = UIAlertController(title: "목적지 변경", message: "목적지를 변경할 약속을 선택해주세요", preferredStyle: .alert)
+            let alert = UIAlertController(title: "목적지 변경", message: "목적지를 변경할 약속을 선택해주세요", preferredStyle: .alert)
+            let selectAppointmentAction = UIAlertAction(title: "약속 선택하기", style: .default) { [weak self] _ in
+                self?.participantsButtonTappedSubject.onNext(())
+            }
+            alert.addAction(selectAppointmentAction)
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
 
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        let selectAppointmentAction = UIAlertAction(title: "약속 선택하기", style: .default) { [weak self] _ in
-            // 약속 선택 로직 구현
-            self?.actionButton.setTitle("목적지 변경", for: .normal)
+            findViewController()?.present(alert, animated: true, completion: nil)
         }
-
-        alert.addAction(cancelAction)
-        alert.addAction(selectAppointmentAction)
-
-        if let viewController = self.findViewController() {
-            viewController.present(alert, animated: true, completion: nil)
-        }
-    }
-
+    
     private func findViewController() -> UIViewController? {
         var nextResponder: UIResponder? = self
         while nextResponder != nil {
@@ -97,4 +101,10 @@ final class SearchPlaceBottomSheet: UIView {
         }
         return nil
     }
+    
+    func setupPlace(name: String, address: String) {
+        titleLabel.text = name
+        descriptionLabel.text = address
+    }
+
 }

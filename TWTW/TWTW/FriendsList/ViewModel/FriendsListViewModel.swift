@@ -15,7 +15,7 @@ final class FriendsListViewModel {
     var coordinator: DefaultFriendsListCoordinator
     private let friendService: FriendProtocol
     private let disposeBag = DisposeBag()
-    
+    private let caller: FriendListCaller
     
     struct Input {
         let searchBarEvents: Observable<String>?
@@ -30,9 +30,10 @@ final class FriendsListViewModel {
     }
     
     // MARK: - init
-    init(coordinator: DefaultFriendsListCoordinator, friendService: FriendProtocol) {
+    init(coordinator: DefaultFriendsListCoordinator, friendService: FriendProtocol, caller: FriendListCaller = .fromTabBar) {
         self.coordinator = coordinator
         self.friendService = friendService
+        self.caller = caller
     }
     
     /// create Output
@@ -49,16 +50,41 @@ final class FriendsListViewModel {
             }
             .bind(to: output.filteringFriendListRelay)
             .disposed(by: disposeBag)
+        
+        if caller == .fromPartiSetLocation {
+            input.selectedFriendsEvents?
+                .bind { indexPath in
+                    var select = output.selectedFriendRelay.value
+                    output.filteringFriendListRelay.accept(output.filteringFriendListRelay.value)
+                    
+                    if select.contains(output.filteringFriendListRelay.value[indexPath.row]) {
+                        select.remove(at: select.firstIndex(of: output.filteringFriendListRelay.value[indexPath.row]) ?? 0)
+                        output.selectedFriendRelay.accept(select)
+                        return
+                    }
+                    select.append(output.filteringFriendListRelay.value[indexPath.row])
+                    output.selectedFriendRelay.accept(select)
+                }
+                .disposed(by: disposeBag)
+        }
+        
         input.clickedAddButtonEvents?
             .bind { [weak self] _ in
                 guard let self = self else { return }
-                moveMakeNewFriends()
+                switch self.caller {
+                case .fromPartiSetLocation:
+                    coordinator.navigateBackWithSelectedFriends(output.selectedFriendRelay.value)
+
+                case .fromTabBar:
+                    // 탭바에서 호출된 경우의 동작
+                    print("친구 추가 - 탭바에서 호출됨")
+                    self.coordinator.makeNewFriends()
+                }
             }.disposed(by: disposeBag)
         
         getAllFriends(output: output)
         return output
     }
-    
     /// move MakeNewFriends
     func moveMakeNewFriends() {
         coordinator.makeNewFriends()
@@ -68,6 +94,7 @@ final class FriendsListViewModel {
     /// - Parameter output: output
     private func getAllFriends(output: Output) {
 
+            
         friendService.getAllFriends()
             .subscribe(onNext: { list in
                 print(#function, list)

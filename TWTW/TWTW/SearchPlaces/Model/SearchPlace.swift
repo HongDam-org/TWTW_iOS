@@ -11,14 +11,18 @@ import Foundation
 /// Request 저장 변수
 struct SearchPlacesMapState {
     var pageNum: Int = 1
+    var isLastPage: Bool = false
+
 }
 
 /// 보내는 장소명 text
 struct PlacesRequest: Codable {
-    let searchText: String?
+    var searchText: String?
     let pageNum: Int
+    mutating func encodeSearchPlaceDetails() {
+        searchText = EncodedQueryConfig.encodedQuery(encodeRequest: searchText).getEncodedQuery()
+    }
 }
-
 /// 검색 결과 리스트
 struct PlaceResponse: Codable {
     let results: [SearchPlace]
@@ -30,13 +34,13 @@ struct SearchPlace: Codable {
     let placeName: String?
     let distance: Int?
     let placeURL: String?
-    let addressName, roadAddressName, categoryGroupCode: String?
+    let roadAddressName: String?
     let longitude, latitude: Double?
     
     enum CodingKeys: String, CodingKey {
         case placeName, distance
         case placeURL = "placeUrl"
-        case addressName, roadAddressName, categoryGroupCode
+        case roadAddressName
         case longitude = "longitude"
         case latitude = "latitude"
     }

@@ -84,7 +84,8 @@ final class CreateGroupViewModel {
         groupService.createGroup(info: Group(groupId: nil,
                                              leaderId: nil,
                                              name: title,
-                                             groupImage: "??"))
+                                             groupImage: "??",
+                                             groupMembers: nil))
         .subscribe(onNext: { [weak self] group in
             guard let self = self else { return }
             output.doneCreateGroupSubject.onNext(true)
@@ -101,7 +102,9 @@ final class CreateGroupViewModel {
     ///   - groupId: group Id
     ///   - output: Output
     private func inviteMember(groupId: String, output: Output) {
-        groupService.joinGroup(groupId: groupId)
+        let list = output.selectedFriendListRelay.value.map { $0.memberId ?? "" }
+        
+        groupService.inviteGroup(inviteMembers: list, groupId: groupId)
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 output.doneInviteGroupMemberSubject.onNext(true)

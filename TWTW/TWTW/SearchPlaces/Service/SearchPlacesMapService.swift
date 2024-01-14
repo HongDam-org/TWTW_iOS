@@ -17,8 +17,9 @@ final class SearchPlacesMapService: SearchPlaceProtocol {
     /// Service연결 - searchPlaceService
     func searchPlaceService(request: PlacesRequest) -> Observable<PlaceResponse> {
         return Observable.create { observer in
-            
-            let encodedQuery = EncodedQueryConfig.encodedQuery(searchText: request.searchText).getEncodedQuery()
+            var encodedRequest = request
+            encodedRequest.encodeSearchPlaceDetails()
+
             let headers = Header.header.getHeader()
             let longitude = KeychainWrapper.loadItem(forKey: "longitude") ?? ""
             let latitude = KeychainWrapper.loadItem(forKey: "latitude") ?? ""
@@ -27,8 +28,7 @@ final class SearchPlacesMapService: SearchPlaceProtocol {
                 .replacingOccurrences(of: "LONGITUDE", with: longitude)
                 .replacingOccurrences(of: "LATITUDE", with: latitude)
                 .replacingOccurrences(of: "pageNum", with: "\(request.pageNum)")
-                .replacingOccurrences(of: "encodedQuery", with: encodedQuery)
-           // print(url)
+                .replacingOccurrences(of: "encodedQuery", with: encodedRequest.searchText ?? "")
             
             AF.request(url, method: .get, parameters: request, headers: headers)
                 .validate(statusCode: 200..<201)

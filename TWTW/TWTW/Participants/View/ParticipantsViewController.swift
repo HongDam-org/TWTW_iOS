@@ -11,27 +11,16 @@ import UIKit
 
 final class ParticipantsViewController: UIViewController {
     
-    // 더미 데이터 생성
-    let participants: [Participant] =
-    [
-        Participant(participantsimage: UIImage(systemName: "person"),
-                    name: "박다미",
-                    callImage: UIImage(systemName: "phone"), locationImage: UIImage(systemName: "map")),
-        Participant(participantsimage: UIImage(systemName: "person"),
-                    name: "박다미", callImage: UIImage(systemName: "phone"),
-                    locationImage: UIImage(systemName: "map")),
-        Participant(participantsimage: UIImage(systemName: "person"),
-                    name: "박다미", callImage: UIImage(systemName: "phone"),
-                    locationImage: UIImage(systemName: "map")),
-        Participant(participantsimage: UIImage(systemName: "person"),
-                    name: "박다미", callImage: UIImage(systemName: "phone"),
-                    locationImage: UIImage(systemName: "map"))
-    ]
-    private let disposeBag = DisposeBag()
-    private var viewModel: ParticipantsViewModel
+    /// plus
+    private lazy var plusRightButton: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(systemName: "plus")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
+        return btn
+    }()
     
     private lazy var partiTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = .clear
         return tableView
     }()
     
@@ -46,13 +35,30 @@ final class ParticipantsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private let disposeBag = DisposeBag()
+    private var viewModel: ParticipantsViewModel
+    
     // MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .orange
-        view.layer.cornerRadius = 20
+        view.backgroundColor = .white
+        
+        navigationItem.title = "친구목록"
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: plusRightButton)
+        
         setupTableView()
-        bindTableView()
+        bind()
+    }
+    
+    /// binding
+    private func bind() {
+        let input = ParticipantsViewModel.Input(changeLocationButtonTapped: partiTableView.rx.itemSelected,
+                                                plusButtonEvents: plusRightButton.rx.tap)
+        
+        let output = viewModel.bind(input: input)
+        
+        bindTableView(output: output)
     }
     
     private func setupTableView() {
@@ -63,14 +69,15 @@ final class ParticipantsViewController: UIViewController {
         }
     }
     
-    private func bindTableView() {
+    private func bindTableView(output: ParticipantsViewModel.Output) {
         // 데이터 바인딩
-        Observable.just(participants)
+        output.participantsRelay
             .bind(to: partiTableView.rx.items(
                 cellIdentifier: CellIdentifier.participantsTableViewCell.rawValue,
-                cellType: ParticipantsTableViewCell.self)) { (row, participant, cell) in
+                cellType: ParticipantsTableViewCell.self)) { (_, participant, cell) in
                     cell.configure(participant: participant)
-                    
+                    cell.backgroundColor = .clear
+                    cell.selectionStyle = .none
                     /// 전화 버튼 탭 이벤트 구독
                     cell.callBtnTapObservable
                         .subscribe(onNext: {
@@ -87,12 +94,5 @@ final class ParticipantsViewController: UIViewController {
                 }
                 .disposed(by: disposeBag)
         
-        /// 셀 선택 이벤트 처리
-        let changeLocationTapped = partiTableView.rx.itemSelected
-            .map { _ in () }
-            .asObservable()
-        
-        let input = ParticipantsViewModel.Input(changeLocationButtonTapped: changeLocationTapped)
-        viewModel.bind(input: input)
     }
 }

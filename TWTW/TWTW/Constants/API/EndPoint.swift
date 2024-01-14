@@ -18,16 +18,20 @@ enum LoginPath: String {
     case updateToken = "/auth/refresh"
     case checkValidation = "/auth/validate"
     case checkOverlapId = "/member/duplicate/Id"
+    case fcmDeviceToken = "/auth/device"
 }
 
 enum RoutePath: String {
     case car = "/paths/search/car"
+    case ped = "/paths/search/ped"
 }
 
 enum GroupPath: String {
-    case group = "/group"
+    case group = "/group" // 그룹생성
     case invite = "/group/invite"
     case join = "/group/join"
+    case lookUpGroup = "/group/GROUPID" // 그룹 단건조회
+    case changeMyLocation = "/group/location"
 }
 
 enum FriendPath: String {
@@ -36,4 +40,17 @@ enum FriendPath: String {
     case request = "/friends/request"
     case notFriendSearch = "/member?nickname=NAME"
     case status = "/friends/status"
+}
+
+enum ParticipantsPath: String {
+    case all = "/plans/PLANID" // 그룹 모든 친구, 그룹 + plan
+    case not = "/plans/"// 그룹 + !plan 조회
+    case request = "/plans/yet" // 그룹 + !plan 요청
+}
+
+enum PlanPath: String {
+    case all = "/plans/PLANID" // Plan 단건 조회
+    case save = "/plans" // plan 저장
+    case join = "/plans/join" // pln 참여
+    case lookup = "/plans/group/GROUPID" // 그룹 내부의 계획 전체 조회
 }

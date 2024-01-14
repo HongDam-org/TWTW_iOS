@@ -11,7 +11,12 @@ import KakaoSDKAuth
 import KakaoSDKUser
 
 final class MockSignInService: SignInProtocol {
-
+    func updateFCMDeviceToken(fcmToken: String) -> RxSwift.Observable<Void> {
+        return Observable.create { _ in
+            return Disposables.create()
+        }
+    }
+    
     func kakaoLogin() -> Observable<KakaoSDKUser.User> {
         return Observable.create { _ in
             return Disposables.create()

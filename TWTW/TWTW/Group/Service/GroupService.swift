@@ -40,6 +40,7 @@ final class GroupService: GroupProtocol {
         let url = Domain.RESTAPI + GroupPath.group.rawValue
         let headers = Header.header.getHeader()
         print(url)
+        print(info)
         return Observable.create { observer in
             AF.request(url,
                        method: .post,
@@ -73,6 +74,7 @@ final class GroupService: GroupProtocol {
         ] as [String: Any]
         
         print(url)
+        print(parameter)
         return Observable.create { observer in
             AF.request(url,
                        method: .post,

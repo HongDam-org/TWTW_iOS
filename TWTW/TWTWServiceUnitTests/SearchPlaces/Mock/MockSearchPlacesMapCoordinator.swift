@@ -10,6 +10,11 @@ import UIKit
 import CoreLocation
 
 final class MockSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtocol {
+    func finishSearchPlaces(searchPlace: SearchPlace?) {
+        finishSearchPlacesCalled = true
+        print("Mock \(#function)")
+    }
+    
     var childCoordinators: [Coordinator]
     var navigationController: UINavigationController
     var finishSearchPlacesCalled = false
@@ -19,10 +24,10 @@ final class MockSearchPlacesMapCoordinator: SearchPlacesMapCoordinatorProtocol {
         self.navigationController = navigationController
     }
 
-    func finishSearchPlaces(coordinate: CLLocationCoordinate2D, placeName: String, roadAddressName: String) {
-        finishSearchPlacesCalled = true
-        print("Mock \(#function)")
-    }
+//    func finishSearchPlaces() {
+//        finishSearchPlacesCalled = true
+//        print("Mock \(#function)")
+//    }
 
     func start() {
         print("Mock \(#function)")

@@ -55,6 +55,7 @@ final class SearchPlacesTableViewCell: UITableViewCell {
         addressNameLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(15)
             make.top.equalTo(placeNameLabel.snp.bottom).offset(6)
+            make.bottom.equalToSuperview().inset(6)
         }
     }
     

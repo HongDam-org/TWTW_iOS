@@ -44,7 +44,6 @@ final class SearchPlacesMapViewController: UIViewController {
         hideKeyboard()
         bindViewModel()
     }
-    
     // MARK: - Set Up
     /// Add  UI - SearchBar
     private func addSubViews() {
@@ -121,7 +120,7 @@ final class SearchPlacesMapViewController: UIViewController {
                     cellIdentifier: CellIdentifier.searchPlacesTableViewCell.rawValue, cellType: SearchPlacesTableViewCell.self)
             ) { _, place, cell in
                 cell.configure(placeName: place.placeName ?? "",
-                               addressName: place.addressName ?? "")
+                               addressName: place.roadAddressName ?? "")
             }
             .disposed(by: disposeBag)
     }

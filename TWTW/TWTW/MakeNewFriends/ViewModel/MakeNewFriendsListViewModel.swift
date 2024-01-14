@@ -75,7 +75,6 @@ final class MakeNewFriendsListViewModel {
     /// 그룹 생성 페이지로 이동
     /// - Parameter output: Output
     private func moveCreateFriend(output: Output) {
-        print("선택된 친구들: \(output.selectedFriendRelay.value)")
         output.selectedFriendRelay.value.forEach { friend in
             friendService.requestFriends(memberId: friend.memberId ?? "")
                 .subscribe(

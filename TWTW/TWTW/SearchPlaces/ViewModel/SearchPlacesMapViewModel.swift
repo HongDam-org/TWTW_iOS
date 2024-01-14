@@ -19,7 +19,7 @@ final class SearchPlacesMapViewModel {
     private let searchPlacesServices: SearchPlaceProtocol?
     private let surroundSearchServices: SurroundSearchProtocol?
     private var state = SearchPlacesMapState()
-    
+    private let caller: StartCaller
     struct Input {
         /// searchbar 글자변경 감지
         let searchText: Observable<String?>
@@ -42,10 +42,12 @@ final class SearchPlacesMapViewModel {
     // MARK: - init
     init(coordinator: SearchPlacesMapCoordinatorProtocol?,
          searchPlacesServices: SearchPlaceProtocol?,
-         surroundSearchServices: SurroundSearchProtocol?) {
+         surroundSearchServices: SurroundSearchProtocol?,
+         caller: StartCaller = .defaults) {
         self.coordinator = coordinator
         self.searchPlacesServices = searchPlacesServices
         self.surroundSearchServices = surroundSearchServices
+        self.caller = caller
     }
     
     ///  bind
@@ -82,26 +84,51 @@ final class SearchPlacesMapViewModel {
         input.selectedPlace
             .bind(onNext: { [weak self] selectedPlace in
                 guard let self = self else { return }
-
-                let placeX = selectedPlace.longitude ?? 0
-                let placeY = selectedPlace.latitude ?? 0
-                let coordinate = CLLocationCoordinate2D(latitude: placeY, longitude: placeX )
-                print(coordinate)
-                self.coordinator?.finishSearchPlaces(coordinate: coordinate, 
-                                                     placeName: selectedPlace.placeName ?? "",
-                                                     roadAddressName: selectedPlace.roadAddressName ?? "")
+                switch self.caller {
+                case .forStartCaller:
+                    print("내위치 선택")
+                case .defaults:
+                    // 장소 이름 저장
+                    if let placeName = selectedPlace.placeName {
+                        _ = KeychainWrapper.saveItem(value: placeName, forKey: SearchPlaceKeyChain.placeName.rawValue)
+                    }
+                    
+                    // 장소 URL 저장
+                    if let placeURL = selectedPlace.placeURL {
+                        _ = KeychainWrapper.saveItem(value: placeURL, forKey: SearchPlaceKeyChain.placeURL.rawValue)
+                    }
+                    
+                    // 도로명 주소 저장
+                    if let roadAddressName = selectedPlace.roadAddressName {
+                        _ = KeychainWrapper.saveItem(value: roadAddressName, forKey: SearchPlaceKeyChain.roadAddressName.rawValue)
+                    }
+                    
+                    // 경도 저장
+                    if let longitude = selectedPlace.longitude {
+                        _ = KeychainWrapper.saveItem(value: "\(longitude)", forKey: SearchPlaceKeyChain.longitude.rawValue)
+                    }
+                    
+                    // 위도 저장
+                    if let latitude = selectedPlace.latitude {
+                        _ = KeychainWrapper.saveItem(value: "\(latitude)", forKey: SearchPlaceKeyChain.latitude.rawValue)
+                    }
+                    coordinator?.finishSearchPlaces(searchPlace: nil)
+                case .groupMemberList:
+                    coordinator?.finishSearchPlaces(searchPlace: selectedPlace)
+                }
             })
             .disposed(by: disposeBag)
         
         return output
     }
-    
+
     /// 데이터 로드
     private func loadData(output: Output) {
         state.pageNum = 1
         searchPlacesServices?.searchPlaceService(request: PlacesRequest(searchText: output.searchText.value,
                                                                         pageNum: state.pageNum))
-        .subscribe(onNext: { placeResponse in
+        .subscribe(onNext: { [weak self] placeResponse in
+            self?.state.isLastPage = placeResponse.isLast ?? false
             output.filteredPlaces.accept(placeResponse.results)
         })
         .disposed(by: disposeBag)
@@ -109,6 +136,7 @@ final class SearchPlacesMapViewModel {
     
     /// 추가 데이터 로드
     private func loadMoreData(output: Output) {
+        guard !state.isLastPage else { return }
         state.pageNum += 1
         searchPlacesServices?.searchPlaceService(request: PlacesRequest(searchText: output.searchText.value,
                                                                         pageNum: state.pageNum))
@@ -119,4 +147,5 @@ final class SearchPlacesMapViewModel {
         })
         .disposed(by: disposeBag)
     }
+    
 }

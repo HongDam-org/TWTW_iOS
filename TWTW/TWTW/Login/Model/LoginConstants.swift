@@ -35,3 +35,4 @@ enum LoginImageTitle: String {
     case photo = "add_a_photo"
     case profile
 }
+

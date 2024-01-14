@@ -8,12 +8,12 @@
 import Foundation
 
 enum EncodedQueryConfig {
-    case encodedQuery(searchText: String?)
+    case encodedQuery(encodeRequest: String?)
     
     func getEncodedQuery() -> String {
         switch self {
-        case .encodedQuery(let searchText):
-            return searchText?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        case .encodedQuery(let encodeRequest):
+            return encodeRequest?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
         }
     }
 }

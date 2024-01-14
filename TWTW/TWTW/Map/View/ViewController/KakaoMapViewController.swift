@@ -11,7 +11,7 @@ import UIKit
 class KakaoMapViewController: UIViewController, MapControllerDelegate {
     
     var mapController: KMController?
-    var kMViewContainer: KMViewContainer?
+    var mapContainer: KMViewContainer?
     var observerAdded: Bool?
     var auth: Bool?
     var appear: Bool?
@@ -47,7 +47,7 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
         
         guard let kmController = KMController(viewContainer: mapView) else {return}
         mapController = kmController
-        kMViewContainer = mapView
+        mapContainer = mapView
         mapController?.delegate = self
         
         mapController?.initEngine() // 엔진 초기화. 엔진 내부 객체 생성 및 초기화가 진행된다.
@@ -68,12 +68,12 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         
     }
-    
+//    
 //    override func viewWillDisappear(_ animated: Bool) {
 //        appear = false
 //        mapController?.stopRendering()  // 렌더링 중지.
 //    }
-
+//
 //    override func viewDidDisappear(_ animated: Bool) {
 //        removeObservers()
 //        mapController?.stopEngine()     // 엔진 정지. 추가되었던 ViewBase들이 삭제된다.
@@ -81,13 +81,9 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
     
     private func set() {
         view.addSubview(mapView)
-        
-        NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(equalTo: view.topAnchor),
-            mapView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            mapView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        mapView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     /// 인증 성공시 delegate 호출.
@@ -145,8 +141,27 @@ class KakaoMapViewController: UIViewController, MapControllerDelegate {
         if mapController?.addView(mapviewInfo) == Result.OK {
             print("OK") // 추가 성공. 성공시 추가적으로 수행할 작업을 진행한다.
         }
+        addRoadView()
     }
-    
+    private func addRoadView() {
+          let roadviewInfo = RoadviewInfo(viewName: "roadview", viewInfoName: "roadview", enabled: true)
+          if mapController?.addView(roadviewInfo) == Result.OK {
+              configureRoadview()
+          }
+      }
+
+      private func configureRoadview() {
+          guard let roadview = mapController?.getView("roadview") as? Roadview else {
+              print("Failed to retrieve Roadview.")
+              return
+          }
+
+          // Roadview 설정...
+          let defaultPosition = MapPoint(longitude: 126.978365, latitude: 37.566691)
+          let lookAt = RoadviewLookAt(pan: 0.5, tilt: 0.2)
+          let markers = [PanoramaMarker(pan: 0.5, tilt: 0.2)]
+          roadview.requestRoadview(position: defaultPosition, panoID: nil, markers: markers, lookAt: lookAt)
+      }
     // Container 뷰가 리사이즈 되었을때 호출된다. 변경된 크기에 맞게 ViewBase들의 크기를 조절할 필요가 있는 경우 여기에서 수행한다.
     func containerDidResized(_ size: CGSize) {
         let mapView: KakaoMap? = mapController?.getView("mapview") as? KakaoMap

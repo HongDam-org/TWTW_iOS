@@ -19,14 +19,14 @@ final class PlanTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    private lazy var planTitle: UILabel = {
+    private lazy var planName: UILabel = {
         let label = UILabel()
         label.text = "약속"
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         return label
     }()
-    private lazy var planSubtitle: UILabel = {
+    private lazy var groupName: UILabel = {
         let label = UILabel()
         label.text = "섭"
         label.textAlignment = .left
@@ -53,8 +53,8 @@ final class PlanTableViewCell: UITableViewCell {
     /// addSubViews()
     private func addSubViews() {
         contentView.addSubview(planStackView)
-        planStackView.addArrangedSubview(planTitle)
-        planStackView.addArrangedSubview(planSubtitle)
+        planStackView.addArrangedSubview(planName)
+        planStackView.addArrangedSubview(groupName)
         configureConstraints()
     }
     
@@ -68,9 +68,8 @@ final class PlanTableViewCell: UITableViewCell {
     }
     
     /// configure
-    func configure(plan: Plan) {
-        self.planTitle.text = plan.planTitle
-        self.planSubtitle.text = plan.plansubTitle
+    func inputData(plan: Plan) {
+        self.planName.text = plan.placeDetails.placeName
+        self.groupName.text = plan.groupInfo.name
     }
-    
 }
