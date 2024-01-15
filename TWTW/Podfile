@@ -1,0 +1,37 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'TWTW' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for TWTW
+ pod 'Firebase/Core'
+  pod 'Firebase/Functions'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+  pod 'Firebase/DynamicLinks'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Messaging'
+  pod 'Firebase/RemoteConfig'
+ 
+    pod 'RxSwift', '6.6.0'
+    pod 'RxCocoa', '6.6.0'
+    pod "RxGesture"
+    
+    pod 'SnapKit'
+    pod 'SwiftLint'
+    pod 'RxKakaoSDK'
+    pod 'KakaoSDK'
+    pod 'Kingfisher'
+    pod 'Alamofire'
+
+    pod 'KakaoMapsSDK'
+
+  target 'TWTWUnitTests' do
+    inherit! :search_paths
+    # Pods for testing
+ pod 'RxTest', '6.6.0'
+  end
+
+end
