@@ -27,6 +27,7 @@ target 'TWTW' do
     pod 'Alamofire'
 
     pod 'KakaoMapsSDK'
+    pod 'StompClientLib'
 
   target 'TWTWUnitTests' do
     inherit! :search_paths

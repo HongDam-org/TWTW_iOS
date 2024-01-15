@@ -962,6 +962,9 @@ PODS:
   - RxTest (6.6.0):
     - RxSwift (= 6.6.0)
   - SnapKit (5.6.0)
+  - SocketRocket (0.7.0)
+  - StompClientLib (1.4.1):
+    - SocketRocket
   - SwiftLint (0.54.0)
 
 DEPENDENCIES:
@@ -983,6 +986,7 @@ DEPENDENCIES:
   - RxSwift (= 6.6.0)
   - RxTest (= 6.6.0)
   - SnapKit
+  - StompClientLib
   - SwiftLint
 
 SPEC REPOS:
@@ -1047,6 +1051,8 @@ SPEC REPOS:
     - RxSwift
     - RxTest
     - SnapKit
+    - SocketRocket
+    - StompClientLib
     - SwiftLint
 
 SPEC CHECKSUMS:
@@ -1110,8 +1116,10 @@ SPEC CHECKSUMS:
   RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
   RxTest: a23f26bb53a5e146a0a69db4f0fa0b69001ce7f4
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
+  StompClientLib: ac40390e9660c574675f1c933bec81c8e2811a4f
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
 
-PODFILE CHECKSUM: 9c056b7f871a5a0bf730e2bedda0bb06b18104f5
+PODFILE CHECKSUM: 51d24e269c072096c85b83d192406431312af57e
 
 COCOAPODS: 1.14.3
