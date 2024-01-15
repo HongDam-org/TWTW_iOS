@@ -741,6 +741,7 @@
 				3BF9EF9F2AB1AE220014855E /* TWTW.app */,
 				3BE034962AD83AC800953498 /* TWTWServiceUnitTests */,
 				3BC1D27F2AE0D58600A7D0CC /* TWTWUnitTests.xctest */,
+				3BE038C82AFB0BE70039B4FD /* .swiftlint.yml */,
 				37BAF8952A949C4900BD85DC /* DebugConfig.xcconfig */,
 				3BC312282B54629C00170D07 /* ReleaseConfig.xcconfig */,
 				33E42A912F10C9C41A2259E0 /* Pods */,
@@ -774,7 +775,6 @@
 				3B0E2EBF2A81483D00797782 /* Extension */,
 				3B0E2EBC2A8144BF00797782 /* Apps */,
 				3758F1942A7D007300E2933C /* Assets.xcassets */,
-				3BE038C82AFB0BE70039B4FD /* .swiftlint.yml */,
 				3758F1962A7D007300E2933C /* LaunchScreen.storyboard */,
 				3758F1992A7D007300E2933C /* Info.plist */,
 				3B4230222B418A6400D0B038 /* GoogleService-Info.plist */,
@@ -1864,6 +1864,7 @@
 			buildConfigurationList = 3758F19C2A7D007300E2933C /* Build configuration list for PBXNativeTarget "TWTW" */;
 			buildPhases = (
 				8FF26E950BBA6BD637DA1FAE /* [CP] Check Pods Manifest.lock */,
+				3B28CD3F2B5501200019983F /* ShellScript */,
 				3758F1842A7D007100E2933C /* Sources */,
 				3758F1852A7D007100E2933C /* Frameworks */,
 				3758F1862A7D007100E2933C /* Resources */,
@@ -2121,6 +2122,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TWTW/Pods-TWTW-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		3B28CD3F2B5501200019983F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 		6DFDB97C94CE47466C849CDF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

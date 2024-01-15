@@ -83,3 +83,4 @@ identifier_name:
 
 
 excluded: # SwiftLint 검사에서 제외할 파일 경로
+    - Pods
