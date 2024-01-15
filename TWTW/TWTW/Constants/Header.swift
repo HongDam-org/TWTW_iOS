@@ -15,4 +15,9 @@ enum Header {
         let accessToken = KeychainWrapper.loadItem(forKey: SignIn.accessToken.rawValue) ?? ""
         return ["Authorization": "Bearer \(accessToken)"]
     }
+    
+    func returnStringHeader() -> [String: String] {
+        let accessToken = KeychainWrapper.loadItem(forKey: SignIn.accessToken.rawValue) ?? ""
+        return ["Authorization": "Bearer \(accessToken)"]
+    }
 }

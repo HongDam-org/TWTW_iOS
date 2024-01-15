@@ -11,4 +11,8 @@ struct Domain {
     static let RESTAPI = "http://" +
                             (Bundle.main.object(forInfoDictionaryKey: "IP") as? String ?? "") +
                             "/api/v1"
+    
+    static let SOCKET =  "ws://" +
+                            (Bundle.main.object(forInfoDictionaryKey: "IP") as? String ?? "") +
+                            "/api/v1"
 }
