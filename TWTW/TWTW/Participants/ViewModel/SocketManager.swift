@@ -21,27 +21,33 @@ final class SocketManager {
             return
         }
         
-        let urlString = Domain.SOCKET + "/plan"
+        let urlString = Domain.SOCKET + SocketPath.connect.rawValue
         let url = NSURL(string: urlString)!
-        let headers = Header.header.returnStringHeader()
-        socketClient.openSocketWithURLRequest(request: NSURLRequest(url: url as URL), delegate: self, connectionHeaders: headers)
+//        let headers = Header.header.returnStringHeader()
+        print("url", url)
+//        print("header", headers)
+        socketClient.openSocketWithURLRequest(request: NSURLRequest(url: url as URL), delegate: self)
     }
     
-    func subscribe(_ partyId: Int) {
-        print(#function, partyId)
-        
-        let destination = ""
-        socketClient.subscribe(destination: "\(destination)/\(partyId)")
+    func subscribe() {
+        let groupId = KeychainWrapper.loadItem(forKey: "GroupId") ?? ""
+        let urlString = SocketPath.subscribe.rawValue
+            .replacingOccurrences(of: "GROUPID", with: groupId)
+        print(#function, urlString)
+        socketClient.subscribe(destination: urlString)
     }
     
-    func send(partyId: Int) {
-        let destination = ""
+    func send(info: SocketRequest) {
+        let groupId = KeychainWrapper.loadItem(forKey: "GroupId") ?? ""
+        let destination = SocketPath.send.rawValue
+            .replacingOccurrences(of: "GROUPID", with: groupId)
         
-        guard let object = codableToObject(from: "") else {
+        guard let object = codableToObject(from: info) else {
             print("Codable To Object is Error")
             return
         }
-        socketClient.sendJSONForDict(dict: object, toDestination: "\(destination)/\(partyId)")
+        
+        socketClient.sendJSONForDict(dict: object, toDestination: destination)
     }
     
     /// Codable 타입을 AnyObject 타입으로 변환
@@ -49,11 +55,17 @@ final class SocketManager {
     /// - Returns: AnyObject 타입의 객체
     private func codableToObject<T: Codable>(from codableObject: T) -> AnyObject? {
         do {
-            let jsonData = try JSONEncoder().encode(codableObject)
+            let encoder = JSONEncoder()
+            encoder.nonConformingFloatEncodingStrategy = .throw
+            let jsonData = try encoder.encode(codableObject)
+            
+            
             let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: .fragmentsAllowed)
-            if let jsonDictionary = jsonObject as? NSDictionary {
+            if let jsonDictionary = jsonObject as? [String: Any] {
                 print(jsonDictionary)
-                return jsonDictionary
+                print("type1: ", type(of: jsonDictionary["longitude"]))
+                print("type2: ", type(of: jsonDictionary["nickname"]))
+                return jsonDictionary as AnyObject
             }
         } catch {
             print("Error converting Codable object to AnyObject: \(error.localizedDescription)")
@@ -81,8 +93,6 @@ final class SocketManager {
             return nil
         }
     }
-    
-  
 }
 
 extension SocketManager: StompClientLibDelegate {
@@ -98,11 +108,15 @@ extension SocketManager: StompClientLibDelegate {
     }
     
     func stompClientDidDisconnect(client: StompClientLib!) {
+        client.connection = false
         print("Socket is DisConnected")
     }
     
     func stompClientDidConnect(client: StompClientLib!) {
         print("Socket is connected")
+        if client.connection {
+            self.subscribe()
+        }
     }
     
     func serverDidSendReceipt(client: StompClientLib!,
@@ -119,8 +133,4 @@ extension SocketManager: StompClientLibDelegate {
     func serverDidSendPing() {
         print("Server ping")
     }
-    
-    
 }
-
-

@@ -25,6 +25,8 @@ protocol ParticipantsProtocol {
     /// - Returns: 성공 여부
     func changeMyLocation(latitude: Double, longitude: Double) -> Observable<Void>
     
+    func getMyInformation()  -> Observable<MyInfo>
+    
 ///  - 참여자가 아닌 친구
 /// 목록 보여주기
 //func getNotYetParticipants(request: String) -> Observable<[Friend]>

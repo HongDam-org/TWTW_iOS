@@ -88,6 +88,7 @@ final class MainMapViewController: KakaoMapViewController {
         super.viewDidLoad()
         bind()
         setupUI()
+        SocketManager.shared.connect()
     }
     
     /// 지도 그리기

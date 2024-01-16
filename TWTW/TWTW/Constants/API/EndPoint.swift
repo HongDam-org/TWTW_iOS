@@ -18,6 +18,7 @@ enum LoginPath: String {
     case updateToken = "/auth/refresh"
     case checkValidation = "/auth/validate"
     case checkOverlapId = "/member/duplicate/Id"
+    case myInfo = "/member/me"
     case fcmDeviceToken = "/auth/device"
 }
 
@@ -53,4 +54,10 @@ enum PlanPath: String {
     case save = "/plans" // plan 저장
     case join = "/plans/join" // pln 참여
     case lookup = "/plans/group/GROUPID" // 그룹 내부의 계획 전체 조회
+}
+
+enum SocketPath: String {
+    case connect = "/location"
+    case subscribe = "/exchange/map/location.GROUPID"
+    case send = "/pub/map.share.GROUPID"
 }

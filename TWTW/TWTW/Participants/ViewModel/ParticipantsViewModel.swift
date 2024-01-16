@@ -25,6 +25,7 @@ final class ParticipantsViewModel {
         var participantsRelay: BehaviorRelay<[Friend]> = BehaviorRelay(value: [])
         var myLocationRelay: BehaviorRelay<SearchPlace?> = BehaviorRelay(value: nil)
         var inviteFriendRelay: BehaviorRelay<[Friend]> = BehaviorRelay(value: [])
+        var myInformationRelay: BehaviorRelay<MyInfo?> = BehaviorRelay(value: nil)
     }
     
     // MARK: - Init
@@ -58,6 +59,7 @@ final class ParticipantsViewModel {
         
         changeMyLocation(output: output)
         getGroupMemberList(output: output)
+        getMyInfo(output: output)
         return output
     }
     
@@ -115,6 +117,18 @@ final class ParticipantsViewModel {
         groupService.inviteGroup(inviteMembers: members, groupId: groupId)
             .subscribe(onNext: { group in
                 print(group)
+            }, onError: { error in
+                print(#function, error)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    
+    /// get my information
+    private func getMyInfo(output: Output) {
+        service.getMyInformation()
+            .subscribe(onNext: { data in
+                output.myInformationRelay.accept(data)
             }, onError: { error in
                 print(#function, error)
             })
