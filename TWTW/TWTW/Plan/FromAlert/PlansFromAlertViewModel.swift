@@ -21,14 +21,15 @@ final class PlansFromAlertViewModel {
     var selectedFriendsObservable: Observable<[Friend]> {
         return selectedFriendsRelay.asObservable()
     }
-    
+    private let currentPlanSubject = BehaviorSubject<Plan?>(value: nil)
+
     struct Input {
         let clickedAddParticipantsEvents: ControlEvent<Void>?
         let clickedConfirmEvents: ControlEvent<Void>?
         // 약속명
         let meetingName: Observable<String>
         // 장소명
-        let newPlaceName: Observable<String>
+        let originPlaceName: Observable<String>
         // 날짜,시간
         let selectedDate: Observable<String>
         // 친구
@@ -37,7 +38,10 @@ final class PlansFromAlertViewModel {
     }
     
     struct Output {
-        let newPlaceName: Observable<String>
+        let meetingName: Observable<String>
+        let originPlaceName: Observable<String>
+        let selectedDate: Observable<String>
+        let selectedFriends: Observable<[Friend]>
         let callerState: SettingPlanCaller
     }
     
@@ -47,37 +51,52 @@ final class PlansFromAlertViewModel {
         planService = service
         self.caller = caller
     }
+    func createOutput() -> Output {
+            // 초기 데이터 설정
+        let initialMeetingName = currentPlanSubject
+                   .map { $0?.name ?? "약속 명" }
+                   .asObservable()
+
+               let initialOriginPlaceName = currentPlanSubject
+                   .map { $0?.placeDetails.placeName ?? "장소 명" }
+                   .asObservable()
+
+               let initialSelectedDate = currentPlanSubject
+                   .map { $0?.planDay ?? "날짜" }
+                   .asObservable()
+
+               let initialSelectedFriends = BehaviorSubject<[Friend]>(value: [])
+
+               return Output(
+                   meetingName: initialMeetingName,
+                   originPlaceName: initialOriginPlaceName,
+                   selectedDate: initialSelectedDate,
+                   selectedFriends: initialSelectedFriends.asObservable(),
+                   callerState: self.caller
+               )
+           }
     
     func createOutput(input: Input) -> Output {
-        let placeName = (KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.placeName.rawValue) ?? "") as String
-        let placeURL = (KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.placeURL.rawValue) ?? "") as String
-        let roadAddressName = (KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.roadAddressName.rawValue) ?? "") as String
-        let longitudeString = (KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.longitude.rawValue) ?? "") as String
-        let latitudeString = (KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.latitude.rawValue) ?? "") as String
-        
-        // 경도와 위도를 Double 값으로 변환
-        let longitude = Double(longitudeString ) ?? 0.0
-        let latitude = Double(latitudeString ) ?? 0.0
-        
-        let placeDetails = PlaceDetails(placeName: placeName,
-                                        placeUrl: placeURL,
-                                        roadAddressName: roadAddressName,
-                                        longitude: latitude,
-                                        latitude: longitude)
-        
-        let newPlaceNameObservable = input.newPlaceName
+        getAndPrintPlanDetails()
+        let output = Output(
+               meetingName: input.meetingName,
+               originPlaceName: input.originPlaceName,
+               selectedDate: input.selectedDate.map { $0.components(separatedBy: " ").first ?? "" },
+               selectedFriends: input.selectedFriends,
+               callerState: self.caller
+           )
+
+        let newPlaceNameObservable = input.originPlaceName
             .map { placeName in
                 return placeName
             }
-        let output = Output(newPlaceName: newPlaceNameObservable, callerState: caller)
-
+    
         input.clickedAddParticipantsEvents?
             .bind { [weak self] in
                 guard let self = self else { return }
                 self.coordinator?.addParticipants()
             }
             .disposed(by: disposeBag)
-
 
         input.clickedConfirmEvents?
             .bind { [weak self] in
@@ -130,22 +149,20 @@ final class PlansFromAlertViewModel {
         guard let groupID = request.groupId,
                   let meetingName = request.name,
                   let selectedDate = request.planDay else {
-                print("Error: One or more fields are nil")
+                print("Error: nil")
                 return
             }
-        let placeDetails = request.placeDetails
-            let memberIds = request.memberIds.compactMap { $0 }
         
-           let planSaveRequest = PlanSaveRequest(
+    let placeDetails = request.placeDetails
+    let memberIds = request.memberIds.compactMap { $0 }
+        
+    let planSaveRequest = PlanSaveRequest(
                name: meetingName,
                groupId: groupID,
                planDay: selectedDate,
                placeDetails: placeDetails,
                memberIds: request.memberIds
            )
-//           print(planSaveRequest)
-//        
-//        print("PlanSaveRequest(name: \"\(meetingName)\", groupId: \"\(groupID)\", planDay: \"\(selectedDate)\", placeDetails: \(placeDetails), memberIds: \(memberIds))")
 
         planService.savePlanService(request: planSaveRequest)
             .subscribe(onNext: { [weak self] response in
@@ -156,6 +173,24 @@ final class PlansFromAlertViewModel {
             })
             .disposed(by: disposeBag)
     }
+    
+    func getAndPrintPlanDetails() {
+            let planID = KeychainWrapper.loadItem(forKey: "PlanID") ?? ""
+            planService.getPlanService(request: planID)
+                .subscribe(onNext: { [weak self] plan in
+                    self?.currentPlanSubject.onNext(plan)
+
+                    print("\(plan.name)")
+                    print("\(plan.planDay)")
+                    print("\(plan.placeDetails.placeName)")
+
+                    print("\(plan.name)")
+
+                }, onError: { error in
+                    print("Error: \(error)")
+                })
+                .disposed(by: disposeBag)
+        }
     
     func updateSelectedFriends(_ friends: [Friend]) {
         selectedFriendsRelay.accept(friends)

@@ -37,7 +37,8 @@ final class PlanService: PlanProtocol {
     
     /// plan정보조회
     func getPlanService(request: String) -> RxSwift.Observable<Plan> {
-        let planID = "plan 셀로 들어올때 ID KeyChain에 저장"
+        let planID = KeychainWrapper.loadItem(forKey: "PlanId") ?? ""
+
         let header = Header.header.getHeader()
         
         return Observable.create { observer in

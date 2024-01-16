@@ -87,7 +87,9 @@ final class PlansViewController: UIViewController {
         
         updateViewState(from: output.callerState)
         bindTableView(output: output)
-    }
+        
+     }
+    
     
         /// binding TableView
         /// - Parameter output: Output

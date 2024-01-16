@@ -39,18 +39,25 @@ final class PlansViewModel {
     }
     
     func bind(input: Input) -> Output {
-        
+        let output = Output(callerState: caller)
+
         input.selectedPlansList
-            .bind { [weak self] _ in
-                guard let self = self else { return }
-                switch caller {
-                case .fromAlert:
-                    coordinator.moveToplansFromAlert()
-                case .fromTabBar:
-                    print("탭바에서 호출됨")
-                    coordinator.moveToPlanFromTabBar()
-                }
-            }.disposed(by: disposeBag)
+            .subscribe(onNext: { [weak self] indexPath in
+                  guard let self = self else { return }
+                  let selectedPlan = output.planListRelay.value[indexPath.row]
+                  _ = KeychainWrapper.saveItem(value: selectedPlan.planId, forKey: "PlanID")
+                  print("선택된Plan ID: \(selectedPlan.planId)")
+                  
+                /// 들어온 경로에 따라서 셀 클릭 동작 case 분리
+                  switch self.caller {
+                  case .fromAlert:
+                      self.coordinator.moveToplansFromAlert()
+                      
+                  case .fromTabBar:
+                      self.coordinator.moveToPlanFromTabBar()
+                  }
+              })
+              .disposed(by: disposeBag)
         
         
         input.addPlans
@@ -59,7 +66,6 @@ final class PlansViewModel {
                 coordinator.moveToAddPlans()
             }.disposed(by: disposeBag)
         
-        let output = Output(callerState: caller)
         planList(output: output)
         
         return output

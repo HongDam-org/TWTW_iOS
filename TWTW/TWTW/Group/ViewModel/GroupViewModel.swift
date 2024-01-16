@@ -44,7 +44,7 @@ final class GroupViewModel {
         input.clickedCreateGroupEvents?
             .bind { [weak self] in
                 guard let self = self else { return }
-                print("clicked createGroupBarButton")
+                print("clicked")
                 moveCreateGroup()
             }
             .disposed(by: disposeBag)

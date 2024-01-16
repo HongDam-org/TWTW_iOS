@@ -27,9 +27,19 @@ struct Plan: Codable {
     let planId: String
     let placeId: String
     let planMakerId: String
+    let name: String
+    let planDay: String
     let placeDetails: PlaceDetails
-    let groupInfo: GroupInfo
+    var groupInfo: GroupInfoWithMembers
     let members: [Friend]
+    let notJoinedMembers: [Friend]?
+}
+struct GroupInfoWithMembers: Codable {
+    let groupId: String
+    let leaderId: String
+    let name: String
+    let groupImage: String
+    let groupMembers: [Friend]?
 }
 
 /// 그룹 단건 조회

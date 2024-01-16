@@ -31,6 +31,7 @@ final class PlansFromAlertViewController: UIViewController {
         label.text = "약속 명"
         return label
     }()
+    
     private lazy var meetingNameEditButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "pencil"), for: .normal)
@@ -133,6 +134,7 @@ final class PlansFromAlertViewController: UIViewController {
         addSubeViews()
         bind()
         bindTableView()
+        bindViewModelToUI()
     }
 
     private func addSubeViews() {
@@ -224,6 +226,17 @@ final class PlansFromAlertViewController: UIViewController {
             make.center.equalToSuperview()
         }
     }
+    private func bindViewModelToUI() {
+        let output = viewModel.createOutput()
+        
+        output.meetingName
+            .bind(to: originalMeetingNameLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.selectedDate
+            .bind(to: selectedDateLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
     
     private func bind() {
         meetingNameEditButton.rx.tap
@@ -248,18 +261,19 @@ final class PlansFromAlertViewController: UIViewController {
             clickedAddParticipantsEvents: addParticipantsButton.rx.tap,
             clickedConfirmEvents: confirmButton.rx.tap,
             meetingName: meetingNameSubject.asObservable(),
-            newPlaceName: newPlaceNameObservable,
+            originPlaceName: originalPlaceNameLabel.rx.observe(String.self, "text").map { $0 ?? "" },
             selectedDate: selectedDateTimeObservable,
             selectedFriends: viewModel.selectedFriendsObservable
         )
 
         let output = viewModel.createOutput(input: input)
 
-        output.newPlaceName
-            .bind(to: newPlaceNameLabel.rx.text)
-            .disposed(by: disposeBag)
+        output.originPlaceName
+                .bind(to: originalPlaceNameLabel.rx.text)
+                .disposed(by: disposeBag)
+
         
-        if let placeName = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.placeName.rawValue) as? String {
+        if let placeName = KeychainWrapper.loadItem(forKey: SearchPlaceKeyChain.placeName.rawValue) {
             newPlaceNameLabel.text = placeName
         }
         updateViewState(from: output.callerState)
