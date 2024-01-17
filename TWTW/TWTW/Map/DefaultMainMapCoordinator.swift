@@ -20,7 +20,7 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        mainMapViewModel = MainMapViewModel(coordinator: self)
+        mainMapViewModel = MainMapViewModel(coordinator: self, service: MainMapService())
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(showPlanPage(_:)),
                                                name: NSNotification.Name("moveToPlans"), object: nil)

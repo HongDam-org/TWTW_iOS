@@ -23,9 +23,7 @@ final class SocketManager {
         
         let urlString = Domain.SOCKET + SocketPath.connect.rawValue
         let url = NSURL(string: urlString)!
-//        let headers = Header.header.returnStringHeader()
         print("url", url)
-//        print("header", headers)
         socketClient.openSocketWithURLRequest(request: NSURLRequest(url: url as URL), delegate: self)
     }
     
@@ -63,8 +61,6 @@ final class SocketManager {
             let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: .fragmentsAllowed)
             if let jsonDictionary = jsonObject as? [String: Any] {
                 print(jsonDictionary)
-                print("type1: ", type(of: jsonDictionary["longitude"]))
-                print("type2: ", type(of: jsonDictionary["nickname"]))
                 return jsonDictionary as AnyObject
             }
         } catch {

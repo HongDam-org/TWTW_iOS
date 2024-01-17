@@ -92,28 +92,11 @@ final class ParticipantsViewController: UIViewController {
                             guard let self = self else { return }
                             print("위치")
                             
-                            let cl = configureLocationManager()
-                            print(cl.location?.coordinate.latitude)
-                            
-                            let body = SocketRequest(nickname: output.myInformationRelay.value?.nickname ?? "",
-                                                     memberId: output.myInformationRelay.value?.memberId ?? "",
-                                                     longitude: cl.location?.coordinate.longitude,
-                                                     latitude: cl.location?.coordinate.latitude)
-                            SocketManager.shared.send(info: body)
-                            
                         })
                         .disposed(by: cell.disposeBag)
                 }
                 .disposed(by: disposeBag)
         
-    }
-    
-    /// ConfigureLocationManager
-    private func configureLocationManager() -> CLLocationManager {
-        let cLLocationManager = CLLocationManager()
-        cLLocationManager.delegate = self
-        cLLocationManager.requestWhenInUseAuthorization()
-        return cLLocationManager
     }
     
 }

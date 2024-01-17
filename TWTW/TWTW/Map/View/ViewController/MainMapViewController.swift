@@ -91,6 +91,11 @@ final class MainMapViewController: KakaoMapViewController {
         SocketManager.shared.connect()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        output?.timer.value?.invalidate()
+    }
+    
     /// 지도 그리기
     override func addViews() {
         let mapviewInfo: MapviewInfo = MapviewInfo(viewName: "mapview", viewInfoName: "map", defaultPosition: Map.DEFAULTPOSITION)
@@ -136,8 +141,8 @@ final class MainMapViewController: KakaoMapViewController {
     /// Setting UI
     private func setupUI() {
         addSubViewsSearchBar()
-        addSubViewsMyloctaionImageView()
         addSubViewsMainMapCusomTabButtonView()
+        addSubViewsMyloctaionImageView()
         view.backgroundColor = .white
         updateViewState(from: currentViewType)
     }
@@ -190,7 +195,8 @@ final class MainMapViewController: KakaoMapViewController {
     /// Configure   Constraints UI - MyloctaionImageView
     private func configureConstraintsMyloctaionImageView() {
         myloctaionImageView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.bottom.equalTo(mainMapCustomTabButtonsView.snp.top)
+            make.trailing.equalToSuperview().offset(-20)
             make.width.height.equalTo(view.snp.width).dividedBy(10) // 이미지 크기 설정
         }
     }
