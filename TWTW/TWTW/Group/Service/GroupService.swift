@@ -20,6 +20,7 @@ final class GroupService: GroupProtocol {
             AF.request(url,
                        method: .get,
                        headers: headers)
+            .validate(statusCode: 200..<201)
             .responseDecodable(of: [Group].self) { response in
                 print(#function, response)
                 switch response.result {

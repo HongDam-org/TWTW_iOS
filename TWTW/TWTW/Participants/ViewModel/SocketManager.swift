@@ -99,8 +99,6 @@ extension SocketManager: StompClientLibDelegate {
                      withDestination destination: String) {
         print(#function)
         print("jsonBody", jsonBody)
-        print("header", header)
-        print("destination", destination)
     }
     
     func stompClientDidDisconnect(client: StompClientLib!) {

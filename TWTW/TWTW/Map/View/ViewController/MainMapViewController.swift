@@ -82,6 +82,10 @@ final class MainMapViewController: KakaoMapViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     // MARK: - View Did Load
     
     override func viewDidLoad() {
@@ -89,11 +93,6 @@ final class MainMapViewController: KakaoMapViewController {
         bind()
         setupUI()
         SocketManager.shared.connect()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(true)
-        output?.timer.value?.invalidate()
     }
     
     /// 지도 그리기
@@ -134,9 +133,6 @@ final class MainMapViewController: KakaoMapViewController {
         
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
     
     /// Setting UI
     private func setupUI() {
@@ -301,6 +297,15 @@ final class MainMapViewController: KakaoMapViewController {
                 createLabelLayer(output: output)
             })
             .disposed(by: disposeBag)
+    }
+}
+
+extension MainMapViewController: UINavigationControllerDelegate {
+    
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        if viewController == navigationController.viewControllers.first {
+            output?.timer.value?.invalidate()
+        }
     }
 }
 

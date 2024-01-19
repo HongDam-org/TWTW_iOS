@@ -32,6 +32,7 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
         guard let mainMapViewModel = mainMapViewModel else { return }
         navigationController.tabBarController?.tabBar.isHidden = true
         let mainMapViewController = MainMapViewController(viewModel: mainMapViewModel, coordinator: self)
+        navigationController.delegate = mainMapViewController
         self.navigationController.pushViewController(mainMapViewController, animated: true)
     }
     
@@ -45,6 +46,7 @@ final class DefaultMainMapCoordinator: MainMapCoordinator {
         searchPlacesMapCoordinator.delegate = self
         childCoordinators.append(searchPlacesMapCoordinator)
     }
+    
     ///  친구 목록 화면으로 이동
     func moveToParticipantsList() {
         let participantsCoordinator = DefaultsParticipantsCoordinator(navigationController: navigationController)
