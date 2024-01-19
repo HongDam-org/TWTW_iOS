@@ -12,4 +12,5 @@ struct Friend: Codable, Equatable {
     let memberId: String?
     let nickname: String?
     let profileImage: String?
+    let isShare: Bool?
 }

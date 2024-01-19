@@ -98,7 +98,7 @@ final class GroupService: GroupProtocol {
     /// - Parameters:
     ///   - groupId: Group Id
     /// - Returns: Group Id
-    func joinGroup(groupId: String) -> Observable<Group> {
+    func joinGroup(groupId: String) -> Observable<Void> {
         let url = Domain.RESTAPI + GroupPath.join.rawValue
         let headers = Header.header.getHeader()
         let parameter = [
@@ -112,11 +112,12 @@ final class GroupService: GroupProtocol {
                        parameters: parameter,
                        encoding: JSONEncoding.default,
                        headers: headers)
-            .responseDecodable(of: Group.self) { response in
+            .validate(statusCode: 204..<205)
+            .response { response in
                 print(#function, response)
                 switch response.result {
-                case .success(let data):
-                    observer.onNext(data)
+                case .success((_)):
+                    observer.onNext(())
                 case .failure(let error):
                     observer.onError(error)
                 }

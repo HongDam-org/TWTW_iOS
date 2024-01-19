@@ -22,7 +22,7 @@ protocol GroupProtocol {
     /// - Parameters:
     ///   - groupId: Group Id
     /// - Returns: Group Id
-    func joinGroup(groupId: String) -> Observable<Group>
+    func joinGroup(groupId: String) -> Observable<Void>
     
     /// 그룹에 친구 초대
     /// - Parameters:

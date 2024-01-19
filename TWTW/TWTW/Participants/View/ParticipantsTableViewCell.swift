@@ -101,5 +101,6 @@ final class ParticipantsTableViewCell: UITableViewCell {
     func configure(participant: Friend) {
 //        participantImageView.image = participant.participantsimage
         nameLabel.text = participant.nickname
+        locationButton.isHidden = participant.isShare ?? false
     }
 }
