@@ -11,6 +11,7 @@ import StompClientLib
 final class SocketManager {
     static let shared = SocketManager()
     private var socketClient: StompClientLib
+    
     private init() {
         socketClient = StompClientLib()
     }
@@ -22,9 +23,10 @@ final class SocketManager {
         }
         
         let urlString = Domain.SOCKET + SocketPath.connect.rawValue
-        let url = NSURL(string: urlString)!
-        print("url", url)
-        socketClient.openSocketWithURLRequest(request: NSURLRequest(url: url as URL), delegate: self)
+        if let url = NSURL(string: urlString) as? URL {
+            print("url", url)
+            socketClient.openSocketWithURLRequest(request: NSURLRequest(url: url), delegate: self)
+        }
     }
     
     func subscribe() {
@@ -56,7 +58,6 @@ final class SocketManager {
             let encoder = JSONEncoder()
             encoder.nonConformingFloatEncodingStrategy = .throw
             let jsonData = try encoder.encode(codableObject)
-            
             
             let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: .fragmentsAllowed)
             if let jsonDictionary = jsonObject as? [String: Any] {
@@ -99,6 +100,11 @@ extension SocketManager: StompClientLibDelegate {
                      withDestination destination: String) {
         print(#function)
         print("jsonBody", jsonBody)
+        
+        let type: SocketResponse.Type = SocketResponse.self
+        let decodedObject = decodeFromAnyObject(jsonBody, to: type)
+        
+        print("decodedObject \(decodedObject)")
     }
     
     func stompClientDidDisconnect(client: StompClientLib!) {
